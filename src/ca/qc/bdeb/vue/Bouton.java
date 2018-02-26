@@ -14,6 +14,6 @@ import javax.swing.JComponent;
 public class Bouton extends JComponent {
 
     public Bouton() {
-        
+        System.out.println("1");
     }
 }
