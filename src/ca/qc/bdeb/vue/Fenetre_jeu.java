@@ -20,7 +20,8 @@ public class Fenetre_jeu extends JFrame {
     Fenetre_principale fenetre;
 
     Jeu jeu;
-    Monde_Drag_Drop monde_drag = new Monde_Drag_Drop(lblTimer, this);
+    Monde_Drag_Drop monde_drag;
+    Monde_Shooter monde_shooter;
 
     public Fenetre_jeu(Jeu jeu, Fenetre_principale fenetre) {
         this.jeu = jeu;
@@ -41,6 +42,8 @@ public class Fenetre_jeu extends JFrame {
                 this.add(lblTimer, BorderLayout.NORTH);
                 break;
             case SHOOTER:
+                monde_shooter = new Monde_Shooter(this);
+                this.add(monde_shooter);
                 break;
             case COUREUR:
                 break;
