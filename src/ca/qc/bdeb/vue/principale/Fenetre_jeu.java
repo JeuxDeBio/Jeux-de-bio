@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.qc.bdeb.vue;
+package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.vue.dragDrop.Monde_Drag_Drop;
+import ca.qc.bdeb.vue.shooter.Monde_Shooter;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

@@ -7,7 +7,7 @@ package ca.qc.bdeb.controleur;
 
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.Fenetre_principale;
+import ca.qc.bdeb.vue.principale.Fenetre_principale;
 
 /**
  *

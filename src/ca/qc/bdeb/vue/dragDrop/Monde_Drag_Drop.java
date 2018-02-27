@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.qc.bdeb.vue;
+package ca.qc.bdeb.vue.dragDrop;
 
+import ca.qc.bdeb.vue.principale.Fenetre_jeu;
 import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
