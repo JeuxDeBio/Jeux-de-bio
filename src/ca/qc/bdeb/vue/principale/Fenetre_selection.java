@@ -45,5 +45,9 @@ public class Fenetre_selection extends JFrame {
         this.setTitle("Sélection de niveaux");
         this.add(monde);
     }
+    
+    public void fermerFenetreSelection(){
+        fenetre.fermerFenetreSelection();
+    }
 
 }

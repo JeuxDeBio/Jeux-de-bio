@@ -12,8 +12,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 /**
  *
@@ -29,18 +31,9 @@ class Monde_selection extends JComponent {
 
     private Fenetre_selection fenetre;
 
-    private Jeu jeu;
+    ArrayList<Bouton> listeNiveaux = new ArrayList();
 
-    private Bouton niveau1 = new Bouton();
-    private Bouton niveau2 = new Bouton();
-    private Bouton niveau3 = new Bouton();
-    private Bouton niveau4 = new Bouton();
-    private Bouton niveau5 = new Bouton();
-    private Bouton niveau6 = new Bouton();
-    private Bouton niveau7 = new Bouton();
-    private Bouton niveau8 = new Bouton();
-    private Bouton niveau9 = new Bouton();
-    private Bouton niveau10 = new Bouton();
+    private Jeu jeu;
 
     public Monde_selection(Modele modele, Controleur controleur, Fenetre_selection fenetre, Jeu jeu) {
         this.setPreferredSize(new Dimension(300, 600));
@@ -52,30 +45,91 @@ class Monde_selection extends JComponent {
         this.jeu = jeu;
 
         creerInterface();
-        creerEvenements();
     }
 
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreSelection());
 
-        niveau1.setSize(133, 85);
-        niveau1.setLocation(10, 128);
-        this.add(niveau1);
+        for (int i = 0; i < 10; i++) {
+            Bouton niveau = new Bouton(i, controleur, jeu);
+            niveau.setSize(130, 84);
+            switch (i) {
+                case 0:
+                    niveau.setLocation(10, 128);
+                    break;
+                case 1:
+                    niveau.setLocation(153, 128);
+                    break;
+                case 2:
+                    niveau.setLocation(10, 220);
+                    break;
+                case 3:
+                    niveau.setLocation(153, 220);
+                    break;
+                case 4:
+                    niveau.setLocation(10, 312);
+                    break;
+                case 5:
+                    niveau.setLocation(153, 312);
+                    break;
+                case 6:
+                    niveau.setLocation(10, 404);
+                    break;
+                case 7:
+                    niveau.setLocation(153, 404);
+                    break;
+                case 8:
+                    niveau.setLocation(10, 496);
+                    break;
+                case 9:
+                    niveau.setLocation(153, 496);
+            }
+            this.add(niveau);
+            listeNiveaux.add(niveau);
+            creerEvenements(i);
+        }
 
-        JLabel nom1 = new JLabel();
-        nom1.setText(controleur.getNomNiveau(jeu, 0));
-       // nom1.setSize();
+        String texte = "";
+        switch (jeu) {
+            case DRAG_DROP:
+                texte = "Drag & Drop";
+                break;
+            case SHOOTER:
+                texte = "Shooter";
+                break;
+            case COUREUR:
+                texte = "Coureur";
+                break;
+            case SPEED_RUN:
+                texte = "Speed Run";
+        }
+        Bouton bouton = new Bouton(texte);
+        bouton.setLocation(10, 10);
+        bouton.setSize(270, 70);
+        this.add(bouton);
 
     }
 
-    private void creerEvenements() {
+    private void creerEvenements(int i) {
+        listeNiveaux.get(i).addMouseListener(new MouseAdapter() {
 
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                System.out.println(listeNiveaux.get(i).getLocation());
+            }
+            
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
+    }
+    
+    public void fermerFenetre(){
+        fenetre.fermerFenetreSelection();
     }
 
 }

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 
 /**
  * ljkeh.vldfhv
+ *
  * @author 1649904
  */
 public class Fenetre_jeu extends JFrame {
@@ -56,10 +57,6 @@ public class Fenetre_jeu extends JFrame {
 
     private void creerEvenements() {
 
-    }
-
-    public void fermerFenerte() {
-        fenetre.fermerFenetreJeu();
     }
 
 }

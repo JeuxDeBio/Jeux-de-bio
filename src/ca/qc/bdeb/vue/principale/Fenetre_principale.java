@@ -58,9 +58,8 @@ public class Fenetre_principale extends JFrame implements Observer {
 
     }
 
-    public void fermerFenetreJeu() {
+    public void fermerFenetreSelection() {
         this.fenetre_selection.dispose();
-        this.monde_principale.finJeu();
     }
 
     public void logIn() {

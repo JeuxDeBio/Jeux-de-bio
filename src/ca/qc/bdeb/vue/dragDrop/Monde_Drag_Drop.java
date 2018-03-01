@@ -36,10 +36,6 @@ public class Monde_Drag_Drop extends JComponent {
                 }
                 timer++;
 
-                if (compteur == 5) {
-                    fenetre.fermerFenerte();
-                }
-
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
