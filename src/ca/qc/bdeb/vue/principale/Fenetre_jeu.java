@@ -13,22 +13,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- * ljkeh.vldfhv
- *
+ *  *
  * @author 1649904
  */
 public class Fenetre_jeu extends JFrame {
 
     JLabel lblTimer = new JLabel("00:00", JLabel.CENTER);
-    Fenetre_principale fenetre;
+    Fenetre_selection fenetreSelection;
+    Fenetre_principale fenetrePrincipale;
 
     Jeu jeu;
-    Monde_Drag_Drop monde_drag;
-    Monde_Shooter monde_shooter;
 
-    public Fenetre_jeu(Jeu jeu, Fenetre_principale fenetre) {
+    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale) {
         this.jeu = jeu;
-        this.fenetre = fenetre;
+        this.fenetreSelection = fenetreSelection;
+        this.fenetrePrincipale = fenetrePrincipale;
         creerInterface();
         creerEvenements();
         this.pack();
@@ -41,12 +40,13 @@ public class Fenetre_jeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                this.add(monde_drag);
+                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimer, this);
+                this.add(mondeDragDrop);
                 this.add(lblTimer, BorderLayout.NORTH);
                 break;
             case SHOOTER:
-                monde_shooter = new Monde_Shooter(this);
-                this.add(monde_shooter);
+                Monde_Shooter mondeShooter = new Monde_Shooter(this);
+                this.add(mondeShooter);
                 break;
             case COUREUR:
                 break;
@@ -59,4 +59,8 @@ public class Fenetre_jeu extends JFrame {
 
     }
 
+    public void fermerFenetre() {
+        fenetreSelection.fermerFenetreJeu();
+        fenetrePrincipale.finJeu();
+    }
 }

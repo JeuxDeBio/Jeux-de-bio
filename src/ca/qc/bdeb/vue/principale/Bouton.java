@@ -19,7 +19,7 @@ public class Bouton extends JComponent {
     public Bouton() {
     }
 
-    public Bouton(int i, Controleur controleur, Jeu jeu) {
+    public Bouton(Controleur controleur, int i, Jeu jeu) {
         JLabel lblTexteBouton = new JLabel(controleur.getNomNiveau(jeu, i), JLabel.CENTER);
         lblTexteBouton.setSize(113, 20);
         lblTexteBouton.setLocation(10, 32);
@@ -33,4 +33,7 @@ public class Bouton extends JComponent {
         this.add(lblTexteBouton);
     }
 
+    public boolean existe(Controleur controleur, int i, Jeu jeu) {
+        return !(controleur.getNomNiveau(jeu, i).equals("À venir"));
+    }
 }

@@ -33,6 +33,10 @@ public class Monde_Drag_Drop extends JComponent {
                     } else {
                         lblTimer.setText(compteur / 60 + ":" + compteur % 60);
                     }
+                    
+                    if (compteur == 10){
+                        fenetre.fermerFenetre();
+                    }
                 }
                 timer++;
 

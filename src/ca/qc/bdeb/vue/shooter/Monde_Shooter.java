@@ -60,6 +60,7 @@ public class Monde_Shooter extends JComponent {
                     repaint();
                 }
             }
+            fenetre.fermerFenetre();
         }
     };
 

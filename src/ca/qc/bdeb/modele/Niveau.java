@@ -10,6 +10,7 @@ package ca.qc.bdeb.modele;
  * @author 1649904
  */
 public class Niveau {
+
     Jeu jeu;
     String nom;
 
@@ -21,6 +22,5 @@ public class Niveau {
     public String getNom() {
         return nom;
     }
-    
-    
+
 }

@@ -20,34 +20,48 @@ public class Fenetre_selection extends JFrame {
 
     private Controleur controleur;
 
-    private Fenetre_principale fenetre;
-    
+    private Fenetre_principale fenetrePrincipale;
+
+    private Fenetre_jeu fenetreJeu;
+
     private Monde_selection monde;
-    
+
     private Jeu jeu;
 
-    public Fenetre_selection(Modele modele, Controleur controleur, Fenetre_principale fenetre, Jeu jeu) {
+    public Fenetre_selection(Modele modele, Controleur controleur, Fenetre_principale fenetrePrincipale, Jeu jeu, Fenetre_jeu fenetreJeu) {
         this.modele = modele;
         this.controleur = controleur;
-        this.fenetre = fenetre;
+        this.fenetrePrincipale = fenetrePrincipale;
         this.jeu = jeu;
-        
+        this.fenetreJeu = fenetreJeu;
+
         creerInterface();
-        
+
         this.pack();
         this.setVisible(true);
 
     }
 
     private void creerInterface() {
-        this.monde = new Monde_selection(modele,  controleur, this, jeu);
+        this.monde = new Monde_selection(modele, controleur, this, jeu);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Sélection de niveaux");
         this.add(monde);
     }
-    
-    public void fermerFenetreSelection(){
-        fenetre.fermerFenetreSelection();
+
+    public void fermerFenetreSelection() {
+        fenetrePrincipale.fermerFenetreSelection();
     }
 
+    public void ouvrirFenetreJeu() {
+        this.fenetreJeu = new Fenetre_jeu(jeu, this, fenetrePrincipale);
+    }
+
+    public void fermerFenetreJeu() {
+        this.fenetreJeu.dispose();
+    }
+
+    public void finJeu() {
+        fenetrePrincipale.finJeu();
+    }
 }

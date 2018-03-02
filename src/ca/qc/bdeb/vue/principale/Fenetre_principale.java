@@ -25,7 +25,10 @@ public class Fenetre_principale extends JFrame implements Observer {
     Monde_principale monde_principale;
     Monde_principale_logIn monde_principale_logIn;
 
-    Fenetre_selection fenetre_selection;
+    Fenetre_selection fenetreSelection;
+    Fenetre_jeu fenetreJeu;
+
+    private boolean logIn = false;
 
     public Fenetre_principale(Controleur controleur, Observable observable) {
         modele = (Modele) observable;
@@ -54,12 +57,11 @@ public class Fenetre_principale extends JFrame implements Observer {
     }
 
     public void ouvrirFenetreSelectionJeu(Jeu jeu) {
-        this.fenetre_selection = new Fenetre_selection(modele, controleur, this, jeu);
-
+        this.fenetreSelection = new Fenetre_selection(modele, controleur, this, jeu, fenetreJeu);
     }
 
     public void fermerFenetreSelection() {
-        this.fenetre_selection.dispose();
+        this.fenetreSelection.dispose();
     }
 
     public void logIn() {
@@ -69,6 +71,7 @@ public class Fenetre_principale extends JFrame implements Observer {
         this.add(monde_principale_logIn);
         this.validate();
         this.repaint();
+        this.logIn = true;
     }
 
     public void logOut() {
@@ -76,5 +79,15 @@ public class Fenetre_principale extends JFrame implements Observer {
         this.add(monde_principale);
         this.validate();
         this.repaint();
+        this.logIn = false;
     }
+
+    public void finJeu() {
+        if (logIn) {
+            monde_principale_logIn.finJeu();
+        } else {
+            monde_principale.finJeu();
+        }
+    }
+
 }

@@ -51,7 +51,7 @@ class Monde_selection extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreSelection());
 
         for (int i = 0; i < 10; i++) {
-            Bouton niveau = new Bouton(i, controleur, jeu);
+            Bouton niveau = new Bouton(controleur, i, jeu);
             niveau.setSize(130, 84);
             switch (i) {
                 case 0:
@@ -116,9 +116,14 @@ class Monde_selection extends JComponent {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                System.out.println(listeNiveaux.get(i).getLocation());
+                if (listeNiveaux.get(i).existe(controleur, i, jeu)) {
+                    fenetre.ouvrirFenetreJeu();
+                } else {
+                    fenetre.finJeu();
+                }
+                fermerFenetre();
             }
-            
+
         });
     }
 
@@ -127,8 +132,8 @@ class Monde_selection extends JComponent {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
     }
-    
-    public void fermerFenetre(){
+
+    public void fermerFenetre() {
         fenetre.fermerFenetreSelection();
     }
 
