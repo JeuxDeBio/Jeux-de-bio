@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.vue.coureur.Monde_Coureur;
 import ca.qc.bdeb.vue.dragDrop.Monde_Drag_Drop;
 import ca.qc.bdeb.vue.shooter.Monde_Shooter;
 import java.awt.BorderLayout;
@@ -49,6 +50,8 @@ public class Fenetre_jeu extends JFrame {
                 this.add(mondeShooter);
                 break;
             case COUREUR:
+                Monde_Coureur mondeCoureur = new Monde_Coureur(this);
+                this.add(mondeCoureur);
                 break;
             case SPEED_RUN:
         }

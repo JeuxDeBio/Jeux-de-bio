@@ -21,6 +21,7 @@ public class Modele extends Observable {
     ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
+    ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
 
     Utilisateur utilisateur = new Utilisateur();
 
@@ -37,6 +38,8 @@ public class Modele extends Observable {
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 1"));
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2"));
+        
+        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1"));
     }
 
     public String getLocationFenetrePrincipale() {
@@ -96,6 +99,12 @@ public class Modele extends Observable {
                 if (i < listeNiveauxShooter.size()) {
                     nomNiveau = listeNiveauxShooter.get(i).getNom();
                 }
+                break;
+            case COUREUR:
+                if(i< listeNiveauxCoureur.size()){
+                    nomNiveau = listeNiveauxCoureur.get(i).getNom();
+                }
+                break;
         }
 
         return nomNiveau;
