@@ -22,6 +22,7 @@ public class Modele extends Observable {
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
+    ArrayList<Niveau> listeNiveauxSpeedRun = new ArrayList<>();
 
     Utilisateur utilisateur = new Utilisateur();
 
@@ -32,14 +33,14 @@ public class Modele extends Observable {
         listeUtilisateurs.add(new Utilisateur("456", "456", "Bob", "Bob"));
         listeUtilisateurs.add(new Utilisateur("789", "789", "Chris", "Chris"));
 
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 1"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 2"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 3"));
+        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
+        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 2", "", ""));
+        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 3", "", ""));
 
-        listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 1"));
-        listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2"));
-        
-        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1"));
+        //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 1", "", ""));
+        //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
+        // listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1", "" ,""));
+        // listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Niveau 1", "", ""));
     }
 
     public String getLocationFenetrePrincipale() {
@@ -101,13 +102,40 @@ public class Modele extends Observable {
                 }
                 break;
             case COUREUR:
-                if(i< listeNiveauxCoureur.size()){
+                if (i < listeNiveauxCoureur.size()) {
                     nomNiveau = listeNiveauxCoureur.get(i).getNom();
                 }
                 break;
         }
 
         return nomNiveau;
+    }
+
+    public String getLocationNiveau(Jeu jeu, int i) {
+        String locationNiveau = "";
+
+        switch (jeu) {
+            case DRAG_DROP:
+                locationNiveau = listeNiveauxDragDrop.get(i).getLocation();
+                break;
+            case SHOOTER:
+                locationNiveau = listeNiveauxShooter.get(i).getLocation();
+                break;
+            case COUREUR:
+                locationNiveau = listeNiveauxCoureur.get(i).getLocation();
+                break;
+            case SPEED_RUN:
+                locationNiveau = listeNiveauxSpeedRun.get(i).getLocation();
+        }
+        return locationNiveau;
+    }
+
+    public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
+        return listeNiveauxDragDrop.get(i).getCoordonnees();
+    }
+    
+    public ArrayList getQuestionsDragDrop(int i){
+        return listeNiveauxDragDrop.get(i).getQuestions();
     }
 
     public void majObserver() {

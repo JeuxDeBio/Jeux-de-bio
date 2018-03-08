@@ -23,9 +23,11 @@ public class Monde_Coureur extends JComponent {
 
     Fenetre_jeu fenetre;
     Perso perso = new Perso(Perso.Position.MILIEU);
+
     Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "que fait 5-4");
     private ArrayList<Question> listeQuestions = new ArrayList<>();
     private JTextField textQuestion = new JTextField("la question a ajouter ici");
+
 
     Thread thread = new Thread() {
         boolean finPartie = false;
@@ -60,13 +62,16 @@ public class Monde_Coureur extends JComponent {
         this.fenetre = fenetre;
         fenetre.setTitle("bou");
         this.creerInterface();
+
         listeQuestions.add(question1);
+
         this.thread.start();
     }
 
     public void creerInterface() {
         add(perso);
         perso.setVisible(true);
+
         perso.setLocation(400 - (perso.getWidth() / 2), 600);
         textQuestion.setSize(800, 35);
         textQuestion.setLocation(0, 0);
@@ -130,5 +135,5 @@ public class Monde_Coureur extends JComponent {
 
         });
         return compteur;
-    }
+   }
 }

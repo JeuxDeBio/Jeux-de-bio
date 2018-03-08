@@ -14,7 +14,9 @@ import javax.swing.JComponent;
  * @author Niopo
  */
 public class Perso extends JComponent {
+
     private boolean peutBouger = true;
+
     Position position;
 
     public enum Position {
@@ -30,6 +32,8 @@ public class Perso extends JComponent {
         setSize(36, 76);
     }
 
+    @Override
+
     public void paintComponent(Graphics g) {
         g.setColor(Color.red);
         g.fillRect(0, 0, 35, 75);
@@ -43,6 +47,7 @@ public class Perso extends JComponent {
         this.position = position;
     }
 
+
     public boolean isPeutBouger() {
         return peutBouger;
     }
@@ -51,4 +56,5 @@ public class Perso extends JComponent {
         this.peutBouger = peutBouger;
     }
     
+
 }

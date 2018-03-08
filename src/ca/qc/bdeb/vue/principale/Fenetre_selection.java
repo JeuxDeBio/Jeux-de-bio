@@ -53,8 +53,8 @@ public class Fenetre_selection extends JFrame {
         fenetrePrincipale.fermerFenetreSelection();
     }
 
-    public void ouvrirFenetreJeu() {
-        this.fenetreJeu = new Fenetre_jeu(jeu, this, fenetrePrincipale);
+    public void ouvrirFenetreJeu(int i) {
+        this.fenetreJeu = new Fenetre_jeu(jeu, this, fenetrePrincipale, controleur, modele, i);
     }
 
     public void fermerFenetreJeu() {

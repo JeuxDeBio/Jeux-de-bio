@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ class Monde_selection extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (listeNiveaux.get(i).existe(controleur, i, jeu)) {
-                    fenetre.ouvrirFenetreJeu();
+                    fenetre.ouvrirFenetreJeu(i);
                 } else {
                     fenetre.finJeu();
                 }

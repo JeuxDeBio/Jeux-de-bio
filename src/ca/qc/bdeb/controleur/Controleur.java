@@ -8,6 +8,7 @@ package ca.qc.bdeb.controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.Fenetre_principale;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,4 +43,15 @@ public class Controleur {
         return modele.getNomNiveau(jeu, i);
     }
 
+    public String getLocationNiveau(Jeu jeu, int i) {
+        return modele.getLocationNiveau(jeu, i);
+    }
+
+    public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
+        return modele.getCoordonneesBoitesReponsesDragDrop(i);
+    }
+    
+    public ArrayList getQuestionsDragDrop(int i){
+        return modele.getQuestionsDragDrop(i);
+    }
 }

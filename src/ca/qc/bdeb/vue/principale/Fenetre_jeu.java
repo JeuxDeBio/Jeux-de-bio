@@ -5,7 +5,9 @@
  */
 package ca.qc.bdeb.vue.principale;
 
+import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.coureur.Monde_Coureur;
 import ca.qc.bdeb.vue.dragDrop.Monde_Drag_Drop;
 import ca.qc.bdeb.vue.shooter.Monde_Shooter;
@@ -19,18 +21,28 @@ import javax.swing.JLabel;
  */
 public class Fenetre_jeu extends JFrame {
 
+    Controleur controleur;
+    Modele modele;
+
     JLabel lblTimer = new JLabel("00:00", JLabel.CENTER);
     Fenetre_selection fenetreSelection;
     Fenetre_principale fenetrePrincipale;
 
     Jeu jeu;
 
-    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale) {
+    int niveauID;
+
+    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
         this.jeu = jeu;
         this.fenetreSelection = fenetreSelection;
         this.fenetrePrincipale = fenetrePrincipale;
+        this.modele = modele;
+        this.controleur = controleur;
+        this.niveauID = niveauID;
+
         creerInterface();
         creerEvenements();
+
         this.pack();
         this.setVisible(true);
     }
@@ -41,7 +53,7 @@ public class Fenetre_jeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimer, this);
+                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimer, this, controleur, modele);
                 this.add(mondeDragDrop);
                 this.add(lblTimer, BorderLayout.NORTH);
                 break;
@@ -65,5 +77,9 @@ public class Fenetre_jeu extends JFrame {
     public void fermerFenetre() {
         fenetreSelection.fermerFenetreJeu();
         fenetrePrincipale.finJeu();
+    }
+
+    public int getNiveauID() {
+        return niveauID;
     }
 }
