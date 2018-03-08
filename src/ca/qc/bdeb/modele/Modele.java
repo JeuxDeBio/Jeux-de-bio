@@ -37,7 +37,7 @@ public class Modele extends Observable {
         //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 2", "", ""));
         //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 3", "", ""));
 
-        //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 1", "", ""));
+        listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
         // listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1", "" ,""));
         // listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Niveau 1", "", ""));

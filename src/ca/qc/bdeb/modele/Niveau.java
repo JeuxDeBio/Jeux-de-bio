@@ -22,19 +22,25 @@ public class Niveau {
     private String locationInformation;
     private String nomNiveau;
     private String locationImage;
-    private ArrayList<String> texteLue = new ArrayList<>();
-    private ArrayList<String> listeQuestions = new ArrayList<>();
-    private int nombreQuestions = 0;
+
+    private ArrayList<String> listeCoordonneesDragDrop = new ArrayList<>();
+    private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
+    private int nombreQuestionsDragDrop = 0;
 
     public Niveau(Jeu jeu, String locationInformation) {
         this.locationInformation = locationInformation;
 
-        lectureInformation();
+        switch (jeu) {
+            case DRAG_DROP:
+                lectureInformationDragDrop();
+                break;
+            case SHOOTER:
+                lectureInformationShooter();
+        }
 
-        getCoordonnees();
     }
 
-    private void lectureInformation() {
+    private void lectureInformationDragDrop() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
 
@@ -43,31 +49,51 @@ public class Niveau {
 
             while (ligne != null) {
                 if (!renduQuestions) {
-                    if (ligne.equals("Questions")){
+                    if (ligne.equals("Questions")) {
                         renduQuestions = true;
                     }
-                    texteLue.add(ligne);
+                    listeCoordonneesDragDrop.add(ligne);
                     ligne = bufferedReader.readLine();
-                    nombreQuestions++;
+                    nombreQuestionsDragDrop++;
                 } else {
-                    listeQuestions.add(ligne);
+                    listeQuestionsDragDrop.add(ligne);
                     ligne = bufferedReader.readLine();
                 }
             }
-            nombreQuestions -= 2;
-            nombreQuestions /= 2;
+            nombreQuestionsDragDrop -= 2;
+            nombreQuestionsDragDrop /= 2;
 
-            nomNiveau = texteLue.get(0);
-            texteLue.remove(0);
+            nomNiveau = listeCoordonneesDragDrop.get(0);
+            listeCoordonneesDragDrop.remove(0);
 
-            locationImage = texteLue.get(0);
-            texteLue.remove(0);
+            locationImage = listeCoordonneesDragDrop.get(0);
+            listeCoordonneesDragDrop.remove(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+    }
+
+    private void lectureInformationShooter() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
+
+            String ligne = bufferedReader.readLine();
+
+            nomNiveau = ligne;
+
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getNom() {
@@ -79,20 +105,20 @@ public class Niveau {
     }
 
     public int[][] getCoordonnees() {
-        int[][] coordonnees = new int[nombreQuestions][2];
+        int[][] coordonnees = new int[nombreQuestionsDragDrop][2];
         try {
-            for (int i = 0; i < nombreQuestions; i++) {
+            for (int i = 0; i < nombreQuestionsDragDrop; i++) {
                 for (int j = 0; j < 2; j++) {
-                    coordonnees[i][j] = Integer.parseInt(texteLue.get((2 * i) + j));
+                    coordonnees[i][j] = Integer.parseInt(listeCoordonneesDragDrop.get((2 * i) + j));
                 }
             }
         } catch (NumberFormatException e) {
         }
         return coordonnees;
     }
-    
-    public ArrayList getQuestions(){
-        return listeQuestions;
+
+    public ArrayList getQuestions() {
+        return listeQuestionsDragDrop;
     }
 
 }
