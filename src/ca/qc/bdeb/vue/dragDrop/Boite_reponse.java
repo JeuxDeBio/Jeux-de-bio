@@ -21,10 +21,13 @@ public class Boite_reponse extends JComponent {
     private boolean estOccupe = false;
     private boolean bonneReponse = false;
 
-    Ronde_question question;
+    private Ronde_question question;
+    
+    private String texte;
 
-    public Boite_reponse() {
+    public Boite_reponse(String texte) {
         this.setSize(largeur, hauteur);
+        this.texte = texte;
     }
 
     @Override
@@ -34,12 +37,14 @@ public class Boite_reponse extends JComponent {
         g.fillRect(0, 0, largeur, hauteur);
         if (estOccupe) {
             g.setColor(Color.RED);
-            g.fillOval(0, 0, largeur, hauteur);
+            g.fillRect(0, 0, largeur, hauteur);
         }
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, largeur - 1, hauteur - 1);
-        g.drawLine(0, 0, largeur, hauteur);
-        g.drawLine(0, hauteur, largeur, 0);
+        if (!estOccupe) {
+            g.drawLine(0, 0, largeur, hauteur);
+            g.drawLine(0, hauteur, largeur, 0);
+        }
     }
 
     public boolean estOccupe() {
@@ -73,7 +78,8 @@ public class Boite_reponse extends JComponent {
     }
 
     public void verification() {
-        this.bonneReponse = (question != null);
+        this.bonneReponse = (question != null) && (question.getBoite().getTexte().equals(this.texte));
+        
     }
 
     public boolean bonneReponse() {

@@ -138,6 +138,10 @@ public class Modele extends Observable {
         return listeNiveauxDragDrop.get(i).getQuestions();
     }
 
+    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps){
+        
+    }
+    
     public void majObserver() {
         setChanged();
         notifyObservers();

@@ -47,6 +47,11 @@ public class Niveau {
             boolean renduQuestions = false;
             String ligne = bufferedReader.readLine();
 
+            nomNiveau = ligne;
+            ligne = bufferedReader.readLine();
+            locationImage = ligne;
+            ligne = bufferedReader.readLine();
+            
             while (ligne != null) {
                 if (!renduQuestions) {
                     if (ligne.equals("Questions")) {
@@ -54,20 +59,13 @@ public class Niveau {
                     }
                     listeCoordonneesDragDrop.add(ligne);
                     ligne = bufferedReader.readLine();
-                    nombreQuestionsDragDrop++;
                 } else {
                     listeQuestionsDragDrop.add(ligne);
                     ligne = bufferedReader.readLine();
+                    nombreQuestionsDragDrop++;
                 }
             }
-            nombreQuestionsDragDrop -= 2;
-            nombreQuestionsDragDrop /= 2;
-
-            nomNiveau = listeCoordonneesDragDrop.get(0);
-            listeCoordonneesDragDrop.remove(0);
-
-            locationImage = listeCoordonneesDragDrop.get(0);
-            listeCoordonneesDragDrop.remove(0);
+           
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

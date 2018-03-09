@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,8 +84,8 @@ public class Monde_Drag_Drop extends JComponent {
 
         for (int i = 0; i < coordonnees.length; i++) {
             if (texte.size() == coordonnees.length) {
-                Ronde_question question = new Ronde_question(texte.get(i), ((hauteur / coordonnees.length) * i) + 10);
-                question.setInitialX(largeur - question.getWidth() - 10);
+                Ronde_question question = new Ronde_question(texte.get(i), ((hauteur / coordonnees.length) * i) + 20);
+                question.setInitialX(largeur - question.getWidth() - 20);
                 this.add(question);
                 listeQuestions.add(question);
                 question.setLocation(question.getInitialX(), question.getInitialY());
@@ -93,7 +94,7 @@ public class Monde_Drag_Drop extends JComponent {
 
         for (int i = 0; i < coordonnees.length; i++) {
             if (texte.size() == coordonnees.length) {
-                Boite_reponse reponse = new Boite_reponse();
+                Boite_reponse reponse = new Boite_reponse(texte.get(i));
                 this.add(reponse);
                 listeReponses.add(reponse);
                 reponse.setLocation(coordonnees[i][0], coordonnees[i][1]);
@@ -148,9 +149,6 @@ public class Monde_Drag_Drop extends JComponent {
             } else {
                 lblTimer.setText(compteur / 60 + ":" + compteur % 60);
             }
-            if (compteur == 60) {
-                fenetre.fermerFenetre();
-            }
         }
         timer++;
     }
@@ -193,7 +191,41 @@ public class Monde_Drag_Drop extends JComponent {
             }
         }
     }
-    
+
+    public void validationPoints() {
+        ArrayList<Ronde_question> listeQuestionsPasRepondus = new ArrayList<>();
+        String motsClesManquants = "";
+        String motsClesFausses = "";
+        int nombreErreurs = 0;
+
+        for (Ronde_question question : listeQuestions) {
+            if (!question.occupe()) {
+                listeQuestionsPasRepondus.add(question);
+                motsClesManquants += " - " + question.getBoite().getTexte() + "\n";
+            }
+        }
+
+        if (!listeQuestionsPasRepondus.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vous n'avez pas place toutes les mots cles\nVoici ceux qui manquent: \n\n" + motsClesManquants, "Jeu Incomplet", JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (Boite_reponse reponse : listeReponses) {
+                if (!reponse.bonneReponse()) {
+                    motsClesFausses += " - " + reponse.getQuestion().getBoite().getTexte() + "\n";
+                    nombreErreurs++;
+                }
+            }
+
+            controleur.calculerScoreDragDrop(fenetre.getNiveauID(), nombreErreurs, compteur);
+
+            if (!motsClesFausses.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Votre score est ... \nVoici les mots cles que vous avez mal places: \n\n" + motsClesFausses, "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+
+            }
+        }
+
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
