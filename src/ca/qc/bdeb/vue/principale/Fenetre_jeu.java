@@ -71,7 +71,7 @@ public class Fenetre_jeu extends JFrame {
     }
 
     private void creerEvenements() {
-
+        
     }
 
     public void fermerFenetre() {
