@@ -133,15 +133,16 @@ public class Modele extends Observable {
     public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
         return listeNiveauxDragDrop.get(i).getCoordonnees();
     }
-    
-    public ArrayList getQuestionsDragDrop(int i){
+
+    public ArrayList getQuestionsDragDrop(int i) {
         return listeNiveauxDragDrop.get(i).getQuestions();
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps){
-        
+    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
+        double score = 15 * (listeNiveauxDragDrop.get(i).getQuestions().size() - nombreErreurs);
+        System.out.println(score);
     }
-    
+
     public void majObserver() {
         setChanged();
         notifyObservers();
