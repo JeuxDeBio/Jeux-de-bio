@@ -5,8 +5,13 @@
  */
 package ca.qc.bdeb.modele;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,20 +23,20 @@ public class Modele extends Observable {
     private final String locationFenetrePrincipaleLogIn = "Ecrans\\Fenetre_principale_logIn.png";
     private final String locationFenetreSelection = "Ecrans\\Fenetre_selection.png";
 
-    ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<>();
+    ArrayList<Etudiant> listeUtilisateurs = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxSpeedRun = new ArrayList<>();
 
-    Utilisateur utilisateur = new Utilisateur();
+    Utilisateur utilisateur;
 
     private boolean logIn = false;
 
     public Modele() {
-        listeUtilisateurs.add(new Utilisateur("123", "123", "Adam", "Adam"));
-        listeUtilisateurs.add(new Utilisateur("456", "456", "Bob", "Bob"));
-        listeUtilisateurs.add(new Utilisateur("789", "789", "Chris", "Chris"));
+        creerUtilisateur("123", "123", "Adam", "Adam");
+        creerUtilisateur("456", "456", "Bob", "Bob");
+        creerUtilisateur("789", "789", "Chris", "Chris");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 2", "", ""));
@@ -84,7 +89,28 @@ public class Modele extends Observable {
 
     public void logOut() {
         this.logIn = false;
-        this.utilisateur = new Utilisateur();
+        this.utilisateur = null;
+    }
+
+    private void creerUtilisateur(String da, String motDePasse, String nom, String prenom) {
+        String informations = "Utilisateurs\\Etudiants\\" + da + "_" + nom + prenom;
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+            bufferedWriter.write(da);
+            bufferedWriter.newLine();
+            bufferedWriter.write(motDePasse);
+            bufferedWriter.newLine();
+            bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write(prenom);
+            bufferedWriter.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        listeUtilisateurs.add(new Etudiant(da, motDePasse, nom, prenom, informations));
     }
 
     public String getNomNiveau(Jeu jeu, int i) {
@@ -139,8 +165,8 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        double score = 15 * (listeNiveauxDragDrop.get(i).getQuestions().size() - nombreErreurs);
-        System.out.println(score);
+        int score = (100 - (nombreErreurs * 10)) - (temps / 30);
+
     }
 
     public void majObserver() {

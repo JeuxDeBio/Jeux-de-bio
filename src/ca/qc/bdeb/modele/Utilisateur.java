@@ -27,12 +27,6 @@ public class Utilisateur {
         counter++;
     }
     
-    public Utilisateur() {
-        this.da = "-";
-        this.nom = "aucun";
-        this.prenom = "aucun";
-    }
-
     public String getDa() {
         return da;
     }

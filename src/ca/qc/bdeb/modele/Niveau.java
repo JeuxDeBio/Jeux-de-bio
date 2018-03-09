@@ -51,7 +51,7 @@ public class Niveau {
             ligne = bufferedReader.readLine();
             locationImage = ligne;
             ligne = bufferedReader.readLine();
-            
+
             while (ligne != null) {
                 if (!renduQuestions) {
                     if (ligne.equals("Questions")) {
@@ -65,7 +65,8 @@ public class Niveau {
                     nombreQuestionsDragDrop++;
                 }
             }
-           
+
+            bufferedReader.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
