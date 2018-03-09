@@ -14,13 +14,13 @@ import javax.swing.JComponent;
  */
 public class Ronde_question extends JComponent {
 
-    Boite_question boite;
+    private Boite_question boite;
 
     private int largeur = 20, hauteur = 20;
     private int initialX, initialY;
 
     private boolean hold = false;
-
+    
     public Ronde_question(String texte, int initialY) {
         boite = new Boite_question(texte);
         this.setSize(boite.getWidth(), boite.getHeight());
@@ -76,6 +76,10 @@ public class Ronde_question extends JComponent {
 
     public boolean hold() {
         return hold;
+    }
+
+    public Boite_question getBoite() {
+        return boite;
     }
 
     @Override

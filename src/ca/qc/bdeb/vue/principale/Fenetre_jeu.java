@@ -12,8 +12,13 @@ import ca.qc.bdeb.vue.coureur.Monde_Coureur;
 import ca.qc.bdeb.vue.dragDrop.Monde_Drag_Drop;
 import ca.qc.bdeb.vue.shooter.Monde_Shooter;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  *  *
@@ -21,16 +26,20 @@ import javax.swing.JLabel;
  */
 public class Fenetre_jeu extends JFrame {
 
-    Controleur controleur;
-    Modele modele;
+    private Controleur controleur;
+    private Modele modele;
 
-    JLabel lblTimer = new JLabel("00:00", JLabel.CENTER);
-    Fenetre_selection fenetreSelection;
-    Fenetre_principale fenetrePrincipale;
+    private JLabel lblTimerDragDrop = new JLabel("00:00", JLabel.CENTER);
+    private Fenetre_selection fenetreSelection;
+    private Fenetre_principale fenetrePrincipale;
 
-    Jeu jeu;
+    private Jeu jeu;
 
-    int niveauID;
+    private int niveauID;
+
+    private JMenuBar mnuBar = new JMenuBar();
+    private JMenu mnuJeu = new JMenu("Jeu");
+    private JMenuItem mnuValiderDragDrop = new JMenuItem("Valider vos reponses!");
 
     public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
         this.jeu = jeu;
@@ -53,9 +62,21 @@ public class Fenetre_jeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimer, this, controleur, modele);
+                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimerDragDrop, this, controleur, modele);
                 this.add(mondeDragDrop);
-                this.add(lblTimer, BorderLayout.NORTH);
+                this.add(lblTimerDragDrop, BorderLayout.NORTH);
+
+                mnuJeu.add(mnuValiderDragDrop);
+                mnuBar.add(mnuJeu);
+                this.setJMenuBar(mnuBar);
+
+                mnuValiderDragDrop.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        mondeDragDrop.validationPoints();
+                    }
+                });
+
                 break;
             case SHOOTER:
                 Monde_Shooter mondeShooter = new Monde_Shooter(this);
@@ -71,7 +92,7 @@ public class Fenetre_jeu extends JFrame {
     }
 
     private void creerEvenements() {
-        
+
     }
 
     public void fermerFenetre() {

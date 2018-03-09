@@ -21,14 +21,16 @@ public class Boite_question extends JComponent {
 
     private boolean occupe = false;
 
+    private String texte;
+
     public Boite_question(String texte) {
+        this.texte = texte;
         this.setSize(largeur, hauteur);
         lblQuestion.setText(texte);
         lblQuestion.setSize(largeur, hauteur);
         lblQuestion.setLocation(30, 0);
         this.add(lblQuestion);
-    }        
-
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -51,6 +53,10 @@ public class Boite_question extends JComponent {
 
     public boolean occupe() {
         return occupe;
+    }
+
+    public String getTexte() {
+        return texte;
     }
 
 }
