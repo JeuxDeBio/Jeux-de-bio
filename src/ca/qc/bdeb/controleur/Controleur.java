@@ -50,12 +50,16 @@ public class Controleur {
     public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
         return modele.getCoordonneesBoitesReponsesDragDrop(i);
     }
-    
-    public ArrayList getQuestionsDragDrop(int i){
+
+    public ArrayList getQuestionsDragDrop(int i) {
         return modele.getQuestionsDragDrop(i);
     }
-    
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps){
+
+    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
         modele.calculerScoreDragDrop(i, nombreErreurs, temps);
+    }
+
+    public int getScoreNiveau(Jeu jeu, int i) {
+        return modele.getScoreNiveau(jeu, i);
     }
 }

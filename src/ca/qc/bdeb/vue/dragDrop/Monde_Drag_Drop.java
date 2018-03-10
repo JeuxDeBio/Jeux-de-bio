@@ -218,10 +218,12 @@ public class Monde_Drag_Drop extends JComponent {
             controleur.calculerScoreDragDrop(fenetre.getNiveauID(), nombreErreurs, compteur);
 
             if (!motsClesFausses.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Votre score est ... \nVoici les mots cles que vous avez mal places: \n\n" + motsClesFausses, "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()) + " points.\nVotre temps est " + compteur + " secondes.\nVoici les mots cles que vous avez mal places: \n\n" + motsClesFausses, "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
             } else {
-
+                JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()) + " points.\nVotre temps est " + compteur + " secondes.\nVous avez tout bon!", "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
             }
+
+            fenetre.fermerFenetre();
         }
 
     }

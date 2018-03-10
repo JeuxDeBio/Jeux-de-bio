@@ -105,7 +105,7 @@ public class Modele extends Observable {
             bufferedWriter.newLine();
             bufferedWriter.write(prenom);
             bufferedWriter.close();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,8 +165,26 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        int score = (100 - (nombreErreurs * 10)) - (temps / 30);
+        listeNiveauxDragDrop.get(i).setScore((100 - (nombreErreurs * 10)) - (temps / 30));
+    }
 
+    public int getScoreNiveau(Jeu jeu, int i) {
+        int score = 0;
+        switch (jeu) {
+            case DRAG_DROP:
+                score = listeNiveauxDragDrop.get(i).getScore();
+                break;
+            case SHOOTER:
+                score = listeNiveauxShooter.get(i).getScore();
+                break;
+            case COUREUR:
+                score = listeNiveauxCoureur.get(i).getScore();
+                break;
+            case SPEED_RUN:
+                score = listeNiveauxSpeedRun.get(i).getScore();
+        }
+
+        return score;
     }
 
     public void majObserver() {

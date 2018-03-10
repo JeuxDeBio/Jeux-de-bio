@@ -25,7 +25,9 @@ public class Niveau {
 
     private ArrayList<String> listeCoordonneesDragDrop = new ArrayList<>();
     private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
+    
     private int nombreQuestionsDragDrop = 0;
+    private int score = 0;
 
     public Niveau(Jeu jeu, String locationInformation) {
         this.locationInformation = locationInformation;
@@ -119,5 +121,15 @@ public class Niveau {
     public ArrayList getQuestions() {
         return listeQuestionsDragDrop;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    
 
 }
