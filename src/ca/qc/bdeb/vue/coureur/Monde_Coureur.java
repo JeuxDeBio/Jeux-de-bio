@@ -5,7 +5,7 @@
  */
 package ca.qc.bdeb.vue.coureur;
 
-import ca.qc.bdeb.vue.principale.Fenetre_jeu;
+import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,7 +21,7 @@ import javax.swing.*;
  */
 public class Monde_Coureur extends JComponent {
 
-    Fenetre_jeu fenetre;
+    FenetreJeu fenetre;
     Perso perso = new Perso(Perso.Position.MILIEU);
 
     Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "que fait 5-4");
@@ -55,7 +55,7 @@ public class Monde_Coureur extends JComponent {
         }
     };
 
-    public Monde_Coureur(Fenetre_jeu fenetre) {
+    public Monde_Coureur(FenetreJeu fenetre) {
         this.setPreferredSize(new Dimension(800, 800));
         this.setLayout(null);
 

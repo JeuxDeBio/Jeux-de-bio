@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.vue.principale;
 
+import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.modele.Utilisateur;
@@ -26,8 +27,8 @@ public class Monde_principale_logIn extends JComponent {
     private Modele modele;
 
     private Image image;
-
-    private Fenetre_principale fenetre;
+    private Controleur controleur;
+    private FenetrePrincipale fenetre;
 
     private Utilisateur utilisateur;
 
@@ -43,13 +44,14 @@ public class Monde_principale_logIn extends JComponent {
 
     private boolean enJeu = false;
 
-    public Monde_principale_logIn(Modele modele, Fenetre_principale fenetre) {
+    public Monde_principale_logIn(Modele modele,Controleur controleur, FenetrePrincipale fenetre) {
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
+        this.controleur = controleur;
         this.modele = modele;
         this.fenetre = fenetre;
-        this.utilisateur = modele.getUtilisateur();
+        this.utilisateur = modele.getEtudiant();
 
         creerInterface();
         creerEvenements();
@@ -57,7 +59,7 @@ public class Monde_principale_logIn extends JComponent {
     }
 
     private void creerInterface() {
-        image = Toolkit.getDefaultToolkit().getImage(modele.getLocationFenetrePrincipaleLogIn());
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipaleLogIn());
 
         lblUtilisateurNom.setText(this.utilisateur.getNom());
         lblUtilisateurNom.setLocation(310, 230);
@@ -152,7 +154,7 @@ public class Monde_principale_logIn extends JComponent {
             @Override
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
-                modele.logOut();
+                controleur.logOut();
                 fenetre.logOut();
             }
 

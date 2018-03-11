@@ -8,7 +8,7 @@ package ca.qc.bdeb.vue.dragDrop;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.principale.Fenetre_jeu;
+import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -31,7 +31,7 @@ public class Monde_Drag_Drop extends JComponent {
 
     private JLabel lblTimer;
     private int timer = 0, compteur = 0;
-    private Fenetre_jeu fenetre;
+    private FenetreJeu fenetre;
 
     private Image image;
 
@@ -60,7 +60,7 @@ public class Monde_Drag_Drop extends JComponent {
         }
     };
 
-    public Monde_Drag_Drop(JLabel lblTimer, Fenetre_jeu fenetre, Controleur controleur, Modele modele) {
+    public Monde_Drag_Drop(JLabel lblTimer, FenetreJeu fenetre, Controleur controleur, Modele modele) {
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
