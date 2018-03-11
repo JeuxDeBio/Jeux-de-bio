@@ -5,9 +5,10 @@
  */
 package ca.qc.bdeb.controleur;
 
+import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.principale.Fenetre_principale;
+import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ public class Controleur {
 
     public Controleur() {
         modele = new Modele();
-        Fenetre_principale fenetre = new Fenetre_principale(this, modele);
+        FenetrePrincipale fenetre = new FenetrePrincipale(this, modele);
     }
 
     public void validerUtilisateur(String utilisateurDA, char[] utilisateurMotDePasse) {
@@ -62,4 +63,17 @@ public class Controleur {
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);
     }
+    
+    public void logOut(){
+        modele.logOut();
+    }
+    
+    public void saveQuit(){
+        modele.saveQuit();
+    }
+
+    public Etudiant getEtudiant() {
+        return modele.getEtudiant();
+    }
+
 }

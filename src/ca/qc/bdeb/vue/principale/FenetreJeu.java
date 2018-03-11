@@ -24,14 +24,14 @@ import javax.swing.JMenuItem;
  *  *
  * @author 1649904
  */
-public class Fenetre_jeu extends JFrame {
+public class FenetreJeu extends JFrame {
 
     private Controleur controleur;
     private Modele modele;
 
     private JLabel lblTimerDragDrop = new JLabel("00:00", JLabel.CENTER);
-    private Fenetre_selection fenetreSelection;
-    private Fenetre_principale fenetrePrincipale;
+    private FenetreSelection fenetreSelection;
+    private FenetrePrincipale fenetrePrincipale;
 
     private Jeu jeu;
 
@@ -41,7 +41,7 @@ public class Fenetre_jeu extends JFrame {
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuValiderDragDrop = new JMenuItem("Valider vos reponses!");
 
-    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
+    public FenetreJeu(Jeu jeu, FenetreSelection fenetreSelection, FenetrePrincipale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
         this.jeu = jeu;
         this.fenetreSelection = fenetreSelection;
         this.fenetrePrincipale = fenetrePrincipale;

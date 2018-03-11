@@ -5,7 +5,7 @@
  */
 package ca.qc.bdeb.vue.shooter;
 
-import ca.qc.bdeb.vue.principale.Fenetre_jeu;
+import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,7 +20,7 @@ import javax.swing.SwingUtilities;
  */
 public class Monde_Shooter extends JComponent {
 
-    Fenetre_jeu fenetre;
+    FenetreJeu fenetre;
     Canon canon = new Canon();
     Composant composantProjectile = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
     Composant composantMechant = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
@@ -64,7 +64,7 @@ public class Monde_Shooter extends JComponent {
         }
     };
 
-    public Monde_Shooter(Fenetre_jeu fenetre) {
+    public Monde_Shooter(FenetreJeu fenetre) {
         this.setPreferredSize(new Dimension(800, 800));
         this.setLayout(null);
 
