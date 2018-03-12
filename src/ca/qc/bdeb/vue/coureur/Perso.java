@@ -17,17 +17,11 @@ public class Perso extends JComponent {
 
     private boolean peutBouger = true;
 
-    Position position;
+   int position;
 
-    public enum Position {
-        GAUCHE_EXT,
-        GAUCHE_INT,
-        MILIEU,
-        DROITE_INT,
-        DROITE_EXT;
-    }
+   
 
-    public Perso(Position position) {
+    public Perso(int position) {
         this.position = position;
         setSize(36, 76);
     }
@@ -39,11 +33,11 @@ public class Perso extends JComponent {
         g.fillRect(0, 0, 35, 75);
     }
 
-    public Position getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 
