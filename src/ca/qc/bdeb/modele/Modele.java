@@ -39,12 +39,15 @@ public class Modele extends Observable {
         creerUtilisateur("789", "789", "Chris", "Chris");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
-        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 3", "", ""));
+        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
 
+        listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
+
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
+
     }
 
     public String getLocationFenetrePrincipale() {
@@ -131,6 +134,10 @@ public class Modele extends Observable {
                     nomNiveau = listeNiveauxCoureur.get(i).getNom();
                 }
                 break;
+            case SPEED_RUN:
+                if (i < listeNiveauxSpeedRun.size()) {
+                    nomNiveau = listeNiveauxSpeedRun.get(i).getNom();
+                }
         }
 
         return nomNiveau;
@@ -163,6 +170,28 @@ public class Modele extends Observable {
         return listeNiveauxDragDrop.get(i).getQuestions();
     }
 
+    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
+        int score = (100 - (nombreErreurs * 10)) - (temps / 10);;
+
+        if (etudiant != null) {
+            etudiant.setCurrentScore(Jeu.DRAG_DROP, i, score, temps);
+        } else {
+            switch (jeu) {
+                case DRAG_DROP:
+                    listeNiveauxDragDrop.get(i).setScore(score);
+                    break;
+                case SHOOTER:
+                    listeNiveauxShooter.get(i).setScore(score);
+                    break;
+                case COUREUR:
+                    listeNiveauxCoureur.get(i).setScore(score);
+                    break;
+                case SPEED_RUN:
+                    listeNiveauxSpeedRun.get(i).setScore(score);
+            }
+        }
+    }
+
     public ArrayList getPositionReponses(int i) {
         return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
     }
@@ -170,29 +199,31 @@ public class Modele extends Observable {
     public ArrayList getReponseCoureur(int i) {
         return listeNiveauxCoureur.get(i).getReponsesCoureur();
     }
-    
-    public ArrayList getQuestionsCoureur(int i){
+
+    public ArrayList getQuestionsCoureur(int i) {
         return listeNiveauxCoureur.get(i).getQuestionCoureur();
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        listeNiveauxDragDrop.get(i).setScore((100 - (nombreErreurs * 10)) - (temps / 30));
-    }
 
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
-        switch (jeu) {
-            case DRAG_DROP:
-                score = listeNiveauxDragDrop.get(i).getScore();
-                break;
-            case SHOOTER:
-                score = listeNiveauxShooter.get(i).getScore();
-                break;
-            case COUREUR:
-                score = listeNiveauxCoureur.get(i).getScore();
-                break;
-            case SPEED_RUN:
-                score = listeNiveauxSpeedRun.get(i).getScore();
+
+        if (etudiant != null) {
+            score = etudiant.getCurrentScore();
+        } else {
+            switch (jeu) {
+                case DRAG_DROP:
+                    score = listeNiveauxDragDrop.get(i).getScore();
+                    break;
+                case SHOOTER:
+                    score = listeNiveauxShooter.get(i).getScore();
+                    break;
+                case COUREUR:
+                    score = listeNiveauxCoureur.get(i).getScore();
+                    break;
+                case SPEED_RUN:
+                    score = listeNiveauxSpeedRun.get(i).getScore();
+            }
         }
 
         return score;

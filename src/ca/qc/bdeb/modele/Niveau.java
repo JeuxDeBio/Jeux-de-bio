@@ -30,6 +30,9 @@ public class Niveau {
     private ArrayList<String> listeQuestionsCoureur = new ArrayList<>();
     private ArrayList<String[]> listeReponseCoureur = new ArrayList<>();
     
+    private ArrayList<String> listeQuestionsSpeedRun = new ArrayList<>();
+    private ArrayList<String> listeReponsesSpeedRun = new ArrayList<>();
+    
     private int nombreQuestionsDragDrop = 0;
     private int score = 0;
 
@@ -132,6 +135,38 @@ public class Niveau {
         } catch (IOException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void lectureInformationSpeedrun() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
+            boolean renduReponses = false;
+            String ligne = bufferedReader.readLine();
+
+            nomNiveau = ligne;
+
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                if (!renduReponses) {
+                    if (ligne.equals("Reponses")) {
+                        renduReponses = true;
+                    }
+                    listeQuestionsSpeedRun.add(ligne);
+                    ligne = bufferedReader.readLine();
+                } else {
+                    listeReponsesSpeedRun.add(ligne);
+                    ligne = bufferedReader.readLine();
+                }
+            }
+
+            listeQuestionsSpeedRun.remove(listeQuestionsSpeedRun.size() - 1);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public String getNom() {
