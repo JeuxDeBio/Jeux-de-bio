@@ -13,7 +13,7 @@ import javax.swing.JComponent;
  *
  * @author Batikan
  */
-public class Boite_reponse extends JComponent {
+public class BoiteReponse extends JComponent {
 
     private int largeur = 20, hauteur = 20;
     private int initialX = 0, initialY = 0;
@@ -21,11 +21,11 @@ public class Boite_reponse extends JComponent {
     private boolean estOccupe = false;
     private boolean bonneReponse = false;
 
-    private Ronde_question question;
+    private RondeQuestion question;
     
     private String texte;
 
-    public Boite_reponse(String texte) {
+    public BoiteReponse(String texte) {
         this.setSize(largeur, hauteur);
         this.texte = texte;
     }
@@ -51,7 +51,7 @@ public class Boite_reponse extends JComponent {
         return estOccupe;
     }
 
-    public void occupeTrue(Ronde_question question) {
+    public void occupeTrue(RondeQuestion question) {
         this.estOccupe = true;
         this.question = question;
     }
@@ -86,7 +86,7 @@ public class Boite_reponse extends JComponent {
         return bonneReponse;
     }
 
-    public Ronde_question getQuestion() {
+    public RondeQuestion getQuestion() {
         return question;
     }
 
