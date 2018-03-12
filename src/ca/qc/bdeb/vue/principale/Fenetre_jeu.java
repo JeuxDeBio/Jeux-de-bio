@@ -24,7 +24,7 @@ import javax.swing.JMenuItem;
  *  *
  * @author 1649904
  */
-public class Fenetre_jeu extends JFrame {
+public class FenetreJeu extends JFrame {
 
     private Controleur controleur;
     private Modele modele;
@@ -41,7 +41,7 @@ public class Fenetre_jeu extends JFrame {
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuValiderDragDrop = new JMenuItem("Valider vos reponses!");
 
-    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
+    public FenetreJeu(Jeu jeu, FenetreSelection fenetreSelection, FenetrePrincipale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
         this.jeu = jeu;
         this.fenetreSelection = fenetreSelection;
         this.fenetrePrincipale = fenetrePrincipale;
@@ -62,7 +62,7 @@ public class Fenetre_jeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimerDragDrop, this, controleur, modele);
+                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimerDragDrop, this, controleur, modele);
                 this.add(mondeDragDrop);
                 this.add(lblTimerDragDrop, BorderLayout.NORTH);
 
@@ -79,11 +79,11 @@ public class Fenetre_jeu extends JFrame {
 
                 break;
             case SHOOTER:
-                Monde_Shooter mondeShooter = new Monde_Shooter(this);
+                MondeShooter mondeShooter = new MondeShooter(this);
                 this.add(mondeShooter);
                 break;
             case COUREUR:
-                Monde_Coureur mondeCoureur = new Monde_Coureur(this, controleur, modele);
+                MondeCoureur mondeCoureur = new MondeCoureur(this, controleur, modele);
                 this.add(mondeCoureur);
                 break;
             case SPEED_RUN:
