@@ -83,7 +83,7 @@ public class Fenetre_jeu extends JFrame {
                 this.add(mondeShooter);
                 break;
             case COUREUR:
-                Monde_Coureur mondeCoureur = new Monde_Coureur(this);
+                Monde_Coureur mondeCoureur = new Monde_Coureur(this, controleur, modele);
                 this.add(mondeCoureur);
                 break;
             case SPEED_RUN:

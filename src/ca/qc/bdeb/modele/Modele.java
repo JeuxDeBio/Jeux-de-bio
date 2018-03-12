@@ -44,6 +44,7 @@ public class Modele extends Observable {
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
+
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
         // listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Niveau 1", "", ""));
     }
@@ -162,6 +163,18 @@ public class Modele extends Observable {
 
     public ArrayList getQuestionsDragDrop(int i) {
         return listeNiveauxDragDrop.get(i).getQuestions();
+    }
+
+    public ArrayList getPositionReponses(int i) {
+        return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
+    }
+
+    public ArrayList getReponseCoureur(int i) {
+        return listeNiveauxCoureur.get(i).getReponsesCoureur();
+    }
+    
+    public ArrayList getQuestionsCoureur(int i){
+        return listeNiveauxCoureur.get(i).getQuestionCoureur();
     }
 
     public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
