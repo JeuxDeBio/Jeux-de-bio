@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author Batikan
  */
-public class Boite_question extends JComponent {
+public class BoiteQuestion extends JComponent {
 
     private int largeur = 200, hauteur = 50;
     private JLabel lblQuestion = new JLabel();
@@ -23,7 +23,7 @@ public class Boite_question extends JComponent {
 
     private String texte;
 
-    public Boite_question(String texte) {
+    public BoiteQuestion(String texte) {
         this.texte = texte;
         this.setSize(largeur, hauteur);
         lblQuestion.setText(texte);
