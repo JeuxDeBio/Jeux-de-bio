@@ -25,10 +25,14 @@ public class Niveau {
 
     private ArrayList<String> listeCoordonneesDragDrop = new ArrayList<>();
     private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
-
+    
+    private ArrayList<String> listePositionReponsesCoureur = new ArrayList<>();
+    private ArrayList<String> listeQuestionsCoureur = new ArrayList<>();
+    private ArrayList<String[]> listeReponseCoureur = new ArrayList<>();
+    
     private ArrayList<String> listeQuestionsSpeedRun = new ArrayList<>();
     private ArrayList<String> listeReponsesSpeedRun = new ArrayList<>();
-
+    
     private int nombreQuestionsDragDrop = 0;
     private int score = 0;
 
@@ -42,8 +46,9 @@ public class Niveau {
             case SHOOTER:
                 lectureInformationShooter();
                 break;
-            case SPEED_RUN:
-                lectureInformationSpeedrun();
+            case COUREUR:
+                lectureInformationCoureur();
+                break;
         }
 
     }
@@ -96,6 +101,35 @@ public class Niveau {
 
             }
 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void lectureInformationCoureur(){
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
+            
+            String ligne = bufferedReader.readLine();
+
+            nomNiveau = ligne;
+            ligne = bufferedReader.readLine();
+            //locationImage = ligne;
+            //ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listePositionReponsesCoureur.add(ligne);
+                ligne = bufferedReader.readLine();
+                String split[] = ligne.split(":");
+                listeQuestionsCoureur.add(split[1]);
+                split = split[0].split(";");
+                listeReponseCoureur.add(split);
+                
+                ligne = bufferedReader.readLine();
+               
+            }
+            bufferedReader.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -160,12 +194,23 @@ public class Niveau {
         return listeQuestionsDragDrop;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public int getScore() {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    public ArrayList getPositionReponsesCoureur(){
+        return listePositionReponsesCoureur;
+    }
+    
+    public ArrayList getReponsesCoureur(){
+        return listeReponseCoureur;
+    }
+    
+    public ArrayList getQuestionCoureur(){
+        return listeQuestionsCoureur;
+    }
 }

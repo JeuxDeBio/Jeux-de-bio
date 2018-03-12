@@ -54,6 +54,17 @@ public class Controleur {
     public ArrayList getQuestionsDragDrop(int i) {
         return modele.getQuestionsDragDrop(i);
     }
+    public ArrayList getPositionQuestions(int i){
+        return modele.getPositionReponses(i);
+    }
+    
+    public ArrayList getReponsesCoureur(int i){
+        return modele.getReponseCoureur(i);
+    }
+    
+    public ArrayList getQuestionsCoureur(int i){
+        return modele.getQuestionsCoureur(i);
+    }
 
     public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
         modele.calculerScoreDragDrop(jeu, i, nombreErreurs, temps);

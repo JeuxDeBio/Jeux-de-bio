@@ -40,12 +40,14 @@ public class Modele extends Observable {
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
-        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "niveau 3", "", ""));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
-        // listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1", "" ,""));
-         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
+
+        listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
+
+        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
+
     }
 
     public String getLocationFenetrePrincipale() {
@@ -189,6 +191,19 @@ public class Modele extends Observable {
             }
         }
     }
+
+    public ArrayList getPositionReponses(int i) {
+        return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
+    }
+
+    public ArrayList getReponseCoureur(int i) {
+        return listeNiveauxCoureur.get(i).getReponsesCoureur();
+    }
+
+    public ArrayList getQuestionsCoureur(int i) {
+        return listeNiveauxCoureur.get(i).getQuestionCoureur();
+    }
+
 
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
