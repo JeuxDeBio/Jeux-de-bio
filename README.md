@@ -1,5 +1,3 @@
-# Jeux-de-bio
+README du Jeux-de-bio
 
-Bonjour! Ceci est notre projet integrateur pour le cours de programmation
-
-Auteurs: Batikan & Nicolas
+Il ne faut pas oublier de changer les adresses aux images si vous l'ouvrez dans un ordinateur Mac. Pour Windows, tout devrait fonctionner correctement.
