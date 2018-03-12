@@ -22,7 +22,7 @@ public class Etudiant extends Utilisateur {
         super(da, motDePasse, nom, prenom);
         this.informations = informations;
         
-        loadInformationsDragDrop();
+        initialize();
     }
 
     private void loadInformationsDragDrop() {
