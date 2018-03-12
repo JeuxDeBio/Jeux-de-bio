@@ -17,20 +17,20 @@ import javax.swing.*;
  *
  * @author 1649904
  */
-public class Fenetre_principale extends JFrame implements Observer {
+public class FenetrePrincipale extends JFrame implements Observer {
 
     Controleur controleur;
     Modele modele;
 
-    Monde_principale monde_principale;
-    Monde_principale_logIn monde_principale_logIn;
+    MondePrincipale monde_principale;
+    MondePrincipaleLogIn monde_principale_logIn;
 
-    Fenetre_selection fenetreSelection;
-    Fenetre_jeu fenetreJeu;
+    FenetreSelection fenetreSelection;
+    FenetreJeu fenetreJeu;
 
     private boolean logIn = false;
 
-    public Fenetre_principale(Controleur controleur, Observable observable) {
+    public FenetrePrincipale(Controleur controleur, Observable observable) {
         modele = (Modele) observable;
         modele.addObserver(this);
         this.controleur = controleur;
@@ -50,14 +50,14 @@ public class Fenetre_principale extends JFrame implements Observer {
     }
 
     private void creerInterface() {
-        this.monde_principale = new Monde_principale(modele, controleur, this);
+        this.monde_principale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Jeux de bio!");
         this.add(monde_principale);
     }
 
     public void ouvrirFenetreSelectionJeu(Jeu jeu) {
-        this.fenetreSelection = new Fenetre_selection(modele, controleur, this, jeu, fenetreJeu);
+        this.fenetreSelection = new FenetreSelection(modele, controleur, this, jeu, fenetreJeu);
     }
 
     public void fermerFenetreSelection() {
@@ -67,7 +67,7 @@ public class Fenetre_principale extends JFrame implements Observer {
     public void logIn() {
         this.monde_principale.reset();
         this.remove(monde_principale);
-        this.monde_principale_logIn = new Monde_principale_logIn(modele, this);
+        this.monde_principale_logIn = new MondePrincipaleLogIn(modele, this);
         this.add(monde_principale_logIn);
         this.validate();
         this.repaint();

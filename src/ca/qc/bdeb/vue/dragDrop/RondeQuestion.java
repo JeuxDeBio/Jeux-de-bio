@@ -12,17 +12,17 @@ import javax.swing.JComponent;
  *
  * @author Batikan
  */
-public class Ronde_question extends JComponent {
+public class RondeQuestion extends JComponent {
 
-    private Boite_question boite;
+    private BoiteQuestion boite;
 
     private int largeur = 20, hauteur = 20;
     private int initialX, initialY;
 
     private boolean hold = false;
     
-    public Ronde_question(String texte, int initialY) {
-        boite = new Boite_question(texte);
+    public RondeQuestion(String texte, int initialY) {
+        boite = new BoiteQuestion(texte);
         this.setSize(boite.getWidth(), boite.getHeight());
         this.add(boite);
         boite.setLocation(0, 0);
@@ -78,7 +78,7 @@ public class Ronde_question extends JComponent {
         return hold;
     }
 
-    public Boite_question getBoite() {
+    public BoiteQuestion getBoite() {
         return boite;
     }
 

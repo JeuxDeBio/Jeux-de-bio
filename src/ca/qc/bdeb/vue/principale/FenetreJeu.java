@@ -8,9 +8,10 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.coureur.Monde_Coureur;
-import ca.qc.bdeb.vue.dragDrop.Monde_Drag_Drop;
-import ca.qc.bdeb.vue.shooter.Monde_Shooter;
+import ca.qc.bdeb.vue.coureur.MondeCoureur;
+import ca.qc.bdeb.vue.dragDrop.MondeDragDrop;
+import ca.qc.bdeb.vue.shooter.MondeShooter;
+import ca.qc.bdeb.vue.speedRun.MondeSpeedRun;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,19 +20,24 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JTextField;
 
 /**
  *  *
  * @author 1649904
  */
-public class Fenetre_jeu extends JFrame {
+public class FenetreJeu extends JFrame {
 
     private Controleur controleur;
     private Modele modele;
 
     private JLabel lblTimerDragDrop = new JLabel("00:00", JLabel.CENTER);
-    private Fenetre_selection fenetreSelection;
-    private Fenetre_principale fenetrePrincipale;
+    private JLabel lblQuestionSpeedRun = new JLabel("", JLabel.CENTER);
+
+    private JTextField txtReponseSpeedrun = new JTextField("");
+
+    private FenetreSelection fenetreSelection;
+    private FenetrePrincipale fenetrePrincipale;
 
     private Jeu jeu;
 
@@ -41,7 +47,7 @@ public class Fenetre_jeu extends JFrame {
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuValiderDragDrop = new JMenuItem("Valider vos reponses!");
 
-    public Fenetre_jeu(Jeu jeu, Fenetre_selection fenetreSelection, Fenetre_principale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
+    public FenetreJeu(Jeu jeu, FenetreSelection fenetreSelection, FenetrePrincipale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
         this.jeu = jeu;
         this.fenetreSelection = fenetreSelection;
         this.fenetrePrincipale = fenetrePrincipale;
@@ -50,7 +56,6 @@ public class Fenetre_jeu extends JFrame {
         this.niveauID = niveauID;
 
         creerInterface();
-        creerEvenements();
 
         this.pack();
         this.setVisible(true);
@@ -62,7 +67,7 @@ public class Fenetre_jeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                Monde_Drag_Drop mondeDragDrop = new Monde_Drag_Drop(lblTimerDragDrop, this, controleur, modele);
+                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimerDragDrop, this, controleur, modele);
                 this.add(mondeDragDrop);
                 this.add(lblTimerDragDrop, BorderLayout.NORTH);
 
@@ -79,19 +84,17 @@ public class Fenetre_jeu extends JFrame {
 
                 break;
             case SHOOTER:
-                Monde_Shooter mondeShooter = new Monde_Shooter(this);
+                MondeShooter mondeShooter = new MondeShooter(this);
                 this.add(mondeShooter);
                 break;
             case COUREUR:
-                Monde_Coureur mondeCoureur = new Monde_Coureur(this);
+                MondeCoureur mondeCoureur = new MondeCoureur(this);
                 this.add(mondeCoureur);
                 break;
             case SPEED_RUN:
+                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestionSpeedRun, txtReponseSpeedrun, this, controleur, modele);
+                this.add(mondeSpeedRun);
         }
-
-    }
-
-    private void creerEvenements() {
 
     }
 

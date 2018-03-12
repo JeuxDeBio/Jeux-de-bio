@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  *
  * @author 1649904
  */
-public class Monde_principale extends JComponent {
+public class MondePrincipale extends JComponent {
 
     private Modele modele;
 
@@ -30,7 +30,7 @@ public class Monde_principale extends JComponent {
 
     private Image image;
 
-    private Fenetre_principale fenetre;
+    private FenetrePrincipale fenetre;
 
     private JTextField txtDA_Etudiant = new JTextField();
     private JTextField txtDA_Professeur = new JTextField();
@@ -49,7 +49,7 @@ public class Monde_principale extends JComponent {
 
     private boolean enJeu = false;
 
-    public Monde_principale(Modele modele, Controleur controleur, Fenetre_principale fenetre) {
+    public MondePrincipale(Modele modele, Controleur controleur, FenetrePrincipale fenetre) {
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
