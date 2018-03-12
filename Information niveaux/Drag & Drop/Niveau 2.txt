@@ -1,9 +1,9 @@
 Mitochondria
 Ecrans\Drag & Drop\Niveau 2.png
-43
-47
-89
-26
+30
+34
+78
+11
 204
 25
 268

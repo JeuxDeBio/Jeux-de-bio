@@ -38,8 +38,12 @@ public class BoiteQuestion extends JComponent {
         if (!occupe) {
             g.setColor(Color.WHITE);
             g.fillRect(20, 0, largeur - 20, hauteur);
+            g.setColor(Color.BLACK);
+            g.drawRect(20, 0, largeur - 21, hauteur - 1);
             g.setColor(Color.RED);
             g.fillOval(0, 15, 20, 20);
+            g.setColor(Color.BLACK);
+            g.drawOval(0, 15, 20, 20);
         }
     }
 

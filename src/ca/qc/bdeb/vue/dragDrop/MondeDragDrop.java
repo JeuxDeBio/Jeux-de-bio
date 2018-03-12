@@ -39,7 +39,7 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
-    private final int largeur = 800, hauteur = 600;
+    private final int largeur = 800, hauteur = 700;
 
     private boolean finJeu = false;
 
@@ -48,12 +48,10 @@ public class MondeDragDrop extends JComponent {
         public void run() {
             super.run(); //To change body of generated methods, choose Tools | Templates.
             while (!finJeu) {
-
                 bougerQuestions();
                 timer();
                 invalidate();
                 repaint();
-
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -194,7 +192,6 @@ public class MondeDragDrop extends JComponent {
                     }
                 }
             } catch (NullPointerException e) {
-
             }
         }
 
