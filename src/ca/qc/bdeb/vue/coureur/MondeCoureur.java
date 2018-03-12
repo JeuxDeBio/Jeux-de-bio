@@ -22,7 +22,7 @@ import javax.swing.*;
 public class MondeCoureur extends JComponent {
 
     FenetreJeu fenetre;
-    Perso perso = new Perso(Perso.Position.MILIEU);
+    Perso perso = new Perso(0);
 
     Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "que fait 5-4");
     private ArrayList<Question> listeQuestions = new ArrayList<>();
