@@ -66,8 +66,8 @@ public class Controleur {
         return modele.getQuestionsCoureur(i);
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        modele.calculerScoreDragDrop(i, nombreErreurs, temps);
+    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
+        modele.calculerScoreDragDrop(jeu, i, nombreErreurs, temps);
     }
 
     public int getScoreNiveau(Jeu jeu, int i) {
