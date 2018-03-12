@@ -21,13 +21,13 @@ import javax.swing.JLabel;
  *
  * @author 1649904
  */
-public class Monde_principale_logIn extends JComponent {
+public class MondePrincipaleLogIn extends JComponent {
 
     private Modele modele;
 
     private Image image;
 
-    private Fenetre_principale fenetre;
+    private FenetrePrincipale fenetre;
 
     private Utilisateur utilisateur;
 
@@ -43,7 +43,7 @@ public class Monde_principale_logIn extends JComponent {
 
     private boolean enJeu = false;
 
-    public Monde_principale_logIn(Modele modele, Fenetre_principale fenetre) {
+    public MondePrincipaleLogIn(Modele modele, FenetrePrincipale fenetre) {P
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
