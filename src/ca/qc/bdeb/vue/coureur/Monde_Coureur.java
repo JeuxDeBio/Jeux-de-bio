@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
@@ -25,8 +28,9 @@ public class Monde_Coureur extends JComponent {
     Perso perso = new Perso(Perso.Position.MILIEU);
 
     Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "que fait 5-4");
-    private ArrayList<Question> listeQuestions = new ArrayList<>();
+    private ArrayList<Question> listeQuestions = chargerFichier();
     private JTextField textQuestion = new JTextField("la question a ajouter ici");
+    
 
 
     Thread thread = new Thread() {
@@ -62,7 +66,7 @@ public class Monde_Coureur extends JComponent {
         this.fenetre = fenetre;
         fenetre.setTitle("bou");
         this.creerInterface();
-
+        
         listeQuestions.add(question1);
 
         this.thread.start();
@@ -136,4 +140,21 @@ public class Monde_Coureur extends JComponent {
         });
         return compteur;
    }
+    
+    private static ArrayList chargerFichier() {
+        ArrayList<Question> liste = new ArrayList();
+        ObjectInputStream fichier;
+        try {
+            fichier = new ObjectInputStream(new FileInputStream("liste questions.bin"));
+            for (int i = 0; i < liste.size(); i++) {
+                liste.add((Question) fichier.readObject());
+            }
+            fichier.close();
+        } catch (ClassNotFoundException e) {
+            System.out.println("fichier non-existant");
+        } catch (IOException e) {
+            System.out.println("fichier non-accessible");
+        }
+        return liste;
+    }
 }

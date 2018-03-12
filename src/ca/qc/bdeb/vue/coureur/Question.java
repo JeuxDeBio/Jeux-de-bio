@@ -7,13 +7,14 @@ package ca.qc.bdeb.vue.coureur;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.JComponent;
 
 /**
  *
  * @author Niopo
  */
-public class Question extends JComponent{
+public class Question extends JComponent implements Serializable{
     private int nbChoix;
     Position position;
     private String question;

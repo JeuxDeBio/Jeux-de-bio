@@ -38,6 +38,10 @@ public class Niveau {
                 break;
             case SHOOTER:
                 lectureInformationShooter();
+                break;
+            case COUREUR:
+                lectureInformationCoureur();
+                break;
         }
 
     }
@@ -78,6 +82,26 @@ public class Niveau {
     }
 
     private void lectureInformationShooter() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
+
+            String ligne = bufferedReader.readLine();
+
+            nomNiveau = ligne;
+
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void lectureInformationCoureur(){
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
 
