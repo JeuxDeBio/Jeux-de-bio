@@ -12,7 +12,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import javax.swing.JComponent;
  *
  * @author 1649904
  */
-class Monde_selection extends JComponent {
+class MondeSelection extends JComponent {
 
     private Modele modele;
 
@@ -30,13 +29,13 @@ class Monde_selection extends JComponent {
 
     private Image image;
 
-    private Fenetre_selection fenetre;
+    private FenetreSelection fenetre;
 
     ArrayList<Bouton> listeNiveaux = new ArrayList();
 
     private Jeu jeu;
 
-    public Monde_selection(Modele modele, Controleur controleur, Fenetre_selection fenetre, Jeu jeu) {
+    public MondeSelection(Modele modele, Controleur controleur, FenetreSelection fenetre, Jeu jeu) {
         this.setPreferredSize(new Dimension(300, 600));
         this.setLayout(null);
 

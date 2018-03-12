@@ -29,7 +29,7 @@ public class Modele extends Observable {
     ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxSpeedRun = new ArrayList<>();
 
-    Utilisateur utilisateur;
+    Etudiant etudiant;
 
     private boolean logIn = false;
 
@@ -45,7 +45,7 @@ public class Modele extends Observable {
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
         // listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "niveau 1", "" ,""));
-        // listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Niveau 1", "", ""));
+         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
     }
 
     public String getLocationFenetrePrincipale() {
@@ -61,7 +61,7 @@ public class Modele extends Observable {
     }
 
     public Utilisateur getUtilisateur() {
-        return this.utilisateur;
+        return this.etudiant;
     }
 
     public void validerUtilisateur(String da, char[] motdepasse) {
@@ -72,7 +72,7 @@ public class Modele extends Observable {
                     motDePasse += motdepasse[j];
                 }
                 if (motDePasse.equals(listeUtilisateurs.get(i).getMotDePasse())) {
-                    this.utilisateur = listeUtilisateurs.get(i);
+                    this.etudiant = listeUtilisateurs.get(i);
                     this.logIn = true;
                     majObserver();
                 } else {
@@ -89,7 +89,7 @@ public class Modele extends Observable {
 
     public void logOut() {
         this.logIn = false;
-        this.utilisateur = null;
+        this.etudiant = null;
     }
 
     private void creerUtilisateur(String da, String motDePasse, String nom, String prenom) {
@@ -132,6 +132,10 @@ public class Modele extends Observable {
                     nomNiveau = listeNiveauxCoureur.get(i).getNom();
                 }
                 break;
+            case SPEED_RUN:
+                if (i < listeNiveauxSpeedRun.size()) {
+                    nomNiveau = listeNiveauxSpeedRun.get(i).getNom();
+                }
         }
 
         return nomNiveau;
@@ -164,24 +168,47 @@ public class Modele extends Observable {
         return listeNiveauxDragDrop.get(i).getQuestions();
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        listeNiveauxDragDrop.get(i).setScore((100 - (nombreErreurs * 10)) - (temps / 30));
+    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
+        int score = (100 - (nombreErreurs * 10)) - (temps / 10);;
+
+        if (etudiant != null) {
+            etudiant.setCurrentScore(Jeu.DRAG_DROP, i, score, temps);
+        } else {
+            switch (jeu) {
+                case DRAG_DROP:
+                    listeNiveauxDragDrop.get(i).setScore(score);
+                    break;
+                case SHOOTER:
+                    listeNiveauxShooter.get(i).setScore(score);
+                    break;
+                case COUREUR:
+                    listeNiveauxCoureur.get(i).setScore(score);
+                    break;
+                case SPEED_RUN:
+                    listeNiveauxSpeedRun.get(i).setScore(score);
+            }
+        }
     }
 
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
-        switch (jeu) {
-            case DRAG_DROP:
-                score = listeNiveauxDragDrop.get(i).getScore();
-                break;
-            case SHOOTER:
-                score = listeNiveauxShooter.get(i).getScore();
-                break;
-            case COUREUR:
-                score = listeNiveauxCoureur.get(i).getScore();
-                break;
-            case SPEED_RUN:
-                score = listeNiveauxSpeedRun.get(i).getScore();
+
+        if (etudiant != null) {
+            score = etudiant.getCurrentScore();
+        } else {
+            switch (jeu) {
+                case DRAG_DROP:
+                    score = listeNiveauxDragDrop.get(i).getScore();
+                    break;
+                case SHOOTER:
+                    score = listeNiveauxShooter.get(i).getScore();
+                    break;
+                case COUREUR:
+                    score = listeNiveauxCoureur.get(i).getScore();
+                    break;
+                case SPEED_RUN:
+                    score = listeNiveauxSpeedRun.get(i).getScore();
+            }
         }
 
         return score;

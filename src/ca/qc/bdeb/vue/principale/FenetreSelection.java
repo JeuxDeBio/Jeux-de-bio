@@ -14,21 +14,21 @@ import javax.swing.JFrame;
  *
  * @author 1649904
  */
-public class Fenetre_selection extends JFrame {
+public class FenetreSelection extends JFrame {
 
     private Modele modele;
 
     private Controleur controleur;
 
-    private Fenetre_principale fenetrePrincipale;
+    private FenetrePrincipale fenetrePrincipale;
 
-    private Fenetre_jeu fenetreJeu;
+    private FenetreJeu fenetreJeu;
 
-    private Monde_selection monde;
+    private MondeSelection monde;
 
     private Jeu jeu;
 
-    public Fenetre_selection(Modele modele, Controleur controleur, Fenetre_principale fenetrePrincipale, Jeu jeu, Fenetre_jeu fenetreJeu) {
+    public FenetreSelection(Modele modele, Controleur controleur, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreJeu fenetreJeu) {
         this.modele = modele;
         this.controleur = controleur;
         this.fenetrePrincipale = fenetrePrincipale;
@@ -43,7 +43,7 @@ public class Fenetre_selection extends JFrame {
     }
 
     private void creerInterface() {
-        this.monde = new Monde_selection(modele, controleur, this, jeu);
+        this.monde = new MondeSelection(modele, controleur, this, jeu);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Sélection de niveaux");
         this.add(monde);
@@ -54,7 +54,7 @@ public class Fenetre_selection extends JFrame {
     }
 
     public void ouvrirFenetreJeu(int i) {
-        this.fenetreJeu = new Fenetre_jeu(jeu, this, fenetrePrincipale, controleur, modele, i);
+        this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);
     }
 
     public void fermerFenetreJeu() {

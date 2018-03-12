@@ -7,7 +7,7 @@ package ca.qc.bdeb.controleur;
 
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.principale.Fenetre_principale;
+import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +20,7 @@ public class Controleur {
 
     public Controleur() {
         modele = new Modele();
-        Fenetre_principale fenetre = new Fenetre_principale(this, modele);
+        FenetrePrincipale fenetre = new FenetrePrincipale(this, modele);
     }
 
     public void validerUtilisateur(String utilisateurDA, char[] utilisateurMotDePasse) {
@@ -55,8 +55,8 @@ public class Controleur {
         return modele.getQuestionsDragDrop(i);
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        modele.calculerScoreDragDrop(i, nombreErreurs, temps);
+    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
+        modele.calculerScoreDragDrop(jeu, i, nombreErreurs, temps);
     }
 
     public int getScoreNiveau(Jeu jeu, int i) {
