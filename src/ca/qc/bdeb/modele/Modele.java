@@ -60,7 +60,7 @@ public class Modele extends Observable {
     }
 
     public Utilisateur getUtilisateur() {
-        return this.utilisateur;
+        return this.etudiant;
     }
 
     public void validerUtilisateur(String da, char[] motdepasse) {
@@ -71,7 +71,7 @@ public class Modele extends Observable {
                     motDePasse += motdepasse[j];
                 }
                 if (motDePasse.equals(listeUtilisateurs.get(i).getMotDePasse())) {
-                    this.utilisateur = listeUtilisateurs.get(i);
+                    this.etudiant = listeUtilisateurs.get(i);
                     this.logIn = true;
                     majObserver();
                 } else {
@@ -88,7 +88,7 @@ public class Modele extends Observable {
 
     public void logOut() {
         this.logIn = false;
-        this.utilisateur = null;
+        this.etudiant = null;
     }
 
     private void creerUtilisateur(String da, String motDePasse, String nom, String prenom) {
