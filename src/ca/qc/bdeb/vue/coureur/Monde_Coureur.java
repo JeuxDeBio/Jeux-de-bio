@@ -7,7 +7,7 @@ package ca.qc.bdeb.vue.coureur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.principale.Fenetre_jeu;
+import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,9 +27,9 @@ import javax.swing.*;
  *
  * @author Niopo
  */
-public class Monde_Coureur extends JComponent {
+public class MondeCoureur extends JComponent {
 
-    Fenetre_jeu fenetre;
+    FenetreJeu fenetre;
     Perso perso = new Perso(0);
 
     Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "0 ", " 8", "que fait 5-4");
@@ -74,7 +74,7 @@ public class Monde_Coureur extends JComponent {
         }
     };
 
-    public Monde_Coureur(Fenetre_jeu fenetre, Controleur controleur, Modele modele) {
+    public MondeCoureur(FenetreJeu fenetre, Controleur controleur, Modele modele) {
         this.setPreferredSize(new Dimension(800, 800));
         this.setLayout(null);
 
