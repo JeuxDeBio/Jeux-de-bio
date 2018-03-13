@@ -49,6 +49,8 @@ public class Niveau {
             case COUREUR:
                 lectureInformationCoureur();
                 break;
+            case SPEED_RUN:
+                lectureInformationSpeedRun();
         }
 
     }
@@ -137,7 +139,7 @@ public class Niveau {
         }
     }
 
-    private void lectureInformationSpeedrun() {
+    private void lectureInformationSpeedRun() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
             boolean renduReponses = false;
