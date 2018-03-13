@@ -9,6 +9,7 @@ import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -40,6 +41,7 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
     private final int largeur = 800, hauteur = 700;
+    private int decalement = 0; //Il faudrait trouver qqch qui fix le probleme
 
     private boolean finJeu = false;
 

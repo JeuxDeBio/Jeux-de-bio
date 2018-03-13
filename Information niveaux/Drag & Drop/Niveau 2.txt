@@ -1,21 +1,21 @@
 Mitochondria
 Ecrans\Drag & Drop\Niveau 2.png
-30
+32
 34
-78
-11
-204
-25
-268
-27
-369
-50
-394
-80
-397
-110
-395
-150
+82
+9
+193
+10
+257
+10
+364
+41
+390
+72
+391
+103
+391
+139
 Questions
 Granule
 Outer membrane
