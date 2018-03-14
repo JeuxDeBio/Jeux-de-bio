@@ -54,21 +54,47 @@ public class Controleur {
     public ArrayList getQuestionsDragDrop(int i) {
         return modele.getQuestionsDragDrop(i);
     }
-    public ArrayList getPositionQuestions(int i){
+
+    public ArrayList getPositionQuestions(int i) {
         return modele.getPositionReponses(i);
     }
-    
-    public ArrayList getReponsesCoureur(int i){
+
+    public ArrayList getReponsesCoureur(int i) {
         return modele.getReponseCoureur(i);
     }
-    
-    public ArrayList getQuestionsCoureur(int i){
+
+    public ArrayList getQuestionsCoureur(int i) {
         return modele.getQuestionsCoureur(i);
     }
 
-    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
-        modele.calculerScoreDragDrop(jeu, i, nombreErreurs, temps);
+    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
+        modele.calculerScoreDragDrop(i, nombreErreurs, temps);
     }
+
+    public ArrayList getQuestionsSpeedRun(int i) {
+        return modele.getQuestionsSpeedRun(i);
+    }
+
+    public ArrayList getReponsesSpeedRun(int i) {
+        return modele.getReponsesSpeedRun(i);
+    }
+    
+    public String getLocationRobot1() {
+        return modele.getLocationRobot1();
+    }
+
+    public String getLocationRobot2() {
+        return modele.getLocationRobot2();
+    }
+
+    public String getLocationRobot3() {
+        return modele.getLocationRobot3();
+    }
+    
+    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions){
+        modele.calculerScoreSpeedRun(i, joueurScore, nombreQuestions);
+    }
+    
 
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);

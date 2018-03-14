@@ -9,7 +9,6 @@ import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -83,10 +82,10 @@ public class MondeDragDrop extends JComponent {
         int[][] coordonnees = controleur.getCoordonneesBoitesReponsesDragDrop(fenetre.getNiveauID());
         ArrayList<String> texte = controleur.getQuestionsDragDrop(fenetre.getNiveauID());
 
-        int[] randomIndex = new int[coordonnees.length];
+        int[] index = new int[coordonnees.length];
 
         for (int i = 0; i < coordonnees.length; i++) {
-            randomIndex[i] = i;
+            index[i] = i;
         }
 
         Random random = new Random();
@@ -96,14 +95,14 @@ public class MondeDragDrop extends JComponent {
         for (int i = 0; i < 10; i++) {
             index1 = random.nextInt(coordonnees.length);
             index2 = random.nextInt(coordonnees.length);
-            temporaire = randomIndex[index1];
-            randomIndex[index1] = randomIndex[index2];
-            randomIndex[index2] = temporaire;
+            temporaire = index[index1];
+            index[index1] = index[index2];
+            index[index2] = temporaire;
         }
 
         for (int i = 0; i < coordonnees.length; i++) {
             if (texte.size() == coordonnees.length) {
-                RondeQuestion question = new RondeQuestion(texte.get(i), ((hauteur / coordonnees.length) * randomIndex[i]) + 20);
+                RondeQuestion question = new RondeQuestion(texte.get(i), ((hauteur / coordonnees.length) * index[i]) + 20);
                 question.setInitialX(largeur - question.getWidth() - 20);
                 this.add(question);
                 listeQuestions.add(question);
@@ -235,7 +234,7 @@ public class MondeDragDrop extends JComponent {
                 }
             }
 
-            controleur.calculerScoreDragDrop(Jeu.DRAG_DROP, fenetre.getNiveauID(), nombreErreurs, compteur);
+            controleur.calculerScoreDragDrop(fenetre.getNiveauID(), nombreErreurs, compteur);
             this.finJeu = true;
 
             if (!motsClesFausses.isEmpty()) {

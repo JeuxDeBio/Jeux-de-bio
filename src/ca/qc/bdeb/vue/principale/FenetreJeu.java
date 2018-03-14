@@ -31,7 +31,7 @@ public class FenetreJeu extends JFrame {
     private Controleur controleur;
     private Modele modele;
 
-    private JLabel lblTimerDragDrop = new JLabel("00:00", JLabel.CENTER);
+    private JLabel lblTimer = new JLabel("", JLabel.CENTER);
     private JLabel lblQuestionSpeedRun = new JLabel("", JLabel.CENTER);
 
     private JTextField txtReponseSpeedrun = new JTextField("");
@@ -67,14 +67,14 @@ public class FenetreJeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimerDragDrop, this, controleur, modele);
+                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimer, this, controleur, modele);
                 this.add(mondeDragDrop);
-                this.add(lblTimerDragDrop, BorderLayout.NORTH);
+                this.add(lblTimer, BorderLayout.NORTH);
 
                 mnuJeu.add(mnuValiderDragDrop);
                 mnuBar.add(mnuJeu);
                 this.setJMenuBar(mnuBar);
-
+                
                 mnuValiderDragDrop.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
@@ -92,7 +92,7 @@ public class FenetreJeu extends JFrame {
                 this.add(mondeCoureur);
                 break;
             case SPEED_RUN:
-                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestionSpeedRun, txtReponseSpeedrun, this, controleur, modele);
+                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestionSpeedRun, txtReponseSpeedrun, lblTimer, this, controleur, modele);
                 this.add(mondeSpeedRun);
         }
 
