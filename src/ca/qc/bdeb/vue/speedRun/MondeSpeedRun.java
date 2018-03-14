@@ -8,12 +8,8 @@ package ca.qc.bdeb.vue.speedRun;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.dragDrop.BoiteReponse;
-import ca.qc.bdeb.vue.dragDrop.RondeQuestion;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -46,7 +42,8 @@ public class MondeSpeedRun extends JComponent {
 
     private final int largeur = 800, hauteur = 600;
 
-    private int timer = 0, compteur = 16;
+    private final int compteurReset = 15;
+    private int timer = 0, compteur = compteurReset;
 
     private boolean finJeu = false;
     private boolean peutRepondre = false;
@@ -62,7 +59,6 @@ public class MondeSpeedRun extends JComponent {
             super.run(); //To change body of generated methods, choose Tools | Templates.
             randomOrdre();
             while (!finJeu) {
-                choixQuestion();
                 timer();
                 finTour();
 
@@ -134,6 +130,8 @@ public class MondeSpeedRun extends JComponent {
                         if (peutRepondre) {
                             verifierReponse();
                             txtReponse.setText("");
+                            lblQuestion.setText("");
+                            compteur = compteurReset;
                         }
                 }
             }
@@ -164,7 +162,9 @@ public class MondeSpeedRun extends JComponent {
 
     private void choixQuestion() {
         if (nombreQuestionsRepondus < index.length) {
-            lblQuestion.setText(listeQuestions.get(index[nombreQuestionsRepondus]));
+            if (peutRepondre) {
+                lblQuestion.setText(listeQuestions.get(index[nombreQuestionsRepondus]));
+            }
         } else {
             finJeu = true;
         }
@@ -173,7 +173,6 @@ public class MondeSpeedRun extends JComponent {
     private void timer() {
         if (timer % 100 == 0) {
             switch (compteur) {
-                case 16:
                 case 15:
                     lblTimer.setText("");
                     break;
@@ -185,9 +184,15 @@ public class MondeSpeedRun extends JComponent {
                 case 11:
                     lblTimer.setText("");
                     break;
+                case 10:
+                    lblTimer.setText(compteur + "");
+                    peutRepondre = true;
+                    choixQuestion();
+                    break;
                 case 0:
                     lblTimer.setText("0");
-                    compteur = 16;
+                    compteur = compteurReset;
+                    peutRepondre = false;
                     break;
                 default:
                     lblTimer.setText(compteur + "");
@@ -195,9 +200,6 @@ public class MondeSpeedRun extends JComponent {
 
             }
             compteur--;
-
-            peutRepondre = !(compteur <= 16 && compteur >= 11);
-
         }
         timer++;
     }
@@ -224,8 +226,8 @@ public class MondeSpeedRun extends JComponent {
             finJeu = true;
         }
     }
-    
-    private void finJeu(){
+
+    private void finJeu() {
         controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore(), nombreBotsDetruits);
         JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()));
     }
