@@ -35,13 +35,13 @@ public class MondeDragDrop extends JComponent {
     private int timer = 0, compteur = 0;
     private FenetreJeu fenetre;
 
-    private Image image;
+    private Image imageQuestion;
 
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
     private final int largeur = 800, hauteur = 700;
-    private int decalement = 0; //Il faudrait trouver qqch qui fix le probleme
+    private int decalement = 50; 
 
     private boolean finJeu = false;
 
@@ -75,12 +75,11 @@ public class MondeDragDrop extends JComponent {
         this.creerEvenements();
 
         this.thread.start();
-
     }
 
     private void creerInterface() {
-        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
-
+        imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
+        
         int[][] coordonnees = controleur.getCoordonneesBoitesReponsesDragDrop(fenetre.getNiveauID());
         ArrayList<String> texte = controleur.getQuestionsDragDrop(fenetre.getNiveauID());
 
@@ -117,7 +116,7 @@ public class MondeDragDrop extends JComponent {
                 BoiteReponse reponse = new BoiteReponse(texte.get(i));
                 this.add(reponse);
                 listeReponses.add(reponse);
-                reponse.setLocation(coordonnees[i][0], coordonnees[i][1]);
+                reponse.setLocation(coordonnees[i][0] + 20, coordonnees[i][1] + decalement);
             }
         }
 
@@ -253,7 +252,8 @@ public class MondeDragDrop extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawImage(image, 0, 0, this);
+        g.drawImage(imageQuestion, 20, decalement, this);
     }
 
+    
 }
