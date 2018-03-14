@@ -17,6 +17,8 @@ public class Etudiant extends Utilisateur {
 
     private ArrayList<Integer> listeMeilleursScoresDragDrop = new ArrayList<>();
     private ArrayList<Integer> listeMeilleursTempsDragDrop = new ArrayList<>();
+    
+    private ArrayList<Integer> listeMeilleursScoresSpeedRun = new ArrayList<>();
 
     private int currentScore = 0;
 
@@ -32,6 +34,8 @@ public class Etudiant extends Utilisateur {
         for (int i = 0; i < 10; i++) {
             listeMeilleursScoresDragDrop.add(0);
             listeMeilleursTempsDragDrop.add(0);
+            
+            listeMeilleursScoresSpeedRun.add(0);
         }
     }
 
@@ -47,11 +51,17 @@ public class Etudiant extends Utilisateur {
                 if (listeMeilleursScoresDragDrop.get(i) < currentScore) {
                     listeMeilleursScoresDragDrop.set(i, currentScore);
                 }
-                
+
                 if (listeMeilleursTempsDragDrop.get(i) == 0 || listeMeilleursTempsDragDrop.get(i) > currentTemps) {
                     listeMeilleursTempsDragDrop.set(i, currentTemps);
                 }
                 break;
+
+            case SPEED_RUN: 
+                if (listeMeilleursScoresSpeedRun.get(i) < currentScore) {
+                    listeMeilleursScoresSpeedRun.set(i, currentScore);
+                }
+                
         }
 
         System.out.println(listeMeilleursScoresDragDrop.get(i) + "  " + listeMeilleursTempsDragDrop.get(i));

@@ -19,9 +19,13 @@ import java.util.logging.Logger;
  */
 public class Modele extends Observable {
 
-    private final String locationFenetrePrincipale = "Ecrans\\Fenetre_principale.png";
-    private final String locationFenetrePrincipaleLogIn = "Ecrans\\Fenetre_principale_logIn.png";
-    private final String locationFenetreSelection = "Ecrans\\Fenetre_selection.png";
+    private final String locationFenetrePrincipale = "Ecrans\\Principale\\Fenetre_principale.png";
+    private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\Fenetre_principale_logIn.png";
+    private final String locationFenetreSelection = "Ecrans\\Principale\\Fenetre_selection.png";
+
+    private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
+    private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
+    private final String locationRobot3 = "Ecrans\\Speed Run\\Robot 3.png";
 
     ArrayList<Etudiant> listeUtilisateurs = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
@@ -167,28 +171,15 @@ public class Modele extends Observable {
     }
 
     public ArrayList getQuestionsDragDrop(int i) {
-        return listeNiveauxDragDrop.get(i).getQuestions();
+        return listeNiveauxDragDrop.get(i).getQuestionsDragDrop();
     }
 
-    public void calculerScoreDragDrop(Jeu jeu, int i, int nombreErreurs, int temps) {
+    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
         int score = (100 - (nombreErreurs * 10)) - (temps / 10);;
-
         if (etudiant != null) {
             etudiant.setCurrentScore(Jeu.DRAG_DROP, i, score, temps);
         } else {
-            switch (jeu) {
-                case DRAG_DROP:
-                    listeNiveauxDragDrop.get(i).setScore(score);
-                    break;
-                case SHOOTER:
-                    listeNiveauxShooter.get(i).setScore(score);
-                    break;
-                case COUREUR:
-                    listeNiveauxCoureur.get(i).setScore(score);
-                    break;
-                case SPEED_RUN:
-                    listeNiveauxSpeedRun.get(i).setScore(score);
-            }
+            listeNiveauxDragDrop.get(i).setScore(score);
         }
     }
 
@@ -203,7 +194,6 @@ public class Modele extends Observable {
     public ArrayList getQuestionsCoureur(int i) {
         return listeNiveauxCoureur.get(i).getQuestionCoureur();
     }
-
 
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
@@ -227,6 +217,35 @@ public class Modele extends Observable {
         }
 
         return score;
+    }
+
+    public ArrayList getQuestionsSpeedRun(int i) {
+        return listeNiveauxSpeedRun.get(i).getQuestionsSpeedRun();
+    }
+
+    public ArrayList getReponsesSpeedRun(int i) {
+        return listeNiveauxSpeedRun.get(i).getReponsesSpeedRun();
+    }
+
+    public String getLocationRobot1() {
+        return locationRobot1;
+    }
+
+    public String getLocationRobot2() {
+        return locationRobot2;
+    }
+
+    public String getLocationRobot3() {
+        return locationRobot3;
+    }
+
+    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
+        int score = (100 - ((nombreQuestions - joueurScore) * 10));
+        if (etudiant != null) {
+            etudiant.setCurrentScore(Jeu.SPEED_RUN, i, score, 0);
+        } else {
+            listeNiveauxSpeedRun.get(i).setScore(score);
+        }
     }
 
     public void majObserver() {

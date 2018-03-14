@@ -192,7 +192,7 @@ public class Niveau {
         return coordonnees;
     }
 
-    public ArrayList getQuestions() {
+    public ArrayList getQuestionsDragDrop() {
         return listeQuestionsDragDrop;
     }
 
@@ -214,5 +214,13 @@ public class Niveau {
     
     public ArrayList getQuestionCoureur(){
         return listeQuestionsCoureur;
+    }
+    
+    public ArrayList getQuestionsSpeedRun(){
+        return listeQuestionsSpeedRun;
+    }
+    
+    public ArrayList getReponsesSpeedRun(){
+        return listeReponsesSpeedRun;
     }
 }
