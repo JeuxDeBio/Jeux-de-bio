@@ -26,6 +26,7 @@ public class Modele extends Observable {
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
     private final String locationRobot3 = "Ecrans\\Speed Run\\Robot 3.png";
+    private final String locationCoeur = "Ecrans\\Speed Run\\Coeur.png";
 
     ArrayList<Etudiant> listeUtilisateurs = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
@@ -237,6 +238,10 @@ public class Modele extends Observable {
 
     public String getLocationRobot3() {
         return locationRobot3;
+    }
+    
+    public String getLocationCoeur(){
+        return locationCoeur;
     }
 
     public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {

@@ -91,6 +91,10 @@ public class Controleur {
         return modele.getLocationRobot3();
     }
     
+    public String getLocationCoeur(){
+        return modele.getLocationCoeur();
+    }
+    
     public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions){
         modele.calculerScoreSpeedRun(i, joueurScore, nombreQuestions);
     }
