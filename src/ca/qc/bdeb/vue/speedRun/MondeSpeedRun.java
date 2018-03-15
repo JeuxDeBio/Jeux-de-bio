@@ -53,6 +53,8 @@ public class MondeSpeedRun extends JComponent {
     private int nombreQuestionsRepondus = 0;
     private int nombreBotsDetruits = 0;
 
+    private ProgressBar progressBar;
+
     Thread thread = new Thread() {
         @Override
         public void run() {
@@ -107,7 +109,7 @@ public class MondeSpeedRun extends JComponent {
 
         lblTimer.setText(compteur + "");
         lblTimer.setSize(20, 20);
-        lblTimer.setLocation((largeur - lblTimer.getWidth()) / 2, 50);
+        lblTimer.setLocation((largeur - lblTimer.getWidth()) / 2, 100);
         this.add(lblTimer);
 
         lblQuestion.setSize(700, 100);
@@ -117,6 +119,12 @@ public class MondeSpeedRun extends JComponent {
         txtReponse.setSize(700, 25);
         txtReponse.setLocation(50, 400);
         this.add(txtReponse);
+
+        txtReponse.setEditable(peutRepondre);
+
+        progressBar = new ProgressBar(listeQuestions);
+        progressBar.setLocation((this.largeur - progressBar.getLargeur()) / 2, 50);
+        this.add(progressBar);
     }
 
     private void creerEvenements() {
@@ -128,6 +136,8 @@ public class MondeSpeedRun extends JComponent {
                 switch (e.getKeyChar()) {
                     case '\n':
                         if (peutRepondre) {
+                            peutRepondre = false;
+                            txtReponse.setEditable(peutRepondre);
                             verifierReponse();
                             txtReponse.setText("");
                             lblQuestion.setText("");
@@ -162,9 +172,9 @@ public class MondeSpeedRun extends JComponent {
     }
 
     private void choixQuestion() {
-        if (nombreQuestionsRepondus < index.length) {
+        if (progressBar.getProgres() < index.length) {
             if (peutRepondre) {
-                lblQuestion.setText(listeQuestions.get(index[nombreQuestionsRepondus]));
+                lblQuestion.setText(listeQuestions.get(index[progressBar.getProgres()]));
             }
         }
     }
@@ -187,6 +197,7 @@ public class MondeSpeedRun extends JComponent {
                 case 10:
                     lblTimer.setText(compteur + "");
                     peutRepondre = true;
+                    txtReponse.setEditable(peutRepondre);
                     choixQuestion();
                     break;
                 case 0:
@@ -195,6 +206,7 @@ public class MondeSpeedRun extends JComponent {
                     lblTimer.setText("0");
                     compteur = compteurReset;
                     peutRepondre = false;
+                    txtReponse.setEditable(peutRepondre);
                     break;
                 default:
                     lblTimer.setText(compteur + "");
@@ -207,13 +219,13 @@ public class MondeSpeedRun extends JComponent {
     }
 
     private void verifierReponse() {
-        if (txtReponse.getText().equals(listeReponses.get(index[nombreQuestionsRepondus]))) {
+        if (txtReponse.getText().equals(listeReponses.get(index[progressBar.getProgres()]))) {
             bot.enleverPointDeVie();
         } else {
             joueur.mauvaiseReponse();
         }
 
-        nombreQuestionsRepondus++;
+        progressBar.ajouterProgres();
     }
 
     private void finTour() {
@@ -224,7 +236,7 @@ public class MondeSpeedRun extends JComponent {
             this.add(bot);
             joueur.botElimine();
             nombreBotsDetruits++;
-        } else if (joueur.joueurDetruit() || !(nombreQuestionsRepondus < index.length)) {
+        } else if (joueur.joueurDetruit() || !(progressBar.getProgres() < index.length)) {
             finJeu = true;
         }
     }
