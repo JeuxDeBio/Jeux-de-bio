@@ -42,7 +42,7 @@ public class MondeSpeedRun extends JComponent {
 
     private final int largeur = 800, hauteur = 600;
 
-    private final int compteurReset = 15;
+    private final int compteurReset = 16;
     private int timer = 0, compteur = compteurReset;
 
     private boolean finJeu = false;
@@ -131,6 +131,7 @@ public class MondeSpeedRun extends JComponent {
                             verifierReponse();
                             txtReponse.setText("");
                             lblQuestion.setText("");
+                            lblTimer.setText("");
                             compteur = compteurReset;
                         }
                 }
@@ -165,14 +166,13 @@ public class MondeSpeedRun extends JComponent {
             if (peutRepondre) {
                 lblQuestion.setText(listeQuestions.get(index[nombreQuestionsRepondus]));
             }
-        } else {
-            finJeu = true;
         }
     }
 
     private void timer() {
         if (timer % 100 == 0) {
             switch (compteur) {
+                case 16:
                 case 15:
                     lblTimer.setText("");
                     break;
@@ -190,6 +190,8 @@ public class MondeSpeedRun extends JComponent {
                     choixQuestion();
                     break;
                 case 0:
+                    verifierReponse();
+                    lblQuestion.setText("");
                     lblTimer.setText("0");
                     compteur = compteurReset;
                     peutRepondre = false;
@@ -222,7 +224,7 @@ public class MondeSpeedRun extends JComponent {
             this.add(bot);
             joueur.botElimine();
             nombreBotsDetruits++;
-        } else if (joueur.joueurDetruit()) {
+        } else if (joueur.joueurDetruit() || !(nombreQuestionsRepondus < index.length)) {
             finJeu = true;
         }
     }

@@ -240,7 +240,7 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
-        int score = (100 - ((nombreQuestions - joueurScore) * 10));
+        int score = 0;
         if (etudiant != null) {
             etudiant.setCurrentScore(Jeu.SPEED_RUN, i, score, 0);
         } else {
