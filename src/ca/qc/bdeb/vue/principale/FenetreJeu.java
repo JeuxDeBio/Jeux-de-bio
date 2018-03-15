@@ -32,9 +32,9 @@ public class FenetreJeu extends JFrame {
     private Modele modele;
 
     private JLabel lblTimer = new JLabel("", JLabel.CENTER);
-    private JLabel lblQuestionSpeedRun = new JLabel("", JLabel.CENTER);
+    private JLabel lblQuestion = new JLabel("", JLabel.CENTER);
 
-    private JTextField txtReponseSpeedrun = new JTextField("");
+    private JTextField txtReponse = new JTextField("");
 
     private FenetreSelection fenetreSelection;
     private FenetrePrincipale fenetrePrincipale;
@@ -88,11 +88,11 @@ public class FenetreJeu extends JFrame {
                 this.add(mondeShooter);
                 break;
             case COUREUR:
-                MondeCoureur mondeCoureur = new MondeCoureur(this);
+                MondeCoureur mondeCoureur = new MondeCoureur(lblQuestion, this, controleur, modele);
                 this.add(mondeCoureur);
                 break;
             case SPEED_RUN:
-                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestionSpeedRun, txtReponseSpeedrun, lblTimer, this, controleur, modele);
+                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestion, txtReponse, lblTimer, this, controleur, modele);
                 this.add(mondeSpeedRun);
         }
 

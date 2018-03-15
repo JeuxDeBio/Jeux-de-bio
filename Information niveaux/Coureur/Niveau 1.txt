@@ -1,5 +1,5 @@
 Niveau 1
--2
-a;b;c;d;e:gauche ext
--1
-q;w;e;r:gauche int
+0
+a;b;c;d;e:question
+0
+q;w;e;r:question

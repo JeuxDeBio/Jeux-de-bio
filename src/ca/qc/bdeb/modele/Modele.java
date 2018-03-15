@@ -184,7 +184,7 @@ public class Modele extends Observable {
         }
     }
 
-    public ArrayList getPositionReponses(int i) {
+    public ArrayList getPositionReponsesCoureur(int i) {
         return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
     }
 

@@ -26,7 +26,7 @@ public class Niveau {
     private ArrayList<String> listeCoordonneesDragDrop = new ArrayList<>();
     private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
     
-    private ArrayList<String> listePositionReponsesCoureur = new ArrayList<>();
+    private ArrayList<Integer> listePositionReponsesCoureur = new ArrayList<>();
     private ArrayList<String> listeQuestionsCoureur = new ArrayList<>();
     private ArrayList<String[]> listeReponseCoureur = new ArrayList<>();
     
@@ -118,16 +118,13 @@ public class Niveau {
 
             nomNiveau = ligne;
             ligne = bufferedReader.readLine();
-            //locationImage = ligne;
-            //ligne = bufferedReader.readLine();
             while (ligne != null) {
-                listePositionReponsesCoureur.add(ligne);
+                listePositionReponsesCoureur.add(Integer.parseInt(ligne));
                 ligne = bufferedReader.readLine();
                 String split[] = ligne.split(":");
                 listeQuestionsCoureur.add(split[1]);
                 split = split[0].split(";");
                 listeReponseCoureur.add(split);
-                
                 ligne = bufferedReader.readLine();
                
             }

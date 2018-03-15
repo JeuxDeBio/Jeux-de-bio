@@ -56,7 +56,7 @@ public class Controleur {
     }
 
     public ArrayList getPositionQuestions(int i) {
-        return modele.getPositionReponses(i);
+        return modele.getPositionReponsesCoureur(i);
     }
 
     public ArrayList getReponsesCoureur(int i) {
