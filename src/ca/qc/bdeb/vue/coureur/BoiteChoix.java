@@ -39,10 +39,6 @@ public class BoiteChoix extends JComponent {
         return hauteur;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
@@ -54,6 +50,10 @@ public class BoiteChoix extends JComponent {
 
     public String getTexte() {
         return texte;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
 }

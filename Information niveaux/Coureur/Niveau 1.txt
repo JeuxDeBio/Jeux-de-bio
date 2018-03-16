@@ -1,5 +1,7 @@
 Niveau 1
+4
+9;aucune reponse;lol;20;0:que fait 10 - 10?
 0
-a;b;c;d;e:question
-0
-q;w;e;r:question
+lol;lol!;(lol);lolol:lol?
+2
+0;1;9;3:que fait 5 + 4?

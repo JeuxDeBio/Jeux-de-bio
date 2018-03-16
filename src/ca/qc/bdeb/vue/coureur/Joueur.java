@@ -18,6 +18,7 @@ public class Joueur extends JComponent {
     private final int largeur = 36, hauteur = 76;
     private BoiteChoix choix;
     private boolean faitChoix = false;
+    private int score = 0;
 
     public Joueur() {
         setSize(largeur, hauteur);
@@ -27,7 +28,7 @@ public class Joueur extends JComponent {
         this.choix = choix;
     }
 
-    public void faitchoixTrue() {
+    public void faitChoixTrue() {
         faitChoix = true;
     }
 
@@ -41,6 +42,14 @@ public class Joueur extends JComponent {
 
     public BoiteChoix getChoix() {
         return choix;
+    }
+
+    public void ajouterPoint() {
+        score++;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override
