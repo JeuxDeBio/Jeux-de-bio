@@ -5,15 +5,17 @@
  */
 package ca.qc.bdeb.vue.coureur;
 
+import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,119 +23,226 @@ import javax.swing.*;
  */
 public class MondeCoureur extends JComponent {
 
-    FenetreJeu fenetre;
-    Perso perso = new Perso(0);
+    private Modele modele;
+    private Controleur controleur;
+    private FenetreJeu fenetre;
 
-    Question question1 = new Question(5, Question.Position.GAUCHE_EXT, "1", "2", "3", "que fait 5-4");
-    private ArrayList<Question> listeQuestions = new ArrayList<>();
-    private JTextField textQuestion = new JTextField("la question a ajouter ici");
+    private JLabel lblQuestion;
 
+    private final int largeur = 800, hauteur = 700;
+    private int distanceEntreBoites;
 
-    Thread thread = new Thread() {
-        boolean finPartie = false;
-        Question questionEnCours;
-        int compteurMouvement;
-        int a =0; ///bs
+    private int compteur = 0;
+
+    private ArrayList<String> listeQuestions = new ArrayList();
+    private ArrayList<String[]> listeChoix = new ArrayList();
+    private ArrayList<Integer> listePositionsReponses = new ArrayList<>();
+    private ArrayList<BoiteChoix> listeChoixEnCours = new ArrayList<>();
+
+    private Joueur joueur;
+
+    private int[] index;
+
+    private boolean finJeu = false;
+    private boolean debutTour = true;
+
+    private ProgressBar progressBar;
+
+    private Thread thread = new Thread() {
+
         @Override
         public void run() {
-            super.run();
-            while (!finPartie) {
-                perso.requestFocus();
+            super.run(); //To change body of generated methods, choose Tools | Templates.
 
-                questionEnCours = choixQuestion(a);
-                compteurMouvement = bougerPerso(questionEnCours, compteurMouvement);
-                a=1;
+            randomOrdre();
+
+            while (!finJeu) {
+                joueur.requestFocus();
+
+                if (debutTour) {
+                    debutTour();
+                }
+
+                bougerBoites();
+                collision();
+                if (joueur.faitChoix()) {
+                    if (verifierReponse()) {
+                        finTour();
+                        finJeu = !(compteur < listeQuestions.size());
+                    } else {
+                        finJeu = true;
+                    }
+                }
+
+                invalidate();
+                repaint();
+
                 try {
-                    Thread.sleep(20);
-
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
-                    invalidate();
-                    repaint();
                 }
             }
-            fenetre.fermerFenetre();
+
+            finJeu();
+
         }
     };
 
-    public MondeCoureur(FenetreJeu fenetre) {
-        this.setPreferredSize(new Dimension(800, 800));
+    public MondeCoureur(JLabel lblQuestion, FenetreJeu fenetre, Controleur controleur, Modele modele) {
+        this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
         this.fenetre = fenetre;
-        fenetre.setTitle("bou");
-        this.creerInterface();
+        this.controleur = controleur;
+        this.modele = modele;
 
-        listeQuestions.add(question1);
+        this.lblQuestion = lblQuestion;
+
+        this.creerInterface();
+        this.creerEvenements();
 
         this.thread.start();
+
     }
 
-    public void creerInterface() {
-        add(perso);
-        perso.setVisible(true);
+    private void creerInterface() {
+        listeQuestions = controleur.getQuestionsCoureur(fenetre.getNiveauID());
+        listeChoix = controleur.getReponsesCoureur(fenetre.getNiveauID());
+        listePositionsReponses = controleur.getPositionQuestions(fenetre.getNiveauID());
 
-        perso.setLocation(400 - (perso.getWidth() / 2), 600);
-        textQuestion.setSize(800, 35);
-        textQuestion.setLocation(0, 0);
-        textQuestion.setFont(new Font("Arial", Font.PLAIN, 18));
-        textQuestion.setBackground(Color.LIGHT_GRAY);
-        textQuestion.setEditable(false);
-        add(textQuestion);
+        joueur = new Joueur();
+        joueur.setLocation((largeur - joueur.getWidth()) / 2, hauteur - joueur.getHeight() - 25);
+        this.add(joueur);
+
+        progressBar = new ProgressBar(listeQuestions);
+        progressBar.setLocation((this.largeur - progressBar.getLargeur()) / 2, 50);
+        this.add(progressBar);
     }
 
-    public Question choixQuestion(int a) {
-        Question question;
-        Random r = new Random();
-        int choix = r.nextInt(listeQuestions.size());
-        question = listeQuestions.get(choix);
-        //listeQuestions.remove(listeQuestions.get(choix)); remettre le fait d'enlever
-        if (question.getNbChoix() == 4 && a ==0) {
-            perso.setLocation(300 - perso.getWidth()/2, perso.getY()); // fuck a
-        }
-        return question;
-    }
-
-    public int bougerPerso(Question question, int compteur) {
-        if (!perso.isPeutBouger()) {
-            compteur++;
-        }
-        if (compteur % 7 == 0) {
-            perso.setPeutBouger(true);
-        }
-        perso.addKeyListener(new KeyAdapter() {
-
+    private void creerEvenements() {
+        joueur.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == e.VK_RIGHT && perso.isPeutBouger()) {
-                    switch (question.getNbChoix()) {
-                        case 3:
-                            perso.setLocation(perso.getX() + ((800 / 3)), perso.getY());
+                super.keyPressed(e); //To change body of generated methods, choose Tools | Templates.
+                if (!joueur.faitChoix()) {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_RIGHT:
+                            if (joueur.getX() + listeChoixEnCours.get(0).getLargeur() + distanceEntreBoites < largeur) {
+                                bougerDroite();
+                            }
                             break;
-                        case 4:
-                            perso.setLocation(perso.getX() + (200), perso.getY());
-                            break;
-                        case 5:
-                            perso.setLocation(perso.getX() + ((800 / 5)), perso.getY());
-                            break;
+                        case KeyEvent.VK_LEFT:
+                            if (joueur.getX() - listeChoixEnCours.get(0).getLargeur() - distanceEntreBoites > 0) {
+                                bougerGauche();
+                            }
                     }
-                    perso.setPeutBouger(false);
-                } else if (e.getKeyCode() == e.VK_LEFT && perso.isPeutBouger()) {
-                    switch (question.getNbChoix()) {
-                        case 3:
-                            perso.setLocation(perso.getX() - ((800 / 3)), perso.getY());
-                            break;
-                        case 4:
-                            perso.setLocation(perso.getX() - (200), perso.getY());
-                            break;
-                        case 5:
-                            perso.setLocation(perso.getX() - ((800 / 5)), perso.getY());
-                            break;
-                    }
-                    perso.setPeutBouger(false);
                 }
-
             }
-
         });
-        return compteur;
-   }
+    }
+
+    private void randomOrdre() {
+        index = new int[listeQuestions.size()];
+
+        Random random = new Random();
+
+        for (int i = 0; i < listeQuestions.size(); i++) {
+            index[i] = i;
+        }
+
+        int index1, index2, temporaire;
+
+        for (int i = 0; i < 10; i++) {
+            index1 = random.nextInt(listeQuestions.size());
+            index2 = random.nextInt(listeQuestions.size());
+            temporaire = index[index1];
+            index[index1] = index[index2];
+            index[index2] = temporaire;
+        }
+
+    }
+
+    private void debutTour() {
+        joueur.faitChoixFalse();
+        debutTour = false;
+        afficherQuestionEtChoix();
+        placerJoueur();
+    }
+
+    private void bougerGauche() {
+        joueur.setLocation(joueur.getX() - listeChoixEnCours.get(0).getLargeur() - distanceEntreBoites, joueur.getY());
+    }
+
+    private void bougerDroite() {
+        joueur.setLocation(joueur.getX() + listeChoixEnCours.get(0).getLargeur() + distanceEntreBoites, joueur.getY());
+    }
+
+    private void afficherQuestionEtChoix() {
+        lblQuestion.setSize(700, 100);
+        lblQuestion.setLocation(25, 50);
+        this.add(lblQuestion);
+
+        lblQuestion.setText(listeQuestions.get(index[compteur]));
+
+        for (int i = 0; i < listeChoix.get(index[compteur]).length; i++) {
+            BoiteChoix boiteChoix = new BoiteChoix(listeChoix.get(index[compteur])[i], i);
+            distanceEntreBoites = (largeur - (listeChoix.get(index[compteur]).length * boiteChoix.getLargeur())) / (listeChoix.get(index[compteur]).length + 1);
+            boiteChoix.setLocation((boiteChoix.getLargeur() + distanceEntreBoites) * i + distanceEntreBoites, 100);
+            this.add(boiteChoix);
+            listeChoixEnCours.add(boiteChoix);
+        }
+    }
+
+    private void bougerBoites() {
+        for (BoiteChoix boite : listeChoixEnCours) {
+            boite.setLocation(boite.getX(), boite.getY() + 1);
+        }
+    }
+
+    private void placerJoueur() {
+        if (listeChoixEnCours.size() % 2 == 0) {
+            joueur.setLocation((listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getX() + (listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getLargeur() / 2)) - (joueur.getWidth()) / 2, joueur.getY());
+        } else {
+            joueur.setLocation((listeChoixEnCours.get((listeChoixEnCours.size() - 1) / 2).getX() + (listeChoixEnCours.get((listeChoixEnCours.size() - 1) / 2).getLargeur()) / 2) - (joueur.getWidth()) / 2, joueur.getY());
+        }
+    }
+
+    private void collision() {
+        for (BoiteChoix boite : listeChoixEnCours) {
+            if (boite.getBounds().intersects(joueur.getBounds())) {
+                joueur.setChoix(boite);
+                joueur.faitChoixTrue();
+            }
+        }
+    }
+
+    private boolean verifierReponse() {
+        progressBar.ajouterProgres();
+        return joueur.getChoix().getPosition() == listePositionsReponses.get(index[compteur]);
+    }
+
+    private void finTour() {
+        for (BoiteChoix boite : listeChoixEnCours) {
+            boite.setLocation(1000, 1000);
+        }
+        listeChoixEnCours.removeAll(listeChoixEnCours);
+        debutTour = true;
+        compteur++;
+        joueur.ajouterPoint();
+    }
+
+    private void finJeu() {
+        for (BoiteChoix boite : listeChoixEnCours) {
+            boite.setLocation(1000, 1000);
+        }
+        joueur.setLocation((largeur - joueur.getWidth()) / 2, hauteur - joueur.getHeight() - 25);
+        lblQuestion.setText("");
+
+        if (joueur.getScore() == listeQuestions.size()) {
+            JOptionPane.showMessageDialog(this, "Vous avez tout bon!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Voici la bonne reponse: " + listeChoix.get(index[compteur])[listePositionsReponses.get(index[compteur])]);
+        }
+        fenetre.fermerFenetre();
+    }
 }

@@ -1,21 +1,10 @@
-﻿Niveau 1
+﻿Température et précipitations anuelles moyennes
 Ecrans\Drag & Drop\Niveau 1.png
-103
-78
-253
-78
-409
-78
-334
-180
-333
-256
-333
-325
-Questions
-Désert
-Prairie tempérée
-Forêt tropicale
-Forêt décidue tempérée
-Forêt des Conifères
-Toundra arctique et alpine
+Ecrans\Drag & Drop\Niveau 1 C.png
+537;458
+103;78:Désert
+253;78:Prairie tempérée
+409;78:Forêt tropicale
+334;180:Forêt décidue tempérée
+333;256:Forêt des Conifères
+333;325:Toundra arctique et alpine

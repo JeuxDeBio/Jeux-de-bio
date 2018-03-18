@@ -7,7 +7,6 @@ package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
-import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -27,7 +26,6 @@ import javax.swing.JOptionPane;
  */
 public class MondeDragDrop extends JComponent {
 
-    private Modele modele;
     private Controleur controleur;
 
     private JLabel lblTimer;
@@ -40,7 +38,8 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
     private final int largeur = 800, hauteur = 700;
-    private int decalement = 50; 
+    private int[] sizeQuestion;
+    private int decalementX, decalementY;
 
     private boolean finJeu = false;
 
@@ -61,11 +60,10 @@ public class MondeDragDrop extends JComponent {
         }
     };
 
-    public MondeDragDrop(JLabel lblTimer, FenetreJeu fenetre, Controleur controleur, Modele modele) {
+    public MondeDragDrop(JLabel lblTimer, FenetreJeu fenetre, Controleur controleur) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
-        this.modele = modele;
         this.controleur = controleur;
         this.fenetre = fenetre;
         this.lblTimer = lblTimer;
@@ -78,13 +76,15 @@ public class MondeDragDrop extends JComponent {
 
     private void creerInterface() {
         imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
-        
-        int[][] coordonnees = controleur.getCoordonneesBoitesReponsesDragDrop(fenetre.getNiveauID());
+        sizeQuestion = controleur.getSizeImageDragDrop(fenetre.getNiveauID());
+
+        ArrayList<int[]> coordonnees = controleur.getCoordonneesBoitesReponsesDragDrop(fenetre.getNiveauID());
+
         ArrayList<String> texte = controleur.getQuestionsDragDrop(fenetre.getNiveauID());
 
-        int[] index = new int[coordonnees.length];
+        int[] index = new int[coordonnees.size()];
 
-        for (int i = 0; i < coordonnees.length; i++) {
+        for (int i = 0; i < coordonnees.size(); i++) {
             index[i] = i;
         }
 
@@ -93,16 +93,16 @@ public class MondeDragDrop extends JComponent {
         int index1, index2, temporaire;
 
         for (int i = 0; i < 10; i++) {
-            index1 = random.nextInt(coordonnees.length);
-            index2 = random.nextInt(coordonnees.length);
+            index1 = random.nextInt(coordonnees.size());
+            index2 = random.nextInt(coordonnees.size());
             temporaire = index[index1];
             index[index1] = index[index2];
             index[index2] = temporaire;
         }
 
-        for (int i = 0; i < coordonnees.length; i++) {
-            if (texte.size() == coordonnees.length) {
-                RondeQuestion question = new RondeQuestion(texte.get(i), ((hauteur / coordonnees.length) * index[i]) + 20);
+        for (int i = 0; i < coordonnees.size(); i++) {
+            if (texte.size() == coordonnees.size()) {
+                RondeQuestion question = new RondeQuestion(texte.get(i), ((hauteur / coordonnees.size()) * index[i]) + 20);
                 question.setInitialX(largeur - question.getWidth() - 20);
                 this.add(question);
                 listeQuestions.add(question);
@@ -110,12 +110,15 @@ public class MondeDragDrop extends JComponent {
             }
         }
 
-        for (int i = 0; i < coordonnees.length; i++) {
-            if (texte.size() == coordonnees.length) {
+        decalementX = (largeur - listeQuestions.get(0).getWidth() - 20 - sizeQuestion[0]) / 2;
+        decalementY = (hauteur - sizeQuestion[1]) / 2;
+
+        for (int i = 0; i < coordonnees.size(); i++) {
+            if (texte.size() == coordonnees.size()) {
                 BoiteReponse reponse = new BoiteReponse(texte.get(i));
                 this.add(reponse);
                 listeReponses.add(reponse);
-                reponse.setLocation(coordonnees[i][0] + 20, coordonnees[i][1] + decalement);
+                reponse.setLocation(coordonnees.get(i)[0] + decalementX, coordonnees.get(i)[1] + decalementY);
             }
         }
 
@@ -251,8 +254,7 @@ public class MondeDragDrop extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawImage(imageQuestion, 20, decalement, this);
+        g.drawImage(imageQuestion, decalementX, decalementY, this);
     }
 
-    
 }

@@ -47,7 +47,15 @@ public class Controleur {
         return modele.getLocationNiveau(jeu, i);
     }
 
-    public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
+    public String getLocationNiveauCorrige(Jeu jeu, int i) {
+        return modele.getLocationNiveauCorrige(jeu, i);
+    }
+
+    public int[] getSizeImageDragDrop(int i) {
+        return modele.getSizeImageDragDrop(i);
+    }
+
+    public ArrayList<int[]> getCoordonneesBoitesReponsesDragDrop(int i) {
         return modele.getCoordonneesBoitesReponsesDragDrop(i);
     }
 
@@ -56,7 +64,7 @@ public class Controleur {
     }
 
     public ArrayList getPositionQuestions(int i) {
-        return modele.getPositionReponses(i);
+        return modele.getPositionReponsesCoureur(i);
     }
 
     public ArrayList getReponsesCoureur(int i) {
@@ -78,7 +86,7 @@ public class Controleur {
     public ArrayList getReponsesSpeedRun(int i) {
         return modele.getReponsesSpeedRun(i);
     }
-    
+
     public String getLocationRobot1() {
         return modele.getLocationRobot1();
     }
@@ -90,15 +98,14 @@ public class Controleur {
     public String getLocationRobot3() {
         return modele.getLocationRobot3();
     }
-    
-    public String getLocationCoeur(){
+
+    public String getLocationCoeur() {
         return modele.getLocationCoeur();
     }
-    
-    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions){
+
+    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
         modele.calculerScoreSpeedRun(i, joueurScore, nombreQuestions);
     }
-    
 
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);

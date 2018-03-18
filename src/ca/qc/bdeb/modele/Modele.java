@@ -44,14 +44,15 @@ public class Modele extends Observable {
         creerUtilisateur("789", "789", "Chris", "Chris");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
+        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
 
-        listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
-
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
+        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
+
+        listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
 
     }
 
@@ -167,8 +168,31 @@ public class Modele extends Observable {
         return locationNiveau;
     }
 
-    public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
-        return listeNiveauxDragDrop.get(i).getCoordonnees();
+    public String getLocationNiveauCorrige(Jeu jeu, int i) {
+        String locationNiveauCorrige = "";
+
+        switch (jeu) {
+            case DRAG_DROP:
+                locationNiveauCorrige = listeNiveauxDragDrop.get(i).getLocation();
+                break;
+            case SHOOTER:
+                locationNiveauCorrige = listeNiveauxShooter.get(i).getLocation();
+                break;
+            case COUREUR:
+                locationNiveauCorrige = listeNiveauxCoureur.get(i).getLocation();
+                break;
+            case SPEED_RUN:
+                locationNiveauCorrige = listeNiveauxSpeedRun.get(i).getLocation();
+        }
+        return locationNiveauCorrige;
+    }
+
+    public int[] getSizeImageDragDrop(int i) {
+        return listeNiveauxDragDrop.get(i).getSizeImageDragDrop();
+    }
+
+    public ArrayList<int[]> getCoordonneesBoitesReponsesDragDrop(int i) {
+        return listeNiveauxDragDrop.get(i).getCoordonneesDragDrop();
     }
 
     public ArrayList getQuestionsDragDrop(int i) {
@@ -184,7 +208,7 @@ public class Modele extends Observable {
         }
     }
 
-    public ArrayList getPositionReponses(int i) {
+    public ArrayList getPositionReponsesCoureur(int i) {
         return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
     }
 
@@ -239,8 +263,8 @@ public class Modele extends Observable {
     public String getLocationRobot3() {
         return locationRobot3;
     }
-    
-    public String getLocationCoeur(){
+
+    public String getLocationCoeur() {
         return locationCoeur;
     }
 

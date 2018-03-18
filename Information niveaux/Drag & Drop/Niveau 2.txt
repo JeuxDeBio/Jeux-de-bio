@@ -1,27 +1,11 @@
 Mitochondria
 Ecrans\Drag & Drop\Niveau 2.png
-32
-34
-82
-9
-193
-10
-257
-10
-364
-41
-390
-72
-391
-103
-391
-139
-Questions
-Granule
-Outer membrane
-DNA
-Inner membrane
-F1 Particle
-Matrix
-Cristae
-Ribosome
+Ecrans\Drag & Drop\Niveau 2 C.png
+32;34:Granule
+82;9:Outer membrane
+193;10:DNA
+257;10:Inner membrane
+364;41:F1 Particle
+390;72:Matrix
+391;103:Cristae
+391;139:Ribosome
