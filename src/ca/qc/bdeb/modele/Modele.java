@@ -44,11 +44,11 @@ public class Modele extends Observable {
         creerUtilisateur("789", "789", "Chris", "Chris");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
+        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
-        
+
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
 
@@ -167,7 +167,7 @@ public class Modele extends Observable {
         }
         return locationNiveau;
     }
-    
+
     public String getLocationNiveauCorrige(Jeu jeu, int i) {
         String locationNiveauCorrige = "";
 
@@ -185,6 +185,10 @@ public class Modele extends Observable {
                 locationNiveauCorrige = listeNiveauxSpeedRun.get(i).getLocation();
         }
         return locationNiveauCorrige;
+    }
+
+    public int[] getSizeImageDragDrop(int i) {
+        return listeNiveauxDragDrop.get(i).getSizeImageDragDrop();
     }
 
     public ArrayList<int[]> getCoordonneesBoitesReponsesDragDrop(int i) {
@@ -259,8 +263,8 @@ public class Modele extends Observable {
     public String getLocationRobot3() {
         return locationRobot3;
     }
-    
-    public String getLocationCoeur(){
+
+    public String getLocationCoeur() {
         return locationCoeur;
     }
 

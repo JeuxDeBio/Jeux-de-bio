@@ -46,9 +46,13 @@ public class Controleur {
     public String getLocationNiveau(Jeu jeu, int i) {
         return modele.getLocationNiveau(jeu, i);
     }
-    
+
     public String getLocationNiveauCorrige(Jeu jeu, int i) {
         return modele.getLocationNiveauCorrige(jeu, i);
+    }
+
+    public int[] getSizeImageDragDrop(int i) {
+        return modele.getSizeImageDragDrop(i);
     }
 
     public ArrayList<int[]> getCoordonneesBoitesReponsesDragDrop(int i) {

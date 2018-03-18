@@ -1,6 +1,7 @@
 ﻿Température et précipitations anuelles moyennes
 Ecrans\Drag & Drop\Niveau 1.png
 Ecrans\Drag & Drop\Niveau 1 C.png
+537;458
 103;78:Désert
 253;78:Prairie tempérée
 409;78:Forêt tropicale

@@ -109,7 +109,7 @@ public class MondeDragDrop extends JComponent {
                 question.setLocation(question.getInitialX(), question.getInitialY());
             }
         }
-        
+
         decalementX = (largeur - listeQuestions.get(0).getWidth() - 20 - sizeQuestion[0]) / 2;
         decalementY = (hauteur - sizeQuestion[1]) / 2;
 

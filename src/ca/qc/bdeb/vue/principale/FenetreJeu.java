@@ -67,7 +67,7 @@ public class FenetreJeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimer, this, controleur, modele);
+                MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimer, this, controleur);
                 this.add(mondeDragDrop);
                 this.add(lblTimer, BorderLayout.NORTH);
 
