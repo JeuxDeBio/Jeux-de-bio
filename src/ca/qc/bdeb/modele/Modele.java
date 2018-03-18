@@ -48,10 +48,11 @@ public class Modele extends Observable {
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
+        
+        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
+        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
-
-        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
 
     }
 
@@ -166,9 +167,28 @@ public class Modele extends Observable {
         }
         return locationNiveau;
     }
+    
+    public String getLocationNiveauCorrige(Jeu jeu, int i) {
+        String locationNiveauCorrige = "";
 
-    public int[][] getCoordonneesBoitesReponsesDragDrop(int i) {
-        return listeNiveauxDragDrop.get(i).getCoordonnees();
+        switch (jeu) {
+            case DRAG_DROP:
+                locationNiveauCorrige = listeNiveauxDragDrop.get(i).getLocation();
+                break;
+            case SHOOTER:
+                locationNiveauCorrige = listeNiveauxShooter.get(i).getLocation();
+                break;
+            case COUREUR:
+                locationNiveauCorrige = listeNiveauxCoureur.get(i).getLocation();
+                break;
+            case SPEED_RUN:
+                locationNiveauCorrige = listeNiveauxSpeedRun.get(i).getLocation();
+        }
+        return locationNiveauCorrige;
+    }
+
+    public ArrayList<int[]> getCoordonneesBoitesReponsesDragDrop(int i) {
+        return listeNiveauxDragDrop.get(i).getCoordonneesDragDrop();
     }
 
     public ArrayList getQuestionsDragDrop(int i) {
