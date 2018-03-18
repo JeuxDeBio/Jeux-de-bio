@@ -22,18 +22,18 @@ public class Niveau {
     private String locationInformation;
     private String nomNiveau;
     private String locationImage;
+    private String locationImageCorrige;
 
-    private ArrayList<String> listeCoordonneesDragDrop = new ArrayList<>();
+    private ArrayList<int[]> listeCoordonneesDragDrop = new ArrayList<>();
     private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
-    
+
     private ArrayList<Integer> listePositionReponsesCoureur = new ArrayList<>();
     private ArrayList<String> listeQuestionsCoureur = new ArrayList<>();
     private ArrayList<String[]> listeReponseCoureur = new ArrayList<>();
-    
+
     private ArrayList<String> listeQuestionsSpeedRun = new ArrayList<>();
     private ArrayList<String> listeReponsesSpeedRun = new ArrayList<>();
-    
-    private int nombreQuestionsDragDrop = 0;
+
     private int score = 0;
 
     public Niveau(Jeu jeu, String locationInformation) {
@@ -58,30 +58,29 @@ public class Niveau {
     private void lectureInformationDragDrop() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
-
-            boolean renduQuestions = false;
             String ligne = bufferedReader.readLine();
-
             nomNiveau = ligne;
             ligne = bufferedReader.readLine();
             locationImage = ligne;
             ligne = bufferedReader.readLine();
-
+            locationImageCorrige = ligne;
+            ligne = bufferedReader.readLine();
             while (ligne != null) {
-                if (!renduQuestions) {
-                    if (ligne.equals("Questions")) {
-                        renduQuestions = true;
-                    }
-                    listeCoordonneesDragDrop.add(ligne);
-                    ligne = bufferedReader.readLine();
-                } else {
-                    listeQuestionsDragDrop.add(ligne);
-                    ligne = bufferedReader.readLine();
-                    nombreQuestionsDragDrop++;
-                }
-            }
+                String split[] = ligne.split(":");
+                listeQuestionsDragDrop.add(split[1]);
+                split = split[0].split(";");
 
+                int[] coordonneesSplit = new int[split.length];
+                for (int i = 0; i < coordonneesSplit.length; i++) {
+                    coordonneesSplit[i] = Integer.parseInt(split[i]);
+                }
+
+                listeCoordonneesDragDrop.add(coordonneesSplit);
+
+                ligne = bufferedReader.readLine();
+            }
             bufferedReader.close();
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -109,11 +108,11 @@ public class Niveau {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void lectureInformationCoureur(){
+
+    private void lectureInformationCoureur() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
-            
+
             String ligne = bufferedReader.readLine();
 
             nomNiveau = ligne;
@@ -126,7 +125,7 @@ public class Niveau {
                 split = split[0].split(";");
                 listeReponseCoureur.add(split);
                 ligne = bufferedReader.readLine();
-               
+
             }
             bufferedReader.close();
         } catch (FileNotFoundException ex) {
@@ -159,7 +158,7 @@ public class Niveau {
             }
 
             listeQuestionsSpeedRun.remove(listeQuestionsSpeedRun.size() - 1);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -176,17 +175,12 @@ public class Niveau {
         return locationImage;
     }
 
-    public int[][] getCoordonnees() {
-        int[][] coordonnees = new int[nombreQuestionsDragDrop][2];
-        try {
-            for (int i = 0; i < nombreQuestionsDragDrop; i++) {
-                for (int j = 0; j < 2; j++) {
-                    coordonnees[i][j] = Integer.parseInt(listeCoordonneesDragDrop.get((2 * i) + j));
-                }
-            }
-        } catch (NumberFormatException e) {
-        }
-        return coordonnees;
+    public String getLocationCorrige() {
+        return locationImageCorrige;
+    }
+
+    public ArrayList<int[]> getCoordonneesDragDrop() {
+        return listeCoordonneesDragDrop;
     }
 
     public ArrayList getQuestionsDragDrop() {
@@ -200,24 +194,24 @@ public class Niveau {
     public void setScore(int score) {
         this.score = score;
     }
-    
-    public ArrayList getPositionReponsesCoureur(){
+
+    public ArrayList getPositionReponsesCoureur() {
         return listePositionReponsesCoureur;
     }
-    
-    public ArrayList getReponsesCoureur(){
+
+    public ArrayList getReponsesCoureur() {
         return listeReponseCoureur;
     }
-    
-    public ArrayList getQuestionCoureur(){
+
+    public ArrayList getQuestionCoureur() {
         return listeQuestionsCoureur;
     }
-    
-    public ArrayList getQuestionsSpeedRun(){
+
+    public ArrayList getQuestionsSpeedRun() {
         return listeQuestionsSpeedRun;
     }
-    
-    public ArrayList getReponsesSpeedRun(){
+
+    public ArrayList getReponsesSpeedRun() {
         return listeReponsesSpeedRun;
     }
 }
