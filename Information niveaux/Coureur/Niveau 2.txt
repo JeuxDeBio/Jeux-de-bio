@@ -1,3 +1,15 @@
 Niveau 2
 0
-0;0;0;0;0:0
+a:a
+1
+a;b:b
+2
+a;b;c:c
+3
+a;b;c;d:d
+4
+a;b;c;d;e:e
+5
+a;b;c;d;e;f:f
+6
+a;b;c;d;e;f;g:g
