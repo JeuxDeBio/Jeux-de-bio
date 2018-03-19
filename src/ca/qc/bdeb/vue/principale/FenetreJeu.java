@@ -62,7 +62,6 @@ public class FenetreJeu extends JFrame {
     }
 
     private void creerInterface() {
-        this.setTitle("Nom du jeu");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
 

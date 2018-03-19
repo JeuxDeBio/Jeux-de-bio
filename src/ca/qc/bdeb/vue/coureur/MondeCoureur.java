@@ -232,12 +232,6 @@ public class MondeCoureur extends JComponent {
     }
 
     private void finJeu() {
-        for (BoiteChoix boite : listeChoixEnCours) {
-            boite.setLocation(1000, 1000);
-        }
-        joueur.setLocation((largeur - joueur.getWidth()) / 2, hauteur - joueur.getHeight() - 25);
-        lblQuestion.setText("");
-
         if (joueur.getScore() == listeQuestions.size()) {
             JOptionPane.showMessageDialog(this, "Vous avez tout bon!");
         } else {

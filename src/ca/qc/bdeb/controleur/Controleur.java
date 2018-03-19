@@ -41,6 +41,18 @@ public class Controleur {
         return modele.getLocationFenetreSelection();
     }
 
+    public String getLocationFenetreInscription() {
+        return modele.getLocationFenetreinscription();
+    }
+
+    public boolean etudiantExiste(String da){
+        return modele.etudiantExiste(da);
+    }
+    
+    public void creerEtudiant(String motDePasse){
+        modele.creerUtilisateur(motDePasse);
+    }
+    
     public String getNomNiveau(Jeu jeu, int i) {
         return modele.getNomNiveau(jeu, i);
     }

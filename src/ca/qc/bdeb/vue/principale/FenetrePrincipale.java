@@ -23,19 +23,17 @@ import javax.swing.*;
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
-    private JMenu menu = new JMenu("menu");
-    private JMenuBar bar = new JMenuBar();
-    private JMenuItem creerGroupe = new JMenuItem("creer Groupe");
 
-    Controleur controleur;
-    Modele modele;
+    private Controleur controleur;
+    private Modele modele;
 
-    MondePrincipale monde_principale;
-    MondeEtudiant monde_principale_logIn;
-    MondeProfesseur monde_prof;
+    private MondePrincipale monde_principale;
+    private MondeEtudiant monde_principale_logIn;
 
-    FenetreSelection fenetreSelection;
-    FenetreJeu fenetreJeu;
+
+    private FenetreSelection fenetreSelection;
+    private FenetreJeu fenetreJeu;
+    private FenetreInscription fenetreInscription;
 
     private boolean logIn = false;
 
@@ -46,7 +44,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
         creerInterface();
         
-        creerEvents();
         
         logInProf();
         this.addWindowListener(new WindowAdapter() {
@@ -70,16 +67,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
         }
     }
     
-    private void creerEvents(){
-         creerGroupe.addActionListener((e) -> {
-             
-         });
-    }
+    
     
     private void creerInterface() {
-        bar.add(menu);
-        menu.add(creerGroupe);
-        this.setJMenuBar(bar);
+        
                 
                 
                 
@@ -95,8 +86,19 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreInscription() {
+        this.fenetreInscription = new FenetreInscription(this, controleur);
+        fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
+    }
+
+    
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
+    }
+
+    public void fermerFenetreInscription() {
+        this.fenetreInscription.dispose();
     }
 
     public void logIn() {

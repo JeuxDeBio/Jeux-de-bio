@@ -20,8 +20,11 @@ import java.util.logging.Logger;
 public class Modele extends Observable {
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
-    private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipale_logIn.png";
+
+    private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipaleLogIn.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
+    private final String locationFenetreinscription = "Ecrans\\Principale\\FenetreInscription.png";
+
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -39,16 +42,16 @@ public class Modele extends Observable {
     private boolean logIn = false;
 
     public Modele() {
-        creerUtilisateur("123", "123", "Adam", "Adam");
-        creerUtilisateur("456", "456", "Bob", "Bob");
-        creerUtilisateur("789", "789", "Chris", "Chris");
+        creerUtilisateur("123");
+        creerUtilisateur("456");
+        creerUtilisateur("789");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 3.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
-        
+
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
 
@@ -66,6 +69,10 @@ public class Modele extends Observable {
 
     public String getLocationFenetreSelection() {
         return locationFenetreSelection;
+    }
+
+    public String getLocationFenetreinscription() {
+        return locationFenetreinscription;
     }
 
     public Utilisateur getUtilisateur() {
@@ -100,25 +107,22 @@ public class Modele extends Observable {
         this.etudiant = null;
     }
 
-    private void creerUtilisateur(String da, String motDePasse, String nom, String prenom) {
-        String informations = "Utilisateurs\\Etudiants\\" + da + "_" + nom + prenom;
+    public boolean etudiantExiste(String da) {
+        //faire des verifications
+        return true;
+    }
+
+    public void creerUtilisateur(String motDePasse) {
+        String informations = "Utilisateurs\\Etudiants\\" + motDePasse;
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-            bufferedWriter.write(da);
-            bufferedWriter.newLine();
             bufferedWriter.write(motDePasse);
-            bufferedWriter.newLine();
-            bufferedWriter.write(nom);
-            bufferedWriter.newLine();
-            bufferedWriter.write(prenom);
             bufferedWriter.close();
 
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        listeUtilisateurs.add(new Etudiant(da, motDePasse, nom, prenom, informations));
     }
 
     public String getNomNiveau(Jeu jeu, int i) {
