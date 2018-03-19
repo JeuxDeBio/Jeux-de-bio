@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  */
 public class BoiteQuestion extends JComponent {
 
-    private int largeur = 200, hauteur = 50;
+    private int largeur = 200, hauteur = 30;
     private JLabel lblQuestion = new JLabel();
 
     private boolean occupe = false;
@@ -41,9 +41,9 @@ public class BoiteQuestion extends JComponent {
             g.setColor(Color.BLACK);
             g.drawRect(20, 0, largeur - 21, hauteur - 1);
             g.setColor(Color.RED);
-            g.fillOval(0, 15, 20, 20);
+            g.fillOval(0, 5, 20, 20);
             g.setColor(Color.BLACK);
-            g.drawOval(0, 15, 20, 20);
+            g.drawOval(0, 5, 20, 20);
         }
     }
 

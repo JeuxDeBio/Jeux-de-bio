@@ -37,7 +37,7 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
-    private final int largeur = 800, hauteur = 700;
+    private final int largeur = 1200, hauteur = 700;
     private int[] sizeQuestion;
     private int decalementX, decalementY;
 
@@ -104,10 +104,11 @@ public class MondeDragDrop extends JComponent {
 
         for (int i = 0; i < coordonnees.size(); i++) {
             if (texte.size() == coordonnees.size()) {
-                RondeQuestion question = new RondeQuestion(texte.get(i), ((hauteur / coordonnees.size()) * index[i]) + 20);
-                question.setInitialX(largeur - question.getWidth() - 20);
-                this.add(question);
+                RondeQuestion question = new RondeQuestion(texte.get(i));
                 listeQuestions.add(question);
+                question.setInitialX(largeur - question.getWidth() - 20);
+                question.setInitialY(((question.getHeight() + 5) * index[i]) + 20);
+                this.add(question);
                 question.setLocation(question.getInitialX(), question.getInitialY());
             }
         }
@@ -133,7 +134,7 @@ public class MondeDragDrop extends JComponent {
                     @Override
                     public void mousePressed(MouseEvent me) {
                         super.mousePressed(me); //To change body of generated methods, choose Tools | Templates.
-                        if (getMousePosition().getX() > question.getX() && getMousePosition().getX() < question.getX() + question.getLargeur() && getMousePosition().getY() > question.getY() + 15 && getMousePosition().getY() < question.getY() + question.getHauteur() + 15) {
+                        if (getMousePosition().getX() > question.getX() && getMousePosition().getX() < question.getX() + question.getWidth()&& getMousePosition().getY() > question.getY() + 5 && getMousePosition().getY() < question.getY() + question.getHeight()+ 5) {
                             question.holdTrue();
                         }
                     }
@@ -193,7 +194,7 @@ public class MondeDragDrop extends JComponent {
                         question.holdFalse();
                         question.setLocation(question.getInitialX(), question.getInitialY());
                     } else {
-                        question.setLocation((int) this.getMousePosition().getX() - 10, (int) this.getMousePosition().getY() - 25);
+                        question.setLocation((int) this.getMousePosition().getX() - 10, (int) this.getMousePosition().getY() - 15);
                     }
                 }
             } catch (NullPointerException e) {
