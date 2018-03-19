@@ -1,9 +1,9 @@
-Cellule vegetale
+Cellule végétale
 Ecrans\Drag & Drop\Niveau 2.png
 Ecrans\Drag & Drop\Niveau 2 C.png
 600;404
 146;35:Grain d'amidon
-146;60:Thylakoides //il faut mettre l'accent dand le i
+146;60:Thylakoïdes
 147;98:Membrane plasmique
 147;138:Paroi cellulosique
 146;196:Vacuole
@@ -12,9 +12,9 @@ Ecrans\Drag & Drop\Niveau 2 C.png
 414;6:Plasmodesme
 414;52:Dictyosome
 415;112:Chromatine
-414;141:Nucleole
-415;173:Enveloppe nucleaire
-415;205:Reticulum endoplasmique
+414;141:Nucléole
+415;173:Enveloppe nucléaire
+415;205:Réticulum endoplasmique
 416;261:Peroxysome
 415;288:Chlororplaste
 414;319:Mitochondrie
