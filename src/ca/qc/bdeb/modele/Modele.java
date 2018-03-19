@@ -20,9 +20,11 @@ import java.util.logging.Logger;
 public class Modele extends Observable {
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
+
     private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipaleLogIn.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscription = "Ecrans\\Principale\\FenetreInscription.png";
+
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";

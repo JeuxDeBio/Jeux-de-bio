@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import ca.qc.bdeb.modele.Professeur;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -146,6 +147,8 @@ public class MondePrincipale extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     System.out.println("Bouton Identification Professeur");
+                    
+                    
                 }
             }
 

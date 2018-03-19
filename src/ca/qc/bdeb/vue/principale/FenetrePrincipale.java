@@ -8,6 +8,8 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -21,11 +23,13 @@ import javax.swing.*;
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
+
     private Controleur controleur;
     private Modele modele;
 
     private MondePrincipale monde_principale;
     private MondeEtudiant monde_principale_logIn;
+
 
     private FenetreSelection fenetreSelection;
     private FenetreJeu fenetreJeu;
@@ -39,7 +43,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.controleur = controleur;
 
         creerInterface();
-
+        
+        
+        logInProf();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
@@ -60,8 +66,14 @@ public class FenetrePrincipale extends JFrame implements Observer {
             logIn();
         }
     }
-
+    
+    
+    
     private void creerInterface() {
+        
+                
+                
+                
         this.monde_principale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Jeux de bio!");
@@ -97,6 +109,15 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.validate();
         this.repaint();
         this.logIn = true;
+    }
+
+    public void logInProf() {
+        this.monde_principale.reset();
+        this.remove(monde_principale);
+        this.monde_prof = new MondeProfesseur(modele, this);
+        this.add(monde_prof);
+        this.validate();
+        this.repaint();
     }
 
     public void logOut() {
