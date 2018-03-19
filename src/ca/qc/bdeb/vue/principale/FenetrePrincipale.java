@@ -8,6 +8,8 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -21,11 +23,16 @@ import javax.swing.*;
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
+    private JMenu menu = new JMenu("menu");
+    private JMenuBar bar = new JMenuBar();
+    private JMenuItem creerGroupe = new JMenuItem("creer Groupe");
+
     Controleur controleur;
     Modele modele;
 
     MondePrincipale monde_principale;
-    MondePrincipaleLogIn monde_principale_logIn;
+    MondeEtudiant monde_principale_logIn;
+    MondeProfesseur monde_prof;
 
     FenetreSelection fenetreSelection;
     FenetreJeu fenetreJeu;
@@ -38,7 +45,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.controleur = controleur;
 
         creerInterface();
-
+        
+        creerEvents();
+        
+        logInProf();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
@@ -59,8 +69,20 @@ public class FenetrePrincipale extends JFrame implements Observer {
             logIn();
         }
     }
-
+    
+    private void creerEvents(){
+         creerGroupe.addActionListener((e) -> {
+             
+         });
+    }
+    
     private void creerInterface() {
+        bar.add(menu);
+        menu.add(creerGroupe);
+        this.setJMenuBar(bar);
+                
+                
+                
         this.monde_principale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Jeux de bio!");
@@ -80,11 +102,20 @@ public class FenetrePrincipale extends JFrame implements Observer {
     public void logIn() {
         this.monde_principale.reset();
         this.remove(monde_principale);
-        this.monde_principale_logIn = new MondePrincipaleLogIn(modele, this);
+        this.monde_principale_logIn = new MondeEtudiant(modele, this);
         this.add(monde_principale_logIn);
         this.validate();
         this.repaint();
         this.logIn = true;
+    }
+
+    public void logInProf() {
+        this.monde_principale.reset();
+        this.remove(monde_principale);
+        this.monde_prof = new MondeProfesseur(modele, this);
+        this.add(monde_prof);
+        this.validate();
+        this.repaint();
     }
 
     public void logOut() {

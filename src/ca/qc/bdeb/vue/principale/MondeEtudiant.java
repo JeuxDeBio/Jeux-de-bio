@@ -21,7 +21,7 @@ import javax.swing.JLabel;
  *
  * @author 1649904
  */
-public class MondePrincipaleLogIn extends JComponent {
+public class MondeEtudiant extends JComponent {
 
     private Modele modele;
 
@@ -43,7 +43,7 @@ public class MondePrincipaleLogIn extends JComponent {
 
     private boolean enJeu = false;
 
-    public MondePrincipaleLogIn(Modele modele, FenetrePrincipale fenetre) {
+    public MondeEtudiant(Modele modele, FenetrePrincipale fenetre) {
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
