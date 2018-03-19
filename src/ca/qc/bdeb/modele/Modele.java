@@ -44,7 +44,7 @@ public class Modele extends Observable {
         creerUtilisateur("789", "789", "Chris", "Chris");
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
-        //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
+        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
         //listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "niveau 2", "", ""));
@@ -200,7 +200,7 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        int score = (100 - (nombreErreurs * 10)) - (temps / 10);;
+        int score = 0;
         if (etudiant != null) {
             etudiant.setCurrentScore(Jeu.DRAG_DROP, i, score, temps);
         } else {

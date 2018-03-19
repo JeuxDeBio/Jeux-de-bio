@@ -21,21 +21,11 @@ public class RondeQuestion extends JComponent {
 
     private boolean hold = false;
     
-    public RondeQuestion(String texte, int initialY) {
+    public RondeQuestion(String texte) {
         boite = new BoiteQuestion(texte);
         this.setSize(boite.getWidth(), boite.getHeight());
         this.add(boite);
         boite.setLocation(0, 0);
-
-        this.initialY = initialY;
-    }
-
-    public int getLargeur() {
-        return largeur;
-    }
-
-    public int getHauteur() {
-        return hauteur;
     }
 
     public void occupeTrue() {
