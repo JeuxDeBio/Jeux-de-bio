@@ -75,8 +75,6 @@ public class MondeDragDrop extends JComponent {
     }
 
     private void creerInterface() {
-        fenetre.setTitle("Drag & Drop - Niveau: " + controleur.getNomNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
-        
         imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
         sizeQuestion = controleur.getSizeImageDragDrop(fenetre.getNiveauID());
 

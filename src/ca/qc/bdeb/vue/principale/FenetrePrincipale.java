@@ -45,7 +45,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
         creerInterface();
         
         
-        logInProf();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
@@ -70,10 +69,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
     
     
     private void creerInterface() {
-        
-                
-                
-                
         this.monde_principale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Jeux de bio!");
@@ -114,8 +109,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
     public void logInProf() {
         this.monde_principale.reset();
         this.remove(monde_principale);
-        this.monde_prof = new MondeProfesseur(modele, this);
-        this.add(monde_prof);
         this.validate();
         this.repaint();
     }

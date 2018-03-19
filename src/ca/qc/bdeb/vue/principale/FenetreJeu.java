@@ -62,6 +62,8 @@ public class FenetreJeu extends JFrame {
     }
 
     private void creerInterface() {
+        String nomJeu = "";
+
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
 
@@ -82,19 +84,25 @@ public class FenetreJeu extends JFrame {
                     }
                 });
 
+                nomJeu = "Drag & Drop";
                 break;
             case SHOOTER:
                 MondeShooter mondeShooter = new MondeShooter(this);
                 this.add(mondeShooter);
+                nomJeu = "Shooter";
                 break;
             case COUREUR:
                 MondeCoureur mondeCoureur = new MondeCoureur(lblQuestion, this, controleur, modele);
                 this.add(mondeCoureur);
+                nomJeu = "Coureur";
                 break;
             case SPEED_RUN:
                 MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestion, txtReponse, lblTimer, this, controleur, modele);
                 this.add(mondeSpeedRun);
+                nomJeu = "Speed Run";
         }
+
+        this.setTitle(nomJeu + " - Niveau: " + controleur.getNomNiveau(jeu, this.getNiveauID()));
 
     }
 
