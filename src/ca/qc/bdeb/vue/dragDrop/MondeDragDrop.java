@@ -75,6 +75,8 @@ public class MondeDragDrop extends JComponent {
     }
 
     private void creerInterface() {
+        fenetre.setTitle("Drag & Drop - Niveau: " + controleur.getNomNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
+        
         imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
         sizeQuestion = controleur.getSizeImageDragDrop(fenetre.getNiveauID());
 
@@ -246,7 +248,9 @@ public class MondeDragDrop extends JComponent {
                 JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()) + " points.\nVotre temps est " + compteur + " secondes.\nVous avez tout bon!", "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            fenetre.fermerFenetre();
+            FenetreCorrige fenetreCorrige = new FenetreCorrige(controleur, fenetre);
+
+            fenetreCorrige.setLocation(fenetre.getX() + (largeur - fenetreCorrige.getWidth()) / 2, fenetre.getY() + (hauteur - fenetreCorrige.getHeight()) / 2);
         }
 
     }

@@ -46,6 +46,7 @@ public class FenetreSelection extends JFrame {
         this.monde = new MondeSelection(modele, controleur, this, jeu);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Sélection de niveaux");
+        this.setResizable(false);
         this.add(monde);
     }
 
@@ -55,6 +56,7 @@ public class FenetreSelection extends JFrame {
 
     public void ouvrirFenetreJeu(int i) {
         this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);
+        fenetreJeu.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
     }
 
     public void fermerFenetreJeu() {

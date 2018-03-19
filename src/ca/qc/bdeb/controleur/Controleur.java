@@ -8,6 +8,7 @@ package ca.qc.bdeb.controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,7 @@ public class Controleur {
     public Controleur() {
         modele = new Modele();
         FenetrePrincipale fenetre = new FenetrePrincipale(this, modele);
+        fenetre.setLocation((((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) - fenetre.getWidth()) / 2, 20);
     }
 
     public void validerUtilisateur(String utilisateurDA, char[] utilisateurMotDePasse) {
