@@ -8,6 +8,8 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,6 +39,15 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
         creerInterface();
 
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                super.windowClosing(we); //To change body of generated methods, choose Tools | Templates.
+                fermerApp();
+            }
+
+        });
+
         this.pack();
         this.setVisible(true);
 
@@ -51,13 +62,15 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     private void creerInterface() {
         this.monde_principale = new MondePrincipale(modele, controleur, this);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Jeux de bio!");
+        this.setResizable(false);
         this.add(monde_principale);
     }
 
     public void ouvrirFenetreSelectionJeu(Jeu jeu) {
         this.fenetreSelection = new FenetreSelection(modele, controleur, this, jeu, fenetreJeu);
+        fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
     public void fermerFenetreSelection() {
@@ -87,6 +100,12 @@ public class FenetrePrincipale extends JFrame implements Observer {
             monde_principale_logIn.finJeu();
         } else {
             monde_principale.finJeu();
+        }
+    }
+
+    private void fermerApp() {
+        if (JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment quitter?", "Fermer l'application?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+            System.exit(0);
         }
     }
 

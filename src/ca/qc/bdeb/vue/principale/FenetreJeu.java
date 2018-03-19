@@ -64,6 +64,7 @@ public class FenetreJeu extends JFrame {
     private void creerInterface() {
         this.setTitle("Nom du jeu");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
 
         switch (jeu) {
             case DRAG_DROP:
@@ -74,7 +75,7 @@ public class FenetreJeu extends JFrame {
                 mnuJeu.add(mnuValiderDragDrop);
                 mnuBar.add(mnuJeu);
                 this.setJMenuBar(mnuBar);
-                
+
                 mnuValiderDragDrop.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {

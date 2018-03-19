@@ -173,16 +173,16 @@ public class Modele extends Observable {
 
         switch (jeu) {
             case DRAG_DROP:
-                locationNiveauCorrige = listeNiveauxDragDrop.get(i).getLocation();
+                locationNiveauCorrige = listeNiveauxDragDrop.get(i).getLocationCorrige();
                 break;
             case SHOOTER:
-                locationNiveauCorrige = listeNiveauxShooter.get(i).getLocation();
+                locationNiveauCorrige = listeNiveauxShooter.get(i).getLocationCorrige();
                 break;
             case COUREUR:
-                locationNiveauCorrige = listeNiveauxCoureur.get(i).getLocation();
+                locationNiveauCorrige = listeNiveauxCoureur.get(i).getLocationCorrige();
                 break;
             case SPEED_RUN:
-                locationNiveauCorrige = listeNiveauxSpeedRun.get(i).getLocation();
+                locationNiveauCorrige = listeNiveauxSpeedRun.get(i).getLocationCorrige();
         }
         return locationNiveauCorrige;
     }
