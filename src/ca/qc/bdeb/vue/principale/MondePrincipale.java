@@ -133,7 +133,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    System.out.println("Bouton Inscription Étudiant");
+                    fenetre.ouvrirFenetreInscription();
                 }
             }
 

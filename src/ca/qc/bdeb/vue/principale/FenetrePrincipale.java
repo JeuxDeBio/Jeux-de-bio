@@ -21,14 +21,15 @@ import javax.swing.*;
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
-    Controleur controleur;
-    Modele modele;
+    private Controleur controleur;
+    private Modele modele;
 
-    MondePrincipale monde_principale;
-    MondePrincipaleLogIn monde_principale_logIn;
+    private MondePrincipale monde_principale;
+    private MondeEtudiant monde_principale_logIn;
 
-    FenetreSelection fenetreSelection;
-    FenetreJeu fenetreJeu;
+    private FenetreSelection fenetreSelection;
+    private FenetreJeu fenetreJeu;
+    private FenetreInscription fenetreInscription;
 
     private boolean logIn = false;
 
@@ -73,14 +74,25 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreInscription() {
+        this.fenetreInscription = new FenetreInscription(this, controleur);
+        fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
+    }
+
+    
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
+    }
+
+    public void fermerFenetreInscription() {
+        this.fenetreInscription.dispose();
     }
 
     public void logIn() {
         this.monde_principale.reset();
         this.remove(monde_principale);
-        this.monde_principale_logIn = new MondePrincipaleLogIn(modele, this);
+        this.monde_principale_logIn = new MondeEtudiant(modele, this);
         this.add(monde_principale_logIn);
         this.validate();
         this.repaint();

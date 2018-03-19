@@ -1,26 +1,13 @@
 Niveau 1
-question 1
-question 2
-question 3
-question 4
-question 5
-question 6
-question 7
-question 8
-question 9
-question 10
-question 11
-question 12
-Reponses
-reponse 1
-reponse 2
-reponse 3
-reponse 4
-reponse 5
-reponse 6
-reponse 7
-reponse 8
-reponse 9
-reponse 10
-reponse 11
-reponse 12
+question 1;reponse 1
+question 2;reponse 2
+question 3;reponse 3
+question 4;reponse 4
+question 5;reponse 5
+question 6;reponse 6
+question 7;reponse 7
+question 8;reponse 8
+question 9;reponse 9
+question 10;reponse 10
+question 11;reponse 11
+question 12;reponse 12

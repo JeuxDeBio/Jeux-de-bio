@@ -132,7 +132,7 @@ public class MondeSpeedRun extends JComponent {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                super.keyTyped(e); //To change body of generated methods, choose Tools | Templates.
+                super.keyTyped(e); //To change body of generated methods, choose Tools | Templates. 
                 switch (e.getKeyChar()) {
                     case '\n':
                         if (peutRepondre) {
