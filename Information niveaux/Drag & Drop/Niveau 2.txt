@@ -1,26 +1,26 @@
-La cellule vegetale
+La cellule végétale
 Ecrans\Drag & Drop\Niveau 2.png
 Ecrans\Drag & Drop\Niveau 2 C.png
-569;546
-26;22:Noyau
-118;6:Enveloppe nucleaire
-116;28:Nucleole
-116;50:Chromatine
-58;99:Centrosome
-61;234:Appareil de Golgi
-64;382:Mitochondrie
-100;410:Peroxysome
-115;435:Membrane plasmique
-150;469:Paroi cellulaire
-149;515:Paroi de la cellule adjacante
-290;493:Plasmodesmes
-395;431:Chloroplaste
-415;318:Microubules
-416;293:Filaments intermediaires
-415;271:Microfilaments
-485;294:Cytosquelette
-384;250:Tonoplaste
-383;211:Vacuole centrale
-407;163:Ribosomes
-315;103:Reticulum endoplasmique lisse
-245;63:Reticulum endoplasmique rugueux
+579;540
+91;19:Noyau
+128;2:Enveloppe nucléaire
+128;23:Nucléole
+129;46:Chromatine
+70;96:Centrosome
+71;230:Appareil de Golgi
+104;377:Mitochondrie
+112;403:Peroxysome
+125;425:Membrane plasmique
+162;463:Paroi cellulaire
+162;513:Paroi de la cellule adjacante
+303;493:Plasmodesmes
+404;431:Chloroplaste
+428;317:Microtubules
+427;292:Filaments intermédiaires
+429;266:Microfilaments
+464;293:Cytosquelette
+397;247:Tonoplaste
+394;209:Vacuole centrale
+416;163:Ribosomes
+329;101:Réticulum endoplasmique lisse
+258;62:Réticulum endoplasmique rugueux

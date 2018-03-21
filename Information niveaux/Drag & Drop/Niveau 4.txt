@@ -1,0 +1,12 @@
+﻿La cellule procaryote
+Ecrans\Drag & Drop\Niveau 4.png
+Ecrans\Drag & Drop\Niveau 4 C.png
+669;397
+47;168:Chromosome bactérien
+210;5:Fimbriæ
+303;51:Nucléoïde
+320;98:Ribosomes
+352;131:Membrane plasmique
+370;167:Paroi cellulaire
+406;200:Capsule
+317;253:Flagelles

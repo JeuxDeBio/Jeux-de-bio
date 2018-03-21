@@ -37,7 +37,7 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
-    private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = 600;
+    private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()- 100;
     private int[] sizeQuestion;
     private int decalementX, decalementY;
     private int nombreColonnes = 1;
