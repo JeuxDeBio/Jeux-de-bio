@@ -37,9 +37,10 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
-    private final int largeur = 1200, hauteur = 700;
+    private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = 600;
     private int[] sizeQuestion;
     private int decalementX, decalementY;
+    private int nombreColonnes = 1;
 
     private boolean finJeu = false;
 
@@ -104,14 +105,21 @@ public class MondeDragDrop extends JComponent {
             if (texte.size() == coordonnees.size()) {
                 RondeQuestion question = new RondeQuestion(texte.get(i));
                 listeQuestions.add(question);
-                question.setInitialX(largeur - question.getWidth() - 20);
                 question.setInitialY(((question.getHeight() + 5) * index[i]) + 20);
+                question.setInitialX(largeur - question.getWidth() - 20);
                 this.add(question);
+
+                if (question.getInitialY() + question.getHeight() >= hauteur) {
+                    question.setInitialY(question.getInitialY() + question.getHeight() - hauteur + 10);
+                    question.setInitialX(question.getInitialX() - question.getWidth() - 10);
+                    nombreColonnes = 2;
+                }
+
                 question.setLocation(question.getInitialX(), question.getInitialY());
             }
         }
 
-        decalementX = (largeur - listeQuestions.get(0).getWidth() - 20 - sizeQuestion[0]) / 2;
+        decalementX = (largeur - (listeQuestions.get(0).getWidth() * nombreColonnes) - 20 - sizeQuestion[0]) / 2;
         decalementY = (hauteur - sizeQuestion[1]) / 2;
 
         for (int i = 0; i < coordonnees.size(); i++) {
@@ -132,7 +140,7 @@ public class MondeDragDrop extends JComponent {
                     @Override
                     public void mousePressed(MouseEvent me) {
                         super.mousePressed(me); //To change body of generated methods, choose Tools | Templates.
-                        if (getMousePosition().getX() > question.getX() && getMousePosition().getX() < question.getX() + question.getWidth()&& getMousePosition().getY() > question.getY() + 5 && getMousePosition().getY() < question.getY() + question.getHeight()+ 5) {
+                        if (getMousePosition().getX() > question.getX() && getMousePosition().getX() < question.getX() + question.getWidth() && getMousePosition().getY() > question.getY() + 5 && getMousePosition().getY() < question.getY() + question.getHeight() + 5) {
                             question.holdTrue();
                         }
                     }

@@ -125,10 +125,9 @@ public class Niveau {
             nomNiveau = ligne;
             ligne = bufferedReader.readLine();
             while (ligne != null) {
-                listePositionReponsesCoureur.add(Integer.parseInt(ligne));
-                ligne = bufferedReader.readLine();
                 String split[] = ligne.split(":");
                 listeQuestionsCoureur.add(split[1]);
+                listePositionReponsesCoureur.add(Integer.parseInt(split[2]));
                 split = split[0].split(";");
                 listeReponseCoureur.add(split);
                 ligne = bufferedReader.readLine();
