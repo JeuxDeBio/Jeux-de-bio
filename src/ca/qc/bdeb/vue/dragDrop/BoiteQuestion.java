@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  */
 public class BoiteQuestion extends JComponent {
 
-    private int largeur = 200, hauteur = 30;
+    private int largeur = 250, hauteur = 30;
     private JLabel lblQuestion = new JLabel();
 
     private boolean occupe = false;

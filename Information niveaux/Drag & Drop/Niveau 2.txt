@@ -1,21 +1,26 @@
-Cellule végétale
+La cellule vegetale
 Ecrans\Drag & Drop\Niveau 2.png
 Ecrans\Drag & Drop\Niveau 2 C.png
-600;404
-146;35:Grain d'amidon
-146;60:Thylakoïdes
-147;98:Membrane plasmique
-147;138:Paroi cellulosique
-146;196:Vacuole
-148;248:Tonoplaste
-156;356:Ribosome libre
-414;6:Plasmodesme
-414;52:Dictyosome
-415;112:Chromatine
-414;141:Nucléole
-415;173:Enveloppe nucléaire
-415;205:Réticulum endoplasmique
-416;261:Peroxysome
-415;288:Chlororplaste
-414;319:Mitochondrie
-415;372:Cytosol
+569;546
+26;22:Noyau
+118;6:Enveloppe nucleaire
+116;28:Nucleole
+116;50:Chromatine
+58;99:Centrosome
+61;234:Appareil de Golgi
+64;382:Mitochondrie
+100;410:Peroxysome
+115;435:Membrane plasmique
+150;469:Paroi cellulaire
+149;515:Paroi de la cellule adjacante
+290;493:Plasmodesmes
+395;431:Chloroplaste
+415;318:Microubules
+416;293:Filaments intermediaires
+415;271:Microfilaments
+485;294:Cytosquelette
+384;250:Tonoplaste
+383;211:Vacuole centrale
+407;163:Ribosomes
+315;103:Reticulum endoplasmique lisse
+245;63:Reticulum endoplasmique rugueux
