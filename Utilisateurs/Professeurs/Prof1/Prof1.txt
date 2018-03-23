@@ -1,0 +1,5 @@
+nomUtilisateurProf1
+motdepasseProf1
+Prenon Nom
+Utilisateurs\\Professeurs\\Prof1\\Prof1Groupe1.txt
+Utilisateurs\\Professeurs\\Prof1\\Prof1Groupe2.txt

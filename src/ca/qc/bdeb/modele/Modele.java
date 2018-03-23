@@ -5,7 +5,10 @@
  */
 package ca.qc.bdeb.modele;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,38 +22,39 @@ import java.util.logging.Logger;
  */
 public class Modele extends Observable {
 
+    private final String locationListeProfesseurs = "Utilisateurs\\listeProfesseurs.txt";
+    private final String locationListeEtudiants = "Utilisateurs\\listeEtudiants.txt";
+
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
 
     private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipaleLogIn.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscription = "Ecrans\\Principale\\FenetreInscription.png";
 
-
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
     private final String locationRobot3 = "Ecrans\\Speed Run\\Robot 3.png";
     private final String locationCoeur = "Ecrans\\Speed Run\\Coeur.png";
 
-    ArrayList<Etudiant> listeUtilisateurs = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxSpeedRun = new ArrayList<>();
 
-    Etudiant etudiant;
-
     private boolean logIn = false;
 
+    private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
+    private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
+
     public Modele() {
-        creerUtilisateur("123");
-        creerUtilisateur("456");
-        creerUtilisateur("789");
+        lectureEtudiants();
+
+        lectureProfesseurs();
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 3.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 4.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 5.txt"));
 
         listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
 
@@ -59,6 +63,52 @@ public class Modele extends Observable {
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
 
+    }
+
+    private void lectureProfesseurs() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeProfesseurs.add(new Professeur(ligne, this));
+                ligne = bufferedReader.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void lectureEtudiants() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeEtudiants));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeEtudiants.add(new Etudiant(ligne));
+                ligne = bufferedReader.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Professeur getProfesseurChoisi(int i) {
+        return listeProfesseurs.get(i);
+    }
+
+    public Etudiant getEtudiantChoisi(int i) {
+        return listeEtudiants.get(i);
+    }
+
+    public int getListeProfesseurSize() {
+        return listeProfesseurs.size();
+    }
+    
+    public int getListeEtudiantSize() {
+        return listeEtudiants.size();
     }
 
     public String getLocationFenetrePrincipale() {
@@ -77,26 +127,7 @@ public class Modele extends Observable {
         return locationFenetreinscription;
     }
 
-    public Utilisateur getUtilisateur() {
-        return this.etudiant;
-    }
-
     public void validerUtilisateur(String da, char[] motdepasse) {
-        for (int i = 0; i < listeUtilisateurs.size(); i++) {
-            if (da.equals(listeUtilisateurs.get(i).getDa())) {
-                String motDePasse = "";
-                for (int j = 0; j < motdepasse.length; j++) {
-                    motDePasse += motdepasse[j];
-                }
-                if (motDePasse.equals(listeUtilisateurs.get(i).getMotDePasse())) {
-                    this.etudiant = listeUtilisateurs.get(i);
-                    this.logIn = true;
-                    majObserver();
-                } else {
-                }
-            } else {
-            }
-        }
 
     }
 
@@ -106,7 +137,7 @@ public class Modele extends Observable {
 
     public void logOut() {
         this.logIn = false;
-        this.etudiant = null;
+        //this.etudiant = null;
     }
 
     public boolean etudiantExiste(String da) {
@@ -207,11 +238,6 @@ public class Modele extends Observable {
 
     public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
         int score = 0;
-        if (etudiant != null) {
-            etudiant.setCurrentScore(Jeu.DRAG_DROP, i, score, temps);
-        } else {
-            listeNiveauxDragDrop.get(i).setScore(score);
-        }
     }
 
     public ArrayList getPositionReponsesCoureur(int i) {
@@ -229,22 +255,18 @@ public class Modele extends Observable {
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
 
-        if (etudiant != null) {
-            score = etudiant.getCurrentScore();
-        } else {
-            switch (jeu) {
-                case DRAG_DROP:
-                    score = listeNiveauxDragDrop.get(i).getScore();
-                    break;
-                case SHOOTER:
-                    score = listeNiveauxShooter.get(i).getScore();
-                    break;
-                case COUREUR:
-                    score = listeNiveauxCoureur.get(i).getScore();
-                    break;
-                case SPEED_RUN:
-                    score = listeNiveauxSpeedRun.get(i).getScore();
-            }
+        switch (jeu) {
+            case DRAG_DROP:
+                score = listeNiveauxDragDrop.get(i).getScore();
+                break;
+            case SHOOTER:
+                score = listeNiveauxShooter.get(i).getScore();
+                break;
+            case COUREUR:
+                score = listeNiveauxCoureur.get(i).getScore();
+                break;
+            case SPEED_RUN:
+                score = listeNiveauxSpeedRun.get(i).getScore();
         }
 
         return score;
@@ -275,12 +297,7 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
-        int score = 0;
-        if (etudiant != null) {
-            etudiant.setCurrentScore(Jeu.SPEED_RUN, i, score, 0);
-        } else {
-            listeNiveauxSpeedRun.get(i).setScore(score);
-        }
+
     }
 
     public void majObserver() {

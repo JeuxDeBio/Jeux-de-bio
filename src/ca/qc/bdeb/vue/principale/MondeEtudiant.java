@@ -7,7 +7,6 @@ package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.modele.Utilisateur;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -29,8 +28,6 @@ public class MondeEtudiant extends JComponent {
 
     private FenetrePrincipale fenetre;
 
-    private Utilisateur utilisateur;
-
     private JLabel lblUtilisateurNom = new JLabel();
     private JLabel lblUtilisateurPrenom = new JLabel();
     private JLabel lblUtilisateurDA = new JLabel();
@@ -49,7 +46,6 @@ public class MondeEtudiant extends JComponent {
 
         this.modele = modele;
         this.fenetre = fenetre;
-        this.utilisateur = modele.getUtilisateur();
 
         creerInterface();
         creerEvenements();
@@ -59,17 +55,14 @@ public class MondeEtudiant extends JComponent {
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(modele.getLocationFenetrePrincipaleLogIn());
 
-        lblUtilisateurNom.setText(this.utilisateur.getNom());
         lblUtilisateurNom.setLocation(310, 230);
         lblUtilisateurNom.setSize(190, 20);
         this.add(lblUtilisateurNom);
 
-        lblUtilisateurPrenom.setText(this.utilisateur.getPrenom());
         lblUtilisateurPrenom.setLocation(310, 255);
         lblUtilisateurPrenom.setSize(190, 20);
         this.add(lblUtilisateurPrenom);
 
-        lblUtilisateurDA.setText((this.utilisateur.getDa()));
         lblUtilisateurDA.setLocation(310, 280);
         lblUtilisateurDA.setSize(190, 20);
         this.add(lblUtilisateurDA);

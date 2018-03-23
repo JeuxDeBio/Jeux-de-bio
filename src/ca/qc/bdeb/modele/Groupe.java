@@ -5,8 +5,9 @@
  */
 package ca.qc.bdeb.modele;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,43 +15,39 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 1651114
+ * @author Batikan
  */
 public class Groupe {
 
-    private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
-    private ArrayList<String> listeEtudiantsAutorisés = new ArrayList<>();
+    private Modele modele;
+
     private String information;
 
-    public Groupe(String information) {
+    private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
+
+    public Groupe(String information, Modele modele) {
         this.information = information;
+        this.modele = modele;
+        lectureInformation();
     }
 
-    public ArrayList<Etudiant> getListeEtudiants() {
-        return listeEtudiants;
-    }
-
-    public String getInformation() {
-        return information;
-    }
-
-    public void setListeEtudiants(ArrayList<Etudiant> listeEtudiants) {
-        this.listeEtudiants = listeEtudiants;
-    }
-
-    private void creerEtudiant(String nom, String prenom, String DA) {
-        listeEtudiantsAutorisés.add(DA + ";" + nom + ";" + prenom);
-    }
-
-    private void ajouterEtudiantsGroupe(Groupe groupe) {
+    private void lectureInformation() {
         try {
-            BufferedWriter bufferedWritter = new BufferedWriter(new FileWriter(groupe.getInformation()));
-            for (int i = 0; i < listeEtudiantsAutorisés.size(); i++) {
-                bufferedWritter.write(listeEtudiantsAutorisés.get(i));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                for (int i = 0; i < modele.getListeEtudiantSize(); i++) {
+                    if (modele.getEtudiantChoisi(i).getDa().equals(ligne)) {
+                        listeEtudiants.add(modele.getEtudiantChoisi(i));
+                    }
+                }
+
+                ligne = bufferedReader.readLine();
             }
-            bufferedWritter.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
