@@ -59,24 +59,24 @@ public class MondeEtudiant extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipaleLogIn());
 
         lblNom.setText(controleur.getEtudiant().getNom());
-        lblNom.setLocation(310, 230);
+        lblNom.setLocation(262, 227);
         lblNom.setSize(190, 20);
         this.add(lblNom);
-
-        lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
-        lblProf.setLocation(310, 255);
-        lblProf.setSize(190, 20);
-        this.add(lblProf);
-
+        
         lblDA.setText(controleur.getEtudiant().getDa());
-        lblDA.setLocation(310, 280);
+        lblDA.setLocation(246, 254);
         lblDA.setSize(190, 20);
         this.add(lblDA);
-        
+
         lblGroupe.setText(controleur.getEtudiant().getGroupe().getNom());
-        lblGroupe.setLocation(310, 305);
+        lblGroupe.setLocation(293, 278);
         lblGroupe.setSize(190, 20);
         this.add(lblGroupe);
+        
+        lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
+        lblProf.setLocation(337, 303);
+        lblProf.setSize(190, 20);
+        this.add(lblProf);
 
         boutonDragDrop.setLocation(26, 194);
         boutonDragDrop.setSize(147, 74);
