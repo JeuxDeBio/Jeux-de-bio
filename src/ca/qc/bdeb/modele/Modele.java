@@ -29,7 +29,8 @@ public class Modele extends Observable {
 
     private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipaleLogIn.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
-    private final String locationFenetreinscription = "Ecrans\\Principale\\FenetreInscription.png";
+    private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
+    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png"; // changer l'image pour prof
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -114,8 +115,12 @@ public class Modele extends Observable {
         return locationFenetreSelection;
     }
 
-    public String getLocationFenetreinscription() {
-        return locationFenetreinscription;
+    public String getLocationFenetreInscriptionEtudiants() {
+        return locationFenetreinscriptionEtudiants;
+    }
+    
+     public String getLocationFenetreInscriptionProfesseurs() {
+        return locationFenetreinscriptionProfesseurs;
     }
 
     public void validerUtilisateur(String da, char[] motdepasse) {
@@ -135,13 +140,31 @@ public class Modele extends Observable {
         //faire des verifications
         return true;
     }
+    
+    public boolean professeurExiste(String da){
+        
+        return true;
+    }
 
-    public void creerUtilisateur(String motDePasse) {
+    public void creerEtudiant(String motDePasse) {
         String informations = "Utilisateurs\\Etudiants\\" + motDePasse;
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
             bufferedWriter.write(motDePasse);
+            bufferedWriter.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void creerProfesseur(String nom){
+        String informations = "Utilisateurs\\Professeurr\\" + nom;
+        
+         try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+            bufferedWriter.write(nom);
             bufferedWriter.close();
 
         } catch (IOException ex) {

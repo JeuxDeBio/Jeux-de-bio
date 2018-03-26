@@ -115,7 +115,7 @@ public class MondePrincipale extends JComponent {
     }
 
     private void creerEvenements() {
-
+        
         boutonIdentificationEtudiant.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -129,12 +129,12 @@ public class MondePrincipale extends JComponent {
         });
 
         boutonInscriptionEtudiant.addMouseListener(new MouseAdapter() {
-
+            String personne = "etudiant";
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreInscription();
+                    fenetre.ouvrirFenetreInscription(personne);
                 }
             }
 
@@ -155,12 +155,12 @@ public class MondePrincipale extends JComponent {
         });
 
         boutonInscriptionProfesseur.addMouseListener(new MouseAdapter() {
-
+            String personne = "prof";
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    System.out.println("Bouton Inscription Professeur");
+                    fenetre.ouvrirFenetreInscription(personne);
                 }
             }
 

@@ -15,28 +15,36 @@ import javax.swing.JTextField;
  */
 public class FenetreInscription extends JFrame {
 
-    private MondeInscription monde;
+    private MondeInscriptionEtudiants mondeEtudiant;
+    private MondeInscriptionProfesseurs mondeProf;
     private FenetrePrincipale fenetre;
     private Controleur controleur;
 
-    public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur) {
+    public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur, String type) {
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.monde = new MondeInscription(this, controleur);
-
-        creerInterface();
+        if (type.equals("prof")) {
+            this.mondeProf = new MondeInscriptionProfesseurs(this, controleur);
+        } else if(type.equals("etudiant")){
+            this.mondeEtudiant = new MondeInscriptionEtudiants(this, controleur);
+        }
+        creerInterface(type);
 
         this.pack();
         this.setVisible(true);
     }
 
-    private void creerInterface() {
+    private void creerInterface(String type) {
         this.setResizable(false);
-        this.add(monde);
+        if (type.equals("prof")) {
+            this.add(mondeProf);
+        } else if(type.equals("etudiant")){
+        this.add(mondeEtudiant);
+        }
     }
-    
-    public void fermerFenetre(){
-       fenetre.fermerFenetreInscription();
+
+    public void fermerFenetre() {
+        fenetre.fermerFenetreInscription();
     }
 
 }

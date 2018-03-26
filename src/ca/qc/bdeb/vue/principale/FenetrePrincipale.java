@@ -81,8 +81,8 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
-    public void ouvrirFenetreInscription() {
-        this.fenetreInscription = new FenetreInscription(this, controleur);
+    public void ouvrirFenetreInscription(String personne) {
+        this.fenetreInscription = new FenetreInscription(this, controleur, personne);
         fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
 

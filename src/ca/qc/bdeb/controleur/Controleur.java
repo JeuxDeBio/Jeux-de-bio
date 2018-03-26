@@ -41,16 +41,29 @@ public class Controleur {
         return modele.getLocationFenetreSelection();
     }
 
-    public String getLocationFenetreInscription() {
-        return modele.getLocationFenetreinscription();
+    public String getLocationFenetreInscription(String personne) {
+        if(personne.equals("etudiant")){
+        return modele.getLocationFenetreInscriptionEtudiants();
+    }
+        else{
+            return modele.getLocationFenetreInscriptionProfesseurs();
+        }
     }
 
     public boolean etudiantExiste(String da){
         return modele.etudiantExiste(da);
     }
     
+    public boolean professeurExiste(String da){
+        return modele.professeurExiste(da);
+    }
+    
     public void creerEtudiant(String motDePasse){
-        modele.creerUtilisateur(motDePasse);
+        modele.creerEtudiant(motDePasse);
+    }
+    
+    public void creerProfesseur(String nom){
+        modele.creerProfesseur(nom);
     }
     
     public String getNomNiveau(Jeu jeu, int i) {
