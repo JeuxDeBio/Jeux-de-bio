@@ -15,14 +15,14 @@ import javax.swing.JTextField;
  */
 public class FenetreInscription extends JFrame {
 
-    private MondeInscription monde;
+    private MondeInscriptionEtudiants monde;
     private FenetrePrincipale fenetre;
     private Controleur controleur;
 
     public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur) {
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.monde = new MondeInscription(this, controleur);
+        this.monde = new MondeInscriptionEtudiants(this, controleur);
 
         creerInterface();
 
