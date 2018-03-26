@@ -51,10 +51,9 @@ public class Controleur {
     }
 
     public String getLocationFenetreInscription(String personne) {
-        if(personne.equals("etudiant")){
-        return modele.getLocationFenetreInscriptionEtudiants();
-    }
-        else{
+        if (personne.equals("etudiant")) {
+            return modele.getLocationFenetreInscriptionEtudiants();
+        } else {
             return modele.getLocationFenetreInscriptionProfesseurs();
         }
     }
@@ -63,13 +62,13 @@ public class Controleur {
         return modele.etudiantPermis(da);
     }
 
-    public boolean professeurExiste(String da){
+    public boolean professeurExiste(String da) {
         return modele.professeurExiste(da);
     }
-   
-    public void creerProfesseur(String nom){
-        modele.creerProfesseur(nom);
 
+    public void creerProfesseur(String nom) {
+        modele.creerProfesseur(nom);
+    }
 
     public Etudiant getEtudiant() {
         return modele.getEtudiant();
