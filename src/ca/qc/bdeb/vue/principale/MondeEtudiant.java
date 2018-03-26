@@ -5,6 +5,8 @@
  */
 package ca.qc.bdeb.vue.principale;
 
+import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import java.awt.Dimension;
@@ -22,15 +24,16 @@ import javax.swing.JLabel;
  */
 public class MondeEtudiant extends JComponent {
 
-    private Modele modele;
+    private Controleur controleur;
 
     private Image image;
 
     private FenetrePrincipale fenetre;
 
-    private JLabel lblUtilisateurNom = new JLabel();
-    private JLabel lblUtilisateurPrenom = new JLabel();
-    private JLabel lblUtilisateurDA = new JLabel();
+    private JLabel lblNom = new JLabel();
+    private JLabel lblProf = new JLabel();
+    private JLabel lblDA = new JLabel();
+    private JLabel lblGroupe = new JLabel();
 
     private Bouton boutonDragDrop = new Bouton();
     private Bouton boutonShooter = new Bouton();
@@ -40,11 +43,11 @@ public class MondeEtudiant extends JComponent {
 
     private boolean enJeu = false;
 
-    public MondeEtudiant(Modele modele, FenetrePrincipale fenetre) {
+    public MondeEtudiant(Controleur controleur, FenetrePrincipale fenetre) {
         this.setPreferredSize(new Dimension(800, 600));
         this.setLayout(null);
 
-        this.modele = modele;
+        this.controleur = controleur;
         this.fenetre = fenetre;
 
         creerInterface();
@@ -53,19 +56,27 @@ public class MondeEtudiant extends JComponent {
     }
 
     private void creerInterface() {
-        image = Toolkit.getDefaultToolkit().getImage(modele.getLocationFenetrePrincipaleLogIn());
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipaleLogIn());
 
-        lblUtilisateurNom.setLocation(310, 230);
-        lblUtilisateurNom.setSize(190, 20);
-        this.add(lblUtilisateurNom);
+        lblNom.setText(controleur.getEtudiant().getNom());
+        lblNom.setLocation(310, 230);
+        lblNom.setSize(190, 20);
+        this.add(lblNom);
 
-        lblUtilisateurPrenom.setLocation(310, 255);
-        lblUtilisateurPrenom.setSize(190, 20);
-        this.add(lblUtilisateurPrenom);
+        lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
+        lblProf.setLocation(310, 255);
+        lblProf.setSize(190, 20);
+        this.add(lblProf);
 
-        lblUtilisateurDA.setLocation(310, 280);
-        lblUtilisateurDA.setSize(190, 20);
-        this.add(lblUtilisateurDA);
+        lblDA.setText(controleur.getEtudiant().getDa());
+        lblDA.setLocation(310, 280);
+        lblDA.setSize(190, 20);
+        this.add(lblDA);
+        
+        lblGroupe.setText(controleur.getEtudiant().getGroupe().getNom());
+        lblGroupe.setLocation(310, 305);
+        lblGroupe.setSize(190, 20);
+        this.add(lblGroupe);
 
         boutonDragDrop.setLocation(26, 194);
         boutonDragDrop.setSize(147, 74);
@@ -145,7 +156,7 @@ public class MondeEtudiant extends JComponent {
             @Override
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
-                modele.logOut();
+                controleur.logOut();
                 fenetre.logOut();
             }
 

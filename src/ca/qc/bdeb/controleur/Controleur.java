@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.controleur;
 
+import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
@@ -25,8 +26,16 @@ public class Controleur {
         fenetre.setLocation((((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) - fenetre.getWidth()) / 2, 20);
     }
 
-    public void validerUtilisateur(String utilisateurDA, char[] utilisateurMotDePasse) {
-        modele.validerUtilisateur(utilisateurDA, utilisateurMotDePasse);
+    public void validerEtudiant(String utilisateurDA, char[] utilisateurMotDePasse) {
+        modele.validerEtudiant(utilisateurDA, utilisateurMotDePasse);
+    }
+
+    public boolean logIn() {
+        return modele.logIn();
+    }
+
+    public void logOut() {
+        modele.logOut();
     }
 
     public String getLocationFenetrePrincipale() {
@@ -45,14 +54,18 @@ public class Controleur {
         return modele.getLocationFenetreinscription();
     }
 
-    public boolean etudiantExiste(String da){
-        return modele.etudiantExiste(da);
+    public boolean etudiantPermis(String da) {
+        return modele.etudiantPermis(da);
     }
-    
-    public void creerEtudiant(String motDePasse){
+
+    public Etudiant getEtudiant() {
+        return modele.getEtudiant();
+    }
+
+    public void creerEtudiant(String motDePasse) {
         modele.creerUtilisateur(motDePasse);
     }
-    
+
     public String getNomNiveau(Jeu jeu, int i) {
         return modele.getNomNiveau(jeu, i);
     }

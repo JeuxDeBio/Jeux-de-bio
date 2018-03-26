@@ -84,7 +84,7 @@ public class MondeInscription extends JComponent {
                     motDePasseValidation += txtMotDePasseValidation.getPassword()[i];
                 }
 
-                if (controleur.etudiantExiste(txtDA.getText()) && motDePasse.equals(motDePasseValidation)) {
+                if (controleur.etudiantPermis(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals("")) {
                     controleur.creerEtudiant(motDePasse);
                     fenetre.fermerFenetre();
                 }
