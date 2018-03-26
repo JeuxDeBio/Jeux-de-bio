@@ -21,13 +21,18 @@ public class Groupe {
 
     private Modele modele;
 
+    private String nom;
+
+    private Professeur professeur;
+
     private String information;
 
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
 
-    public Groupe(String information, Modele modele) {
+    public Groupe(String information, Modele modele, Professeur professeur) {
         this.information = information;
         this.modele = modele;
+        this.professeur = professeur;
         lectureInformation();
     }
 
@@ -35,9 +40,13 @@ public class Groupe {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
             String ligne = bufferedReader.readLine();
+            nom = ligne;
+            ligne = bufferedReader.readLine();
             while (ligne != null) {
                 for (int i = 0; i < modele.getListeEtudiants().size(); i++) {
                     if (ligne.equals(modele.getListeEtudiants().get(i).getDa())) {
+                        modele.getListeEtudiants().get(i).setGroupe(this);
+                        modele.getListeEtudiants().get(i).setProfesseur(professeur);
                         listeEtudiants.add(modele.getListeEtudiants().get(i));
                     }
                 }
@@ -49,8 +58,12 @@ public class Groupe {
             Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-  
 
+    public String getNom() {
+        return nom;
+    }
+
+    public ArrayList<Etudiant> getListeEtudiants() {
+        return listeEtudiants;
+    }
 }

@@ -61,7 +61,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (modele.logIn()) {
+        if (controleur.logIn()) {
             logIn();
         }
     }
@@ -99,7 +99,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
     public void logIn() {
         this.monde_principale.reset();
         this.remove(monde_principale);
-        this.monde_principale_logIn = new MondeEtudiant(modele, this);
+        this.monde_principale_logIn = new MondeEtudiant(controleur, this);
         this.add(monde_principale_logIn);
         this.validate();
         this.repaint();

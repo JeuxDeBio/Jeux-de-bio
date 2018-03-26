@@ -17,18 +17,21 @@ public class FenetreInscription extends JFrame {
 
     private MondeInscriptionEtudiants mondeEtudiant;
     private MondeInscriptionProfesseurs mondeProf;
+
     private FenetrePrincipale fenetre;
     private Controleur controleur;
 
     public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur, String type) {
         this.fenetre = fenetre;
         this.controleur = controleur;
+
         if (type.equals("prof")) {
             this.mondeProf = new MondeInscriptionProfesseurs(this, controleur);
         } else if(type.equals("etudiant")){
             this.mondeEtudiant = new MondeInscriptionEtudiants(this, controleur);
         }
         creerInterface(type);
+
 
         this.pack();
         this.setVisible(true);

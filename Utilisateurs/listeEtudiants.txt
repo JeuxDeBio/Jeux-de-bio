@@ -3,3 +3,5 @@ Utilisateurs\\Etudiants\\Etudiant2.txt
 Utilisateurs\\Etudiants\\Etudiant3.txt
 Utilisateurs\\Etudiants\\Etudiant4.txt
 Utilisateurs\\Etudiants\\Etudiant5.txt
+Utilisateurs\\Etudiants\\Etudiant6.txt
+Utilisateurs\\Etudiants\\Etudiant7.txt

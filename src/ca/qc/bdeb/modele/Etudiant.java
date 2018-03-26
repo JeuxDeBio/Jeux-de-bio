@@ -20,6 +20,7 @@ public class Etudiant {
 
     private String information;
     private Groupe groupe;
+    private Professeur professeur;
     private String nom;
     private String da;
     private String motDePasse;
@@ -53,4 +54,25 @@ public class Etudiant {
     public String getNom() {
         return nom;
     }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public Groupe getGroupe() {
+        return groupe;
+    }
+
+    public Professeur getProfesseur() {
+        return professeur;
+    }
+    
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
+    }
+
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
+    }
+
 }

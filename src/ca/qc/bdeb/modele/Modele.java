@@ -46,6 +46,8 @@ public class Modele extends Observable {
 
     private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
+    
+    private Etudiant etudiant;
 
     public Modele() {
         lectureEtudiants();
@@ -63,6 +65,7 @@ public class Modele extends Observable {
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
 
+        creerUtilisateur("wefwef");
     }
 
     private void lectureProfesseurs() {
@@ -123,22 +126,48 @@ public class Modele extends Observable {
         return locationFenetreinscriptionProfesseurs;
     }
 
-    public void validerUtilisateur(String da, char[] motdepasse) {
+    public void validerEtudiant(String da, char[] motdepasse) {
+        String motDePasse = "";
+        for (int i = 0; i < motdepasse.length; i++) {
+            motDePasse += motdepasse[i];
+        }
 
+        for (int i = 0; i < listeProfesseurs.size(); i++) {
+            for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
+                for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
+                    if (da.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa()) && motDePasse.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getMotDePasse())) {
+                        logIn = true;
+                        this.etudiant = listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k);
+                        majObserver();
+                    }
+                }
+            }
+        }
     }
 
+    public Etudiant getEtudiant(){
+        return etudiant;
+    }
+    
     public boolean logIn() {
         return logIn;
     }
 
     public void logOut() {
         this.logIn = false;
-        //this.etudiant = null;
+        this.etudiant = null;
     }
 
-    public boolean etudiantExiste(String da) {
-        //faire des verifications
-        return true;
+    public boolean etudiantPermis(String da) {
+        boolean etudiantPermis = false;
+        for (int i = 0; i < listeProfesseurs.size(); i++) {
+            etudiantPermis = listeProfesseurs.get(i).etudiantPermis(da);
+            if (etudiantPermis) {
+                System.out.println(listeProfesseurs.get(i).getNomUtilisateur());
+                break;
+            }
+        }
+        return etudiantPermis;
     }
     
     public boolean professeurExiste(String da){
@@ -146,8 +175,9 @@ public class Modele extends Observable {
         return true;
     }
 
-    public void creerEtudiant(String motDePasse) {
-        String informations = "Utilisateurs\\Etudiants\\" + motDePasse;
+
+    public void creerUtilisateur(String motDePasse) {
+        String informations = "Utilisateurs\\Etudiants\\" + motDePasse + ".txt";
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));

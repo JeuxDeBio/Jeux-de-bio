@@ -45,8 +45,10 @@ public class Professeur {
             ligne = bufferedReader.readLine();
             nom = ligne;
             ligne = bufferedReader.readLine();
+            lectureDAPermis(ligne);
+            ligne = bufferedReader.readLine();
             while (ligne != null) {
-                listeGroupes.add(new Groupe(ligne, modele));
+                listeGroupes.add(new Groupe(ligne, modele, this));
                 ligne = bufferedReader.readLine();
             }
 
@@ -56,7 +58,42 @@ public class Professeur {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 
+    private void lectureDAPermis(String information) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeDAPermis.add(ligne);
+                ligne = bufferedReader.readLine();
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String getNomUtilisateur() {
+        return nomUtilisateur;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public ArrayList<Groupe> getListeGroupes() {
+        return listeGroupes;
+    }
+    
+    public boolean etudiantPermis(String da) {
+        boolean etudiantPermis = false;
+        for (int i = 0; i < listeDAPermis.size(); i++) {
+            if (da.equals(listeDAPermis.get(i))) {
+                etudiantPermis = true;
+            }
+        }
+        return etudiantPermis;
+    }
 }
