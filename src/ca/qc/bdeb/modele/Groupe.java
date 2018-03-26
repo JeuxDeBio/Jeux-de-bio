@@ -36,12 +36,11 @@ public class Groupe {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
             String ligne = bufferedReader.readLine();
             while (ligne != null) {
-                for (int i = 0; i < modele.getListeEtudiantSize(); i++) {
-                    if (modele.getEtudiantChoisi(i).getDa().equals(ligne)) {
-                        listeEtudiants.add(modele.getEtudiantChoisi(i));
+                for (int i = 0; i < modele.getListeEtudiants().size(); i++) {
+                    if (ligne.equals(modele.getListeEtudiants().get(i).getDa())) {
+                        listeEtudiants.add(modele.getListeEtudiants().get(i));
                     }
                 }
-
                 ligne = bufferedReader.readLine();
             }
         } catch (FileNotFoundException ex) {
@@ -50,5 +49,8 @@ public class Groupe {
             Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+  
 
 }

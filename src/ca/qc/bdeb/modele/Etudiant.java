@@ -46,19 +46,11 @@ public class Etudiant {
         }
     }
 
-    public String getDa(){
+    public String getDa() {
         return da;
     }
 
     public String getNom() {
         return nom;
     }
-
-    @Override
-    public String toString() {
-        return da;
-    }
-    
-    
-
 }

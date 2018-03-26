@@ -48,7 +48,6 @@ public class Modele extends Observable {
 
     public Modele() {
         lectureEtudiants();
-
         lectureProfesseurs();
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
@@ -95,20 +94,12 @@ public class Modele extends Observable {
         }
     }
 
-    public Professeur getProfesseurChoisi(int i) {
-        return listeProfesseurs.get(i);
+    public ArrayList<Etudiant> getListeEtudiants() {
+        return listeEtudiants;
     }
 
-    public Etudiant getEtudiantChoisi(int i) {
-        return listeEtudiants.get(i);
-    }
-
-    public int getListeProfesseurSize() {
-        return listeProfesseurs.size();
-    }
-    
-    public int getListeEtudiantSize() {
-        return listeEtudiants.size();
+    public ArrayList<Professeur> getListeProfesseurs() {
+        return listeProfesseurs;
     }
 
     public String getLocationFenetrePrincipale() {

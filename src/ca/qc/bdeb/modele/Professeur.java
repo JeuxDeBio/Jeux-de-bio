@@ -26,6 +26,7 @@ public class Professeur {
     private String nomUtilisateur;
     private String motDePasse;
 
+    private ArrayList<String> listeDAPermis = new ArrayList<>();
     private ArrayList<Groupe> listeGroupes = new ArrayList<>();
 
     public Professeur(String information, Modele modele) {
@@ -55,5 +56,7 @@ public class Professeur {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
 }
