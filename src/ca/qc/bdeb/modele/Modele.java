@@ -27,7 +27,8 @@ public class Modele extends Observable {
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
 
-    private final String locationFenetrePrincipaleLogIn = "Ecrans\\Principale\\FenetrePrincipaleLogIn.png";
+    private final String locationFenetreEtudiant = "Ecrans\\Principale\\FenetreEtudiant.png";
+    private final String locationFenetreProfesseur = "Ecrans\\Principale\\FenetreProfesseur.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
     private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png"; // changer l'image pour prof
@@ -65,7 +66,6 @@ public class Modele extends Observable {
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
 
-        creerUtilisateur("wefwef");
     }
 
     private void lectureProfesseurs() {
@@ -110,10 +110,14 @@ public class Modele extends Observable {
         return locationFenetrePrincipale;
     }
 
-    public String getLocationFenetrePrincipaleLogIn() {
-        return locationFenetrePrincipaleLogIn;
+    public String getLocationFenetreEtudiant() {
+        return locationFenetreEtudiant;
     }
 
+    public String getLocationFenetreProfesseur() {
+        return locationFenetreProfesseur;
+    }
+    
     public String getLocationFenetreSelection() {
         return locationFenetreSelection;
     }

@@ -56,7 +56,7 @@ public class MondeEtudiant extends JComponent {
     }
 
     private void creerInterface() {
-        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipaleLogIn());
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreEtudiant());
 
         lblNom.setText(controleur.getEtudiant().getNom());
         lblNom.setLocation(262, 227);

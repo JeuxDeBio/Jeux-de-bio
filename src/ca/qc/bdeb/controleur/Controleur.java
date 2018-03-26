@@ -42,8 +42,12 @@ public class Controleur {
         return modele.getLocationFenetrePrincipale();
     }
 
-    public String getLocationFenetrePrincipaleLogIn() {
-        return modele.getLocationFenetrePrincipaleLogIn();
+    public String getLocationFenetreEtudiant() {
+        return modele.getLocationFenetreEtudiant();
+    }
+    
+    public String getLocationFenetreProfesseur(){
+        return modele.getLocationFenetreProfesseur();
     }
 
     public String getLocationFenetreSelection() {
