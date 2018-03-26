@@ -12,16 +12,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
  *
- * @author 1649904
+ * @author 1651114
  */
-public class MondeInscriptionEtudiants extends JComponent {
+public class MondeInscriptionProfesseurs extends JComponent {
 
     private final int largeur = 350, hauteur = 200;
 
@@ -36,7 +35,7 @@ public class MondeInscriptionEtudiants extends JComponent {
 
     private Bouton boutonValidation = new Bouton();
 
-    public MondeInscriptionEtudiants(FenetreInscription fenetre, Controleur controleur) {
+    public MondeInscriptionProfesseurs(FenetreInscription fenetre, Controleur controleur) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
@@ -48,8 +47,7 @@ public class MondeInscriptionEtudiants extends JComponent {
     }
 
     private void creerInterface() {
-
-        String personne = "etudiant";
+        String personne = "prof";
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscription(personne));
 
         txtDA.setLocation(140, 10);
@@ -71,7 +69,7 @@ public class MondeInscriptionEtudiants extends JComponent {
     }
 
     private void creerEvenements() {
-        boutonValidation.addMouseListener(new MouseAdapter() {
+       boutonValidation.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -86,20 +84,18 @@ public class MondeInscriptionEtudiants extends JComponent {
                     motDePasseValidation += txtMotDePasseValidation.getPassword()[i];
                 }
 
-
-                if (controleur.etudiantPermis(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals("")) {
-                    controleur.creerEtudiant(motDePasse);
+                if (controleur.professeurExiste(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals(null)) {
+                    controleur.creerProfesseur(txtDA.getText());
                     fenetre.fermerFenetre();
                 }
             }
 
-        });
+       });
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
     }
-
 }
+
