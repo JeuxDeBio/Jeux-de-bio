@@ -1,20 +1,20 @@
-La cellule animale
+﻿La cellule animale
 Ecrans\Drag & Drop\Niveau 3.png
 Ecrans\Drag & Drop\Niveau 3 C.png
 599;559
-102;87:Flagelle
-93;174:Centrosome
+100;87:Flagelle
+90;174:Centrosome
 60;261:Cytosquelette
-93;288:Microfilaments
-93;312:Filaments intermédiaires
-93;334:Microtubules
+90;288:Microfilaments
+90;312:Filaments intermédiaires
+90;334:Microtubules
 71;410:Microvillosités
 54;486:Peroxysome
 191;517:Mitochondrie
 313;516:Lysosome
-421;444:Appareil de Golgi
+425;444:Appareil de Golgi
 493;357:Ribosomes
-501;182:Membrane plasmique
+504;182:Membrane plasmique
 415;120:Chromatine
 416;66:Nucléole
 416;17:Enveloppe nucléaireaire
