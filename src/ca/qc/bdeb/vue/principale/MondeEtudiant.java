@@ -30,8 +30,8 @@ public class MondeEtudiant extends JComponent {
 
     private JLabel lblNom = new JLabel();
     private JLabel lblDA = new JLabel();
-    private JLabel lblProf = new JLabel();
     private JLabel lblGroupe = new JLabel();
+    private JLabel lblProf = new JLabel();
 
     private Bouton boutonDragDrop = new Bouton();
     private Bouton boutonShooter = new Bouton();
@@ -56,22 +56,22 @@ public class MondeEtudiant extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreEtudiant());
 
         lblNom.setText(controleur.getEtudiant().getNom());
-        lblNom.setLocation(262, 227);
+        lblNom.setLocation(260, 224);
         lblNom.setSize(190, 20);
         this.add(lblNom);
         
         lblDA.setText(controleur.getEtudiant().getDa());
-        lblDA.setLocation(246, 254);
+        lblDA.setLocation(244, 250);
         lblDA.setSize(190, 20);
         this.add(lblDA);
 
         lblGroupe.setText(controleur.getEtudiant().getGroupe().getNom());
-        lblGroupe.setLocation(293, 278);
+        lblGroupe.setLocation(283, 277);
         lblGroupe.setSize(190, 20);
         this.add(lblGroupe);
         
         lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
-        lblProf.setLocation(337, 303);
+        lblProf.setLocation(314, 301);
         lblProf.setSize(190, 20);
         this.add(lblProf);
 

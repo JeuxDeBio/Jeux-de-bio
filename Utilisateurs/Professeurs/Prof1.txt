@@ -1,5 +1,5 @@
-nomUtilisateurProf1
-motdepasseProf1
+nuProf1
+mdpProf1
 Prof 1
 Session 1
 Utilisateurs\\Professeurs\\Prof1DAPermis.txt
