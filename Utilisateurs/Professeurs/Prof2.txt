@@ -1,5 +1,6 @@
 nomUtilisateurProf2
 motdepasseProf2
 Prof 2
+Session 1
 Utilisateurs\\Professeurs\\Prof2DAPermis.txt
 Utilisateurs\\Professeurs\\Prof2Groupe1.txt

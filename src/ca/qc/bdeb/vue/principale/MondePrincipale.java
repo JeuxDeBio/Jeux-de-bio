@@ -64,20 +64,20 @@ public class MondePrincipale extends JComponent {
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipale());
 
-        txtDA_Etudiant.setLocation(360, 250);
-        txtDA_Etudiant.setSize(210, 25);
+        txtDA_Etudiant.setLocation(337, 250);
+        txtDA_Etudiant.setSize(223, 25);
         this.add(txtDA_Etudiant);
 
-        pssEtudiant.setLocation(360, 285);
-        pssEtudiant.setSize(210, 25);
+        pssEtudiant.setLocation(337, 285);
+        pssEtudiant.setSize(223, 25);
         this.add(pssEtudiant);
 
-        txtDA_Professeur.setLocation(360, 419);
-        txtDA_Professeur.setSize(210, 25);
+        txtDA_Professeur.setLocation(370, 419);
+        txtDA_Professeur.setSize(200, 25);
         this.add(txtDA_Professeur);
 
-        pssProfesseur.setLocation(360, 454);
-        pssProfesseur.setSize(210, 25);
+        pssProfesseur.setLocation(370, 454);
+        pssProfesseur.setSize(200, 25);
         this.add(pssProfesseur);
 
         boutonIdentificationEtudiant.setLocation(208, 317);

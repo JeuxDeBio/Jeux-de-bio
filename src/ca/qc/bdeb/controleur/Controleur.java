@@ -8,6 +8,7 @@ package ca.qc.bdeb.controleur;
 import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
+import ca.qc.bdeb.modele.Professeur;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -88,6 +89,10 @@ public class Controleur {
 
     public Etudiant getEtudiant() {
         return modele.getEtudiant();
+    }
+
+    public Professeur getProfesseur() {
+        return modele.getProfesseur();
     }
 
     public void creerEtudiant(String motDePasse) {

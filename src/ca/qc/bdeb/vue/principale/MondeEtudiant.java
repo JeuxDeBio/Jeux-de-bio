@@ -29,8 +29,8 @@ public class MondeEtudiant extends JComponent {
     private FenetrePrincipale fenetre;
 
     private JLabel lblNom = new JLabel();
-    private JLabel lblProf = new JLabel();
     private JLabel lblDA = new JLabel();
+    private JLabel lblProf = new JLabel();
     private JLabel lblGroupe = new JLabel();
 
     private Bouton boutonDragDrop = new Bouton();

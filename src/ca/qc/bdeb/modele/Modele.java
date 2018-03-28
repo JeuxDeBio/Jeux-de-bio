@@ -154,6 +154,10 @@ public class Modele extends Observable {
     public Etudiant getEtudiant() {
         return etudiant;
     }
+    
+    public Professeur getProfesseur(){
+        return professeur;
+    }
 
     public boolean logInEtudiant() {
         return logInEtudiant;

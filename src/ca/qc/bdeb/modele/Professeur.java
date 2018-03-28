@@ -25,6 +25,7 @@ public class Professeur {
     private String nom;
     private String nomUtilisateur;
     private String motDePasse;
+    private String session;
 
     private ArrayList<String> listeDAPermis = new ArrayList<>();
     private ArrayList<Groupe> listeGroupes = new ArrayList<>();
@@ -44,6 +45,8 @@ public class Professeur {
             motDePasse = ligne;
             ligne = bufferedReader.readLine();
             nom = ligne;
+            ligne = bufferedReader.readLine();
+            session = ligne;
             ligne = bufferedReader.readLine();
             lectureDAPermis(ligne);
             ligne = bufferedReader.readLine();
@@ -85,6 +88,10 @@ public class Professeur {
 
     public String getMotDePasse() {
         return motDePasse;
+    }
+
+    public String getSession() {
+        return session;
     }
     
     public ArrayList<Groupe> getListeGroupes() {

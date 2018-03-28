@@ -25,6 +25,10 @@ public class MondeProfesseur extends JComponent {
     private Image image;
 
     private FenetrePrincipale fenetre;
+    
+    private JLabel lblNom = new JLabel();
+    private JLabel lblNomUtilisateur = new JLabel();
+    private JLabel lblSession = new JLabel();
 
     private Bouton boutonMdDragDrop = new Bouton();
     private Bouton boutonMdShooter = new Bouton();
@@ -51,6 +55,9 @@ public class MondeProfesseur extends JComponent {
 
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreProfesseur());
+        
+        lblNom.setText(controleur.getProfesseur().getNom());
+        
 
         boutonMdDragDrop.setLocation(26, 194);
         boutonMdDragDrop.setSize(147, 74);
