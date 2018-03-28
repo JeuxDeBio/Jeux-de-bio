@@ -15,6 +15,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 
 /**
  *
@@ -39,6 +43,21 @@ public class MondeEtudiant extends JComponent {
     private Bouton boutonSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
 
+    private JMenuBar mnuBar = new JMenuBar();
+
+    private JMenu mnuProfil = new JMenu("Profil");
+    private JMenu mnuStatistiques = new JMenu("Statistiques");
+    private JMenu mnuInformations = new JMenu("Informations");
+
+    private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
+    private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
+    private JMenuItem mnuItemStatistiques = new JMenuItem("Visionnez vos statistiques!");
+    private JMenuItem mnuItemDragDrop = new JMenuItem("Apprenez plus sur le jeu Drag & Drop!");
+    private JMenuItem mnuItemShooter = new JMenuItem("Apprenez plus sur le jeu Shooter!");
+    private JMenuItem mnuItemCoureur = new JMenuItem("Apprenez plus sur le jeu Coureur!");
+    private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
+    private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
+
     private boolean enJeu = false;
 
     public MondeEtudiant(Controleur controleur, FenetrePrincipale fenetre) {
@@ -59,7 +78,7 @@ public class MondeEtudiant extends JComponent {
         lblNom.setLocation(260, 224);
         lblNom.setSize(190, 20);
         this.add(lblNom);
-        
+
         lblDA.setText(controleur.getEtudiant().getDa());
         lblDA.setLocation(244, 250);
         lblDA.setSize(190, 20);
@@ -69,7 +88,7 @@ public class MondeEtudiant extends JComponent {
         lblGroupe.setLocation(283, 277);
         lblGroupe.setSize(190, 20);
         this.add(lblGroupe);
-        
+
         lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
         lblProf.setLocation(314, 301);
         lblProf.setSize(190, 20);
@@ -94,6 +113,25 @@ public class MondeEtudiant extends JComponent {
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
         this.add(boutonLogOut);
+
+        mnuProfil.add(mnuItemIcon);
+        mnuProfil.add(new JSeparator());
+        mnuProfil.add(mnuItemMDP);
+
+        mnuStatistiques.add(mnuItemStatistiques);
+
+        mnuInformations.add(mnuItemDragDrop);
+        mnuInformations.add(mnuItemShooter);
+        mnuInformations.add(mnuItemCoureur);
+        mnuInformations.add(mnuItemSpeedRun);
+        mnuInformations.add(new JSeparator());
+        mnuInformations.add(mnuItemRemerciements);
+
+        mnuBar.add(mnuProfil);
+        mnuBar.add(mnuStatistiques);
+        mnuBar.add(mnuInformations);
+
+        fenetre.addMenuBar(mnuBar);
     }
 
     private void creerEvenements() {
@@ -158,6 +196,9 @@ public class MondeEtudiant extends JComponent {
             }
 
         });
+        
+        //shit ton d'autres evenements (pour les menuItems) pour PLUS TARD (comme la fin de semaine ou la semaine prochaine jsp)
+        //autres menus a ajouter plus tard
     }
 
     protected void finJeu() {

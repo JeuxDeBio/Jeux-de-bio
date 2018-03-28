@@ -95,6 +95,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.remove(mondePrincipale);
         this.mondeEtudiant = new MondeEtudiant(controleur, this);
         this.add(mondeEtudiant);
+        this.pack();
         this.validate();
         this.repaint();
         this.logIn = true;
@@ -105,6 +106,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.remove(mondePrincipale);
         this.mondeProfesseur = new MondeProfesseur(controleur, this);
         this.add(mondeProfesseur);
+        this.pack();
         this.validate();
         this.repaint();
         this.logIn = true;
@@ -114,6 +116,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.setJMenuBar(null);
         this.remove(mondeEtudiant);
         this.add(mondePrincipale);
+        this.pack();
         this.validate();
         this.repaint();
         this.logIn = false;
@@ -123,6 +126,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.setJMenuBar(null);
         this.remove(mondeProfesseur);
         this.add(mondePrincipale);
+        this.pack();
         this.validate();
         this.repaint();
         this.logIn = false;

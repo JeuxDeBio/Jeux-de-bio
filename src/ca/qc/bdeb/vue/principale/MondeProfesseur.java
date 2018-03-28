@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -40,7 +42,24 @@ public class MondeProfesseur extends JComponent {
     private Bouton boutonCrSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
 
+    private JMenuBar mnuBar = new JMenuBar();
+
+    private JMenu mnuProfil = new JMenu("Profil");
+    private JMenu mnuStatistiques = new JMenu("Statistiques");
+    private JMenu mnuInformations = new JMenu("Informations");
+    private JMenu mnuStatistiquesGroupe = new JMenu("Choisissez le groupe!");
+
+    private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
+    private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
+    private JMenuItem mnuItemDragDrop = new JMenuItem("Apprenez plus sur le jeu Drag & Drop!");
+    private JMenuItem mnuItemShooter = new JMenuItem("Apprenez plus sur le jeu Shooter!");
+    private JMenuItem mnuItemCoureur = new JMenuItem("Apprenez plus sur le jeu Coureur!");
+    private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
+    private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
+
     private boolean enJeu = false;
+
+    JMenuItem[] listeGroupes;
 
     public MondeProfesseur(Controleur controleur, FenetrePrincipale fenetre) {
         this.setPreferredSize(new Dimension(800, 600));
@@ -106,6 +125,34 @@ public class MondeProfesseur extends JComponent {
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
         this.add(boutonLogOut);
+
+        mnuProfil.add(mnuItemIcon);
+        mnuProfil.add(new JSeparator());
+        mnuProfil.add(mnuItemMDP);
+
+        listeGroupes = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
+
+        for (int i = 0; i < listeGroupes.length; i++) {
+            JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getNom());
+            listeGroupes[i] = mnuItemGroupe;
+            mnuStatistiquesGroupe.add(mnuItemGroupe);
+            evenementsPourLesStatistiquesGroupes(i);
+        }
+
+        mnuStatistiques.add(mnuStatistiquesGroupe);
+
+        mnuInformations.add(mnuItemDragDrop);
+        mnuInformations.add(mnuItemShooter);
+        mnuInformations.add(mnuItemCoureur);
+        mnuInformations.add(mnuItemSpeedRun);
+        mnuInformations.add(new JSeparator());
+        mnuInformations.add(mnuItemRemerciements);
+
+        mnuBar.add(mnuProfil);
+        mnuBar.add(mnuStatistiques);
+        mnuBar.add(mnuInformations);
+
+        fenetre.addMenuBar(mnuBar);
     }
 
     private void creerEvenements() {
@@ -220,6 +267,17 @@ public class MondeProfesseur extends JComponent {
                 fenetre.logOutProfesseur();
             }
 
+        });
+        
+        //evenements des menus!! autres menus a ajouter plus tard
+    }
+
+    private void evenementsPourLesStatistiquesGroupes(int i) {
+        listeGroupes[i].addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
         });
     }
 
