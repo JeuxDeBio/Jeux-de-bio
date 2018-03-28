@@ -6,9 +6,7 @@
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
-import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
-import ca.qc.bdeb.modele.Modele;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -52,7 +50,6 @@ public class MondeEtudiant extends JComponent {
 
         creerInterface();
         creerEvenements();
-
     }
 
     private void creerInterface() {
@@ -156,8 +153,8 @@ public class MondeEtudiant extends JComponent {
             @Override
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
-                controleur.logOut();
-                fenetre.logOut();
+                controleur.logOutEtudiant();
+                fenetre.logOutEtudiant();
             }
 
         });

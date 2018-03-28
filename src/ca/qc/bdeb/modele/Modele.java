@@ -43,12 +43,14 @@ public class Modele extends Observable {
     ArrayList<Niveau> listeNiveauxCoureur = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxSpeedRun = new ArrayList<>();
 
-    private boolean logIn = false;
+    private boolean logInEtudiant = false;
+    private boolean logInProfesseur = false;
 
     private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
-    
+
     private Etudiant etudiant;
+    private Professeur professeur;
 
     public Modele() {
         lectureEtudiants();
@@ -117,7 +119,7 @@ public class Modele extends Observable {
     public String getLocationFenetreProfesseur() {
         return locationFenetreProfesseur;
     }
-    
+
     public String getLocationFenetreSelection() {
         return locationFenetreSelection;
     }
@@ -125,8 +127,8 @@ public class Modele extends Observable {
     public String getLocationFenetreInscriptionEtudiants() {
         return locationFenetreinscriptionEtudiants;
     }
-    
-     public String getLocationFenetreInscriptionProfesseurs() {
+
+    public String getLocationFenetreInscriptionProfesseurs() {
         return locationFenetreinscriptionProfesseurs;
     }
 
@@ -140,7 +142,7 @@ public class Modele extends Observable {
             for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
                 for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
                     if (da.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa()) && motDePasse.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getMotDePasse())) {
-                        logIn = true;
+                        logInEtudiant = true;
                         this.etudiant = listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k);
                         majObserver();
                     }
@@ -149,17 +151,41 @@ public class Modele extends Observable {
         }
     }
 
-    public Etudiant getEtudiant(){
+    public Etudiant getEtudiant() {
         return etudiant;
     }
-    
-    public boolean logIn() {
-        return logIn;
+
+    public boolean logInEtudiant() {
+        return logInEtudiant;
     }
 
-    public void logOut() {
-        this.logIn = false;
+    public void logOutEtudiant() {
+        this.logInEtudiant = false;
         this.etudiant = null;
+    }
+
+    public void validerProfesseur(String nomUtilisateur, char[] motdepasse) {
+        String motDePasse = "";
+        for (int i = 0; i < motdepasse.length; i++) {
+            motDePasse += motdepasse[i];
+        }
+
+        for (int i = 0; i < listeProfesseurs.size(); i++) {
+            if (nomUtilisateur.equals(listeProfesseurs.get(i).getNomUtilisateur()) && motDePasse.equals(listeProfesseurs.get(i).getMotDePasse())) {
+                logInProfesseur = true;
+                this.professeur = listeProfesseurs.get(i);
+                majObserver();
+            }
+        }
+    }
+
+    public boolean logInProfesseur() {
+        return logInProfesseur;
+    }
+
+    public void logOutProfesseur() {
+        this.logInProfesseur = false;
+        this.professeur = null;
     }
 
     public boolean etudiantPermis(String da) {
@@ -173,12 +199,11 @@ public class Modele extends Observable {
         }
         return etudiantPermis;
     }
-    
-    public boolean professeurExiste(String da){
-        
+
+    public boolean professeurExiste(String da) {
+
         return true;
     }
-
 
     public void creerUtilisateur(String motDePasse) {
         String informations = "Utilisateurs\\Etudiants\\" + motDePasse + ".txt";
@@ -192,11 +217,11 @@ public class Modele extends Observable {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void creerProfesseur(String nom){
+
+    public void creerProfesseur(String nom) {
         String informations = "Utilisateurs\\Professeurr\\" + nom;
-        
-         try {
+
+        try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
             bufferedWriter.write(nom);
             bufferedWriter.close();

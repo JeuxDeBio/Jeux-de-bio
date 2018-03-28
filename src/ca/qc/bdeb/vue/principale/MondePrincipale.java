@@ -8,7 +8,6 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.modele.Professeur;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -115,7 +114,7 @@ public class MondePrincipale extends JComponent {
     }
 
     private void creerEvenements() {
-        
+
         boutonIdentificationEtudiant.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -130,6 +129,7 @@ public class MondePrincipale extends JComponent {
 
         boutonInscriptionEtudiant.addMouseListener(new MouseAdapter() {
             String personne = "etudiant";
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -146,9 +146,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    System.out.println("Bouton Identification Professeur");
-                    
-                    
+                    controleur.validerProfesseur(txtDA_Professeur.getText(), pssProfesseur.getPassword());
                 }
             }
 
@@ -156,6 +154,7 @@ public class MondePrincipale extends JComponent {
 
         boutonInscriptionProfesseur.addMouseListener(new MouseAdapter() {
             String personne = "prof";
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.

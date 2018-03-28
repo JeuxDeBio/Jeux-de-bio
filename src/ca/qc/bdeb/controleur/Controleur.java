@@ -26,16 +26,28 @@ public class Controleur {
         fenetre.setLocation((((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) - fenetre.getWidth()) / 2, 20);
     }
 
-    public void validerEtudiant(String utilisateurDA, char[] utilisateurMotDePasse) {
-        modele.validerEtudiant(utilisateurDA, utilisateurMotDePasse);
+    public void validerEtudiant(String etudiantDA, char[] etudiantMotdepasse) {
+        modele.validerEtudiant(etudiantDA, etudiantMotdepasse);
     }
 
-    public boolean logIn() {
-        return modele.logIn();
+    public boolean logInEtudiant() {
+        return modele.logInEtudiant();
     }
 
-    public void logOut() {
-        modele.logOut();
+    public void logOutEtudiant() {
+        modele.logOutEtudiant();
+    }
+
+    public void validerProfesseur(String professeurDA, char[] professeurMotdepasse) {
+        modele.validerProfesseur(professeurDA, professeurMotdepasse);
+    }
+
+    public boolean logInProfesseur() {
+        return modele.logInProfesseur();
+    }
+
+    public void logOutProfesseur() {
+        modele.logOutProfesseur();
     }
 
     public String getLocationFenetrePrincipale() {
@@ -45,8 +57,8 @@ public class Controleur {
     public String getLocationFenetreEtudiant() {
         return modele.getLocationFenetreEtudiant();
     }
-    
-    public String getLocationFenetreProfesseur(){
+
+    public String getLocationFenetreProfesseur() {
         return modele.getLocationFenetreProfesseur();
     }
 

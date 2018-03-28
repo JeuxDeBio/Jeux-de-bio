@@ -83,6 +83,10 @@ public class Professeur {
         return nom;
     }
 
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+    
     public ArrayList<Groupe> getListeGroupes() {
         return listeGroupes;
     }

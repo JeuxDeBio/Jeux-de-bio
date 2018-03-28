@@ -8,8 +8,6 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -23,13 +21,12 @@ import javax.swing.*;
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
-
     private Controleur controleur;
     private Modele modele;
 
-    private MondePrincipale monde_principale;
-    private MondeEtudiant monde_principale_logIn;
-
+    private MondePrincipale mondePrincipale;
+    private MondeEtudiant mondeEtudiant;
+    private MondeProfesseur mondeProfesseur;
 
     private FenetreSelection fenetreSelection;
     private FenetreJeu fenetreJeu;
@@ -43,8 +40,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.controleur = controleur;
 
         creerInterface();
-        
-        
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
@@ -61,19 +57,19 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (controleur.logIn()) {
-            logIn();
+        if (controleur.logInEtudiant()) {
+            logInEtudiant();
+        } else if (controleur.logInProfesseur()) {
+            logInProfesseur();
         }
     }
-    
-    
-    
+
     private void creerInterface() {
-        this.monde_principale = new MondePrincipale(modele, controleur, this);
+        this.mondePrincipale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Jeux de bio!");
         this.setResizable(false);
-        this.add(monde_principale);
+        this.add(mondePrincipale);
     }
 
     public void ouvrirFenetreSelectionJeu(Jeu jeu) {
@@ -86,8 +82,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
 
-    
-
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
@@ -96,26 +90,37 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.fenetreInscription.dispose();
     }
 
-    public void logIn() {
-        this.monde_principale.reset();
-        this.remove(monde_principale);
-        this.monde_principale_logIn = new MondeEtudiant(controleur, this);
-        this.add(monde_principale_logIn);
+    public void logInEtudiant() {
+        this.mondePrincipale.reset();
+        this.remove(mondePrincipale);
+        this.mondeEtudiant = new MondeEtudiant(controleur, this);
+        this.add(mondeEtudiant);
         this.validate();
         this.repaint();
         this.logIn = true;
     }
 
-    public void logInProf() {
-        this.monde_principale.reset();
-        this.remove(monde_principale);
+    public void logInProfesseur() {
+        this.mondePrincipale.reset();
+        this.remove(mondePrincipale);
+        this.mondeProfesseur = new MondeProfesseur(controleur, this);
+        this.add(mondeProfesseur);
         this.validate();
         this.repaint();
+        this.logIn = true;
     }
 
-    public void logOut() {
-        this.remove(monde_principale_logIn);
-        this.add(monde_principale);
+    public void logOutEtudiant() {
+        this.remove(mondeEtudiant);
+        this.add(mondePrincipale);
+        this.validate();
+        this.repaint();
+        this.logIn = false;
+    }
+
+    public void logOutProfesseur() {
+        this.remove(mondeProfesseur);
+        this.add(mondePrincipale);
         this.validate();
         this.repaint();
         this.logIn = false;
@@ -123,9 +128,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void finJeu() {
         if (logIn) {
-            monde_principale_logIn.finJeu();
+            mondeEtudiant.finJeu();
         } else {
-            monde_principale.finJeu();
+            mondePrincipale.finJeu();
         }
     }
 
