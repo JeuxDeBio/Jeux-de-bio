@@ -51,7 +51,6 @@ public class MondeSpeedRun extends JComponent {
     private int[] index;
 
     private int nombreQuestionsRepondus = 0;
-    private int nombreBotsDetruits = 0;
 
     private ProgressBar progressBar;
 
@@ -235,14 +234,13 @@ public class MondeSpeedRun extends JComponent {
             bot.setLocation(largeur - bot.getWidth() - 75, hauteur - bot.getHeight() - 50);
             this.add(bot);
             joueur.botElimine();
-            nombreBotsDetruits++;
         } else if (joueur.joueurDetruit() || !(progressBar.getProgres() < index.length)) {
             finJeu = true;
         }
     }
 
     private void finJeu() {
-        controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore(), nombreBotsDetruits);
+        controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore());
         JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()));
     }
 

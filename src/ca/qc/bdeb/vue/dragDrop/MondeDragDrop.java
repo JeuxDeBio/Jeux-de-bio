@@ -246,7 +246,7 @@ public class MondeDragDrop extends JComponent {
                 }
             }
 
-            controleur.calculerScoreDragDrop(fenetre.getNiveauID(), nombreErreurs, compteur);
+            controleur.calculerScoreDragDrop(fenetre.getNiveauID(), nombreErreurs);
             this.finJeu = true;
 
             if (!motsClesFausses.isEmpty()) {

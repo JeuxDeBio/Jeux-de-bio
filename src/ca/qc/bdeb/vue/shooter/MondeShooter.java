@@ -5,6 +5,8 @@
  */
 package ca.qc.bdeb.vue.shooter;
 
+import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
@@ -12,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -20,15 +23,19 @@ import javax.swing.SwingUtilities;
  */
 public class MondeShooter extends JComponent {
 
-    FenetreJeu fenetre;
-    Canon canon = new Canon();
-    Composant composantProjectile = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
-    Composant composantMechant = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
+    private FenetreJeu fenetre;
+    private Controleur controleur;
+
+    private Canon canon = new Canon();
+    private Composant composantProjectile = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
+    private Composant composantMechant = new Composant(Composant.Couleur.BLEU, 0, Composant.Direction.N);
     private ArrayList<Integer> listeKeyCodes = new ArrayList<>();
     private ArrayList<Projectile> listeProjectiles = new ArrayList<>();
     private ArrayList<Projectile> listeProjectilesEnlever = new ArrayList<>();
     private ArrayList<Mechant> listeMechants = new ArrayList<>();
     private ArrayList<Mechant> listeMechantsEnlever = new ArrayList<>();
+    
+    private int points = 0;
 
     Thread thread = new Thread() {
         int compteurTir = 0;
@@ -60,14 +67,15 @@ public class MondeShooter extends JComponent {
                     repaint();
                 }
             }
-            fenetre.fermerFenetre();
+            finJeu();
         }
     };
 
-    public MondeShooter(FenetreJeu fenetre) {
+    public MondeShooter(FenetreJeu fenetre, Controleur controleur) {
         this.setPreferredSize(new Dimension(800, 800));
         this.setLayout(null);
 
+        this.controleur = controleur;
         this.fenetre = fenetre;
 
         this.creerInterface();
@@ -75,13 +83,13 @@ public class MondeShooter extends JComponent {
         this.thread.start();
     }
 
-    public void creerInterface() {
+    private void creerInterface() {
         add(canon);
         canon.setVisible(true);
         canon.setLocation(400 - (canon.getWidth() / 2), 400 - (canon.getWidth() / 2));
     }
 
-    public void creerEvenements() {
+    private void creerEvenements() {
         canon.addKeyListener(new KeyAdapter() {
 
             public void keyPressed(KeyEvent e) {
@@ -98,7 +106,7 @@ public class MondeShooter extends JComponent {
         });
     }
 
-    public void choixMunition() {
+    private void choixMunition() {
         if (listeKeyCodes.contains(KeyEvent.VK_1)) {
             composantProjectile.setCouleur(Composant.Couleur.BLEU);
         } else if (listeKeyCodes.contains(KeyEvent.VK_2)) {
@@ -106,7 +114,7 @@ public class MondeShooter extends JComponent {
         }
     }
 
-    public int tirer(int compteurTir) {
+    private int tirer(int compteurTir) {
 
         if (canon.isPeutTirer()) {
             if (listeKeyCodes.contains(KeyEvent.VK_UP) && listeKeyCodes.contains(KeyEvent.VK_RIGHT)) {
@@ -144,7 +152,7 @@ public class MondeShooter extends JComponent {
         return compteurTir;
     }
 
-    public void deplacementProjectiles() {
+    private void deplacementProjectiles() {
         for (Projectile projectile : listeProjectiles) {
             switch (projectile.getDirection()) {
                 case N:
@@ -177,7 +185,7 @@ public class MondeShooter extends JComponent {
         }
     }
 
-    public void lancerProjectile() {
+    private void lancerProjectile() {
         canon.setPeutTirer(false);
         Projectile projectile = new Projectile(composantProjectile.getCouleur(), 7, composantProjectile.getDirection());
         listeProjectiles.add(projectile);
@@ -185,7 +193,7 @@ public class MondeShooter extends JComponent {
         projectile.setLocation(canon.getX() + canon.getWidth() / 2 - projectile.getWidth() / 2, canon.getY() + canon.getWidth() / 2 - projectile.getWidth() / 2);
     }
 
-    public void apparitionMechant() { 
+    private void apparitionMechant() {
         Random r = new Random();
         int choixCouleur = r.nextInt(2);
         if (choixCouleur == 0) {
@@ -204,11 +212,11 @@ public class MondeShooter extends JComponent {
                 break;
             case 1:
                 mechant.setDirection(Composant.Direction.NE);
-                mechant.setLocation(0 - mechant.getWidth(), 800 + mechant.getHeight()/2);
+                mechant.setLocation(0 - mechant.getWidth(), 800 + mechant.getHeight() / 2);
                 break;
             case 2:
                 mechant.setDirection(Composant.Direction.NO);
-                mechant.setLocation(800, 800 + mechant.getHeight()/2);
+                mechant.setLocation(800, 800 + mechant.getHeight() / 2);
                 break;
             case 3:
                 mechant.setDirection(Composant.Direction.S);
@@ -235,7 +243,7 @@ public class MondeShooter extends JComponent {
 
     }
 
-    public void retirerMechantsEtProjectiles() {
+    private void retirerMechantsEtProjectiles() {
         for (Projectile projectile : listeProjectiles) {
             if (projectile.getX() <= 0 || projectile.getX() + projectile.getWidth() >= 850
                     || projectile.getY() + projectile.getHeight() <= 0 || projectile.getY() >= 800) {
@@ -259,7 +267,7 @@ public class MondeShooter extends JComponent {
                                 remove(projectile);
                                 remove(mechant);
                                 listeMechantsEnlever.add(mechant);
-                                // ajouter des pts pour avoir tué un mechant
+                                points++;
                             }
 
                         });
@@ -282,7 +290,7 @@ public class MondeShooter extends JComponent {
         listeMechants.removeAll(listeMechantsEnlever);
     }
 
-    public void deplacementMechants() {
+    private void deplacementMechants() {
         for (Mechant mechant : listeMechants) {
             switch (mechant.getDirection()) {
                 case N:
@@ -313,7 +321,7 @@ public class MondeShooter extends JComponent {
         }
     }
 
-    public void collisionMechants() {
+    private void collisionMechants() {
         for (Mechant mechant : listeMechants) {
             if (mechant.getBounds().intersects(canon.getBounds())) {
                 canon.setNbVies(canon.getNbVies() - 1);
@@ -332,12 +340,18 @@ public class MondeShooter extends JComponent {
         listeMechants.removeAll(listeMechantsEnlever);
     }
 
-    public boolean voirSiFinPartie() {
+    private boolean voirSiFinPartie() {
         boolean fin = false;
         if (canon.getNbVies() <= 0) {
             fin = true;
         }
 
         return fin;
+    }
+
+    private void finJeu() {
+        controleur.calculerScoreShooter(fenetre.getNiveauID(), points);
+        JOptionPane.showMessageDialog(MondeShooter.this, "Votre score est " + controleur.getScoreNiveau(Jeu.SHOOTER, fenetre.getNiveauID()) + " points.", "Fin de jeu", JOptionPane.INFORMATION_MESSAGE);
+        fenetre.fermerFenetre();
     }
 }
