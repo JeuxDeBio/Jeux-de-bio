@@ -146,6 +146,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     private void fermerApp() {
         if (JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment quitter?", "Fermer l'application?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+            controleur.fermerApp();
             System.exit(0);
         }
     }

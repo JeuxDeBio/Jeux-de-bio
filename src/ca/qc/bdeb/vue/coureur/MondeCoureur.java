@@ -233,7 +233,7 @@ public class MondeCoureur extends JComponent {
     }
 
     private void finJeu() {
-        controleur.calculerScoreCoureur(fenetre.getNiveauID(), (compteur + 1));
+        controleur.calculerScoreCoureur(fenetre.getNiveauID(), compteur);
         if (joueur.getScore() == listeQuestions.size()) {
             JOptionPane.showMessageDialog(this, "Vous avez tout bon!");
         } else {
