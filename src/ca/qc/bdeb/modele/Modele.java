@@ -354,7 +354,7 @@ public class Modele extends Observable {
         int score = (int) scoreDouble / 100;
 
         if (logInEtudiant) {
-
+            etudiant.setScore(Jeu.DRAG_DROP, i, score);
         } else {
             listeNiveauxDragDrop.get(i).setScore(score);
         }
@@ -364,18 +364,19 @@ public class Modele extends Observable {
         int score = nombreBots * 5;
 
         if (logInEtudiant) {
-
+            etudiant.setScore(Jeu.SHOOTER, i, score);
         } else {
             listeNiveauxShooter.get(i).setScore(score);
         }
     }
 
     public void calculerScoreCoureur(int i, int nombreBonneReponses) {
+        System.out.println(nombreBonneReponses + " " + listeNiveauxCoureur.get(i).getQuestionCoureur().size());
         double scoreDouble = ((double) (nombreBonneReponses) / listeNiveauxCoureur.get(i).getQuestionCoureur().size()) * 10000;
         int score = (int) scoreDouble / 100;
 
         if (logInEtudiant) {
-
+            etudiant.setScore(Jeu.COUREUR, i, score);
         } else {
             listeNiveauxCoureur.get(i).setScore(score);
         }
@@ -386,7 +387,7 @@ public class Modele extends Observable {
         int score = (int) scoreDouble / 100;
 
         if (logInEtudiant) {
-
+            etudiant.setScore(Jeu.SPEED_RUN, i, score);
         } else {
             listeNiveauxSpeedRun.get(i).setScore(score);
         }
@@ -395,21 +396,36 @@ public class Modele extends Observable {
     public int getScoreNiveau(Jeu jeu, int i) {
         int score = 0;
 
-        switch (jeu) {
-            case DRAG_DROP:
-                score = listeNiveauxDragDrop.get(i).getScore();
-                break;
-            case SHOOTER:
-                score = listeNiveauxShooter.get(i).getScore();
-                break;
-            case COUREUR:
-                score = listeNiveauxCoureur.get(i).getScore();
-                break;
-            case SPEED_RUN:
-                score = listeNiveauxSpeedRun.get(i).getScore();
+        if (logInEtudiant) {
+            score = etudiant.getScoreNiveau();
+        } else {
+            switch (jeu) {
+                case DRAG_DROP:
+                    score = listeNiveauxDragDrop.get(i).getScore();
+                    break;
+                case SHOOTER:
+                    score = listeNiveauxShooter.get(i).getScore();
+                    break;
+                case COUREUR:
+                    score = listeNiveauxCoureur.get(i).getScore();
+                    break;
+                case SPEED_RUN:
+                    score = listeNiveauxSpeedRun.get(i).getScore();
+            }
         }
-
         return score;
+    }
+
+    public void fermerApp() {
+        for (int i = 0; i < listeProfesseurs.size(); i++) {
+            for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
+                for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
+                    if (listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).informationsModifies()) {
+                        listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).updateFichierEtudiant();
+                    }
+                }
+            }
+        }
     }
 
     public void majObserver() {

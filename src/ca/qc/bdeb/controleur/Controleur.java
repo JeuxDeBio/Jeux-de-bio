@@ -179,4 +179,8 @@ public class Controleur {
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);
     }
+    
+    public void fermerApp(){
+        modele.fermerApp();
+    }
 }
