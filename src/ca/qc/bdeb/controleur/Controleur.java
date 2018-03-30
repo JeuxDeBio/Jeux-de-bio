@@ -136,10 +136,6 @@ public class Controleur {
         return modele.getQuestionsCoureur(i);
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        modele.calculerScoreDragDrop(i, nombreErreurs, temps);
-    }
-
     public ArrayList getQuestionsSpeedRun(int i) {
         return modele.getQuestionsSpeedRun(i);
     }
@@ -164,8 +160,20 @@ public class Controleur {
         return modele.getLocationCoeur();
     }
 
-    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
-        modele.calculerScoreSpeedRun(i, joueurScore, nombreQuestions);
+    public void calculerScoreDragDrop(int i, int nombreErreurs) {
+        modele.calculerScoreDragDrop(i, nombreErreurs);
+    }
+
+    public void calculerScoreShooter(int i, int nombreBots) {
+        modele.calculerScoreShooter(i, nombreBots);
+    }
+
+    public void calculerScoreCoureur(int i, int nombreBonneReponses) {
+        modele.calculerScoreCoureur(i, nombreBonneReponses);
+    }
+
+    public void calculerScoreSpeedRun(int i, int joueurScore) {
+        modele.calculerScoreSpeedRun(i, joueurScore);
     }
 
     public int getScoreNiveau(Jeu jeu, int i) {

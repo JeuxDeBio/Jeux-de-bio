@@ -87,7 +87,7 @@ public class FenetreJeu extends JFrame {
                 nomJeu = "Drag & Drop";
                 break;
             case SHOOTER:
-                MondeShooter mondeShooter = new MondeShooter(this);
+                MondeShooter mondeShooter = new MondeShooter(this, controleur);
                 this.add(mondeShooter);
                 nomJeu = "Shooter";
                 break;

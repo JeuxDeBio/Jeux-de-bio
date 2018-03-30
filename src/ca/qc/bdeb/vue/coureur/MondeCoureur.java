@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.coureur;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
@@ -232,10 +233,11 @@ public class MondeCoureur extends JComponent {
     }
 
     private void finJeu() {
+        controleur.calculerScoreCoureur(fenetre.getNiveauID(), (compteur + 1));
         if (joueur.getScore() == listeQuestions.size()) {
             JOptionPane.showMessageDialog(this, "Vous avez tout bon!");
         } else {
-            JOptionPane.showMessageDialog(this, "Voici la bonne reponse: " + listeChoix.get(index[compteur])[listePositionsReponses.get(index[compteur])]);
+            JOptionPane.showMessageDialog(this, "Voici la bonne reponse: " + listeChoix.get(index[compteur])[listePositionsReponses.get(index[compteur])] + "\nVotre score est " + controleur.getScoreNiveau(Jeu.COUREUR, fenetre.getNiveauID()) + " points.");
         }
         fenetre.fermerFenetre();
     }

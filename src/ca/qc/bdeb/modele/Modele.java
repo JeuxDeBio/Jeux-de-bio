@@ -154,8 +154,8 @@ public class Modele extends Observable {
     public Etudiant getEtudiant() {
         return etudiant;
     }
-    
-    public Professeur getProfesseur(){
+
+    public Professeur getProfesseur() {
         return professeur;
     }
 
@@ -313,10 +313,6 @@ public class Modele extends Observable {
         return listeNiveauxDragDrop.get(i).getQuestionsDragDrop();
     }
 
-    public void calculerScoreDragDrop(int i, int nombreErreurs, int temps) {
-        int score = 0;
-    }
-
     public ArrayList getPositionReponsesCoureur(int i) {
         return listeNiveauxCoureur.get(i).getPositionReponsesCoureur();
     }
@@ -327,26 +323,6 @@ public class Modele extends Observable {
 
     public ArrayList getQuestionsCoureur(int i) {
         return listeNiveauxCoureur.get(i).getQuestionCoureur();
-    }
-
-    public int getScoreNiveau(Jeu jeu, int i) {
-        int score = 0;
-
-        switch (jeu) {
-            case DRAG_DROP:
-                score = listeNiveauxDragDrop.get(i).getScore();
-                break;
-            case SHOOTER:
-                score = listeNiveauxShooter.get(i).getScore();
-                break;
-            case COUREUR:
-                score = listeNiveauxCoureur.get(i).getScore();
-                break;
-            case SPEED_RUN:
-                score = listeNiveauxSpeedRun.get(i).getScore();
-        }
-
-        return score;
     }
 
     public ArrayList getQuestionsSpeedRun(int i) {
@@ -373,8 +349,67 @@ public class Modele extends Observable {
         return locationCoeur;
     }
 
-    public void calculerScoreSpeedRun(int i, int joueurScore, int nombreQuestions) {
+    public void calculerScoreDragDrop(int i, int nombreErreurs) {
+        double scoreDouble = ((double) (listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size() - nombreErreurs) / listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size()) * 10000;
+        int score = (int) scoreDouble / 100;
 
+        if (logInEtudiant) {
+
+        } else {
+            listeNiveauxDragDrop.get(i).setScore(score);
+        }
+    }
+
+    public void calculerScoreShooter(int i, int nombreBots) {
+        int score = nombreBots * 5;
+
+        if (logInEtudiant) {
+
+        } else {
+            listeNiveauxShooter.get(i).setScore(score);
+        }
+    }
+
+    public void calculerScoreCoureur(int i, int nombreBonneReponses) {
+        double scoreDouble = ((double) (nombreBonneReponses) / listeNiveauxCoureur.get(i).getQuestionCoureur().size()) * 10000;
+        int score = (int) scoreDouble / 100;
+
+        if (logInEtudiant) {
+
+        } else {
+            listeNiveauxCoureur.get(i).setScore(score);
+        }
+    }
+
+    public void calculerScoreSpeedRun(int i, int joueurScore) {
+        double scoreDouble = ((double) (joueurScore) / ((listeNiveauxSpeedRun.get(i).getQuestionsSpeedRun().size()) / 3)) * 10000;
+        int score = (int) scoreDouble / 100;
+
+        if (logInEtudiant) {
+
+        } else {
+            listeNiveauxSpeedRun.get(i).setScore(score);
+        }
+    }
+
+    public int getScoreNiveau(Jeu jeu, int i) {
+        int score = 0;
+
+        switch (jeu) {
+            case DRAG_DROP:
+                score = listeNiveauxDragDrop.get(i).getScore();
+                break;
+            case SHOOTER:
+                score = listeNiveauxShooter.get(i).getScore();
+                break;
+            case COUREUR:
+                score = listeNiveauxCoureur.get(i).getScore();
+                break;
+            case SPEED_RUN:
+                score = listeNiveauxSpeedRun.get(i).getScore();
+        }
+
+        return score;
     }
 
     public void majObserver() {
