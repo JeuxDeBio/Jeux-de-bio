@@ -168,8 +168,8 @@ public class Controleur {
         modele.calculerScoreShooter(i, nombreBots);
     }
 
-    public void calculerScoreCoureur(int i) {
-        modele.calculerScoreCoureur(i);
+    public void calculerScoreCoureur(int i, int nombreBonneReponses) {
+        modele.calculerScoreCoureur(i, nombreBonneReponses);
     }
 
     public void calculerScoreSpeedRun(int i, int joueurScore) {

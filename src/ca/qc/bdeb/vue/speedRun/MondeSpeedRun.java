@@ -241,7 +241,7 @@ public class MondeSpeedRun extends JComponent {
 
     private void finJeu() {
         controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore());
-        JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()));
+        JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()) + " points.");
     }
 
 }
