@@ -66,6 +66,10 @@ public class Controleur {
     public String getLocationFenetreSelection() {
         return modele.getLocationFenetreSelection();
     }
+    
+    public String getLocationFenetreModificationMDP(){
+        return modele.getLocationFenetreModiicationMDP();
+    }
 
     public String getLocationFenetreInscription(String personne) {
         if (personne.equals("etudiant")) {
@@ -178,6 +182,14 @@ public class Controleur {
 
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);
+    }
+    
+    public void etudiantModificationMDP(String nouveauMDP){
+        modele.etudiantModificationMDP(nouveauMDP);
+    }
+        
+    public void professeurModificationMDP(String nouveauMDP) {
+        modele.professeurModificationMDP(nouveauMDP);
     }
     
     public void fermerApp(){
