@@ -62,6 +62,10 @@ public class Groupe {
     public String getNom() {
         return nom;
     }
+    
+    public String getInformation(){
+        return information;
+    }
 
     public ArrayList<Etudiant> getListeEtudiants() {
         return listeEtudiants;

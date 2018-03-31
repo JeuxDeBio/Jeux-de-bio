@@ -123,6 +123,11 @@ public class Etudiant {
 
     }
 
+    public void setMotDePasse(String nouveauMotDePasse) {
+        motDePasse = nouveauMotDePasse;
+        informationsModifies = true;
+    }
+
     public void updateFichierEtudiant() {
         ArrayList<String> liste = new ArrayList<>();
         String ligne = "";

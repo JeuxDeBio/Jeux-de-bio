@@ -31,6 +31,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreSelection fenetreSelection;
     private FenetreJeu fenetreJeu;
     private FenetreInscription fenetreInscription;
+    private FenetreModificationMDP fenetreModificationMDP;
 
     private boolean logIn = false;
 
@@ -82,12 +83,21 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreModificationMDP() {
+        this.fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
+        fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreModificationMDP.getHeight()) / 2);
+    }
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
 
     public void fermerFenetreInscription() {
         this.fenetreInscription.dispose();
+    }
+
+    public void fermerFenetreModificationMDP() {
+        this.fenetreModificationMDP.dispose();
     }
 
     public void logInEtudiant() {

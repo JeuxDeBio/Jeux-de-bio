@@ -268,7 +268,14 @@ public class MondeProfesseur extends JComponent {
             }
 
         });
-        
+
+        mnuItemMDP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreModificationMDP();
+            }
+        });
+
         //evenements des menus!! autres menus a ajouter plus tard
     }
 

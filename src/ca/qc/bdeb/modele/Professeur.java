@@ -6,8 +6,10 @@
 package ca.qc.bdeb.modele;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -27,8 +29,12 @@ public class Professeur {
     private String motDePasse;
     private String session;
 
+    private String locationDAPermis;
+
     private ArrayList<String> listeDAPermis = new ArrayList<>();
     private ArrayList<Groupe> listeGroupes = new ArrayList<>();
+
+    private boolean informationsModifies = false;
 
     public Professeur(String information, Modele modele) {
         this.information = information;
@@ -48,7 +54,7 @@ public class Professeur {
             ligne = bufferedReader.readLine();
             session = ligne;
             ligne = bufferedReader.readLine();
-            lectureDAPermis(ligne);
+            locationDAPermis = ligne;
             ligne = bufferedReader.readLine();
             while (ligne != null) {
                 listeGroupes.add(new Groupe(ligne, modele, this));
@@ -60,6 +66,8 @@ public class Professeur {
         } catch (IOException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        lectureDAPermis(locationDAPermis);
     }
 
     private void lectureDAPermis(String information) {
@@ -93,11 +101,11 @@ public class Professeur {
     public String getSession() {
         return session;
     }
-    
+
     public ArrayList<Groupe> getListeGroupes() {
         return listeGroupes;
     }
-    
+
     public boolean etudiantPermis(String da) {
         boolean etudiantPermis = false;
         for (int i = 0; i < listeDAPermis.size(); i++) {
@@ -107,4 +115,38 @@ public class Professeur {
         }
         return etudiantPermis;
     }
+
+    public void setMotDePasse(String nouveauMDP) {
+        motDePasse = nouveauMDP;
+        informationsModifies = true;
+    }
+
+    public void updateFichierProfesseur() {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
+            bufferedWriter.write(nomUtilisateur);
+            bufferedWriter.newLine();
+            bufferedWriter.write(motDePasse);
+            bufferedWriter.newLine();
+            bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write(session);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationDAPermis);
+            bufferedWriter.newLine();
+            for (Groupe groupe : listeGroupes) {
+                bufferedWriter.write(groupe.getInformation());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean informationsModifies() {
+        return informationsModifies;
+    }
+
 }

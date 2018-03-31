@@ -26,12 +26,12 @@ public class Modele extends Observable {
     private final String locationListeEtudiants = "Utilisateurs\\listeEtudiants.txt";
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
-
     private final String locationFenetreEtudiant = "Ecrans\\Principale\\FenetreEtudiant.png";
     private final String locationFenetreProfesseur = "Ecrans\\Principale\\FenetreProfesseur.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
     private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png"; // changer l'image pour prof
+    private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -130,6 +130,10 @@ public class Modele extends Observable {
 
     public String getLocationFenetreInscriptionProfesseurs() {
         return locationFenetreinscriptionProfesseurs;
+    }
+
+    public String getLocationFenetreModiicationMDP() {
+        return locationFenetreModificationtMDP;
     }
 
     public void validerEtudiant(String da, char[] motdepasse) {
@@ -416,6 +420,14 @@ public class Modele extends Observable {
         return score;
     }
 
+    public void etudiantModificationMDP(String nouveauMDP) {
+        etudiant.setMotDePasse(nouveauMDP);
+    }
+
+    public void professeurModificationMDP(String nouveauMDP) {
+        professeur.setMotDePasse(nouveauMDP);
+    }
+
     public void fermerApp() {
         for (int i = 0; i < listeProfesseurs.size(); i++) {
             for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
@@ -424,6 +436,10 @@ public class Modele extends Observable {
                         listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).updateFichierEtudiant();
                     }
                 }
+            }
+            
+            if (listeProfesseurs.get(i).informationsModifies()){
+                listeProfesseurs.get(i).updateFichierProfesseur();
             }
         }
     }
