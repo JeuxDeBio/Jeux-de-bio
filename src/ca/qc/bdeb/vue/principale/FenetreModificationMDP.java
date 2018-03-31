@@ -20,7 +20,7 @@ public class FenetreModificationMDP extends JFrame {
 
     private FenetrePrincipale fenetre;
 
-    private MondeChangementMDP monde;
+    private MondeModificationMDP monde;
 
     private JLabel lblErrorLog = new JLabel(" ", JLabel.CENTER);
 
@@ -36,9 +36,9 @@ public class FenetreModificationMDP extends JFrame {
 
     private void creerInterface() {
         if (controleur.logInEtudiant()) {
-            monde = new MondeChangementMDP(controleur, this, controleur.getEtudiant());
+            monde = new MondeModificationMDP(controleur, this, controleur.getEtudiant());
         } else if (controleur.logInProfesseur()) {
-            monde = new MondeChangementMDP(controleur, this, controleur.getProfesseur());
+            monde = new MondeModificationMDP(controleur, this, controleur.getProfesseur());
         }
         this.setTitle("Modification de mot de passe");
         this.setResizable(false);

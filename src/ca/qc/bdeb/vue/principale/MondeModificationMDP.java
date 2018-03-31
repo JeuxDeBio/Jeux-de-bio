@@ -21,7 +21,7 @@ import javax.swing.JPasswordField;
  *
  * @author Batikan
  */
-public class MondeChangementMDP extends JComponent {
+public class MondeModificationMDP extends JComponent {
 
     private Controleur controleur;
 
@@ -38,7 +38,7 @@ public class MondeChangementMDP extends JComponent {
 
     private Bouton boutonSauvegarder = new Bouton();
 
-    public MondeChangementMDP(Controleur controleur, FenetreModificationMDP fenetre, Etudiant etudiant) {
+    public MondeModificationMDP(Controleur controleur, FenetreModificationMDP fenetre, Etudiant etudiant) {
         this.controleur = controleur;
         this.fenetre = fenetre;
         this.etudiant = etudiant;
@@ -50,7 +50,7 @@ public class MondeChangementMDP extends JComponent {
         creerEvenements();
     }
 
-    public MondeChangementMDP(Controleur controleur, FenetreModificationMDP fenetre, Professeur professeur) {
+    public MondeModificationMDP(Controleur controleur, FenetreModificationMDP fenetre, Professeur professeur) {
         this.controleur = controleur;
         this.fenetre = fenetre;
         this.professeur = professeur;
