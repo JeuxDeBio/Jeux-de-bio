@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -32,8 +33,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreJeu fenetreJeu;
     private FenetreInscription fenetreInscription;
     private FenetreModificationMDP fenetreModificationMDP;
+    private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
 
     private boolean logIn = false;
+
+    private JLabel lblErrorLog = new JLabel(" ", JLabel.CENTER);
 
     public FenetrePrincipale(Controleur controleur, Observable observable) {
         modele = (Modele) observable;
@@ -62,6 +66,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
             logInEtudiant();
         } else if (controleur.logInProfesseur()) {
             logInProfesseur();
+        } else {
+            lblErrorLog.setText(controleur.getLogInErrorLog());
+            mondePrincipale.reset();
         }
     }
 
@@ -71,6 +78,8 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.setTitle("Jeux de bio!");
         this.setResizable(false);
         this.add(mondePrincipale);
+
+        this.add(lblErrorLog, BorderLayout.SOUTH);
     }
 
     public void ouvrirFenetreSelectionJeu(Jeu jeu) {
@@ -86,6 +95,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
     public void ouvrirFenetreModificationMDP() {
         this.fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
         fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreModificationMDP.getHeight()) / 2);
+    }
+
+    public void ouvrirFenetreStatistiquesEtudiant() {
+        this.fenetreStatistiquesEtudiant = new FenetreStatistiqueEtudiant(controleur, this);
+        fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreStatistiquesEtudiant.getHeight()) / 2);
     }
 
     public void fermerFenetreSelection() {
@@ -108,6 +122,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.pack();
         this.validate();
         this.repaint();
+        this.lblErrorLog.setText("");
         this.logIn = true;
     }
 
@@ -119,6 +134,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.pack();
         this.validate();
         this.repaint();
+        this.lblErrorLog.setText("");
         this.logIn = true;
     }
 

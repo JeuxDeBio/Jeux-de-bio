@@ -66,9 +66,17 @@ public class Controleur {
     public String getLocationFenetreSelection() {
         return modele.getLocationFenetreSelection();
     }
-    
-    public String getLocationFenetreModificationMDP(){
+
+    public String getLocationFenetreModificationMDP() {
         return modele.getLocationFenetreModiicationMDP();
+    }
+
+    public String getLocationFenetreStatistiquesEtudiant() {
+        return modele.getLocationFenetreStatistiquesEtudiant();
+    }
+    
+    public String getLocationFenetreStatistiquesJeu() {
+        return modele.getLocationFenetreStatistiquesJeu();
     }
 
     public String getLocationFenetreInscription(String personne) {
@@ -183,16 +191,20 @@ public class Controleur {
     public int getScoreNiveau(Jeu jeu, int i) {
         return modele.getScoreNiveau(jeu, i);
     }
-    
-    public void etudiantModificationMDP(String nouveauMDP){
+
+    public void etudiantModificationMDP(String nouveauMDP) {
         modele.etudiantModificationMDP(nouveauMDP);
     }
-        
+
     public void professeurModificationMDP(String nouveauMDP) {
         modele.professeurModificationMDP(nouveauMDP);
     }
     
-    public void fermerApp(){
+    public String getLogInErrorLog() {
+        return modele.getLogInErrorLog();
+    }
+
+    public void fermerApp() {
         modele.fermerApp();
     }
 }

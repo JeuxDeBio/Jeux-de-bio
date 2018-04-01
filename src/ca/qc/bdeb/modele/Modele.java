@@ -32,6 +32,8 @@ public class Modele extends Observable {
     private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
     private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png"; // changer l'image pour prof
     private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
+    private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
+    private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -51,6 +53,8 @@ public class Modele extends Observable {
 
     private Etudiant etudiant;
     private Professeur professeur;
+
+    private String logInErrorLog = "";
 
     public Modele() {
         lectureEtudiants();
@@ -136,23 +140,44 @@ public class Modele extends Observable {
         return locationFenetreModificationtMDP;
     }
 
+    public String getLocationFenetreStatistiquesEtudiant() {
+        return locationFenetreStatistiquesEtudiant;
+    }
+
+    public String getLocationFenetreStatistiquesJeu() {
+        return locationFenetreStatistiquesJeu;
+    }
+
     public void validerEtudiant(String da, char[] motdepasse) {
         String motDePasse = "";
         for (int i = 0; i < motdepasse.length; i++) {
             motDePasse += motdepasse[i];
         }
 
+        boolean daInexistant = true;
+        boolean motDePasseIncorrecte = true;
+
         for (int i = 0; i < listeProfesseurs.size(); i++) {
             for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
                 for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
-                    if (da.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa()) && motDePasse.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getMotDePasse())) {
-                        logInEtudiant = true;
-                        this.etudiant = listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k);
-                        majObserver();
+                    if (da.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa())) {
+                        daInexistant = false;
+                        if (motDePasse.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getMotDePasse())) {
+                            motDePasseIncorrecte = false;
+                            logInEtudiant = true;
+                            this.etudiant = listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k);
+                        }
                     }
                 }
             }
         }
+        if (daInexistant) {
+            logInErrorLog = "ERREUR! DA INEXISTANT!";
+        } else if (motDePasseIncorrecte) {
+            logInErrorLog = "ERREUR! MOT DE PASSE INCORRECT!";
+        }
+        majObserver();
+
     }
 
     public Etudiant getEtudiant() {
@@ -437,11 +462,15 @@ public class Modele extends Observable {
                     }
                 }
             }
-            
-            if (listeProfesseurs.get(i).informationsModifies()){
+
+            if (listeProfesseurs.get(i).informationsModifies()) {
                 listeProfesseurs.get(i).updateFichierProfesseur();
             }
         }
+    }
+
+    public String getLogInErrorLog() {
+        return logInErrorLog;
     }
 
     public void majObserver() {

@@ -128,6 +128,10 @@ public class Etudiant {
         informationsModifies = true;
     }
 
+    public int[][] getScores() {
+        return scores;
+    }
+
     public void updateFichierEtudiant() {
         ArrayList<String> liste = new ArrayList<>();
         String ligne = "";
