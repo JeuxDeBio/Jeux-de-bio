@@ -1,0 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ca.qc.bdeb.vue.principale;
+
+import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComponent;
+
+/**
+ *
+ * @author Batikan
+ */
+public class MondeStatistiquesEtudiant extends JComponent {
+
+    private Controleur controleur;
+
+    private FenetreStatistiqueEtudiant fenetre;
+
+    private final int largeur = 350, hauteur = 250;
+
+    private Image image;
+
+    private Bouton boutonDragDrop = new Bouton();
+    private Bouton boutonShooter = new Bouton();
+    private Bouton boutonCoureur = new Bouton();
+    private Bouton boutonSpeedRun = new Bouton();
+
+    public MondeStatistiquesEtudiant(Controleur controleur, FenetreStatistiqueEtudiant fenetre) {
+        this.setPreferredSize(new Dimension(largeur, hauteur));
+        this.setLayout(null);
+
+        this.controleur = controleur;
+        this.fenetre = fenetre;
+
+        creerInterface();
+        creerEvenements();
+    }
+
+    private void creerInterface() {
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreStatistiquesEtudiant());
+
+        boutonDragDrop.setSize(160, 110);
+        boutonDragDrop.setLocation(10, 10);
+        this.add(boutonDragDrop);
+
+        boutonShooter.setSize(160, 110);
+        boutonShooter.setLocation(180, 10);
+        this.add(boutonShooter);
+
+        boutonCoureur.setSize(160, 110);
+        boutonCoureur.setLocation(10, 130);
+        this.add(boutonCoureur);
+
+        boutonSpeedRun.setSize(160, 110);
+        boutonSpeedRun.setLocation(180, 130);
+        this.add(boutonSpeedRun);
+    }
+
+    private void creerEvenements() {
+        boutonDragDrop.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
+                fenetre.mettreJeu(Jeu.DRAG_DROP);
+            }
+        });
+
+        boutonShooter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
+                fenetre.mettreJeu(Jeu.SHOOTER);
+            }
+        });
+
+        boutonCoureur.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
+                fenetre.mettreJeu(Jeu.COUREUR);
+            }
+        });
+
+        boutonSpeedRun.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
+                fenetre.mettreJeu(Jeu.SPEED_RUN);
+            }
+        });
+    }
+
+    @Override
+    protected void paintComponent(Graphics grphcs) {
+        super.paintComponent(grphcs); //To change body of generated methods, choose Tools | Templates.
+        grphcs.drawImage(image, 0, 0, this);
+    }
+
+}

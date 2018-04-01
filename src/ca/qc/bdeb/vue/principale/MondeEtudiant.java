@@ -202,7 +202,14 @@ public class MondeEtudiant extends JComponent {
         mnuItemMDP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               fenetre.ouvrirFenetreModificationMDP();
+                fenetre.ouvrirFenetreModificationMDP();
+            }
+        });
+
+        mnuItemStatistiques.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreStatistiquesEtudiant();
             }
         });
 

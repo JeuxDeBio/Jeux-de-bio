@@ -59,10 +59,12 @@ public class MondeProfesseur extends JComponent {
 
     private boolean enJeu = false;
 
-    JMenuItem[] listeGroupes;
+    private JMenuItem[] listeGroupes;
+
+    private final int largeur = 800, hauteur = 600;
 
     public MondeProfesseur(Controleur controleur, FenetrePrincipale fenetre) {
-        this.setPreferredSize(new Dimension(800, 600));
+        this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
         this.controleur = controleur;

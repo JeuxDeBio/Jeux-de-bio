@@ -227,7 +227,7 @@ public class MondePrincipale extends JComponent {
         g.drawImage(image, 0, 0, this);
     }
 
-    protected void reset() {
+    public void reset() {
         this.txtDA_Etudiant.setText("");
         this.txtDA_Professeur.setText("");
         this.pssEtudiant.setText("");
