@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.etudiant;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Bouton;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -64,6 +65,23 @@ public class MondeStatistiquesEtudiant extends JComponent {
         boutonSpeedRun.setSize(160, 110);
         boutonSpeedRun.setLocation(180, 130);
         this.add(boutonSpeedRun);
+
+        IndicateurCouleur indicateurDragDrop = new IndicateurCouleur(getCouleur(Jeu.DRAG_DROP));
+        indicateurDragDrop.setLocation(boutonDragDrop.getX() + (boutonDragDrop.getWidth() - indicateurDragDrop.getWidth()) / 2, boutonDragDrop.getY() + boutonDragDrop.getHeight() - indicateurDragDrop.getHeight() - 10);
+        this.add(indicateurDragDrop);
+
+        IndicateurCouleur indicateurShooter = new IndicateurCouleur(getCouleur(Jeu.SHOOTER));
+        indicateurShooter.setLocation(boutonShooter.getX() + (boutonShooter.getWidth() - indicateurShooter.getWidth()) / 2, boutonShooter.getY() + boutonShooter.getHeight() - indicateurShooter.getHeight() - 10);
+        this.add(indicateurShooter);
+
+        IndicateurCouleur indicateurCoureur = new IndicateurCouleur(getCouleur(Jeu.COUREUR));
+        indicateurCoureur.setLocation(boutonCoureur.getX() + (boutonCoureur.getWidth() - indicateurCoureur.getWidth()) / 2, boutonCoureur.getY() + boutonCoureur.getHeight() - indicateurCoureur.getHeight() - 10);
+        this.add(indicateurCoureur);
+
+        IndicateurCouleur indicateurSpeedRun = new IndicateurCouleur(getCouleur(Jeu.SPEED_RUN));
+        indicateurSpeedRun.setLocation(boutonSpeedRun.getX() + (boutonSpeedRun.getWidth() - indicateurSpeedRun.getWidth()) / 2, boutonSpeedRun.getY() + boutonSpeedRun.getHeight() - indicateurSpeedRun.getHeight() - 10);
+        this.add(indicateurSpeedRun);
+
     }
 
     private void creerEvenements() {
@@ -98,6 +116,47 @@ public class MondeStatistiquesEtudiant extends JComponent {
                 fenetre.mettreJeu(Jeu.SPEED_RUN);
             }
         });
+    }
+
+    private Color getCouleur(Jeu jeu) {
+        Color couleur = Color.WHITE;
+        int index = 0;
+        switch (jeu) {
+            case DRAG_DROP:
+                index = 0;
+                break;
+            case SHOOTER:
+                index = 1;
+                break;
+            case COUREUR:
+                index = 2;
+                break;
+            case SPEED_RUN:
+                index = 3;
+        }
+
+        int nombreRouge = 0, nombreJaune = 0, nombreVert = 0;
+
+        for (int i = 0; i < controleur.getEtudiant().getScores()[index].length; i++) {
+            int note = controleur.getEtudiant().getScores()[index][i];
+            if (note >= 70) {
+                nombreVert++;
+            } else if (note < 70 && note >= 60) {
+                nombreJaune++;
+            } else {
+                nombreRouge++;
+            }
+        }
+
+        if (nombreRouge >= nombreJaune && nombreRouge >= nombreVert) {
+            couleur = Color.RED;
+        } else if (nombreJaune >= nombreRouge && nombreJaune >= nombreVert) {
+            couleur = Color.YELLOW;
+        } else if (nombreVert >= nombreJaune && nombreVert >= nombreRouge) {
+            couleur = Color.GREEN;
+        }
+
+        return couleur;
     }
 
     @Override

@@ -86,12 +86,18 @@ public class MondeStatistiquesJeu extends JComponent {
         for (int i = 0; i < controleur.getEtudiant().getScores()[indexJeu].length; i++) {
             JLabel lblNiveau = new JLabel("Niveau " + (i + 1) + ": " + controleur.getEtudiant().getScores()[indexJeu][i] + " points", JLabel.CENTER);
             lblNiveau.setSize(175, 20);
+
+            IndicateurCouleur indicateur = new IndicateurCouleur(getCouleur(controleur.getEtudiant().getScores()[indexJeu][i]));
+
             if (i % 2 == 0) {
                 lblNiveau.setLocation(0, (lblNiveau.getHeight() + 2) * i + 37);
+                indicateur.setLocation(6, (lblNiveau.getHeight() + 2) * i + 37);
             } else {
                 lblNiveau.setLocation(175, (lblNiveau.getHeight() + 2) * (i - 1) + 37);
+                indicateur.setLocation(largeur - indicateur.getWidth() - 6, (lblNiveau.getHeight() + 2) * (i - 1) + 37);
             }
             this.add(lblNiveau);
+            this.add(indicateur);
         }
     }
 
@@ -104,6 +110,18 @@ public class MondeStatistiquesJeu extends JComponent {
             }
 
         });
+    }
+
+    private Color getCouleur(int note) {
+        Color color = Color.WHITE;
+        if (note >= 70) {
+            color = Color.GREEN;
+        } else if (note < 70 && note >= 60) {
+            color = Color.YELLOW;
+        } else {
+            color = Color.RED;
+        }
+        return color;
     }
 
     @Override
