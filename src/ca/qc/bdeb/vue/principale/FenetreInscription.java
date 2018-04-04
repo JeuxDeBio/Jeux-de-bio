@@ -5,6 +5,8 @@
  */
 package ca.qc.bdeb.vue.principale;
 
+import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs;
+import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants;
 import ca.qc.bdeb.controleur.Controleur;
 import javax.swing.JFrame;
 import javax.swing.JTextField;

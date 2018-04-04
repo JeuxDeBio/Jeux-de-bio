@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.qc.bdeb.vue.principale;
+package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import javax.swing.JFrame;
 
 /**
