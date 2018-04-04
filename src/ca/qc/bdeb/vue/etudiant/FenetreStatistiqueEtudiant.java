@@ -8,6 +8,8 @@ package ca.qc.bdeb.vue.etudiant;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 /**
