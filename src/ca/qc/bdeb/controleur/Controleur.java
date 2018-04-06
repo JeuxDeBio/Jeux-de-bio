@@ -74,9 +74,13 @@ public class Controleur {
     public String getLocationFenetreStatistiquesEtudiant() {
         return modele.getLocationFenetreStatistiquesEtudiant();
     }
-    
+
     public String getLocationFenetreStatistiquesJeu() {
         return modele.getLocationFenetreStatistiquesJeu();
+    }
+
+    public String getLocationFenetreStatistiquesGroupe() {
+        return modele.getLocationFenetreStatistiquesGroupe();
     }
 
     public String getLocationFenetreInscription(String personne) {
@@ -199,7 +203,7 @@ public class Controleur {
     public void professeurModificationMDP(String nouveauMDP) {
         modele.professeurModificationMDP(nouveauMDP);
     }
-    
+
     public String getLogInErrorLog() {
         return modele.getLogInErrorLog();
     }

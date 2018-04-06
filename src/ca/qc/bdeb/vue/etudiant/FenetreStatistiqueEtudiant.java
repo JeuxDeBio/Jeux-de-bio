@@ -6,10 +6,9 @@
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 /**
@@ -37,10 +36,31 @@ public class FenetreStatistiqueEtudiant extends JFrame {
         this.pack();
         this.setVisible(true);
     }
+    
+    public FenetreStatistiqueEtudiant(Controleur controleur, FenetrePrincipale fenetre, Etudiant etudiant) {
+        this.controleur = controleur;
+        this.fenetre = fenetre;
 
-    public void mettreJeu(Jeu jeu) {
+        this.mondeEtudiant = new MondeStatistiquesEtudiant(controleur, this, etudiant);
+        this.add(mondeEtudiant);
+
+        this.setTitle("Statistiques de " + etudiant.getDa());
+        this.setResizable(false);
+        this.pack();
+        this.setVisible(true);
+    }
+
+    public void mettreJeuEtudiant(Jeu jeu) {
         this.remove(mondeEtudiant);
         this.mondeJeu = new MondeStatistiquesJeu(controleur, this, jeu);
+        this.add(mondeJeu);
+        this.validate();
+        this.repaint();
+    }
+    
+    public void mettreJeuProfesseur(Jeu jeu, Etudiant etudiant) {
+        this.remove(mondeEtudiant);
+        this.mondeJeu = new MondeStatistiquesJeu(controleur, this, jeu, etudiant);
         this.add(mondeJeu);
         this.validate();
         this.repaint();

@@ -34,6 +34,7 @@ public class Modele extends Observable {
     private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
     private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
+    private final String locationFenetreStatistiquesGroupe = "Ecrans\\Principale\\FenetreStatistiquesGroupe.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -148,6 +149,10 @@ public class Modele extends Observable {
         return locationFenetreStatistiquesJeu;
     }
 
+    public String getLocationFenetreStatistiquesGroupe() {
+        return locationFenetreStatistiquesGroupe;
+    }
+
     public void validerEtudiant(String da, char[] motdepasse) {
         String motDePasse = "";
         for (int i = 0; i < motdepasse.length; i++) {
@@ -203,13 +208,26 @@ public class Modele extends Observable {
             motDePasse += motdepasse[i];
         }
 
+        boolean nuInexistant = true;
+        boolean motDePasseIncorrecte = true;
+
         for (int i = 0; i < listeProfesseurs.size(); i++) {
-            if (nomUtilisateur.equals(listeProfesseurs.get(i).getNomUtilisateur()) && motDePasse.equals(listeProfesseurs.get(i).getMotDePasse())) {
-                logInProfesseur = true;
-                this.professeur = listeProfesseurs.get(i);
-                majObserver();
+            if (nomUtilisateur.equals(listeProfesseurs.get(i).getNomUtilisateur())) {
+                nuInexistant = false;
+                if (motDePasse.equals(listeProfesseurs.get(i).getMotDePasse())) {
+                    motDePasseIncorrecte = false;
+                    logInProfesseur = true;
+                    this.professeur = listeProfesseurs.get(i);
+                }
             }
         }
+
+        if (nuInexistant) {
+            logInErrorLog = "ERREUR! NOM D'UTILISATEUR INEXISTANT!";
+        } else if (motDePasseIncorrecte) {
+            logInErrorLog = "ERREUR! MOT DE PASSE INCORRECT!";
+        }
+        majObserver();
     }
 
     public boolean logInProfesseur() {
