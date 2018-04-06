@@ -137,7 +137,7 @@ public class MondeProfesseur extends JComponent {
         listeGroupes = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
 
         for (int i = 0; i < listeGroupes.length; i++) {
-            JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getNom());
+            JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getCode());
             listeGroupes[i] = mnuItemGroupe;
             mnuStatistiquesGroupe.add(mnuItemGroupe);
             evenementsPourLesStatistiquesGroupes(i);

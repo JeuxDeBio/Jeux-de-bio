@@ -88,7 +88,7 @@ public class MondeEtudiant extends JComponent {
         lblDA.setSize(190, 20);
         this.add(lblDA);
 
-        lblGroupe.setText(controleur.getEtudiant().getGroupe().getNom());
+        lblGroupe.setText(controleur.getEtudiant().getGroupe().getCode());
         lblGroupe.setLocation(283, 277);
         lblGroupe.setSize(190, 20);
         this.add(lblGroupe);

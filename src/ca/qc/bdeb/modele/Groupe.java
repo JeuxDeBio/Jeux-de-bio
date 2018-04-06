@@ -21,7 +21,7 @@ public class Groupe {
 
     private Modele modele;
 
-    private String nom;
+    private String code;
 
     private Professeur professeur;
 
@@ -40,7 +40,7 @@ public class Groupe {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
             String ligne = bufferedReader.readLine();
-            nom = ligne;
+            code = ligne;
             ligne = bufferedReader.readLine();
             while (ligne != null) {
                 for (int i = 0; i < modele.getListeEtudiants().size(); i++) {
@@ -59,8 +59,8 @@ public class Groupe {
         }
     }
 
-    public String getNom() {
-        return nom;
+    public String getCode() {
+        return code;
     }
     
     public String getInformation(){
