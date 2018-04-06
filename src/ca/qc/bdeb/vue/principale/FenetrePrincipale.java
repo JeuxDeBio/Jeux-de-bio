@@ -11,6 +11,7 @@ import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import ca.qc.bdeb.vue.professeur.FenetreStatistiquesGroupe;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Bouton;
 import java.awt.Color;
@@ -50,6 +51,20 @@ public class MondeStatistiquesJeu extends JComponent {
         this.jeu = jeu;
 
         creerInterface();
+        creerInterfaceEtudiant();
+        creerEvenements();
+    }
+    
+    public MondeStatistiquesJeu(Controleur controleur, FenetreStatistiqueEtudiant fenetre, Jeu jeu, Etudiant etudiant) {
+        this.setPreferredSize(new Dimension(largeur, hauteur));
+        this.setLayout(null);
+
+        this.controleur = controleur;
+        this.fenetre = fenetre;
+        this.jeu = jeu;
+
+        creerInterface();
+        creerInterfaceProfesseur(etudiant);
         creerEvenements();
     }
 
@@ -82,12 +97,33 @@ public class MondeStatistiquesJeu extends JComponent {
         lblNomJeu.setSize(330, 20);
         lblNomJeu.setLocation(10, 10);
         this.add(lblNomJeu);
+    }
 
+    private void creerInterfaceEtudiant() {
         for (int i = 0; i < controleur.getEtudiant().getScores()[indexJeu].length; i++) {
             JLabel lblNiveau = new JLabel("Niveau " + (i + 1) + ": " + controleur.getEtudiant().getScores()[indexJeu][i] + " points", JLabel.CENTER);
             lblNiveau.setSize(175, 20);
 
             IndicateurCouleur indicateur = new IndicateurCouleur(getCouleur(controleur.getEtudiant().getScores()[indexJeu][i]));
+
+            if (i % 2 == 0) {
+                lblNiveau.setLocation(0, (lblNiveau.getHeight() + 2) * i + 37);
+                indicateur.setLocation(6, (lblNiveau.getHeight() + 2) * i + 37);
+            } else {
+                lblNiveau.setLocation(175, (lblNiveau.getHeight() + 2) * (i - 1) + 37);
+                indicateur.setLocation(largeur - indicateur.getWidth() - 6, (lblNiveau.getHeight() + 2) * (i - 1) + 37);
+            }
+            this.add(lblNiveau);
+            this.add(indicateur);
+        }
+    }
+
+    private void creerInterfaceProfesseur(Etudiant etudiant) {
+        for (int i = 0; i < etudiant.getScores()[indexJeu].length; i++) {
+            JLabel lblNiveau = new JLabel("Niveau " + (i + 1) + ": " + etudiant.getScores()[indexJeu][i] + " points", JLabel.CENTER);
+            lblNiveau.setSize(175, 20);
+
+            IndicateurCouleur indicateur = new IndicateurCouleur(getCouleur(etudiant.getScores()[indexJeu][i]));
 
             if (i % 2 == 0) {
                 lblNiveau.setLocation(0, (lblNiveau.getHeight() + 2) * i + 37);
