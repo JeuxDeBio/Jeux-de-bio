@@ -37,9 +37,12 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreSelection fenetreSelection;
     private FenetreJeu fenetreJeu;
     private FenetreInscription fenetreInscription;
+    private FenetreModification fenetreModification;
     private FenetreModificationMDP fenetreModificationMDP;
     private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
     private FenetreClasses fenetreClasses;
+    private FenetreCreation fenetreCreation;
+    private FenetreCreationDragDrop fenetreCreationDragDrop;
 
     private boolean logIn = false;
 
@@ -88,8 +91,8 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.add(lblErrorLog, BorderLayout.SOUTH);
     }
 
-    public void ouvrirFenetreSelectionJeu(Jeu jeu) {
-        this.fenetreSelection = new FenetreSelection(modele, controleur, this, jeu, fenetreJeu);
+    public void ouvrirFenetreSelectionJeu(Jeu jeu, String action) {
+        this.fenetreSelection = new FenetreSelection(modele, controleur, this, jeu, fenetreJeu, action, fenetreModification);
         fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
@@ -97,7 +100,12 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.fenetreInscription = new FenetreInscription(this, controleur, personne);
         fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
-
+    
+    public void ouvrirFenetreCreation(Jeu jeu){
+        this.fenetreCreation = new FenetreCreation(controleur, modele, this, jeu, fenetreCreationDragDrop);
+        fenetreCreation.setLocation(this.getX() + (this.getWidth() - fenetreCreation.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreCreation.getHeight()) / 2);
+    }
+    
     public void ouvrirFenetreModificationMDP() {
         this.fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
         fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreModificationMDP.getHeight()) / 2);
