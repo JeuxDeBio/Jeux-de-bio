@@ -31,9 +31,9 @@ public class FenetreStatistiquesGroupe extends JFrame {
         monde = new MondeStatistiquesGroupe(controleur, this, groupe);
         this.add(monde);
 
-        this.pack();
         this.setTitle("Statistiques du " + groupe.getCode());
         this.setResizable(false);
+        this.pack();
         this.setVisible(true);
     }
 
