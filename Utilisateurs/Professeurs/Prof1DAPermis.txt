@@ -3,3 +3,5 @@ daEtudiant2
 daEtudiant3
 daEtudiant4
 daEtudiant5
+daEtudiant6
+daEtudiant7

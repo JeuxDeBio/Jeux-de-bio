@@ -35,5 +35,9 @@ public class FenetreClasses extends JFrame {
         this.pack();
         this.setVisible(true);
     }
+    
+    public void fermerFenetre(){
+        fenetre.fermerFenetreClasses();
+    }
 
 }

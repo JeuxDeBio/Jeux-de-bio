@@ -6,6 +6,7 @@
 package ca.qc.bdeb.controleur;
 
 import ca.qc.bdeb.modele.Etudiant;
+import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.modele.Professeur;
@@ -210,6 +211,10 @@ public class Controleur {
 
     public String getLogInErrorLog() {
         return modele.getLogInErrorLog();
+    }
+    
+    public void enleverEtudiant(Groupe groupe, Etudiant etudiant){
+        modele.enleverEtudiant(groupe, etudiant);
     }
 
     public void fermerApp() {

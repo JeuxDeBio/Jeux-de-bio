@@ -10,8 +10,9 @@ import ca.qc.bdeb.vue.professeur.MondeProfesseur;
 import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.professeur.FenetreStatistiquesGroupe;
+import ca.qc.bdeb.vue.professeur.FenetreClasses;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -38,6 +39,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreInscription fenetreInscription;
     private FenetreModificationMDP fenetreModificationMDP;
     private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
+    private FenetreClasses fenetreClasses;
 
     private boolean logIn = false;
 
@@ -106,6 +108,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreStatistiquesEtudiant.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreClasses(Groupe groupe) {
+        this.fenetreClasses = new FenetreClasses(controleur, this, groupe);
+        fenetreClasses.setLocation(this.getX() + (this.getWidth() - fenetreClasses.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreClasses.getHeight()) / 2);
+    }
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
@@ -116,6 +123,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreModificationMDP() {
         this.fenetreModificationMDP.dispose();
+    }
+
+    public void fermerFenetreClasses() {
+        this.fenetreClasses.dispose();
     }
 
     public void logInEtudiant() {

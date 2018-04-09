@@ -153,7 +153,7 @@ public class Modele extends Observable {
     public String getLocationFenetreStatistiquesGroupe() {
         return locationFenetreStatistiquesGroupe;
     }
-    
+
     public String getLocationFenetreClasses() {
         return locationFenetreClasses;
     }
@@ -475,6 +475,10 @@ public class Modele extends Observable {
     public void professeurModificationMDP(String nouveauMDP) {
         professeur.setMotDePasse(nouveauMDP);
     }
+    
+    public void enleverEtudiant(Groupe groupe, Etudiant etudiant){
+        groupe.enleverEtudiant(etudiant);
+    }
 
     public void fermerApp() {
         for (int i = 0; i < listeProfesseurs.size(); i++) {
@@ -483,6 +487,10 @@ public class Modele extends Observable {
                     if (listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).informationsModifies()) {
                         listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).updateFichierEtudiant();
                     }
+                }
+
+                if (listeProfesseurs.get(i).getListeGroupes().get(j).informationsModifies()) {
+                    listeProfesseurs.get(i).getListeGroupes().get(j).updateFichierGroupe();
                 }
             }
 

@@ -30,7 +30,7 @@ public class MondeProfesseur extends JComponent {
 
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
-
+    
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
     private JLabel lblSession = new JLabel();
@@ -48,9 +48,11 @@ public class MondeProfesseur extends JComponent {
     private JMenuBar mnuBar = new JMenuBar();
 
     private JMenu mnuProfil = new JMenu("Profil");
-    private JMenu mnuStatistiques = new JMenu("Statistiques");
     private JMenu mnuInformations = new JMenu("Informations");
+    private JMenu mnuStatistiques = new JMenu("Statistiques");
     private JMenu mnuStatistiquesGroupe = new JMenu("Choisissez le groupe!");
+    private JMenu mnuClasses = new JMenu("Liste des groupes");
+    private JMenu mnuClassesGroupe = new JMenu("Choissez le groupe!");
 
     private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
     private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
@@ -62,6 +64,7 @@ public class MondeProfesseur extends JComponent {
 
     private boolean enJeu = false;
 
+    private JMenuItem[] listeGroupesStatistiques;
     private JMenuItem[] listeGroupes;
 
     private final int largeur = 800, hauteur = 600;
@@ -135,16 +138,28 @@ public class MondeProfesseur extends JComponent {
         mnuProfil.add(new JSeparator());
         mnuProfil.add(mnuItemMDP);
 
+        listeGroupesStatistiques = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
+
+        for (int i = 0; i < listeGroupesStatistiques.length; i++) {
+            JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getCode());
+            listeGroupesStatistiques[i] = mnuItemGroupe;
+            mnuStatistiquesGroupe.add(mnuItemGroupe);
+            evenementsGroupesStatistiques(i);
+        }
+
+        mnuStatistiques.add(mnuStatistiquesGroupe);
+                
         listeGroupes = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
+
 
         for (int i = 0; i < listeGroupes.length; i++) {
             JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getCode());
             listeGroupes[i] = mnuItemGroupe;
-            mnuStatistiquesGroupe.add(mnuItemGroupe);
-            evenementsPourLesStatistiquesGroupes(i);
+            mnuClassesGroupe.add(mnuItemGroupe);
+            evenementsGroupesClasses(i);
         }
 
-        mnuStatistiques.add(mnuStatistiquesGroupe);
+        mnuClasses.add(mnuClassesGroupe);
 
         mnuInformations.add(mnuItemDragDrop);
         mnuInformations.add(mnuItemShooter);
@@ -155,6 +170,7 @@ public class MondeProfesseur extends JComponent {
 
         mnuBar.add(mnuProfil);
         mnuBar.add(mnuStatistiques);
+        mnuBar.add(mnuClasses);
         mnuBar.add(mnuInformations);
 
         fenetre.addMenuBar(mnuBar);
@@ -281,25 +297,34 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
-        
         mnuItemCoureur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
             }
         });
         //evenements des menus!! autres menus a ajouter plus tard
     }
 
-    private void evenementsPourLesStatistiquesGroupes(int i) {
-        listeGroupes[i].addActionListener(new ActionListener() {
-
+    private void evenementsGroupesStatistiques(int i) {
+        listeGroupesStatistiques[i].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetreStatistiques = new FenetreStatistiquesGroupe(controleur, fenetre, controleur.getProfesseur().getListeGroupes().get(i));
                 fenetreStatistiques.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreStatistiques.getWidth()) / 2, 20);
             }
         });
+    }
+
+    private void evenementsGroupesClasses(int i) {
+
+        listeGroupes[i].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreClasses(controleur.getProfesseur().getListeGroupes().get(i));
+            }
+        });
+
     }
 
     @Override

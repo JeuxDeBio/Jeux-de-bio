@@ -20,7 +20,7 @@ public class BoutonSelecteur extends JComponent {
     private boolean estPresse = false;
 
     public BoutonSelecteur() {
-        this.setPreferredSize(new Dimension(largeur, hauteur));
+        this.setSize(largeur, hauteur);
     }
     
     public void press(){
