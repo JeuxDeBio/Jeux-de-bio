@@ -35,6 +35,7 @@ public class Modele extends Observable {
     private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
     private final String locationFenetreStatistiquesGroupe = "Ecrans\\Principale\\FenetreStatistiquesGroupe.png";
+    private final String locationFenetreClasses = "Ecrans\\Principale\\FenetreClasses.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -151,6 +152,10 @@ public class Modele extends Observable {
 
     public String getLocationFenetreStatistiquesGroupe() {
         return locationFenetreStatistiquesGroupe;
+    }
+    
+    public String getLocationFenetreClasses() {
+        return locationFenetreClasses;
     }
 
     public void validerEtudiant(String da, char[] motdepasse) {
