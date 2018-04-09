@@ -82,6 +82,10 @@ public class Controleur {
     public String getLocationFenetreStatistiquesGroupe() {
         return modele.getLocationFenetreStatistiquesGroupe();
     }
+    
+    public String getLocationFenetreClasses() {
+        return modele.getLocationFenetreClasses();
+    }
 
     public String getLocationFenetreInscription(String personne) {
         if (personne.equals("etudiant")) {
