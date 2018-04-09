@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -166,6 +167,8 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
+                    System.out.println("bzzz");
+                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP); // NE DEVRAIT PAS ÊTRE LÀ 
                 }
 
             }
@@ -215,7 +218,8 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
+                    System.out.println("bou");
+                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                     enJeu = true;
                 }
 

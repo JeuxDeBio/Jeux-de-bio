@@ -10,6 +10,7 @@ import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.coureur.MondeCoureur;
 import ca.qc.bdeb.vue.dragDrop.MondeDragDrop;
+import ca.qc.bdeb.vue.dragDrop.MondeModificationDragDrop;
 import ca.qc.bdeb.vue.shooter.MondeShooter;
 import ca.qc.bdeb.vue.speedRun.MondeSpeedRun;
 import java.awt.BorderLayout;
@@ -69,6 +70,7 @@ public class FenetreJeu extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
+                
                 MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimer, this, controleur);
                 this.add(mondeDragDrop);
                 this.add(lblTimer, BorderLayout.NORTH);
@@ -83,22 +85,30 @@ public class FenetreJeu extends JFrame {
                         mondeDragDrop.validationPoints();
                     }
                 });
+                
 
                 nomJeu = "Drag & Drop";
                 break;
             case SHOOTER:
+               
                 MondeShooter mondeShooter = new MondeShooter(this, controleur);
                 this.add(mondeShooter);
+                
+                
                 nomJeu = "Shooter";
                 break;
             case COUREUR:
+              
                 MondeCoureur mondeCoureur = new MondeCoureur(lblQuestion, this, controleur, modele);
                 this.add(mondeCoureur);
+                
                 nomJeu = "Coureur";
                 break;
             case SPEED_RUN:
+                
                 MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestion, txtReponse, lblTimer, this, controleur, modele);
                 this.add(mondeSpeedRun);
+                
                 nomJeu = "Speed Run";
         }
 

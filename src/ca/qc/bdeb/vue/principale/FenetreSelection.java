@@ -25,25 +25,28 @@ public class FenetreSelection extends JFrame {
     private FenetreJeu fenetreJeu;
 
     private MondeSelection monde;
+    
+    private FenetreModification fenetreMod;
 
     private Jeu jeu;
 
-    public FenetreSelection(Modele modele, Controleur controleur, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreJeu fenetreJeu) {
+    public FenetreSelection(Modele modele, Controleur controleur, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreJeu fenetreJeu, String action, FenetreModification fenetreMod) {
         this.modele = modele;
         this.controleur = controleur;
         this.fenetrePrincipale = fenetrePrincipale;
         this.jeu = jeu;
         this.fenetreJeu = fenetreJeu;
+        this.fenetreMod = fenetreMod;
 
-        creerInterface();
+        creerInterface(action);
 
         this.pack();
         this.setVisible(true);
 
     }
 
-    private void creerInterface() {
-        this.monde = new MondeSelection(modele, controleur, this, jeu);
+    private void creerInterface(String action) {
+        this.monde = new MondeSelection(modele, controleur, this, jeu, action);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Sélection de niveaux");
         this.setResizable(false);
@@ -54,9 +57,15 @@ public class FenetreSelection extends JFrame {
         fenetrePrincipale.fermerFenetreSelection();
     }
 
-    public void ouvrirFenetreJeu(int i) {
-        this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);
-        fenetreJeu.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
+    public void ouvrirFenetreJeu(int i, String action) {
+        if (action == "jouer") {
+            this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);
+            fenetreJeu.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
+        }
+        else{
+            this.fenetreMod = new FenetreModification(jeu, this, fenetrePrincipale, controleur, modele, i);
+            fenetreMod.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
+        }
     }
 
     public void fermerFenetreJeu() {
