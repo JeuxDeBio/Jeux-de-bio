@@ -74,7 +74,7 @@ public class FenetreCreation extends JFrame {
     }
     
     public void ouvrirFenetre(String titre, String lien1, String lien2, String largeur, String hauteur){
-        this.fenetreCreationDragDrop = new FenetreCreationDragDrop(fenetrePrincipale, titre, lien1, lien2, largeur, hauteur);
+        this.fenetreCreationDragDrop = new FenetreCreationDragDrop(fenetrePrincipale, titre, lien1, lien2, largeur, hauteur, controleur);
         fenetreCreationDragDrop.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreCreationDragDrop.getWidth()) / 2, fenetrePrincipale.getY());
     }
 

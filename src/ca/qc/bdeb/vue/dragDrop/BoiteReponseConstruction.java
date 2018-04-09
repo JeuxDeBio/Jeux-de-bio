@@ -18,24 +18,22 @@ public class BoiteReponseConstruction extends JComponent {
 
     private int largeur = 20, hauteur = 20;
     private int positionX = 0, positionY = 0;
-    
+
     private String reponse;
     private boolean hold = false;
 
     public BoiteReponseConstruction(String reponse) {
         this.reponse = reponse;
-         this.setSize(largeur, hauteur);
+        this.setSize(largeur, hauteur);
     }
 
-    
-    
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); 
+        super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, largeur - 1, hauteur - 1);
     }
-    
+
     public void holdTrue() {
         this.hold = true;
     }
@@ -60,6 +58,9 @@ public class BoiteReponseConstruction extends JComponent {
         return reponse;
     }
     
+    public void setReponse(String reponse){
+        this.reponse = reponse;
+    }
 
     public void setPositionX(int positionX) {
         this.positionX = positionX;
@@ -68,11 +69,10 @@ public class BoiteReponseConstruction extends JComponent {
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }
-    
+
     @Override
     public Rectangle getBounds() {
         return new Rectangle(this.getX(), this.getY() + 15, 20, 20);
     }
-    
 
 }

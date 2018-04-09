@@ -167,7 +167,6 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
-                    System.out.println("bzzz");
                     fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP); // NE DEVRAIT PAS ÊTRE LÀ 
                 }
 

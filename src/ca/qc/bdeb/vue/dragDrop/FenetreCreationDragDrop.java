@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.vue.dragDrop;
 
+import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,15 +19,17 @@ import javax.swing.JMenuItem;
  * @author Niopo
  */
 public class FenetreCreationDragDrop extends JFrame {
-
+    
+    private Controleur controleur;
     private FenetrePrincipale fenetrePrincipale;
     
     private JMenuBar mnuBar = new JMenuBar();
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuCreer = new JMenuItem("Créer le niveau");
 
-    public FenetreCreationDragDrop(FenetrePrincipale fenetrePrincipale, String titre, String lien1, String lien2, String largeur, String hauteur) {
+    public FenetreCreationDragDrop(FenetrePrincipale fenetrePrincipale, String titre, String lien1, String lien2, String largeur, String hauteur, Controleur conroleur) {
         this.fenetrePrincipale = fenetrePrincipale;
+        this.controleur = conroleur;
         creerInterface(titre, lien1, lien2, largeur, hauteur);
 
         this.pack();
@@ -37,7 +40,7 @@ public class FenetreCreationDragDrop extends JFrame {
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
 
-        MondeCreationJeuDragDrop monde = new MondeCreationJeuDragDrop(titre, lien1, lien2, largeur, hauteur);
+        MondeCreationJeuDragDrop monde = new MondeCreationJeuDragDrop(titre, lien1, lien2, largeur, hauteur, this, controleur);
         this.add(monde);
         mnuJeu.add(mnuCreer);
         mnuBar.add(mnuJeu);
@@ -52,6 +55,7 @@ public class FenetreCreationDragDrop extends JFrame {
     }
 
     public void fermerFenetre() {
-        fenetrePrincipale.fermerFenetreCreationDragDrop();
+        this.dispose();
+        
     }
 }

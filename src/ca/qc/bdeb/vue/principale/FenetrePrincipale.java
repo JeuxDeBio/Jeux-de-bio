@@ -114,9 +114,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.fenetreSelection.dispose();
     }
     
-    public void fermerFenetreCreationDragDrop(){
-        this.fenetreCreationDragDrop.dispose();
-    }
 
     public void fermerFenetreInscription() {
         this.fenetreInscription.dispose();

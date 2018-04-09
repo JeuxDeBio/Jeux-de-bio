@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.vue.dragDrop;
 
+import ca.qc.bdeb.controleur.Controleur;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -15,12 +16,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Niopo
  */
 public class MondeCreationJeuDragDrop extends JComponent {
+
+    private Controleur controleur;
 
     private FenetreCreationDragDrop fenetre;
 
@@ -47,8 +51,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
         }
     };
 
-    public MondeCreationJeuDragDrop(String titre, String lien1, String lien2, String largeur, String hauteur) {
-
+    public MondeCreationJeuDragDrop(String titre, String lien1, String lien2, String largeur, String hauteur, FenetreCreationDragDrop fenetre, Controleur controleur) {
+        this.controleur = controleur;
+        this.fenetre = fenetre;
         this.creerInterface(titre, lien1, lien2, largeur, hauteur);
         this.creerEvenements();
 
@@ -82,18 +87,29 @@ public class MondeCreationJeuDragDrop extends JComponent {
                     super.mouseReleased(me); //To change body of generated methods, choose Tools | Templates.
                     if (boite.isHold()) {
                         boite.holdFalse();
-                        //faire apparaitre un JOptionPane qui demande la réponse à assigner à la boite
-                        //valider = la boite se place et les coordonnées sont entrées       annuler =  la boite disparait
-                        if (true) { //changer pour ↑
-                            boite.setPositionX(boite.getX());
-                            boite.setPositionX(boite.getY());
+                        String message = JOptionPane.showInputDialog(MondeCreationJeuDragDrop.this, "réponse associée à la boîte", "Ajout de la réponse", JOptionPane.INFORMATION_MESSAGE);
+                        if (message != null && !message.equals("")) {
+                            System.out.println(message);
+                            valider(boite, message);
+                            System.out.println(boite.getX() + "  " + boite.getY() + "   " + boite.getReponse()); // sout
+
+                        } else {
+                            listeReponses.remove(boite);
+                            remove(boite);
+                            System.out.println("allo");
                         }
                         nouvelleBoite();
-
+                        
                     }
                 }
             });
         }
+    }
+
+    public void valider(BoiteReponseConstruction boite, String reponse) {
+        boite.setPositionX(boite.getX());
+        boite.setPositionY(boite.getY());
+        boite.setReponse(reponse);
     }
 
     public void nouvelleBoite() {
@@ -101,7 +117,7 @@ public class MondeCreationJeuDragDrop extends JComponent {
         boite.setLocation(this.largeur - 50, this.hauteur / 2);
         add(boite);
         listeReponses.add(boite);
-        System.out.println(" boite de plus");
+        creerEvenements();
     }
 
     public void bougerBoite() {
@@ -130,16 +146,21 @@ public class MondeCreationJeuDragDrop extends JComponent {
     }
 
     public void creerNiveau(String titre, String lien1, String lien2, String largeur, String hauteur) {
-        System.out.println("wahooo");
+        listeReponses.remove(listeReponses.size()-1);
         System.out.println(listeReponses.size());
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop" + titre));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre));
             bufferedWriter.write(titre);
+            bufferedWriter.newLine();
             bufferedWriter.write(lien1);
+            bufferedWriter.newLine();
             bufferedWriter.write(lien2);
+            bufferedWriter.newLine();
             bufferedWriter.write(largeur + ";" + hauteur);
-            for (int i = 1; i < listeReponses.size(); i++) {
+            bufferedWriter.newLine();
+            for (int i = 0; i < listeReponses.size(); i++) {
                 bufferedWriter.write(listeReponses.get(i).getPositionX() + ":" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
+                bufferedWriter.newLine();
             }
 
             bufferedWriter.close();
