@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
@@ -185,6 +186,7 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                 }
 
             }
@@ -236,6 +238,7 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                 }
 
             }
