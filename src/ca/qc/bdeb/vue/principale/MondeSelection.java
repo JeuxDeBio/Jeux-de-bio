@@ -35,7 +35,7 @@ class MondeSelection extends JComponent {
 
     private Jeu jeu;
 
-    public MondeSelection(Modele modele, Controleur controleur, FenetreSelection fenetre, Jeu jeu) {
+    public MondeSelection(Modele modele, Controleur controleur, FenetreSelection fenetre, Jeu jeu, String action) {
         this.setPreferredSize(new Dimension(300, 600));
         this.setLayout(null);
 
@@ -44,10 +44,10 @@ class MondeSelection extends JComponent {
         this.fenetre = fenetre;
         this.jeu = jeu;
 
-        creerInterface();
+        creerInterface(action);
     }
 
-    private void creerInterface() {
+    private void creerInterface(String action) {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreSelection());
 
         for (int i = 0; i < 10; i++) {
@@ -86,7 +86,7 @@ class MondeSelection extends JComponent {
             }
             this.add(niveau);
             listeNiveaux.add(niveau);
-            creerEvenements(i);
+            creerEvenements(i, action);
         }
 
         String texte = "";
@@ -110,14 +110,14 @@ class MondeSelection extends JComponent {
 
     }
 
-    private void creerEvenements(int i) {
+    private void creerEvenements(int i, String action) {
         listeNiveaux.get(i).addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (listeNiveaux.get(i).existe(controleur, i, jeu)) {
-                    fenetre.ouvrirFenetreJeu(i);
+                    fenetre.ouvrirFenetreJeu(i, action);
                 } else {
                     fenetre.finJeu();
                 }
