@@ -139,13 +139,14 @@ public class MondeEtudiant extends JComponent {
     }
 
     private void creerEvenements() {
+        String action = "jouer";
 
         boutonDragDrop.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, action);
                     enJeu = true;
                 }
 
@@ -153,12 +154,13 @@ public class MondeEtudiant extends JComponent {
         });
 
         boutonShooter.addMouseListener(new MouseAdapter() {
+            String action = "jouer";
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, action);
                     enJeu = true;
                 }
 
@@ -166,12 +168,13 @@ public class MondeEtudiant extends JComponent {
         });
 
         boutonCoureur.addMouseListener(new MouseAdapter() {
+            String action = "jouer";
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, action);
                     enJeu = true;
                 }
 
@@ -179,12 +182,13 @@ public class MondeEtudiant extends JComponent {
         });
 
         boutonSpeedRun.addMouseListener(new MouseAdapter() {
+            String action = "jouer";
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, action);
                     enJeu = true;
                 }
 
