@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 /**
@@ -41,7 +42,7 @@ public class MondeClasses extends JComponent {
     private ArrayList<BoutonSelecteur> listeBoutons = new ArrayList<>();
 
     private JMenuBar mnuBar = new JMenuBar();
-    
+
     private JLabel lblCode = new JLabel();
 
     private JMenu mnuTous = new JMenu("Tous les étudiants");
@@ -78,7 +79,7 @@ public class MondeClasses extends JComponent {
         lblCode.setSize(226, 20);
         lblCode.setLocation(56, 16);
         this.add(lblCode);
-        
+
         for (int i = 0; i < listeEtudiants.size(); i++) {
             JLabel lblEtudiant = new JLabel(listeEtudiants.get(i).getDa() + " | " + listeEtudiants.get(i).getNom(), JLabel.CENTER);
             lblEtudiant.setSize(270, 30);
@@ -148,21 +149,27 @@ public class MondeClasses extends JComponent {
         mnuItemEnlever.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Integer> listeAEnlever = new ArrayList<>();
-
-                for (int i = 0; i < listeBoutons.size(); i++) {
-                    if (listeBoutons.get(i).estPresse()) {
-                        listeAEnlever.add(listeEtudiants.indexOf(listeEtudiants.get(i)));
+                String motDePasse = JOptionPane.showInputDialog(fenetre, "Veuillez entrer votre mot de passe\npour confirmer votre choix!", "Confirmation", JOptionPane.PLAIN_MESSAGE);
+                try {
+                    if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
+                        fenetre.setErrorLog(" ");
+                        ArrayList<Integer> listeAEnlever = new ArrayList<>();
+                        for (int i = 0; i < listeBoutons.size(); i++) {
+                            if (listeBoutons.get(i).estPresse()) {
+                                listeAEnlever.add(listeEtudiants.indexOf(listeEtudiants.get(i)));
+                            }
+                        }
+                        for (int i = listeEtudiants.size(); i >= 0; i--) {
+                            if (listeAEnlever.contains(i)) {
+                                controleur.enleverEtudiant(groupe, groupe.getListeEtudiants().get(i));
+                            }
+                        }
+                    } else {
+                        fenetre.setErrorLog("ERREUR! Mot de passe invalide!");
                     }
+                } catch (NullPointerException ex) {
+                    fenetre.setErrorLog("Opération annulée par l'utilisateur!");
                 }
-
-                for (int i = listeEtudiants.size(); i >= 0; i--) {
-                    if (listeAEnlever.contains(i)) {
-                        controleur.enleverEtudiant(groupe, groupe.getListeEtudiants().get(i));
-                    }
-                }
-                
-                //fenetre.fermerFenetre();
             }
         });
     }

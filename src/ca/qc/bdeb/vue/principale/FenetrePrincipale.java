@@ -42,7 +42,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreModification fenetreModification;
     private FenetreModificationMDP fenetreModificationMDP;
     private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
-    private FenetreClasses fenetreClasses;
     private FenetreCreation fenetreCreation;
     private FenetreCreationDragDrop fenetreCreationDragDrop;
 
@@ -118,11 +117,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreStatistiquesEtudiant.getHeight()) / 2);
     }
 
-    public void ouvrirFenetreClasses(Groupe groupe) {
-        this.fenetreClasses = new FenetreClasses(controleur, this, groupe);
-        fenetreClasses.setLocation(this.getX() + (this.getWidth() - fenetreClasses.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreClasses.getHeight()) / 2);
-    }
-
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
@@ -133,10 +127,6 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreModificationMDP() {
         this.fenetreModificationMDP.dispose();
-    }
-
-    public void fermerFenetreClasses() {
-        this.fenetreClasses.dispose();
     }
 
     public void logInEtudiant() {

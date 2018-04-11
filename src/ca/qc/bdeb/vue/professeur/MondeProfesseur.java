@@ -31,6 +31,7 @@ public class MondeProfesseur extends JComponent {
 
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
+    private FenetreClasses fenetreClasses;
     
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
@@ -324,7 +325,8 @@ public class MondeProfesseur extends JComponent {
         listeGroupes[i].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.ouvrirFenetreClasses(controleur.getProfesseur().getListeGroupes().get(i));
+                fenetreClasses = new FenetreClasses(controleur, fenetre, controleur.getProfesseur().getListeGroupes().get(i));
+                fenetreClasses.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreClasses.getWidth()) / 2, 20);
             }
         });
 

@@ -8,7 +8,9 @@ package ca.qc.bdeb.vue.professeur;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -22,6 +24,8 @@ public class FenetreClasses extends JFrame {
 
     private MondeClasses monde;
 
+    private JLabel errorLog = new JLabel(" ", JLabel.CENTER);
+
     public FenetreClasses(Controleur controleur, FenetrePrincipale fenetre, Groupe groupe) {
         this.controleur = controleur;
         this.fenetre = fenetre;
@@ -29,15 +33,16 @@ public class FenetreClasses extends JFrame {
 
         monde = new MondeClasses(controleur, this, groupe);
         this.add(monde);
+        this.add(errorLog, BorderLayout.SOUTH);
 
         this.setTitle("Liste d'étudiants du " + groupe.getCode());
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
     }
-    
-    public void fermerFenetre(){
-        fenetre.fermerFenetreClasses();
+
+    public void setErrorLog(String errorLog) {
+        this.errorLog.setText(errorLog);
     }
 
 }
