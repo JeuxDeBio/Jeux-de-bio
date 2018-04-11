@@ -27,6 +27,7 @@ public class Professeur {
     private String nom;
     private String nomUtilisateur;
     private String motDePasse;
+    private String locationIcone;
     private String session;
 
     private String locationDAPermis;
@@ -51,6 +52,8 @@ public class Professeur {
             motDePasse = ligne;
             ligne = bufferedReader.readLine();
             nom = ligne;
+            ligne = bufferedReader.readLine();
+            locationIcone = ligne;
             ligne = bufferedReader.readLine();
             session = ligne;
             ligne = bufferedReader.readLine();
@@ -98,6 +101,10 @@ public class Professeur {
         return motDePasse;
     }
 
+    public String getLocationIcone() {
+        return locationIcone;
+    }
+    
     public String getSession() {
         return session;
     }

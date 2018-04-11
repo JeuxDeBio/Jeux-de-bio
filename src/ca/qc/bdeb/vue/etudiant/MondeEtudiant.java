@@ -7,6 +7,7 @@ package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
@@ -35,6 +36,8 @@ public class MondeEtudiant extends JComponent {
     private Image image;
 
     private FenetrePrincipale fenetre;
+
+    private Icone icone;
 
     private JLabel lblNom = new JLabel();
     private JLabel lblDA = new JLabel();
@@ -77,6 +80,10 @@ public class MondeEtudiant extends JComponent {
 
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreEtudiant());
+
+        icone = new Icone(controleur);
+        icone.setLocation(505, 225);
+        this.add(icone);
 
         lblNom.setText(controleur.getEtudiant().getNom());
         lblNom.setLocation(260, 224);

@@ -11,6 +11,7 @@ import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.modele.Professeur;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import ca.qc.bdeb.vue.principale.Icone;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
@@ -83,9 +84,13 @@ public class Controleur {
     public String getLocationFenetreStatistiquesGroupe() {
         return modele.getLocationFenetreStatistiquesGroupe();
     }
-    
+
     public String getLocationFenetreClasses() {
         return modele.getLocationFenetreClasses();
+    }
+
+    public String getLocationFenetreModificationIcone() {
+        return modele.getLocationFenetreModificationIcone();
     }
 
     public String getLocationFenetreInscription(String personne) {
@@ -118,7 +123,6 @@ public class Controleur {
 
     public void creerEtudiant(String motDePasse) {
         modele.creerUtilisateur(motDePasse);
-
     }
 
     public String getNomNiveau(Jeu jeu, int i) {
@@ -212,9 +216,13 @@ public class Controleur {
     public String getLogInErrorLog() {
         return modele.getLogInErrorLog();
     }
-    
-    public void enleverEtudiant(Groupe groupe, Etudiant etudiant){
+
+    public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         modele.enleverEtudiant(groupe, etudiant);
+    }
+
+    public ArrayList<Icone> getListeIcones() {
+        return modele.getListeIcones();
     }
 
     public void fermerApp() {

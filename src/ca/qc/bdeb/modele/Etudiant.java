@@ -30,6 +30,7 @@ public class Etudiant {
     private int[][] scores = new int[4][10];
     private int scoreNiveau = 0;
     private boolean informationsModifies = false;
+    private String locationIcone;
 
     public Etudiant(String information) {
         this.information = information;
@@ -46,7 +47,8 @@ public class Etudiant {
             ligne = bufferedReader.readLine();
             nom = ligne;
             ligne = bufferedReader.readLine();
-
+            locationIcone = ligne;
+            ligne = bufferedReader.readLine();
             int i = 0;
             while (ligne != null) {
                 String[] split = ligne.split(";");
@@ -83,6 +85,10 @@ public class Etudiant {
         return professeur;
     }
 
+    public String getLocationIcone() {
+        return locationIcone;
+    }
+    
     public int getScoreNiveau() {
         return scoreNiveau;
     }

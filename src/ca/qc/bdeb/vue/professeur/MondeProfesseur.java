@@ -7,6 +7,7 @@ package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
@@ -32,10 +33,12 @@ public class MondeProfesseur extends JComponent {
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
     private FenetreClasses fenetreClasses;
-    
+
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
     private JLabel lblSession = new JLabel();
+
+    private Icone icone;
 
     private Bouton boutonMdDragDrop = new Bouton();
     private Bouton boutonMdShooter = new Bouton();
@@ -84,6 +87,10 @@ public class MondeProfesseur extends JComponent {
 
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreProfesseur());
+        
+        icone = new Icone(controleur);
+        icone.setLocation(505, 225);
+        this.add(icone);
 
         lblNom.setText(controleur.getProfesseur().getNom());
         lblNom.setLocation(260, 220);
@@ -150,9 +157,8 @@ public class MondeProfesseur extends JComponent {
         }
 
         mnuStatistiques.add(mnuStatistiquesGroupe);
-                
-        listeGroupes = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
 
+        listeGroupes = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
 
         for (int i = 0; i < listeGroupes.length; i++) {
             JMenuItem mnuItemGroupe = new JMenuItem(controleur.getProfesseur().getListeGroupes().get(i).getCode());
