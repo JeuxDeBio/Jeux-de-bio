@@ -83,6 +83,7 @@ public class Modele extends Observable {
         listeIcones.add(new Icone("Utilisateurs\\Icones\\face.png"));
         listeIcones.add(new Icone("Utilisateurs\\Icones\\etoile.png"));
         listeIcones.add(new Icone("Utilisateurs\\Icones\\abstract.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\abc.png"));
 
     }
 
