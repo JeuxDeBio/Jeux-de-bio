@@ -36,6 +36,7 @@ public class MondeEtudiant extends JComponent {
     private Image image;
 
     private FenetrePrincipale fenetre;
+    private FenetreStatistiqueEtudiant fenetreStatistiques;
 
     private Icone icone;
 
@@ -222,7 +223,15 @@ public class MondeEtudiant extends JComponent {
         mnuItemStatistiques.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetre.ouvrirFenetreStatistiquesEtudiant();
+                fenetreStatistiques = new FenetreStatistiqueEtudiant(controleur, fenetre);
+                fenetreStatistiques.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreStatistiques.getWidth()) / 2, 20);
+            }
+        });
+
+        mnuItemIcon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreModificationIcone();
             }
         });
 
@@ -232,6 +241,15 @@ public class MondeEtudiant extends JComponent {
 
     public void finJeu() {
         this.enJeu = false;
+    }
+
+    public void updateIcone() {
+        this.remove(icone);
+        icone = new Icone(controleur);
+        icone.setLocation(505, 225);
+        this.add(icone);
+        this.invalidate();
+        this.repaint();
     }
 
     @Override

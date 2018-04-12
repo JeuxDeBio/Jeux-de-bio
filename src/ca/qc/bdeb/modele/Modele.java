@@ -60,7 +60,7 @@ public class Modele extends Observable {
     private Etudiant etudiant;
     private Professeur professeur;
 
-    private String logInErrorLog = "";
+    private String logInErrorLog = " ";
 
     public Modele() {
         lectureEtudiants();
@@ -80,6 +80,9 @@ public class Modele extends Observable {
 
         listeIcones.add(new Icone("Utilisateurs\\Icones\\iconeVierge.png"));
         listeIcones.add(new Icone("Utilisateurs\\Icones\\hill.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\face.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\etoile.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\abstract.png"));
 
     }
 

@@ -14,7 +14,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -91,7 +90,7 @@ public class MondeInscriptionEtudiants extends JComponent {
 
                 if (controleur.etudiantPermis(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals("")) {
                     controleur.creerEtudiant(motDePasse);
-                    fenetre.fermerFenetre();
+                    //fenetre.fermerFenetre();
                 }
             }
 

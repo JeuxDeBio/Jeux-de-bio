@@ -28,10 +28,10 @@ public class FenetreStatistiquesGroupe extends JFrame {
         this.fenetre = fenetre;
         this.groupe = groupe;
 
+        this.setTitle("Statistiques du " + groupe.getCode());
         monde = new MondeStatistiquesGroupe(controleur, this, groupe);
         this.add(monde);
 
-        this.setTitle("Statistiques du " + groupe.getCode());
         this.setResizable(false);
         this.pack();
         this.setVisible(true);

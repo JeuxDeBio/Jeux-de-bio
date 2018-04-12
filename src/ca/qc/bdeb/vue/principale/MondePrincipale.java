@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -48,9 +49,11 @@ public class MondePrincipale extends JComponent {
     private Bouton boutonSpeedRun = new Bouton();
 
     private boolean enJeu = false;
+    
+    private final int largeur = 800, hauteur = 600;
 
     public MondePrincipale(Modele modele, Controleur controleur, FenetrePrincipale fenetre) {
-        this.setPreferredSize(new Dimension(800, 600));
+        this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
         this.modele = modele;
@@ -128,13 +131,11 @@ public class MondePrincipale extends JComponent {
         });
 
         boutonInscriptionEtudiant.addMouseListener(new MouseAdapter() {
-            String personne = "etudiant";
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreInscription(personne);
+                    //fait l'inscription
                 }
             }
 
@@ -153,13 +154,11 @@ public class MondePrincipale extends JComponent {
         });
 
         boutonInscriptionProfesseur.addMouseListener(new MouseAdapter() {
-            String personne = "prof";
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    fenetre.ouvrirFenetreInscription(personne);
+                    
                 }
             }
 
@@ -225,18 +224,22 @@ public class MondePrincipale extends JComponent {
     protected void finJeu() {
         this.enJeu = false;
     }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawImage(image, 0, 0, this);
-    }
-
+    
     public void reset() {
         this.txtDA_Etudiant.setText("");
         this.txtDA_Professeur.setText("");
         this.pssEtudiant.setText("");
         this.pssProfesseur.setText("");
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(image, 0, 0, this);
+        g.setColor(Color.BLACK);
+        g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
+    }
+
+    
 
 }

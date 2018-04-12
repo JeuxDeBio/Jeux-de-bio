@@ -17,26 +17,34 @@ import javax.swing.JComponent;
  */
 public class Icone extends JComponent {
 
-    private Controleur controleur;
     private Image image;
+    private String locationIcone;
 
     private final int largeur = 82, hauteur = 99;
 
     public Icone(String location) {
-        image = Toolkit.getDefaultToolkit().getImage(location);
-        this.setSize(largeur, hauteur);
+        this.locationIcone = location;
+        creerInterface();
     }
 
     public Icone(Controleur controleur) {
-        this.controleur = controleur;
         if (controleur.logInEtudiant()) {
-            image = Toolkit.getDefaultToolkit().getImage(controleur.getEtudiant().getLocationIcone());
+            locationIcone = controleur.getEtudiant().getLocationIcone();
         } else if (controleur.logInProfesseur()) {
-            image = Toolkit.getDefaultToolkit().getImage(controleur.getProfesseur().getLocationIcone());
+            locationIcone = controleur.getProfesseur().getLocationIcone();
         }
+        creerInterface();
+    }
+
+    private void creerInterface() {
+        image = Toolkit.getDefaultToolkit().getImage(locationIcone);
         this.setSize(largeur, hauteur);
     }
 
+    public String getLocationIcone() {
+        return locationIcone;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.

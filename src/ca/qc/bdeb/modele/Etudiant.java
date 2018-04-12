@@ -133,6 +133,11 @@ public class Etudiant {
         motDePasse = nouveauMotDePasse;
         informationsModifies = true;
     }
+    
+    public void setLocationIcone(String locationIcone){
+        this.locationIcone = locationIcone;
+        informationsModifies = true;
+    }
 
     public int[][] getScores() {
         return scores;
@@ -157,6 +162,8 @@ public class Etudiant {
             bufferedWriter.write(motDePasse);
             bufferedWriter.newLine();
             bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationIcone);
             bufferedWriter.newLine();
 
             for (String line : liste) {

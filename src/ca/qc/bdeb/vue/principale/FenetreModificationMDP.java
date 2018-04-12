@@ -35,11 +35,7 @@ public class FenetreModificationMDP extends JFrame {
     }
 
     private void creerInterface() {
-        if (controleur.logInEtudiant()) {
-            monde = new MondeModificationMDP(controleur, this, controleur.getEtudiant());
-        } else if (controleur.logInProfesseur()) {
-            monde = new MondeModificationMDP(controleur, this, controleur.getProfesseur());
-        }
+        monde = new MondeModificationMDP(controleur, this);
         this.setTitle("Modification de mot de passe");
         this.setResizable(false);
         this.add(monde);
@@ -50,9 +46,8 @@ public class FenetreModificationMDP extends JFrame {
     public void errorLogSetText(String log) {
         lblErrorLog.setText(log);
     }
-
-    public void fermerFenetre() {
+    
+    public void fermerFenetre(){
         fenetre.fermerFenetreModificationMDP();
     }
-
 }

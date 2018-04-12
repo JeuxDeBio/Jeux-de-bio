@@ -1,7 +1,7 @@
 daEtudiant4
 motdepasseEtudiant4
 Prenon Nom
-Utilisateurs\\Icones\\iconeVierge.png
+Utilisateurs\Icones\iconeVierge.png
 0;0;0;0;0;0;0;0;0;0
 0;0;0;0;0;0;0;0;0;0
 0;0;0;0;0;0;0;0;0;0

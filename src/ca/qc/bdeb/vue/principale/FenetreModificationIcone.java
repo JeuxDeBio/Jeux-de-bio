@@ -6,9 +6,7 @@
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
-import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  *
@@ -28,6 +26,7 @@ public class FenetreModificationIcone extends JFrame {
 
         creerInterface();
 
+        this.setResizable(false);
         this.pack();
         this.setVisible(true);
     }
@@ -35,6 +34,11 @@ public class FenetreModificationIcone extends JFrame {
     private void creerInterface() {
         this.setTitle("Modification de l'icône");
         this.setResizable(false);
+        monde = new MondeModificationIcone(controleur, this);
         this.add(monde);
    }
+    
+    public void fermerFenetre(){
+        fenetre.fermerFenetreModificationIcone();
+    }
 }

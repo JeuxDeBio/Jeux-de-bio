@@ -9,6 +9,8 @@ import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
+import ca.qc.bdeb.vue.principale.FenetreModificationIcone;
+import ca.qc.bdeb.vue.principale.FenetreModificationMDP;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -33,6 +35,7 @@ public class MondeProfesseur extends JComponent {
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
     private FenetreClasses fenetreClasses;
+    private FenetreModificationIcone fenetreModificationIcone;
 
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
@@ -87,7 +90,7 @@ public class MondeProfesseur extends JComponent {
 
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreProfesseur());
-        
+
         icone = new Icone(controleur);
         icone.setLocation(505, 225);
         this.add(icone);
@@ -307,10 +310,11 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
-        mnuItemCoureur.addActionListener(new ActionListener() {
+        mnuItemIcon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                fenetreModificationIcone = new FenetreModificationIcone(controleur, fenetre);
+                fenetreModificationIcone.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreModificationIcone.getWidth()) / 2, 20);
             }
         });
         //evenements des menus!! autres menus a ajouter plus tard
@@ -336,6 +340,15 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
+    }
+    
+    public void updateIcone() {
+        this.remove(icone);
+        icone = new Icone(controleur);
+        icone.setLocation(505, 225);
+        this.add(icone);
+        this.invalidate();
+        this.repaint();
     }
 
     @Override
