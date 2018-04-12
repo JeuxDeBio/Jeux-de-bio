@@ -8,7 +8,10 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants;
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.vue.professeur.TypeUtilisateur;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -17,33 +20,42 @@ import javax.swing.JFrame;
 public class FenetreInscription extends JFrame {
 
     private MondeInscriptionEtudiants mondeEtudiant;
-    private MondeInscriptionProfesseurs mondeProf;
+    private MondeInscriptionProfesseurs mondeProfesseur;
 
     private FenetrePrincipale fenetre;
     private Controleur controleur;
+    private TypeUtilisateur type;
 
-    public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur, String type) {
+    private JLabel lblErrorLog = new JLabel(" ", JLabel.CENTER);
+
+    public FenetreInscription(FenetrePrincipale fenetre, Controleur controleur, TypeUtilisateur type) {
         this.fenetre = fenetre;
         this.controleur = controleur;
+        this.type = type;
 
-        if (type.equals("prof")) {
-            this.mondeProf = new MondeInscriptionProfesseurs(this, controleur);
-        } else if (type.equals("etudiant")) {
-            this.mondeEtudiant = new MondeInscriptionEtudiants(this, controleur);
-        }
-        creerInterface(type);
+        creerInterface();
 
+        this.setResizable(false);
         this.pack();
         this.setVisible(true);
     }
 
-    private void creerInterface(String type) {
-        this.setResizable(false);
-        if (type.equals("prof")) {
-            this.add(mondeProf);
-        } else if (type.equals("etudiant")) {
-            this.add(mondeEtudiant);
+    private void creerInterface() {
+        switch (type) {
+            case ETUDIANT:
+                mondeEtudiant = new MondeInscriptionEtudiants(this, controleur);
+                this.add(mondeEtudiant);
+                break;
+            case PROFESSEUR:
+                mondeProfesseur = new MondeInscriptionProfesseurs(this, controleur);
+                this.add(mondeProfesseur);
         }
+
+        this.add(lblErrorLog, BorderLayout.SOUTH);
+    }
+
+    public void setErrorLog(String text) {
+        this.lblErrorLog.setText(text);
     }
 
 }

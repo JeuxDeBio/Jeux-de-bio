@@ -31,7 +31,7 @@ public class Modele extends Observable {
     private final String locationFenetreProfesseur = "Ecrans\\Principale\\FenetreProfesseur.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
-    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png"; // changer l'image pour prof
+    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionProfesseurs.png"; 
     private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
     private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";

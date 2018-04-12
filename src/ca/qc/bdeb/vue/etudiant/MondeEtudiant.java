@@ -223,8 +223,7 @@ public class MondeEtudiant extends JComponent {
         mnuItemStatistiques.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetreStatistiques = new FenetreStatistiqueEtudiant(controleur, fenetre);
-                fenetreStatistiques.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreStatistiques.getWidth()) / 2, 20);
+                fenetre.ouvrirFenetreStatistiquesEtudiant();
             }
         });
 

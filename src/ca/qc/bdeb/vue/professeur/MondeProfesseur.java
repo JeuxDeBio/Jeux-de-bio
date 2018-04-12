@@ -10,7 +10,6 @@ import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetreModificationIcone;
-import ca.qc.bdeb.vue.principale.FenetreModificationMDP;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -313,8 +312,7 @@ public class MondeProfesseur extends JComponent {
         mnuItemIcon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetreModificationIcone = new FenetreModificationIcone(controleur, fenetre);
-                fenetreModificationIcone.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreModificationIcone.getWidth()) / 2, 20);
+                fenetre.ouvrirFenetreModificationIcone();
             }
         });
         //evenements des menus!! autres menus a ajouter plus tard
@@ -325,7 +323,7 @@ public class MondeProfesseur extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetreStatistiques = new FenetreStatistiquesGroupe(controleur, fenetre, controleur.getProfesseur().getListeGroupes().get(i));
-                fenetreStatistiques.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreStatistiques.getWidth()) / 2, 20);
+                fenetreStatistiques.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreStatistiques.getWidth()) / 2, fenetre.getY() + (fenetre.getHeight() - fenetreStatistiques.getHeight()) / 2);
             }
         });
     }
@@ -336,12 +334,12 @@ public class MondeProfesseur extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetreClasses = new FenetreClasses(controleur, fenetre, controleur.getProfesseur().getListeGroupes().get(i));
-                fenetreClasses.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreClasses.getWidth()) / 2, 20);
+                fenetreClasses.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreClasses.getWidth()) / 2, fenetre.getY() + (fenetre.getHeight() - fenetreClasses.getHeight()) / 2);
             }
         });
 
     }
-    
+
     public void updateIcone() {
         this.remove(icone);
         icone = new Icone(controleur);

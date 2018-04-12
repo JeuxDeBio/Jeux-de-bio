@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import ca.qc.bdeb.vue.professeur.TypeUtilisateur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -135,7 +136,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //fait l'inscription
+                    fenetre.ouvrirFenetreInscription(TypeUtilisateur.ETUDIANT);
                 }
             }
 
@@ -158,7 +159,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    
+                    fenetre.ouvrirFenetreInscription(TypeUtilisateur.PROFESSEUR);
                 }
             }
 
