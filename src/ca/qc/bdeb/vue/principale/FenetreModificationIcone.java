@@ -18,8 +18,9 @@ public class FenetreModificationIcone extends JFrame {
 
     private FenetrePrincipale fenetre;
 
-    private MondeModificationIcone monde;
-   
+    private MondeModificationIcone mondeModification;
+    private MondeVisualisationIcone mondeVisualisation;
+
     public FenetreModificationIcone(Controleur controleur, FenetrePrincipale fenetre) {
         this.controleur = controleur;
         this.fenetre = fenetre;
@@ -34,11 +35,31 @@ public class FenetreModificationIcone extends JFrame {
     private void creerInterface() {
         this.setTitle("Modification de l'icône");
         this.setResizable(false);
-        monde = new MondeModificationIcone(controleur, this);
-        this.add(monde);
-   }
-    
-    public void fermerFenetre(){
+        mondeModification = new MondeModificationIcone(controleur, this);
+        this.add(mondeModification);
+    }
+
+    public void ajouterMondeVisualisation() {
+        this.setTitle("Visualiser toutes les icônes");
+        this.remove(mondeModification);
+        mondeVisualisation = new MondeVisualisationIcone(controleur, this);
+        this.add(mondeVisualisation);
+        pack();
+        invalidate();
+        repaint();
+    }
+
+    public void ajouterMondeModification() {
+        this.setTitle("Modification de l'icône");
+        this.remove(mondeVisualisation);
+        mondeModification = new MondeModificationIcone(controleur, this);
+        this.add(mondeModification);
+        pack();
+        invalidate();
+        repaint();
+    }
+
+    public void fermerFenetre() {
         fenetre.fermerFenetreModificationIcone();
     }
 }

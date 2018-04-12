@@ -11,11 +11,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -36,6 +41,12 @@ public class MondeModificationIcone extends JComponent {
     private ArrayList<Bouton> listeBoutons = new ArrayList<>();
 
     private int indexIcone = 0;
+
+    private JMenuBar mnuBar = new JMenuBar();
+
+    private JMenu mnuVoirToutes = new JMenu("Voir tous les icônes!");
+
+    private JMenuItem mnuItemVoirToutes = new JMenuItem("Voir toutes les icônes!");
 
     private final int largeur = 300;
     private int hauteur = 125;
@@ -85,6 +96,10 @@ public class MondeModificationIcone extends JComponent {
             creerEvenements(i);
         }
 
+        mnuVoirToutes.add(mnuItemVoirToutes);
+        mnuBar.add(mnuVoirToutes);
+        fenetre.setJMenuBar(mnuBar);
+
     }
 
     private void creerEvenements() {
@@ -101,6 +116,14 @@ public class MondeModificationIcone extends JComponent {
             }
         }
         );
+
+        mnuItemVoirToutes.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ajouterMondeVisualisation();
+            }
+        });
     }
 
     private void creerEvenements(int i) {

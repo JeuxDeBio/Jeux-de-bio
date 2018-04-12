@@ -13,6 +13,7 @@ import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
 import ca.qc.bdeb.vue.professeur.FenetreCreation;
+import ca.qc.bdeb.vue.professeur.TypeUtilisateur;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -42,6 +43,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
     private FenetreCreation fenetreCreation;
     private FenetreCreationDragDrop fenetreCreationDragDrop;
+    private FenetreInscription fenetreInscription;
 
     private boolean logIn = false;
 
@@ -102,17 +104,22 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void ouvrirFenetreStatistiquesEtudiant() {
         this.fenetreStatistiquesEtudiant = new FenetreStatistiqueEtudiant(controleur, this);
-        fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreStatistiquesEtudiant.getHeight()) / 2);
+        fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight()- fenetreStatistiquesEtudiant.getHeight()) / 2);
     }
 
     public void ouvrirFenetreModificationMDP() {
         fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
-        fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, 20);
+        fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, this.getY() + (this.getHeight()- fenetreModificationMDP.getHeight()) / 2);
     }
 
     public void ouvrirFenetreModificationIcone() {
         fenetreModificationIcone = new FenetreModificationIcone(controleur, this);
-        fenetreModificationIcone.setLocation(this.getX() + (this.getWidth() - fenetreModificationIcone.getWidth()) / 2, 20);
+        fenetreModificationIcone.setLocation(this.getX() + (this.getWidth() - fenetreModificationIcone.getWidth()) / 2, this.getY() + (this.getHeight()- fenetreModificationIcone.getHeight()) / 2);
+    }
+
+    public void ouvrirFenetreInscription(TypeUtilisateur type) {
+        fenetreInscription = new FenetreInscription(this, controleur, type);
+        fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
 
     public void fermerFenetreSelection() {
@@ -121,6 +128,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreModificationMDP() {
         fenetreModificationMDP.dispose();
+    }
+
+    public void fermerFenetreInscription() {
+        fenetreInscription.dispose();
     }
 
     public void fermerFenetreModificationIcone() {

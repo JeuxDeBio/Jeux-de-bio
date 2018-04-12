@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.professeur;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetreInscription;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -31,9 +32,10 @@ public class MondeInscriptionProfesseurs extends JComponent {
 
     private Image image;
 
-    private JTextField txtDA = new JTextField("");
+    private JTextField txtNU = new JTextField("");
     private JPasswordField txtMotDePasse = new JPasswordField("");
     private JPasswordField txtMotDePasseValidation = new JPasswordField("");
+    private JTextField txtCodeValidation = new JTextField("");
 
     private Bouton boutonValidation = new Bouton();
 
@@ -49,29 +51,32 @@ public class MondeInscriptionProfesseurs extends JComponent {
     }
 
     private void creerInterface() {
-        String personne = "prof";
-        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscription(personne));
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionProfesseurs());
 
-        txtDA.setLocation(140, 10);
-        txtDA.setSize(195, 25);
-        this.add(txtDA);
+        txtNU.setLocation(156, 12);
+        txtNU.setSize(186, 20);
+        this.add(txtNU);
 
-        txtMotDePasse.setLocation(140, 35);
-        txtMotDePasse.setSize(195, 25);
+        txtMotDePasse.setLocation(125, 33);
+        txtMotDePasse.setSize(217, 20);
         this.add(txtMotDePasse);
 
-        txtMotDePasseValidation.setLocation(140, 65);
-        txtMotDePasseValidation.setSize(195, 25);
+        txtMotDePasseValidation.setLocation(125, 58);
+        txtMotDePasseValidation.setSize(216, 20);
         this.add(txtMotDePasseValidation);
 
-        boutonValidation.setLocation(64, 133);
+        txtCodeValidation.setLocation(166, 111);
+        txtCodeValidation.setSize(175, 20);
+        this.add(txtCodeValidation);
+
+        boutonValidation.setLocation(64, 138);
         boutonValidation.setSize(220, 47);
         this.add(boutonValidation);
 
     }
 
     private void creerEvenements() {
-       boutonValidation.addMouseListener(new MouseAdapter() {
+        boutonValidation.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -86,18 +91,16 @@ public class MondeInscriptionProfesseurs extends JComponent {
                     motDePasseValidation += txtMotDePasseValidation.getPassword()[i];
                 }
 
-                if (controleur.professeurExiste(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals(null)) {
-                    controleur.creerProfesseur(txtDA.getText());
-                    //fenetre.fermerFenetre();
-                }
             }
 
-       });
+        });
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
+        g.setColor(Color.BLACK);
+        g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
     }
 }
-

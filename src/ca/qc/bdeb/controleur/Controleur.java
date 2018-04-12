@@ -93,12 +93,12 @@ public class Controleur {
         return modele.getLocationFenetreModificationIcone();
     }
 
-    public String getLocationFenetreInscription(String personne) {
-        if (personne.equals("etudiant")) {
-            return modele.getLocationFenetreInscriptionEtudiants();
-        } else {
-            return modele.getLocationFenetreInscriptionProfesseurs();
-        }
+    public String getLocationFenetreInscriptionEtudiants() {
+        return modele.getLocationFenetreInscriptionEtudiants();
+    }
+
+    public String getLocationFenetreInscriptionProfesseurs() {
+        return modele.getLocationFenetreInscriptionProfesseurs();
     }
 
     public boolean etudiantPermis(String da) {
