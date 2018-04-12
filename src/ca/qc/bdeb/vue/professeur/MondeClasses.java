@@ -186,6 +186,8 @@ public class MondeClasses extends JComponent {
             }
 
             g.fillRect(0, 50 + (30 * i), 300, 30);
+            g.setColor(Color.BLACK);
+            g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
         }
     }
 

@@ -88,7 +88,7 @@ public class MondeInscriptionProfesseurs extends JComponent {
 
                 if (controleur.professeurExiste(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals(null)) {
                     controleur.creerProfesseur(txtDA.getText());
-                    fenetre.fermerFenetre();
+                    //fenetre.fermerFenetre();
                 }
             }
 

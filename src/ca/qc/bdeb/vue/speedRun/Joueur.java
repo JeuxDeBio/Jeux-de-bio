@@ -6,8 +6,9 @@
 package ca.qc.bdeb.vue.speedRun;
 
 import ca.qc.bdeb.controleur.Controleur;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 
@@ -21,6 +22,8 @@ public class Joueur extends JComponent {
     private int pointsVie = 3;
     private int score = 0;
 
+    private Image image;
+
     private int largeur = 82, hauteur = 99;
 
     private ArrayList<Coeur> listeCoeurs = new ArrayList<>();
@@ -29,6 +32,15 @@ public class Joueur extends JComponent {
         this.controleur = controleur;
         int coeurWidth = updateCoeurs();
         this.setSize(largeur + 5 + coeurWidth, hauteur);
+
+        String location = "";
+        if (controleur.logInEtudiant()) {
+            location = controleur.getEtudiant().getLocationIcone();
+        } else {
+            location = controleur.getListeIcones().get(0).getLocationIcone();
+        }
+
+        image = Toolkit.getDefaultToolkit().getImage(location);
     }
 
     private int updateCoeurs() {
@@ -69,7 +81,6 @@ public class Joueur extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.setColor(Color.BLUE);
-        g.fillRect(0, 0, largeur, hauteur);
+        g.drawImage(image, 0, 0, this);
     }
 }

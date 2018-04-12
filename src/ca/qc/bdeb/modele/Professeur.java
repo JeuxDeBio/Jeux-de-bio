@@ -27,6 +27,7 @@ public class Professeur {
     private String nom;
     private String nomUtilisateur;
     private String motDePasse;
+    private String locationIcone;
     private String session;
 
     private String locationDAPermis;
@@ -51,6 +52,8 @@ public class Professeur {
             motDePasse = ligne;
             ligne = bufferedReader.readLine();
             nom = ligne;
+            ligne = bufferedReader.readLine();
+            locationIcone = ligne;
             ligne = bufferedReader.readLine();
             session = ligne;
             ligne = bufferedReader.readLine();
@@ -98,6 +101,10 @@ public class Professeur {
         return motDePasse;
     }
 
+    public String getLocationIcone() {
+        return locationIcone;
+    }
+
     public String getSession() {
         return session;
     }
@@ -121,6 +128,11 @@ public class Professeur {
         informationsModifies = true;
     }
 
+    public void setLocationIcone(String locationIcone) {
+        this.locationIcone = locationIcone;
+        informationsModifies = true;
+    }
+
     public void updateFichierProfesseur() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
@@ -130,10 +142,13 @@ public class Professeur {
             bufferedWriter.newLine();
             bufferedWriter.write(nom);
             bufferedWriter.newLine();
+            bufferedWriter.write(locationIcone);
+            bufferedWriter.newLine();
             bufferedWriter.write(session);
             bufferedWriter.newLine();
             bufferedWriter.write(locationDAPermis);
             bufferedWriter.newLine();
+
             for (Groupe groupe : listeGroupes) {
                 bufferedWriter.write(groupe.getInformation());
                 bufferedWriter.newLine();
@@ -148,5 +163,4 @@ public class Professeur {
     public boolean informationsModifies() {
         return informationsModifies;
     }
-
 }

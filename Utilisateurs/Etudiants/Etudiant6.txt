@@ -1,6 +1,7 @@
 daEtudiant6
 motdepasseEtudiant6
 Prenon Nom
+Utilisateurs\Icones\iconeVierge.png
 0;0;0;0;0;0;0;0;0;0
 0;0;0;0;0;0;0;0;0;0
 0;0;0;0;0;0;0;0;0;0

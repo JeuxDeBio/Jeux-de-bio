@@ -9,7 +9,6 @@ import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants;
 import ca.qc.bdeb.controleur.Controleur;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 /**
  *
@@ -29,11 +28,10 @@ public class FenetreInscription extends JFrame {
 
         if (type.equals("prof")) {
             this.mondeProf = new MondeInscriptionProfesseurs(this, controleur);
-        } else if(type.equals("etudiant")){
+        } else if (type.equals("etudiant")) {
             this.mondeEtudiant = new MondeInscriptionEtudiants(this, controleur);
         }
         creerInterface(type);
-
 
         this.pack();
         this.setVisible(true);
@@ -43,13 +41,9 @@ public class FenetreInscription extends JFrame {
         this.setResizable(false);
         if (type.equals("prof")) {
             this.add(mondeProf);
-        } else if(type.equals("etudiant")){
-        this.add(mondeEtudiant);
+        } else if (type.equals("etudiant")) {
+            this.add(mondeEtudiant);
         }
-    }
-
-    public void fermerFenetre() {
-        fenetre.fermerFenetreInscription();
     }
 
 }

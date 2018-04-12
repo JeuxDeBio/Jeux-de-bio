@@ -47,6 +47,7 @@ public class MondeStatistiquesGroupe extends JComponent {
     MondeStatistiquesGroupe(Controleur controleur, FenetreStatistiquesGroupe fenetre, Groupe groupe) {
         this.listeEtudiants = groupe.getListeEtudiants();
         this.hauteur += 30 * (listeEtudiants.size());
+        
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 

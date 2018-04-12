@@ -10,10 +10,8 @@ import ca.qc.bdeb.vue.professeur.MondeProfesseur;
 import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
-import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
-import ca.qc.bdeb.vue.professeur.FenetreClasses;
 import ca.qc.bdeb.vue.professeur.FenetreCreation;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
@@ -38,9 +36,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     private FenetreSelection fenetreSelection;
     private FenetreJeu fenetreJeu;
-    private FenetreInscription fenetreInscription;
-    private FenetreModification fenetreModification;
     private FenetreModificationMDP fenetreModificationMDP;
+    private FenetreModificationIcone fenetreModificationIcone;
+    private FenetreModification fenetreModification;
     private FenetreStatistiqueEtudiant fenetreStatistiquesEtudiant;
     private FenetreCreation fenetreCreation;
     private FenetreCreationDragDrop fenetreCreationDragDrop;
@@ -97,19 +95,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreSelection.setLocation(this.getX() + (this.getWidth() - fenetreSelection.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreSelection.getHeight()) / 2);
     }
 
-    public void ouvrirFenetreInscription(String personne) {
-        this.fenetreInscription = new FenetreInscription(this, controleur, personne);
-        fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
-    }
-    
-    public void ouvrirFenetreCreation(Jeu jeu){
+    public void ouvrirFenetreCreation(Jeu jeu) {
         this.fenetreCreation = new FenetreCreation(controleur, modele, this, jeu, fenetreCreationDragDrop);
         fenetreCreation.setLocation(this.getX() + (this.getWidth() - fenetreCreation.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreCreation.getHeight()) / 2);
-    }
-    
-    public void ouvrirFenetreModificationMDP() {
-        this.fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
-        fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreModificationMDP.getHeight()) / 2);
     }
 
     public void ouvrirFenetreStatistiquesEtudiant() {
@@ -117,16 +105,31 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreStatistiquesEtudiant.setLocation(this.getX() + (this.getWidth() - fenetreStatistiquesEtudiant.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreStatistiquesEtudiant.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreModificationMDP() {
+        fenetreModificationMDP = new FenetreModificationMDP(controleur, this);
+        fenetreModificationMDP.setLocation(this.getX() + (this.getWidth() - fenetreModificationMDP.getWidth()) / 2, 20);
+    }
+
+    public void ouvrirFenetreModificationIcone() {
+        fenetreModificationIcone = new FenetreModificationIcone(controleur, this);
+        fenetreModificationIcone.setLocation(this.getX() + (this.getWidth() - fenetreModificationIcone.getWidth()) / 2, 20);
+    }
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
 
-    public void fermerFenetreInscription() {
-        this.fenetreInscription.dispose();
+    public void fermerFenetreModificationMDP() {
+        fenetreModificationMDP.dispose();
     }
 
-    public void fermerFenetreModificationMDP() {
-        this.fenetreModificationMDP.dispose();
+    public void fermerFenetreModificationIcone() {
+        fenetreModificationIcone.dispose();
+        if (controleur.logInEtudiant()) {
+            mondeEtudiant.updateIcone();
+        } else if (controleur.logInProfesseur()) {
+            mondeProfesseur.updateIcone();
+        }
     }
 
     public void logInEtudiant() {
@@ -134,10 +137,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.remove(mondePrincipale);
         this.mondeEtudiant = new MondeEtudiant(controleur, this);
         this.add(mondeEtudiant);
+        this.lblErrorLog.setText("");
         this.pack();
         this.validate();
         this.repaint();
-        this.lblErrorLog.setText("");
         this.logIn = true;
     }
 
@@ -146,10 +149,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.remove(mondePrincipale);
         this.mondeProfesseur = new MondeProfesseur(controleur, this);
         this.add(mondeProfesseur);
+        this.lblErrorLog.setText("");
         this.pack();
         this.validate();
         this.repaint();
-        this.lblErrorLog.setText("");
         this.logIn = true;
     }
 
@@ -157,6 +160,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.setJMenuBar(null);
         this.remove(mondeEtudiant);
         this.add(mondePrincipale);
+        this.lblErrorLog.setText(" ");
         this.pack();
         this.validate();
         this.repaint();
@@ -167,6 +171,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.setJMenuBar(null);
         this.remove(mondeProfesseur);
         this.add(mondePrincipale);
+        this.lblErrorLog.setText(" ");
         this.pack();
         this.validate();
         this.repaint();

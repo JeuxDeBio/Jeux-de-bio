@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.modele;
 
+import ca.qc.bdeb.vue.principale.Icone;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -36,6 +37,7 @@ public class Modele extends Observable {
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
     private final String locationFenetreStatistiquesGroupe = "Ecrans\\Principale\\FenetreStatistiquesGroupe.png";
     private final String locationFenetreClasses = "Ecrans\\Principale\\FenetreClasses.png";
+    private final String locationFenetreModificationIcone = "Ecrans\\Principale\\FenetreModificationIcone.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -53,10 +55,12 @@ public class Modele extends Observable {
     private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
 
+    private ArrayList<Icone> listeIcones = new ArrayList<>();
+
     private Etudiant etudiant;
     private Professeur professeur;
 
-    private String logInErrorLog = "";
+    private String logInErrorLog = " ";
 
     public Modele() {
         lectureEtudiants();
@@ -73,6 +77,13 @@ public class Modele extends Observable {
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
+
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\iconeVierge.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\hill.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\face.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\etoile.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\abstract.png"));
+        listeIcones.add(new Icone("Utilisateurs\\Icones\\abc.png"));
 
     }
 
@@ -114,6 +125,10 @@ public class Modele extends Observable {
         return listeProfesseurs;
     }
 
+    public ArrayList<Icone> getListeIcones() {
+        return listeIcones;
+    }
+    
     public String getLocationFenetrePrincipale() {
         return locationFenetrePrincipale;
     }
@@ -156,6 +171,10 @@ public class Modele extends Observable {
 
     public String getLocationFenetreClasses() {
         return locationFenetreClasses;
+    }
+
+    public String getLocationFenetreModificationIcone() {
+        return locationFenetreModificationIcone;
     }
 
     public void validerEtudiant(String da, char[] motdepasse) {
@@ -475,8 +494,8 @@ public class Modele extends Observable {
     public void professeurModificationMDP(String nouveauMDP) {
         professeur.setMotDePasse(nouveauMDP);
     }
-    
-    public void enleverEtudiant(Groupe groupe, Etudiant etudiant){
+
+    public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         groupe.enleverEtudiant(etudiant);
     }
 

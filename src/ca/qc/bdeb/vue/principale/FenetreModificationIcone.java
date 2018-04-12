@@ -6,48 +6,39 @@
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  *
- * @author Batikan
+ * @author 1649904
  */
-public class FenetreModificationMDP extends JFrame {
+public class FenetreModificationIcone extends JFrame {
 
     private Controleur controleur;
 
     private FenetrePrincipale fenetre;
 
-    private MondeModificationMDP monde;
-
-    private JLabel lblErrorLog = new JLabel(" ", JLabel.CENTER);
-
-    public FenetreModificationMDP(Controleur controleur, FenetrePrincipale fenetre) {
+    private MondeModificationIcone monde;
+   
+    public FenetreModificationIcone(Controleur controleur, FenetrePrincipale fenetre) {
         this.controleur = controleur;
         this.fenetre = fenetre;
 
         creerInterface();
 
+        this.setResizable(false);
         this.pack();
         this.setVisible(true);
     }
 
     private void creerInterface() {
-        monde = new MondeModificationMDP(controleur, this);
-        this.setTitle("Modification de mot de passe");
+        this.setTitle("Modification de l'icône");
         this.setResizable(false);
+        monde = new MondeModificationIcone(controleur, this);
         this.add(monde);
-
-        this.add(lblErrorLog, BorderLayout.SOUTH);
-    }
-
-    public void errorLogSetText(String log) {
-        lblErrorLog.setText(log);
-    }
+   }
     
     public void fermerFenetre(){
-        fenetre.fermerFenetreModificationMDP();
+        fenetre.fermerFenetreModificationIcone();
     }
 }
