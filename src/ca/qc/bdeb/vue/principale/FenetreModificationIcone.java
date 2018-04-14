@@ -40,7 +40,7 @@ public class FenetreModificationIcone extends JFrame {
     }
 
     public void ajouterMondeVisualisation() {
-        this.setTitle("Visualiser toutes les icônes");
+        this.setTitle("Voir toutes les icônes");
         this.remove(mondeModification);
         mondeVisualisation = new MondeVisualisationIcone(controleur, this);
         this.add(mondeVisualisation);
