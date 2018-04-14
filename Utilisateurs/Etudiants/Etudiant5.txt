@@ -1,8 +1,0 @@
-daEtudiant5
-motdepasseEtudiant5
-Prenon Nom
-Utilisateurs\Icones\iconeVierge.png
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0

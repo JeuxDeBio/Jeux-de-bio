@@ -33,7 +33,7 @@ public class MondeModificationMDP extends JComponent {
     private JPasswordField pssMDPVerification = new JPasswordField();
 
     private Bouton boutonSauvegarder = new Bouton();
-    
+
     private final int largeur = 350, hauteur = 241;
 
     public MondeModificationMDP(Controleur controleur, FenetreModificationMDP fenetre) {
@@ -91,29 +91,27 @@ public class MondeModificationMDP extends JComponent {
 
                 if (controleur.logInEtudiant()) {
                     if (mdpActuel.equals(controleur.getEtudiant().getMotDePasse())) {
-                        if (!mdp.isEmpty()) {
+                        if (mdp.length() >= 6) {
                             if (!mdp.equals(mdpActuel)) {
                                 if (mdp.equals(mdpVerification)) {
                                     controleur.etudiantModificationMDP(mdp);
                                     fenetre.fermerFenetre();
                                 } else {
                                     fenetre.errorLogSetText("ERREUR! Mot de passe ne concorde pas avec la verification!");
-                                    pssMDP.setText("");
-                                    pssMDPVerification.setText("");
+                                    reset();
                                 }
                             } else {
                                 fenetre.errorLogSetText("ERREUR! Nouveau mot de passe identique a l'actuel!");
-                                pssMDP.setText("");
-                                pssMDPVerification.setText("");
+                                reset();
                             }
                         } else {
-                            fenetre.errorLogSetText("ERREUR! Nouveau mot de passe vide!");
+                            fenetre.errorLogSetText("ERREUR! Nouveau mot de passe est trop court!");
+                            reset();
                         }
                     } else {
                         fenetre.errorLogSetText("ERREUR! Mot de passe incorrecte!");
                         pssMDPActuel.setText("");
-                        pssMDP.setText("");
-                        pssMDPVerification.setText("");
+                        reset();
                     }
                 } else if (controleur.logInProfesseur()) {
                     if (mdpActuel.equals(controleur.getProfesseur().getMotDePasse())) {
@@ -124,26 +122,29 @@ public class MondeModificationMDP extends JComponent {
                                     fenetre.fermerFenetre();
                                 } else {
                                     fenetre.errorLogSetText("ERREUR! Mot de passe ne concorde pas avec la verification!");
-                                    pssMDP.setText("");
-                                    pssMDPVerification.setText("");
+                                    reset();
                                 }
                             } else {
                                 fenetre.errorLogSetText("ERREUR! Nouveau mot de passe identique a l'actuel!");
-                                pssMDP.setText("");
-                                pssMDPVerification.setText("");
+                                reset();
                             }
                         } else {
                             fenetre.errorLogSetText("ERREUR! Nouveau mot de passe vide!");
+                            reset();
                         }
                     } else {
                         fenetre.errorLogSetText("ERREUR! Mot de passe incorrecte!");
                         pssMDPActuel.setText("");
-                        pssMDP.setText("");
-                        pssMDPVerification.setText("");
+                        reset();
                     }
                 }
             }
         });
+    }
+
+    private void reset() {
+        pssMDP.setText("");
+        pssMDPVerification.setText("");
     }
 
     @Override

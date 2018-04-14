@@ -28,7 +28,7 @@ public class Groupe {
     private Professeur professeur;
 
     private String information;
-    
+
     private boolean informationsModifies = false;
 
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
@@ -66,26 +66,31 @@ public class Groupe {
     public String getCode() {
         return code;
     }
-    
-    public String getInformation(){
+
+    public String getInformation() {
         return information;
     }
-    
-    public void enleverEtudiant(Etudiant etudiant){
+
+    public void ajouterEtudiant(Etudiant etudiant) {
+        listeEtudiants.add(etudiant);
+        informationsModifies = true;
+    }
+
+    public void enleverEtudiant(Etudiant etudiant) {
         listeEtudiants.remove(etudiant);
         informationsModifies = true;
     }
-    
+
     public boolean informationsModifies() {
         return informationsModifies;
     }
-    
+
     public void updateFichierGroupe() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
             bufferedWriter.write(code);
             bufferedWriter.newLine();
-            for (int i = 0; i < listeEtudiants.size(); i++){
+            for (int i = 0; i < listeEtudiants.size(); i++) {
                 bufferedWriter.write(listeEtudiants.get(i).getDa());
                 bufferedWriter.newLine();
             }

@@ -84,7 +84,7 @@ public class MondeModificationIcone extends JComponent {
         }
 
         for (int i = 0; i < listeIcones.size(); i++) {
-            JLabel lblIcone = new JLabel(listeIcones.get(i).getLocationIcone(), JLabel.CENTER);
+            JLabel lblIcone = new JLabel(listeIcones.get(i).getDescription(), JLabel.CENTER);
             lblIcone.setSize(largeur, 30);
             lblIcone.setLocation(0, 125 + (i * lblIcone.getHeight()));
             this.add(lblIcone);
@@ -132,7 +132,7 @@ public class MondeModificationIcone extends JComponent {
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
                 remove(iconePreview);
-                iconePreview = new Icone(listeIcones.get(i).getLocationIcone());
+                iconePreview = new Icone(listeIcones.get(i).getLocationIcone(), "");
                 add(iconePreview);
                 iconePreview.setLocation(202, 12);
                 indexIcone = i;

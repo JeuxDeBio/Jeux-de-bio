@@ -8,6 +8,7 @@ package ca.qc.bdeb.modele;
 import ca.qc.bdeb.vue.principale.Icone;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,14 +25,14 @@ import java.util.logging.Logger;
 public class Modele extends Observable {
 
     private final String locationListeProfesseurs = "Utilisateurs\\listeProfesseurs.txt";
-    private final String locationListeEtudiants = "Utilisateurs\\listeEtudiants.txt";
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
     private final String locationFenetreEtudiant = "Ecrans\\Principale\\FenetreEtudiant.png";
     private final String locationFenetreProfesseur = "Ecrans\\Principale\\FenetreProfesseur.png";
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
-    private final String locationFenetreinscriptionEtudiants = "Ecrans\\Principale\\FenetreInscriptionEtudiants.png";
-    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionProfesseurs.png"; 
+    private final String locationFenetreinscriptionEtudiants1 = "Ecrans\\Principale\\FenetreInscriptionEtudiants1.png";
+    private final String locationFenetreinscriptionEtudiants2 = "Ecrans\\Principale\\FenetreInscriptionEtudiants2.png";
+    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionProfesseurs.png";
     private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
     private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
@@ -60,11 +61,15 @@ public class Modele extends Observable {
     private Etudiant etudiant;
     private Professeur professeur;
 
+    private Professeur professeurNouveauEtudiant;
+    private Groupe groupeNouveauEtudiant;
+
     private String logInErrorLog = " ";
 
     public Modele() {
         lectureEtudiants();
         lectureProfesseurs();
+        lectureIcones();
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
@@ -77,13 +82,6 @@ public class Modele extends Observable {
         listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
 
         listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
-
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\iconeVierge.png"));
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\hill.png"));
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\face.png"));
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\etoile.png"));
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\abstract.png"));
-        listeIcones.add(new Icone("Utilisateurs\\Icones\\abc.png"));
 
     }
 
@@ -103,17 +101,20 @@ public class Modele extends Observable {
     }
 
     private void lectureEtudiants() {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeEtudiants));
-            String ligne = bufferedReader.readLine();
-            while (ligne != null) {
-                listeEtudiants.add(new Etudiant(ligne));
-                ligne = bufferedReader.readLine();
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        File dossier = new File("Utilisateurs\\Etudiants");
+        File[] listeFiles = dossier.listFiles();
+
+        for (int i = 0; i < listeFiles.length; i++) {
+            listeEtudiants.add(new Etudiant(listeFiles[i].getAbsolutePath()));
+        }
+    }
+
+    private void lectureIcones() {
+        File dossier = new File("Utilisateurs\\Icones");
+        File[] listeFiles = dossier.listFiles();
+
+        for (int i = 0; i < listeFiles.length; i++) {
+            listeIcones.add(new Icone(listeFiles[i].getAbsolutePath(), listeFiles[i].getName()));
         }
     }
 
@@ -128,7 +129,7 @@ public class Modele extends Observable {
     public ArrayList<Icone> getListeIcones() {
         return listeIcones;
     }
-    
+
     public String getLocationFenetrePrincipale() {
         return locationFenetrePrincipale;
     }
@@ -145,8 +146,12 @@ public class Modele extends Observable {
         return locationFenetreSelection;
     }
 
-    public String getLocationFenetreInscriptionEtudiants() {
-        return locationFenetreinscriptionEtudiants;
+    public String getLocationFenetreInscriptionEtudiants1() {
+        return locationFenetreinscriptionEtudiants1;
+    }
+
+    public String getLocationFenetreInscriptionEtudiants2() {
+        return locationFenetreinscriptionEtudiants2;
     }
 
     public String getLocationFenetreInscriptionProfesseurs() {
@@ -266,31 +271,72 @@ public class Modele extends Observable {
     public boolean etudiantPermis(String da) {
         boolean etudiantPermis = false;
         for (int i = 0; i < listeProfesseurs.size(); i++) {
-            etudiantPermis = listeProfesseurs.get(i).etudiantPermis(da);
-            if (etudiantPermis) {
-                System.out.println(listeProfesseurs.get(i).getNomUtilisateur());
-                break;
+            if (listeProfesseurs.get(i).etudiantPermis(da)) {
+                professeurNouveauEtudiant = listeProfesseurs.get(i);
+                groupeNouveauEtudiant = listeProfesseurs.get(i).getGroupeNouveauEtudiant(da);
+                etudiantPermis = listeProfesseurs.get(i).etudiantPermis(da);
             }
         }
         return etudiantPermis;
     }
 
-    public boolean professeurExiste(String da) {
+    public boolean etudiantExisteDeja(String da) {
+        boolean etudiantExisteDeja = false;
+        for (int i = 0; i < listeEtudiants.size(); i++) {
+            if (da.equals(listeEtudiants.get(i).getDa())) {
+                etudiantExisteDeja = da.equals(listeEtudiants.get(i).getDa());
+            }
+        }
+        return etudiantExisteDeja;
+    }
 
+    public String getNomProfesseurNouveauEtudiant() {
+        return professeurNouveauEtudiant.getNom();
+    }
+
+    public String getCodeGroupeNouveauEtudiant() {
+        return groupeNouveauEtudiant.getCode();
+    }
+
+    public boolean professeurExiste(String nu) {
         return true;
     }
 
-    public void creerUtilisateur(String motDePasse) {
-        String informations = "Utilisateurs\\Etudiants\\" + motDePasse + ".txt";
+    public void creerEtudiant(String da, String motDePasse, String nom) {
+        String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+            bufferedWriter.write(da);
+            bufferedWriter.newLine();
             bufferedWriter.write(motDePasse);
+            bufferedWriter.newLine();
+            bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write("Utilisateurs\\Icones\\iconeVierge.png");
+            bufferedWriter.newLine();
+
+            for (int i = 0; i < 4; i++) {
+                String ligneScores = "";
+                for (int j = 0; j < 9; j++) {
+                    ligneScores += "0;";
+                }
+                ligneScores += "0";
+
+                bufferedWriter.write(ligneScores);
+                bufferedWriter.newLine();
+            }
+
             bufferedWriter.close();
 
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
         }
+
+        Etudiant etudiant = new Etudiant(informations);
+        listeEtudiants.add(etudiant);
+        groupeNouveauEtudiant.ajouterEtudiant(etudiant);
+        etudiant.setGroupe(groupeNouveauEtudiant);
+        etudiant.setProfesseur(professeurNouveauEtudiant);
     }
 
     public void creerProfesseur(String nom) {

@@ -33,6 +33,7 @@ public class Professeur {
     private String locationDAPermis;
 
     private ArrayList<String> listeDAPermis = new ArrayList<>();
+    private ArrayList<Groupe> listeDAPermisGroupe = new ArrayList<>();
     private ArrayList<Groupe> listeGroupes = new ArrayList<>();
 
     private boolean informationsModifies = false;
@@ -78,7 +79,15 @@ public class Professeur {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
             String ligne = bufferedReader.readLine();
             while (ligne != null) {
-                listeDAPermis.add(ligne);
+                String[] split = ligne.split(";");
+                listeDAPermis.add(split[0]);
+
+                for (int i = 0; i < listeGroupes.size(); i++) {
+                    if (listeGroupes.get(i).getCode().equals(split[1])) {
+                        listeDAPermisGroupe.add(listeGroupes.get(i));
+                    }
+                }
+
                 ligne = bufferedReader.readLine();
             }
 
@@ -121,6 +130,10 @@ public class Professeur {
             }
         }
         return etudiantPermis;
+    }
+
+    public Groupe getGroupeNouveauEtudiant(String da) {
+        return listeDAPermisGroupe.get(listeDAPermis.indexOf(da));
     }
 
     public void setMotDePasse(String nouveauMDP) {

@@ -19,11 +19,16 @@ public class Icone extends JComponent {
 
     private Image image;
     private String locationIcone;
+    private String description = "";
 
     private final int largeur = 82, hauteur = 99;
 
-    public Icone(String location) {
+    public Icone(String location, String information) {
         this.locationIcone = location;
+
+        for (int i = 0; i < information.length() - 4; i++) {
+            this.description += information.charAt(i);
+        }
         creerInterface();
     }
 
@@ -44,7 +49,11 @@ public class Icone extends JComponent {
     public String getLocationIcone() {
         return locationIcone;
     }
-    
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.

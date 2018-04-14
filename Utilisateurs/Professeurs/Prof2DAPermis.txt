@@ -1,2 +1,2 @@
-daEtudiant6
-daEtudiant7
+daEtudiant6;Groupe 1
+daEtudiant7;Groupe 1

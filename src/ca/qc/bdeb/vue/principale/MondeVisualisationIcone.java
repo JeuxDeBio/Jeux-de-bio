@@ -31,8 +31,8 @@ public class MondeVisualisationIcone extends JComponent {
 
     private JMenuItem mnuItemModifier = new JMenuItem("Modifier votre icône!");
 
-    private final int largeur = 286;
-    private int hauteur = 0;
+    private int facteur = 4;
+    private int largeur = 0, hauteur = 0;
 
     MondeVisualisationIcone(Controleur controleur, FenetreModificationIcone fenetre) {
         this.controleur = controleur;
@@ -43,7 +43,8 @@ public class MondeVisualisationIcone extends JComponent {
     }
 
     private void creerInterface() {
-        hauteur = ((controleur.getListeIcones().size() / 3) * 99 + 10) + 20;
+        largeur = ((10 + 82) * facteur) + 10;
+        hauteur = (10 + 99) * (((controleur.getListeIcones().size() - 1) / facteur) + 1) + 10;
 
         this.setLayout(null);
         this.setPreferredSize(new Dimension(largeur, hauteur));
@@ -54,7 +55,7 @@ public class MondeVisualisationIcone extends JComponent {
 
         for (int i = 0; i < controleur.getListeIcones().size(); i++) {
             Icone icone = controleur.getListeIcones().get(i);
-            icone.setLocation((i%3) * (controleur.getListeIcones().get(i).getWidth() + 10) + 10, (i/3) * (controleur.getListeIcones().get(i).getHeight()+ 10) + 10);
+            icone.setLocation((i % facteur) * (controleur.getListeIcones().get(i).getWidth() + 10) + 10, (i / facteur) * (controleur.getListeIcones().get(i).getHeight() + 10) + 10);
             this.add(icone);
         }
     }

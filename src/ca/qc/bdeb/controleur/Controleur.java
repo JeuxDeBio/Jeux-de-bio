@@ -93,8 +93,12 @@ public class Controleur {
         return modele.getLocationFenetreModificationIcone();
     }
 
-    public String getLocationFenetreInscriptionEtudiants() {
-        return modele.getLocationFenetreInscriptionEtudiants();
+    public String getLocationFenetreInscriptionEtudiants1() {
+        return modele.getLocationFenetreInscriptionEtudiants1();
+    }
+
+    public String getLocationFenetreInscriptionEtudiants2() {
+        return modele.getLocationFenetreInscriptionEtudiants2();
     }
 
     public String getLocationFenetreInscriptionProfesseurs() {
@@ -104,9 +108,25 @@ public class Controleur {
     public boolean etudiantPermis(String da) {
         return modele.etudiantPermis(da);
     }
+    
+    public boolean etudiantExisteDeja(String da){
+        return modele.etudiantExisteDeja(da);
+    }
+
+    public String getNomProfesseurNouveauEtudiant() {
+        return modele.getNomProfesseurNouveauEtudiant();
+    }
+
+    public String getCodeGroupeNouveauEtudiant() {
+        return modele.getCodeGroupeNouveauEtudiant();
+    }
 
     public boolean professeurExiste(String da) {
         return modele.professeurExiste(da);
+    }
+
+    public void creerEtudiant(String da, String motDePasse, String nom) {
+        modele.creerEtudiant(da, motDePasse, nom);
     }
 
     public void creerProfesseur(String nom) {
@@ -119,10 +139,6 @@ public class Controleur {
 
     public Professeur getProfesseur() {
         return modele.getProfesseur();
-    }
-
-    public void creerEtudiant(String motDePasse) {
-        modele.creerUtilisateur(motDePasse);
     }
 
     public String getNomNiveau(Jeu jeu, int i) {

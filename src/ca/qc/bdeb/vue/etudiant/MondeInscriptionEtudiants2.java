@@ -16,14 +16,14 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
-import javax.swing.JPasswordField;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
  *
  * @author 1649904
  */
-public class MondeInscriptionEtudiants extends JComponent {
+public class MondeInscriptionEtudiants2 extends JComponent {
 
     private final int largeur = 350, hauteur = 200;
 
@@ -32,13 +32,13 @@ public class MondeInscriptionEtudiants extends JComponent {
 
     private Image image;
 
-    private JTextField txtDA = new JTextField("");
-    private JPasswordField txtMotDePasse = new JPasswordField("");
-    private JPasswordField txtMotDePasseValidation = new JPasswordField("");
+    private JTextField txtNom = new JTextField("");
+    private JLabel lblProfesseur = new JLabel();
+    private JLabel lblGroupe = new JLabel();
 
     private Bouton boutonValidation = new Bouton();
 
-    public MondeInscriptionEtudiants(FenetreInscription fenetre, Controleur controleur) {
+    public MondeInscriptionEtudiants2(FenetreInscription fenetre, Controleur controleur, String da, String motDePasse) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
@@ -46,24 +46,26 @@ public class MondeInscriptionEtudiants extends JComponent {
         this.fenetre = fenetre;
 
         creerInterface();
-        creerEvenements();
+        creerEvenements(da, motDePasse);
     }
 
     private void creerInterface() {
 
-        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionEtudiants());
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionEtudiants2());
 
-        txtDA.setLocation(140, 10);
-        txtDA.setSize(195, 25);
-        this.add(txtDA);
+        txtNom.setLocation(107, 14);
+        txtNom.setSize(233, 20);
+        this.add(txtNom);
 
-        txtMotDePasse.setLocation(140, 35);
-        txtMotDePasse.setSize(195, 25);
-        this.add(txtMotDePasse);
+        lblProfesseur.setText(controleur.getNomProfesseurNouveauEtudiant());
+        lblProfesseur.setLocation(154, 83);
+        lblProfesseur.setSize(186, 20);
+        this.add(lblProfesseur);
 
-        txtMotDePasseValidation.setLocation(140, 65);
-        txtMotDePasseValidation.setSize(195, 25);
-        this.add(txtMotDePasseValidation);
+        lblGroupe.setText(controleur.getCodeGroupeNouveauEtudiant());
+        lblGroupe.setLocation(123, 105);
+        lblGroupe.setSize(217, 20);
+        this.add(lblGroupe);
 
         boutonValidation.setLocation(64, 133);
         boutonValidation.setSize(220, 47);
@@ -71,29 +73,14 @@ public class MondeInscriptionEtudiants extends JComponent {
 
     }
 
-    private void creerEvenements() {
+    private void creerEvenements(String da, String motDePasse) {
         boutonValidation.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-
-                String motDePasse = "";
-                for (int i = 0; i < txtMotDePasse.getPassword().length; i++) {
-                    motDePasse += txtMotDePasse.getPassword()[i];
-                }
-
-                String motDePasseValidation = "";
-                for (int i = 0; i < txtMotDePasseValidation.getPassword().length; i++) {
-                    motDePasseValidation += txtMotDePasseValidation.getPassword()[i];
-                }
-
-
-                if (controleur.etudiantPermis(txtDA.getText()) && motDePasse.equals(motDePasseValidation) && !motDePasse.equals("")) {
-                    controleur.creerEtudiant(motDePasse);
-                    //fenetre.fermerFenetre();
-                }
+                controleur.creerEtudiant(da, motDePasse, txtNom.getText());
+                fenetre.fermerFenetre();
             }
-
         });
     }
 
