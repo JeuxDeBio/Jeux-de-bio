@@ -149,7 +149,7 @@ public class MondeClasses extends JComponent {
         mnuItemEnlever.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String motDePasse = JOptionPane.showInputDialog(fenetre, "Veuillez entrer votre mot de passe\npour confirmer votre choix!", "Confirmation", JOptionPane.PLAIN_MESSAGE);
+                String motDePasse = JOptionPane.showInputDialog(MondeClasses.this, "Veuillez entrer votre mot de passe");
                 try {
                     if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
                         fenetre.setErrorLog(" ");

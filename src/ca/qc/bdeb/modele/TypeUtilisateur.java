@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.qc.bdeb.vue.professeur;
+package ca.qc.bdeb.modele;
 
 /**
  *
@@ -11,5 +11,6 @@ package ca.qc.bdeb.vue.professeur;
  */
 public enum TypeUtilisateur {
     ETUDIANT,
-    PROFESSEUR;
+    PROFESSEUR,
+    ADMIN;
 }
