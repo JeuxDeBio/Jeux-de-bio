@@ -5,7 +5,7 @@
  */
 package ca.qc.bdeb.vue.principale;
 
-import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs;
+import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs1;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants1;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants2;
@@ -22,7 +22,7 @@ public class FenetreInscription extends JFrame {
 
     private MondeInscriptionEtudiants1 mondeEtudiant1;
     private MondeInscriptionEtudiants2 mondeEtudiant2;
-    private MondeInscriptionProfesseurs mondeProfesseur;
+    private MondeInscriptionProfesseurs1 mondeProfesseur;
 
     private FenetrePrincipale fenetre;
     private Controleur controleur;
@@ -49,7 +49,7 @@ public class FenetreInscription extends JFrame {
                 this.add(mondeEtudiant1);
                 break;
             case PROFESSEUR:
-                mondeProfesseur = new MondeInscriptionProfesseurs(this, controleur);
+                mondeProfesseur = new MondeInscriptionProfesseurs1(this, controleur);
                 this.add(mondeProfesseur);
         }
 
