@@ -70,19 +70,41 @@ public class Modele extends Observable {
         lectureEtudiants();
         lectureProfesseurs();
         lectureIcones();
+        ajouterNiveaux();
+        System.out.println(listeNiveauxDragDrop.size());
+    }
 
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 3.txt"));
-        listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 4.txt"));
-
-        listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, "Information niveaux\\Shooter\\Niveau 1.txt"));
-
-        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 1.txt"));
-        listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, "Information niveaux\\Coureur\\Niveau 2.txt"));
-
-        listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, "Information niveaux\\Speed Run\\Niveau 1.txt"));
-
+    private void ajouterNiveaux() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, ligne));
+                ligne = bufferedReader.readLine();
+            }
+            bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Shooter\\listeNiveaux.txt"));
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeNiveauxShooter.add(new Niveau(Jeu.SHOOTER, ligne));
+                ligne = bufferedReader.readLine();
+            }
+            bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Coureur\\listeNiveaux.txt"));
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, ligne));
+                ligne = bufferedReader.readLine();
+            }
+            bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Speed Run\\listeNiveaux.txt"));
+            ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, ligne));
+                ligne = bufferedReader.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void lectureProfesseurs() {

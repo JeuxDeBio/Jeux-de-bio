@@ -195,7 +195,8 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
-                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
+                    //fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
             }

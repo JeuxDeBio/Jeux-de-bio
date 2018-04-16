@@ -7,6 +7,7 @@ package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -33,6 +34,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
     private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
 
     private ArrayList<BoiteReponseConstruction> listeReponses = new ArrayList<>();
+
+    static int decalementX = 20;
+    static int decalementY = 20;
 
     //private BoiteReponseConstruction boite = new BoiteReponseConstruction("");
     Thread thread = new Thread() {
@@ -88,18 +92,21 @@ public class MondeCreationJeuDragDrop extends JComponent {
                     if (boite.isHold()) {
                         boite.holdFalse();
                         String message = JOptionPane.showInputDialog(MondeCreationJeuDragDrop.this, "réponse associée à la boîte", "Ajout de la réponse", JOptionPane.INFORMATION_MESSAGE);
+                        if (boite.getReponse().equals("")) {
+                                nouvelleBoite();
+                            }
                         if (message != null && !message.equals("")) {
-                            System.out.println(message);
+                            
                             valider(boite, message);
-                            System.out.println(boite.getX() + "  " + boite.getY() + "   " + boite.getReponse()); // sout
 
                         } else {
+                            
                             listeReponses.remove(boite);
                             remove(boite);
-                            System.out.println("allo");
+
+                            
                         }
-                        nouvelleBoite();
-                        
+
                     }
                 }
             });
@@ -107,9 +114,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
     }
 
     public void valider(BoiteReponseConstruction boite, String reponse) {
-        boite.setPositionX(boite.getX());
-        boite.setPositionY(boite.getY());
-        boite.setReponse(reponse);
+        boite.setPositionX(boite.getX()-decalementX);
+        boite.setPositionY(boite.getY()-decalementY);
+        boite.setReponse(reponse);;
     }
 
     public void nouvelleBoite() {
@@ -146,10 +153,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
     }
 
     public void creerNiveau(String titre, String lien1, String lien2, String largeur, String hauteur) {
-        listeReponses.remove(listeReponses.size()-1);
-        System.out.println(listeReponses.size());
+        listeReponses.remove(listeReponses.size() - 1);
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre + ".txt"));
             bufferedWriter.write(titre);
             bufferedWriter.newLine();
             bufferedWriter.write(lien1);
@@ -159,12 +165,16 @@ public class MondeCreationJeuDragDrop extends JComponent {
             bufferedWriter.write(largeur + ";" + hauteur);
             bufferedWriter.newLine();
             for (int i = 0; i < listeReponses.size(); i++) {
-                bufferedWriter.write(listeReponses.get(i).getPositionX() + ":" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
+                bufferedWriter.write(listeReponses.get(i).getPositionX() + ";" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
                 bufferedWriter.newLine();
             }
 
             bufferedWriter.close();
-
+            
+            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt",true));
+            bufferedWriter.newLine();
+            bufferedWriter.write("Information niveaux\\Drag & Drop\\" + titre + ".txt");
+            bufferedWriter.close();
         } catch (IOException ex) {
 
         }
@@ -173,5 +183,11 @@ public class MondeCreationJeuDragDrop extends JComponent {
 
     public void fermerFenetre() {
         fenetre.fermerFenetre();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(imageQuestion, decalementX, decalementY, this);
     }
 }
