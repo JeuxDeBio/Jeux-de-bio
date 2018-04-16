@@ -9,7 +9,6 @@ import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
-import ca.qc.bdeb.vue.principale.FenetreModificationIcone;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,7 +18,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 
 /**
  *
@@ -34,7 +40,6 @@ public class MondeProfesseur extends JComponent {
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
     private FenetreClasses fenetreClasses;
-    private FenetreModificationIcone fenetreModificationIcone;
 
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
@@ -60,6 +65,7 @@ public class MondeProfesseur extends JComponent {
     private JMenu mnuStatistiquesGroupe = new JMenu("Choisissez le groupe!");
     private JMenu mnuClasses = new JMenu("Liste des groupes");
     private JMenu mnuClassesGroupe = new JMenu("Choissez le groupe!");
+    private JMenu mnuAdminOptions = new JMenu("Options d'admin");
 
     private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
     private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
@@ -68,6 +74,9 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemCoureur = new JMenuItem("Apprenez plus sur le jeu Coureur!");
     private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
+    private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
+    private JMenuItem mnuItemEnleverProfesseur = new JMenuItem("Enlever un professeur!");
+    private JMenuItem mnuItemSetAdmin = new JMenuItem("Ceder vos droits d'admin!");
 
     private boolean enJeu = false;
 
@@ -177,6 +186,13 @@ public class MondeProfesseur extends JComponent {
         mnuInformations.add(mnuItemSpeedRun);
         mnuInformations.add(new JSeparator());
         mnuInformations.add(mnuItemRemerciements);
+
+        if (controleur.getProfesseur().estAdmin()) {
+            mnuAdminOptions.add(mnuItemAuthentifierProfesseur);
+            mnuAdminOptions.add(mnuItemEnleverProfesseur);
+            mnuAdminOptions.add(mnuItemSetAdmin);
+            mnuBar.add(mnuAdminOptions);
+        }
 
         mnuBar.add(mnuProfil);
         mnuBar.add(mnuStatistiques);
@@ -316,6 +332,53 @@ public class MondeProfesseur extends JComponent {
                 fenetre.ouvrirFenetreModificationIcone();
             }
         });
+
+        mnuItemAuthentifierProfesseur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                boolean nuRejete = true;
+                while (nuRejete) {
+                    try {
+                        String motDePasse = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrer votre mot de passe");
+                        if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
+                            try {
+                                String nuAdmis = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez reserver un nom d'utilisateur");
+                                if (nuAdmis.length() >= 6) {
+                                    controleur.ajouterProfesseurNUAdmis(nuAdmis);
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
+                                    nuRejete = false;
+                                } else {
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court" , "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                }
+                            } catch (NullPointerException ex) {
+                                nuRejete = false;
+                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Annule par l'utilisateur", "", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NullPointerException ex) {
+                        nuRejete = false;
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Annule par l'utilisateur", "", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        mnuItemEnleverProfesseur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+
+        mnuItemSetAdmin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        }
+        );
         //evenements des menus!! autres menus a ajouter plus tard
     }
 

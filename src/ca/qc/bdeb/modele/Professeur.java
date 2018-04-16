@@ -38,6 +38,10 @@ public class Professeur {
 
     private boolean informationsModifies = false;
 
+    private TypeUtilisateur type = TypeUtilisateur.PROFESSEUR;
+
+    private boolean estAdmin = false;
+
     public Professeur(String information, Modele modele) {
         this.information = information;
         this.modele = modele;
@@ -53,6 +57,10 @@ public class Professeur {
             motDePasse = ligne;
             ligne = bufferedReader.readLine();
             nom = ligne;
+            ligne = bufferedReader.readLine();
+            if (ligne.equals("admin")) {
+                estAdmin = true;
+            }
             ligne = bufferedReader.readLine();
             locationIcone = ligne;
             ligne = bufferedReader.readLine();
@@ -175,5 +183,19 @@ public class Professeur {
 
     public boolean informationsModifies() {
         return informationsModifies;
+    }
+
+    public void setAdmin() {
+        this.estAdmin = true;
+        this.type = TypeUtilisateur.ADMIN;
+    }
+
+    public void enleverAdmin() {
+        this.estAdmin = false;
+        this.type = TypeUtilisateur.PROFESSEUR;
+    }
+
+    public boolean estAdmin() {
+        return estAdmin;
     }
 }

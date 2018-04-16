@@ -105,11 +105,15 @@ public class Controleur {
         return modele.getLocationFenetreInscriptionProfesseurs();
     }
 
+    public String getLocationFenetreVerification() {
+        return modele.getLocationFenetreVerification();
+    }
+
     public boolean etudiantPermis(String da) {
         return modele.etudiantPermis(da);
     }
-    
-    public boolean etudiantExisteDeja(String da){
+
+    public boolean etudiantExisteDeja(String da) {
         return modele.etudiantExisteDeja(da);
     }
 
@@ -121,16 +125,16 @@ public class Controleur {
         return modele.getCodeGroupeNouveauEtudiant();
     }
 
-    public boolean professeurExiste(String da) {
-        return modele.professeurExiste(da);
+    public boolean professeurPermis(String da) {
+        return modele.professeurPermis(da);
     }
 
     public void creerEtudiant(String da, String motDePasse, String nom) {
         modele.creerEtudiant(da, motDePasse, nom);
     }
 
-    public void creerProfesseur(String nom) {
-        modele.creerProfesseur(nom);
+    public void creerProfesseur(String nu, String mdp, String nom) {
+        modele.creerProfesseur(nu, mdp, nom);
     }
 
     public Etudiant getEtudiant() {
@@ -239,6 +243,10 @@ public class Controleur {
 
     public ArrayList<Icone> getListeIcones() {
         return modele.getListeIcones();
+    }
+
+    public void ajouterProfesseurNUAdmis(String nuAdmis) {
+        modele.ajouterProfesseurNUAdmis(nuAdmis);
     }
 
     public void fermerApp() {

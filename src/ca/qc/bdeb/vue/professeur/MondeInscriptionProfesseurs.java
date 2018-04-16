@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  */
 public class MondeInscriptionProfesseurs extends JComponent {
 
-    private final int largeur = 350, hauteur = 200;
+    private final int largeur = 350, hauteur = 168;
 
     private Controleur controleur;
     private FenetreInscription fenetre;
@@ -33,9 +33,8 @@ public class MondeInscriptionProfesseurs extends JComponent {
     private Image image;
 
     private JTextField txtNU = new JTextField("");
-    private JPasswordField txtMotDePasse = new JPasswordField("");
-    private JPasswordField txtMotDePasseValidation = new JPasswordField("");
-    private JTextField txtCodeValidation = new JTextField("");
+    private JPasswordField pssMotDePasse = new JPasswordField("");
+    private JPasswordField pssMotDePasseValidation = new JPasswordField("");
 
     private Bouton boutonValidation = new Bouton();
 
@@ -57,19 +56,15 @@ public class MondeInscriptionProfesseurs extends JComponent {
         txtNU.setSize(186, 20);
         this.add(txtNU);
 
-        txtMotDePasse.setLocation(125, 33);
-        txtMotDePasse.setSize(217, 20);
-        this.add(txtMotDePasse);
+        pssMotDePasse.setLocation(125, 33);
+        pssMotDePasse.setSize(217, 20);
+        this.add(pssMotDePasse);
 
-        txtMotDePasseValidation.setLocation(125, 58);
-        txtMotDePasseValidation.setSize(216, 20);
-        this.add(txtMotDePasseValidation);
+        pssMotDePasseValidation.setLocation(125, 58);
+        pssMotDePasseValidation.setSize(216, 20);
+        this.add(pssMotDePasseValidation);
 
-        txtCodeValidation.setLocation(166, 111);
-        txtCodeValidation.setSize(175, 20);
-        this.add(txtCodeValidation);
-
-        boutonValidation.setLocation(64, 138);
+        boutonValidation.setLocation(64, 108);
         boutonValidation.setSize(220, 47);
         this.add(boutonValidation);
 
@@ -82,18 +77,41 @@ public class MondeInscriptionProfesseurs extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
 
                 String motDePasse = "";
-                for (int i = 0; i < txtMotDePasse.getPassword().length; i++) {
-                    motDePasse += txtMotDePasse.getPassword()[i];
+                for (int i = 0; i < pssMotDePasse.getPassword().length; i++) {
+                    motDePasse += pssMotDePasse.getPassword()[i];
                 }
 
                 String motDePasseValidation = "";
-                for (int i = 0; i < txtMotDePasseValidation.getPassword().length; i++) {
-                    motDePasseValidation += txtMotDePasseValidation.getPassword()[i];
+                for (int i = 0; i < pssMotDePasseValidation.getPassword().length; i++) {
+                    motDePasseValidation += pssMotDePasseValidation.getPassword()[i];
                 }
 
+                if (controleur.professeurPermis(txtNU.getText())) {
+                    fenetre.setErrorLog("");
+                    if (motDePasse.equals(motDePasseValidation)) {
+                        fenetre.setErrorLog("");
+                        if (motDePasse.length() >= 6) {
+                            //passe a la 2e page pour obtenir le nom comme celles des etudiants
+                        } else {
+                            fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
+                        }
+                    } else {
+                        fenetre.setErrorLog("ERREUR! Mot de passe ne concorde pas ...");
+                        reset();
+                    }
+                } else {
+                    fenetre.setErrorLog("ERREUR! Le nom d'utilisater n'est pas permis!");
+                    txtNU.setText("");
+                    reset();
+                }
             }
 
         });
+    }
+
+    private void reset() {
+        pssMotDePasse.setText("");
+        pssMotDePasseValidation.setText("");
     }
 
     @Override

@@ -31,6 +31,7 @@ public class Etudiant {
     private int scoreNiveau = 0;
     private boolean informationsModifies = false;
     private String locationIcone;
+    private final TypeUtilisateur type = TypeUtilisateur.ETUDIANT;
 
     public Etudiant(String information) {
         this.information = information;
@@ -88,7 +89,7 @@ public class Etudiant {
     public String getLocationIcone() {
         return locationIcone;
     }
-    
+
     public int getScoreNiveau() {
         return scoreNiveau;
     }
@@ -133,8 +134,8 @@ public class Etudiant {
         motDePasse = nouveauMotDePasse;
         informationsModifies = true;
     }
-    
-    public void setLocationIcone(String locationIcone){
+
+    public void setLocationIcone(String locationIcone) {
         this.locationIcone = locationIcone;
         informationsModifies = true;
     }
