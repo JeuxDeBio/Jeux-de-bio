@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -70,6 +73,7 @@ public class MondeCreationDragDrop extends JComponent {
         hauteurImage.setSize(50, 25);
         hauteurImage.setLocation(175, 200);
         add(hauteurImage);
+
     }
 
     public void creerEvenements() {
@@ -85,7 +89,24 @@ public class MondeCreationDragDrop extends JComponent {
                 int returnValue = jfc.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = jfc.getSelectedFile();
-                    ImageTest = selectedFile.getAbsolutePath();
+                    ImageTest = selectedFile.getPath();
+                    
+                    //fucking verification de marde pour que le tout soit compatible entre ordis en attendant la base de données
+                    String a = "Ecrans";
+                    char[] toCharArray = ImageTest.toCharArray();
+                    for (int i = 0; i < toCharArray.length; i++) {
+                        if (toCharArray[i] == a.charAt(0) && toCharArray[i + 1] == a.charAt(1) && toCharArray[i + 2] == a.charAt(2) && toCharArray[i + 3] == a.charAt(3) && toCharArray[i + 4] == a.charAt(4) && toCharArray[i + 5] == a.charAt(5)) {
+                            ImageTest = "";
+                            for (int j = i; j < toCharArray.length; j++) {
+                                ImageTest += toCharArray[j];
+
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                    
                 }
 
             }
@@ -96,8 +117,27 @@ public class MondeCreationDragDrop extends JComponent {
                 super.mousePressed(e); //To change body of generated methods, choose Tools | Templates.
                 int returnValue = jfc.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = jfc.getSelectedFile();
-                    ImageCorrigee = selectedFile.getAbsolutePath();
+                   
+                        File selectedFile = jfc.getSelectedFile();
+                        ImageCorrigee = selectedFile.getPath();
+                        
+                        //fucking verification de marde pour que le tout soit compatible entre ordis en attendant la base de données
+                        String a = "Ecrans";
+                    char[] toCharArray = ImageCorrigee.toCharArray();
+                    for (int i = 0; i < toCharArray.length; i++) { 
+                        if (toCharArray[i] == a.charAt(0) && toCharArray[i + 1] == a.charAt(1) && toCharArray[i + 2] == a.charAt(2) && toCharArray[i + 3] == a.charAt(3) && toCharArray[i + 4] == a.charAt(4) && toCharArray[i + 5] == a.charAt(5)) {
+                            ImageCorrigee = "";
+                            for (int j = i; j < toCharArray.length; j++) {
+                                ImageCorrigee += toCharArray[j];
+
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
                 }
 
             }
@@ -105,7 +145,34 @@ public class MondeCreationDragDrop extends JComponent {
     }
 
     public void sauvegarderInfo() {
-        fenetre.ouvrirFenetre(titreNiveau.getText(), ImageTest, ImageCorrigee, largeurImage.getText(), hauteurImage.getText());
-        fenetre.dispose();
+        if (titreNiveau.getText() != null && ImageTest != null && ImageCorrigee != null && largeurImage.getText() != null && hauteurImage.getText() != null) {
+            try {
+                if (0 < Integer.parseInt(largeurImage.getText()) && 0 < Integer.parseInt(hauteurImage.getText())) {
+                    fenetre.ouvrirFenetre(titreNiveau.getText(), ImageTest, ImageCorrigee, largeurImage.getText(), hauteurImage.getText());
+                    fenetre.dispose();
+                } else {
+                    System.out.println("la largeur et la hauteur doivent être plus grands que 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("la largeur et la hauteur doivent être des nombres");
+            }
+
+        } else {
+            if (titreNiveau.getText() == null) {
+
+            }
+            if (ImageTest == null) {
+
+            }
+            if (ImageCorrigee == null) {
+
+            }
+            if (largeurImage.getText() == null) {
+
+            }
+            if (hauteurImage.getText() == null) {
+
+            }
+        }
     }
 }

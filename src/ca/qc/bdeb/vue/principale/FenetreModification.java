@@ -24,7 +24,7 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 public class FenetreModification extends JFrame{
     private Controleur controleur;
     private Modele modele;
-
+    private FenetreJeu fenetreJeu;
     private FenetrePrincipale fenetrePrincipale;
     private FenetreSelection fenetreSelection;
     
@@ -38,13 +38,14 @@ public class FenetreModification extends JFrame{
     
     
 
-    FenetreModification(Jeu jeu, FenetreSelection fenetreSelection, FenetrePrincipale fenetrePrincipale, Controleur controleur, Modele modele, int niveauID) {
+    FenetreModification(Jeu jeu, FenetreSelection fenetreSelection, FenetrePrincipale fenetrePrincipale, FenetreJeu fenetreJeu, Controleur controleur, Modele modele, int niveauID) {
         this.controleur = controleur;
         this.modele = modele;
         this.fenetrePrincipale = fenetrePrincipale;
         this.fenetreSelection = fenetreSelection;
         this.jeu = jeu;
         this.niveauID = niveauID;
+        this.fenetreJeu = fenetreJeu;
 
         creerInterface();
 
@@ -59,7 +60,7 @@ public class FenetreModification extends JFrame{
 
         switch (jeu) {
             case DRAG_DROP:
-                MondeModificationDragDrop monde = new MondeModificationDragDrop();
+                MondeModificationDragDrop monde = new MondeModificationDragDrop(this,controleur, niveauID);
                 this.add(monde);
                 mnuJeu.add(mnuCreer);
                 mnuBar.add(mnuJeu);
@@ -73,6 +74,10 @@ public class FenetreModification extends JFrame{
                 });
                 break;
         }
+     }
+     public void fermerFenetre(){
+        fenetreSelection.fermerFenetreModification();
+        fenetrePrincipale.finJeu();
      }
     
 }

@@ -61,13 +61,17 @@ public class FenetreSelection extends JFrame {
             this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);
             fenetreJeu.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
         } else {
-            this.fenetreModification = new FenetreModification(jeu, this, fenetrePrincipale, controleur, modele, i);
-            fenetreModification.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreJeu.getWidth()) / 2, fenetrePrincipale.getY());
+            this.fenetreModification = new FenetreModification(jeu, this, fenetrePrincipale,fenetreJeu, controleur, modele, i);
+            fenetreModification.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreModification.getWidth()) / 2, fenetrePrincipale.getY());
         }
     }
 
     public void fermerFenetreJeu() {
         this.fenetreJeu.dispose();
+    }
+    
+    public void fermerFenetreModification(){
+        this.fenetreModification.dispose();
     }
 
     public void finJeu() {
