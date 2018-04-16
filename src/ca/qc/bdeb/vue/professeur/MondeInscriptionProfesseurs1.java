@@ -23,7 +23,7 @@ import javax.swing.JTextField;
  *
  * @author 1651114
  */
-public class MondeInscriptionProfesseurs extends JComponent {
+public class MondeInscriptionProfesseurs1 extends JComponent {
 
     private final int largeur = 350, hauteur = 168;
 
@@ -38,7 +38,7 @@ public class MondeInscriptionProfesseurs extends JComponent {
 
     private Bouton boutonValidation = new Bouton();
 
-    public MondeInscriptionProfesseurs(FenetreInscription fenetre, Controleur controleur) {
+    public MondeInscriptionProfesseurs1(FenetreInscription fenetre, Controleur controleur) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
