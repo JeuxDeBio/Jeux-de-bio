@@ -39,6 +39,7 @@ public class Modele extends Observable {
     private final String locationFenetreStatistiquesGroupe = "Ecrans\\Principale\\FenetreStatistiquesGroupe.png";
     private final String locationFenetreClasses = "Ecrans\\Principale\\FenetreClasses.png";
     private final String locationFenetreModificationIcone = "Ecrans\\Principale\\FenetreModificationIcone.png";
+    private final String locationFenetreVerification = "Ecrans\\Principale\\FenetreVerification.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -52,9 +53,11 @@ public class Modele extends Observable {
 
     private boolean logInEtudiant = false;
     private boolean logInProfesseur = false;
+    private boolean updateNUPermis = false;
 
     private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
+    private ArrayList<String> listeNUAdmisProfesseurs = new ArrayList<>();
 
     private ArrayList<Icone> listeIcones = new ArrayList<>();
 
@@ -70,6 +73,7 @@ public class Modele extends Observable {
         lectureEtudiants();
         lectureProfesseurs();
         lectureIcones();
+        lectureNUAdmisProfesseurs();
 
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 1.txt"));
         listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, "Information niveaux\\Drag & Drop\\Niveau 2.txt"));
@@ -115,6 +119,22 @@ public class Modele extends Observable {
 
         for (int i = 0; i < listeFiles.length; i++) {
             listeIcones.add(new Icone(listeFiles[i].getAbsolutePath(), listeFiles[i].getName()));
+        }
+    }
+
+    private void lectureNUAdmisProfesseurs() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeNUAdmisProfesseurs.add(ligne);
+                ligne = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -180,6 +200,10 @@ public class Modele extends Observable {
 
     public String getLocationFenetreModificationIcone() {
         return locationFenetreModificationIcone;
+    }
+
+    public String getLocationFenetreVerification() {
+        return locationFenetreVerification;
     }
 
     public void validerEtudiant(String da, char[] motdepasse) {
@@ -298,18 +322,25 @@ public class Modele extends Observable {
         return groupeNouveauEtudiant.getCode();
     }
 
-    public boolean professeurExiste(String nu) {
-        return true;
+    public boolean professeurPermis(String nu) {
+        boolean professeurPermis = false;
+        for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
+            if (nu.equals(listeNUAdmisProfesseurs.get(i))) {
+                professeurPermis = true;
+                break;
+            }
+        }
+        return professeurPermis;
     }
 
-    public void creerEtudiant(String da, String motDePasse, String nom) {
+    public void creerEtudiant(String da, String mdp, String nom) {
         String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
             bufferedWriter.write(da);
             bufferedWriter.newLine();
-            bufferedWriter.write(motDePasse);
+            bufferedWriter.write(mdp);
             bufferedWriter.newLine();
             bufferedWriter.write(nom);
             bufferedWriter.newLine();
@@ -339,8 +370,11 @@ public class Modele extends Observable {
         etudiant.setProfesseur(professeurNouveauEtudiant);
     }
 
-    public void creerProfesseur(String nom) {
-        String informations = "Utilisateurs\\Professeurr\\" + nom;
+    public void creerProfesseur(String nu, String mdp, String nom) {
+        listeNUAdmisProfesseurs.remove(nu);
+        updateNUPermis = true;
+
+        String informations = "Utilisateurs\\Professeurs\\" + nu + ".txt";
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
@@ -563,10 +597,43 @@ public class Modele extends Observable {
                 listeProfesseurs.get(i).updateFichierProfesseur();
             }
         }
+
+        if (updateNUPermis) {
+            updateNUPermis();
+        }
     }
 
     public String getLogInErrorLog() {
         return logInErrorLog;
+    }
+
+    public void ajouterProfesseurNUAdmis(String nuAdmis) {
+        boolean nuAdmisEstDejaDansListe = false;
+
+        for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
+            if (nuAdmis.equals(listeNUAdmisProfesseurs.get(i))) {
+                nuAdmisEstDejaDansListe = true;
+            }
+        }
+
+        if (!nuAdmisEstDejaDansListe) {
+            listeNUAdmisProfesseurs.add(nuAdmis);
+        }
+
+        updateNUPermis = true;
+    }
+
+    private void updateNUPermis() {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\NUPermis.txt"));
+            for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
+                bufferedWriter.write(listeNUAdmisProfesseurs.get(i));
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void majObserver() {

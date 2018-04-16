@@ -1,0 +1,8 @@
+daEtudiant2
+mdpEt2
+Jeff
+C:\Users\batik\Desktop\Jeux-de-bio\Utilisateurs\Icones\face.png
+0;0;0;0;0;0;0;0;0;0
+0;0;0;0;0;0;0;0;0;0
+0;0;0;0;0;0;0;0;0;0
+0;0;0;0;0;0;0;0;0;0

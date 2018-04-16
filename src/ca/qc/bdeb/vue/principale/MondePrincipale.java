@@ -8,7 +8,7 @@ package ca.qc.bdeb.vue.principale;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.professeur.TypeUtilisateur;
+import ca.qc.bdeb.modele.TypeUtilisateur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -34,8 +34,8 @@ public class MondePrincipale extends JComponent {
 
     private FenetrePrincipale fenetre;
 
-    private JTextField txtDA_Etudiant = new JTextField();
-    private JTextField txtDA_Professeur = new JTextField();
+    private JTextField txtDAEtudiant = new JTextField();
+    private JTextField txtNUProfesseur = new JTextField();
 
     private JPasswordField pssEtudiant = new JPasswordField();
     private JPasswordField pssProfesseur = new JPasswordField();
@@ -50,7 +50,7 @@ public class MondePrincipale extends JComponent {
     private Bouton boutonSpeedRun = new Bouton();
 
     private boolean enJeu = false;
-    
+
     private final int largeur = 800, hauteur = 600;
 
     public MondePrincipale(Modele modele, Controleur controleur, FenetrePrincipale fenetre) {
@@ -68,35 +68,35 @@ public class MondePrincipale extends JComponent {
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipale());
 
-        txtDA_Etudiant.setLocation(337, 250);
-        txtDA_Etudiant.setSize(223, 25);
-        this.add(txtDA_Etudiant);
+        txtDAEtudiant.setLocation(337, 245);
+        txtDAEtudiant.setSize(223, 25);
+        this.add(txtDAEtudiant);
 
-        pssEtudiant.setLocation(337, 285);
+        pssEtudiant.setLocation(337, 280);
         pssEtudiant.setSize(223, 25);
         this.add(pssEtudiant);
 
-        txtDA_Professeur.setLocation(370, 419);
-        txtDA_Professeur.setSize(200, 25);
-        this.add(txtDA_Professeur);
+        txtNUProfesseur.setLocation(370, 426);
+        txtNUProfesseur.setSize(200, 25);
+        this.add(txtNUProfesseur);
 
-        pssProfesseur.setLocation(370, 454);
+        pssProfesseur.setLocation(370, 461);
         pssProfesseur.setSize(200, 25);
         this.add(pssProfesseur);
 
-        boutonIdentificationEtudiant.setLocation(208, 317);
+        boutonIdentificationEtudiant.setLocation(208, 309);
         boutonIdentificationEtudiant.setSize(187, 38);
         this.add(boutonIdentificationEtudiant);
 
-        boutonInscriptionEtudiant.setLocation(414, 317);
+        boutonInscriptionEtudiant.setLocation(414, 309);
         boutonInscriptionEtudiant.setSize(187, 38);
         this.add(boutonInscriptionEtudiant);
 
-        boutonIdentificationProfesseur.setLocation(208, 485);
+        boutonIdentificationProfesseur.setLocation(208, 490);
         boutonIdentificationProfesseur.setSize(187, 38);
         this.add(boutonIdentificationProfesseur);
 
-        boutonInscriptionProfesseur.setLocation(414, 485);
+        boutonInscriptionProfesseur.setLocation(414, 490);
         boutonInscriptionProfesseur.setSize(187, 38);
         this.add(boutonInscriptionProfesseur);
 
@@ -125,7 +125,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    controleur.validerEtudiant(txtDA_Etudiant.getText(), pssEtudiant.getPassword());
+                    controleur.validerEtudiant(txtDAEtudiant.getText(), pssEtudiant.getPassword());
                 }
             }
 
@@ -148,7 +148,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    controleur.validerProfesseur(txtDA_Professeur.getText(), pssProfesseur.getPassword());
+                    controleur.validerProfesseur(txtNUProfesseur.getText(), pssProfesseur.getPassword());
                 }
             }
 
@@ -195,7 +195,7 @@ public class MondePrincipale extends JComponent {
 
         boutonCoureur.addMouseListener(new MouseAdapter() {
             String action = "jouer";
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -209,7 +209,7 @@ public class MondePrincipale extends JComponent {
 
         boutonSpeedRun.addMouseListener(new MouseAdapter() {
             String action = "jouer";
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -225,10 +225,10 @@ public class MondePrincipale extends JComponent {
     protected void finJeu() {
         this.enJeu = false;
     }
-    
+
     public void reset() {
-        this.txtDA_Etudiant.setText("");
-        this.txtDA_Professeur.setText("");
+        this.txtDAEtudiant.setText("");
+        this.txtNUProfesseur.setText("");
         this.pssEtudiant.setText("");
         this.pssProfesseur.setText("");
     }
@@ -240,7 +240,5 @@ public class MondePrincipale extends JComponent {
         g.setColor(Color.BLACK);
         g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
     }
-
-    
 
 }

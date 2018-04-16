@@ -9,7 +9,7 @@ import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants1;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants2;
-import ca.qc.bdeb.vue.professeur.TypeUtilisateur;
+import ca.qc.bdeb.modele.TypeUtilisateur;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
