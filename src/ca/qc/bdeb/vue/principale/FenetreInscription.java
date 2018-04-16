@@ -10,6 +10,7 @@ import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants1;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants2;
 import ca.qc.bdeb.modele.TypeUtilisateur;
+import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs2;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +23,8 @@ public class FenetreInscription extends JFrame {
 
     private MondeInscriptionEtudiants1 mondeEtudiant1;
     private MondeInscriptionEtudiants2 mondeEtudiant2;
-    private MondeInscriptionProfesseurs1 mondeProfesseur;
+    private MondeInscriptionProfesseurs1 mondeProfesseur1;
+    private MondeInscriptionProfesseurs2 mondeProfesseur2;
 
     private FenetrePrincipale fenetre;
     private Controleur controleur;
@@ -49,8 +51,8 @@ public class FenetreInscription extends JFrame {
                 this.add(mondeEtudiant1);
                 break;
             case PROFESSEUR:
-                mondeProfesseur = new MondeInscriptionProfesseurs1(this, controleur);
-                this.add(mondeProfesseur);
+                mondeProfesseur1 = new MondeInscriptionProfesseurs1(this, controleur);
+                this.add(mondeProfesseur1);
         }
 
         this.add(lblErrorLog, BorderLayout.SOUTH);
@@ -64,6 +66,15 @@ public class FenetreInscription extends JFrame {
         mondeEtudiant2 = new MondeInscriptionEtudiants2(this, controleur, da, motDePasse);
         this.remove(mondeEtudiant1);
         this.add(mondeEtudiant2);
+        pack();
+        invalidate();
+        repaint();
+    }
+    
+    public void etape2Professeurs(String nu, String motDePasse) {
+        mondeProfesseur2 = new MondeInscriptionProfesseurs2(this, controleur, nu, motDePasse);
+        this.remove(mondeProfesseur1);
+        this.add(mondeProfesseur2);
         pack();
         invalidate();
         repaint();

@@ -78,7 +78,7 @@ public class Professeur {
         } catch (IOException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         lectureDAPermis(locationDAPermis);
     }
 
@@ -89,13 +89,11 @@ public class Professeur {
             while (ligne != null) {
                 String[] split = ligne.split(";");
                 listeDAPermis.add(split[0]);
-
                 for (int i = 0; i < listeGroupes.size(); i++) {
                     if (listeGroupes.get(i).getCode().equals(split[1])) {
                         listeDAPermisGroupe.add(listeGroupes.get(i));
                     }
                 }
-
                 ligne = bufferedReader.readLine();
             }
 
@@ -154,6 +152,28 @@ public class Professeur {
         informationsModifies = true;
     }
 
+    public void ajouterGroupe(String information) {
+        Groupe groupe = new Groupe(information, modele, this);
+        listeGroupes.add(groupe);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis, true));
+            bufferedWriter.newLine();
+
+            for (int i = 0; i < groupe.getListeEtudiants().size(); i++) {
+                bufferedWriter.write(groupe.getListeEtudiants().get(i).getDa() + ";" + groupe.getCode());
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        informationsModifies = true;
+    }
+
     public void updateFichierProfesseur() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
@@ -162,6 +182,12 @@ public class Professeur {
             bufferedWriter.write(motDePasse);
             bufferedWriter.newLine();
             bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            if (estAdmin) {
+                bufferedWriter.write("admin");
+            } else {
+                bufferedWriter.write("professeur");
+            }
             bufferedWriter.newLine();
             bufferedWriter.write(locationIcone);
             bufferedWriter.newLine();

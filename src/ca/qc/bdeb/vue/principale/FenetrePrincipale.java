@@ -14,6 +14,7 @@ import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
 import ca.qc.bdeb.vue.professeur.FenetreCreation;
 import ca.qc.bdeb.modele.TypeUtilisateur;
+import ca.qc.bdeb.vue.professeur.FenetreAjoutClasse;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -44,11 +45,12 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreCreation fenetreCreation;
     private FenetreCreationDragDrop fenetreCreationDragDrop;
     private FenetreInscription fenetreInscription;
+    private FenetreAjoutClasse fenetreAjoutClasse;
 
     private boolean logIn = false;
 
     private JLabel lblErrorLog = new JLabel(" ", JLabel.CENTER);
-    
+
     public FenetrePrincipale(Controleur controleur, Observable observable) {
         modele = (Modele) observable;
         modele.addObserver(this);
@@ -122,6 +124,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreInscription.setLocation(this.getX() + (this.getWidth() - fenetreInscription.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreInscription.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreAjoutClasses() {
+        fenetreAjoutClasse = new FenetreAjoutClasse(this, controleur);
+        fenetreAjoutClasse.setLocation(this.getX() + (this.getWidth() - fenetreAjoutClasse.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreAjoutClasse.getHeight()) / 2);
+    }
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
@@ -132,6 +139,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreInscription() {
         fenetreInscription.dispose();
+    }
+
+    public void fermerFenetreAjoutClasses() {
+        fenetreAjoutClasse.dispose();
     }
 
     public void fermerFenetreModificationIcone() {

@@ -32,14 +32,15 @@ public class Modele extends Observable {
     private final String locationFenetreSelection = "Ecrans\\Principale\\FenetreSelection.png";
     private final String locationFenetreinscriptionEtudiants1 = "Ecrans\\Principale\\FenetreInscriptionEtudiants1.png";
     private final String locationFenetreinscriptionEtudiants2 = "Ecrans\\Principale\\FenetreInscriptionEtudiants2.png";
-    private final String locationFenetreinscriptionProfesseurs = "Ecrans\\Principale\\FenetreInscriptionProfesseurs.png";
+    private final String locationFenetreinscriptionProfesseurs1 = "Ecrans\\Principale\\FenetreInscriptionProfesseurs1.png";
+    private final String locationFenetreinscriptionProfesseurs2 = "Ecrans\\Principale\\FenetreInscriptionProfesseurs2.png";
     private final String locationFenetreModificationtMDP = "Ecrans\\Principale\\FenetreModificationMDP.png";
     private final String locationFenetreStatistiquesEtudiant = "Ecrans\\Principale\\FenetreStatistiquesEtudiant.png";
     private final String locationFenetreStatistiquesJeu = "Ecrans\\Principale\\FenetreStatistiquesJeu.png";
     private final String locationFenetreStatistiquesGroupe = "Ecrans\\Principale\\FenetreStatistiquesGroupe.png";
     private final String locationFenetreClasses = "Ecrans\\Principale\\FenetreClasses.png";
     private final String locationFenetreModificationIcone = "Ecrans\\Principale\\FenetreModificationIcone.png";
-    private final String locationFenetreVerification = "Ecrans\\Principale\\FenetreVerification.png";
+    private final String locationFenetreAjoutClasses = "Ecrans\\Principale\\FenetreAjoutClasses.png";
 
     private final String locationRobot1 = "Ecrans\\Speed Run\\Robot 1.png";
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
@@ -70,18 +71,18 @@ public class Modele extends Observable {
     private String logInErrorLog = " ";
 
     public Modele() {
+        this.refresh();
+    }
+
+    public void refresh() {
         lectureEtudiants();
         lectureProfesseurs();
         lectureIcones();
-
-        ajouterNiveaux();
-        System.out.println(listeNiveauxDragDrop.size());
-    
-
+        lectureNiveaux();
         lectureNUAdmisProfesseurs();
-      }
+    }
 
-    private void ajouterNiveaux() {
+    private void lectureNiveaux() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
             String ligne = bufferedReader.readLine();
@@ -199,8 +200,12 @@ public class Modele extends Observable {
         return locationFenetreinscriptionEtudiants2;
     }
 
-    public String getLocationFenetreInscriptionProfesseurs() {
-        return locationFenetreinscriptionProfesseurs;
+    public String getLocationFenetreInscriptionProfesseurs1() {
+        return locationFenetreinscriptionProfesseurs1;
+    }
+
+    public String getLocationFenetreInscriptionProfesseurs2() {
+        return locationFenetreinscriptionProfesseurs2;
     }
 
     public String getLocationFenetreModiicationMDP() {
@@ -227,8 +232,8 @@ public class Modele extends Observable {
         return locationFenetreModificationIcone;
     }
 
-    public String getLocationFenetreVerification() {
-        return locationFenetreVerification;
+    public String getLocationFenetreAjoutClasses() {
+        return locationFenetreAjoutClasses;
     }
 
     public void validerEtudiant(String da, char[] motdepasse) {
@@ -395,16 +400,40 @@ public class Modele extends Observable {
         etudiant.setProfesseur(professeurNouveauEtudiant);
     }
 
-    public void creerProfesseur(String nu, String mdp, String nom) {
+    public void creerProfesseur(String nu, String mdp, String nom, String session) {
         listeNUAdmisProfesseurs.remove(nu);
         updateNUPermis = true;
 
+        String locationDAPermis = "Utilisateurs\\Professeurs\\" + nu + "DAPermis.txt";
         String informations = "Utilisateurs\\Professeurs\\" + nu + ".txt";
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-            bufferedWriter.write(nom);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis));
             bufferedWriter.close();
+
+            bufferedWriter = new BufferedWriter(new FileWriter(informations));
+            bufferedWriter.write(nu);
+            bufferedWriter.newLine();
+            bufferedWriter.write(mdp);
+            bufferedWriter.newLine();
+            bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write("professeur");
+            bufferedWriter.newLine();
+            bufferedWriter.write("C:\\Users\\batik\\Desktop\\Jeux-de-bio\\Utilisateurs\\Icones\\iconeVierge.png");
+            bufferedWriter.newLine();
+            bufferedWriter.write(session);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationDAPermis);
+
+            bufferedWriter.close();
+
+            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt", true));
+            bufferedWriter.newLine();
+            bufferedWriter.write(informations);
+            bufferedWriter.close();
+
+            refresh();
 
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
@@ -659,6 +688,31 @@ public class Modele extends Observable {
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void creerGroupe(ArrayList<String> liste) {
+        String informations = "Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + liste.get(0) + ".txt";
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+            for (int i = 0; i < liste.size(); i++) {
+                bufferedWriter.write(liste.get(i));
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+
+            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + "DAPermis.txt", true));
+
+            for (int i = 1; i < liste.size(); i++) {
+                bufferedWriter.write(liste.get(i) + ";" + liste.get(0));
+                if (i != liste.size() - 1) {
+                    bufferedWriter.newLine();
+                }
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        professeur.ajouterGroupe(informations);
     }
 
     public void majObserver() {

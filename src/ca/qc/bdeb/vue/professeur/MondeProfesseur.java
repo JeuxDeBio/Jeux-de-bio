@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -77,6 +76,7 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
     private JMenuItem mnuItemEnleverProfesseur = new JMenuItem("Enlever un professeur!");
     private JMenuItem mnuItemSetAdmin = new JMenuItem("Ceder vos droits d'admin!");
+    private JMenuItem mnuItemCreerGroupe = new JMenuItem("Créer nouveau groupe!");
 
     private boolean enJeu = false;
 
@@ -177,8 +177,8 @@ public class MondeProfesseur extends JComponent {
             mnuClassesGroupe.add(mnuItemGroupe);
             evenementsGroupesClasses(i);
         }
-
         mnuClasses.add(mnuClassesGroupe);
+        mnuClasses.add(mnuItemCreerGroupe);
 
         mnuInformations.add(mnuItemDragDrop);
         mnuInformations.add(mnuItemShooter);
@@ -342,24 +342,24 @@ public class MondeProfesseur extends JComponent {
                         String motDePasse = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrer votre mot de passe");
                         if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
                             try {
-                                String nuAdmis = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez reserver un nom d'utilisateur");
+                                String nuAdmis = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez réserver un nom d'utilisateur");
                                 if (nuAdmis.length() >= 6) {
                                     controleur.ajouterProfesseurNUAdmis(nuAdmis);
                                     JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
                                     nuRejete = false;
                                 } else {
-                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court" , "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court", "ERREUR", JOptionPane.ERROR_MESSAGE);
                                 }
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException e) {
                                 nuRejete = false;
-                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Annule par l'utilisateur", "", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                             }
                         } else {
                             JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException e) {
                         nuRejete = false;
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Annule par l'utilisateur", "", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -379,7 +379,14 @@ public class MondeProfesseur extends JComponent {
             }
         }
         );
-        //evenements des menus!! autres menus a ajouter plus tard
+
+        mnuItemCreerGroupe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreAjoutClasses();
+            }
+        });
+
     }
 
     private void evenementsGroupesStatistiques(int i) {

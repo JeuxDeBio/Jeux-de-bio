@@ -50,7 +50,7 @@ public class MondeInscriptionProfesseurs1 extends JComponent {
     }
 
     private void creerInterface() {
-        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionProfesseurs());
+        image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionProfesseurs1());
 
         txtNU.setLocation(156, 12);
         txtNU.setSize(186, 20);
@@ -91,7 +91,7 @@ public class MondeInscriptionProfesseurs1 extends JComponent {
                     if (motDePasse.equals(motDePasseValidation)) {
                         fenetre.setErrorLog("");
                         if (motDePasse.length() >= 6) {
-                            //passe a la 2e page pour obtenir le nom comme celles des etudiants
+                            fenetre.etape2Professeurs(txtNU.getText(), motDePasse);
                         } else {
                             fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
                         }
