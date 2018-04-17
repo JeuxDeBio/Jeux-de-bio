@@ -230,11 +230,13 @@ public class Professeur {
     public void setAdmin() {
         this.estAdmin = true;
         this.type = TypeUtilisateur.ADMIN;
+        informationsModifies = true;
     }
 
     public void enleverAdmin() {
         this.estAdmin = false;
         this.type = TypeUtilisateur.PROFESSEUR;
+        informationsModifies = true;
     }
 
     public boolean estAdmin() {

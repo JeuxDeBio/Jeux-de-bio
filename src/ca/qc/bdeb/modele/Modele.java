@@ -710,6 +710,11 @@ public class Modele extends Observable {
         }
     }
 
+    public void cederAdmin(Professeur professeur) {
+        professeur.setAdmin();
+        this.professeur.enleverAdmin();
+    }
+
     public void majObserver() {
         setChanged();
         notifyObservers();

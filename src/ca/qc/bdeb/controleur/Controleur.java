@@ -264,6 +264,10 @@ public class Controleur {
     public void creerGroupe(ArrayList<String> liste) {
         modele.creerGroupe(liste);
     }
+    
+    public void cederAdmin(Professeur professeur) {
+        modele.cederAdmin(professeur);
+    }
 
     public void fermerApp() {
         modele.fermerApp();
