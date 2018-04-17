@@ -1,3 +1,0 @@
-da1234;Groupe1
-da456;Groupe1
-da789;Groupe1

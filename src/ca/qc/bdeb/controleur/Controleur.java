@@ -104,7 +104,7 @@ public class Controleur {
     public String getLocationFenetreInscriptionProfesseurs1() {
         return modele.getLocationFenetreInscriptionProfesseurs1();
     }
-    
+
     public String getLocationFenetreInscriptionProfesseurs2() {
         return modele.getLocationFenetreInscriptionProfesseurs2();
     }
@@ -245,15 +245,23 @@ public class Controleur {
         modele.enleverEtudiant(groupe, etudiant);
     }
 
+    public void enleverProfesseur(Professeur professeur) {
+        modele.enleverProfesseur(professeur);
+    }
+
     public ArrayList<Icone> getListeIcones() {
         return modele.getListeIcones();
+    }
+
+    public ArrayList<Professeur> getListeProfesseurs() {
+        return modele.getListeProfesseurs();
     }
 
     public void ajouterProfesseurNUAdmis(String nuAdmis) {
         modele.ajouterProfesseurNUAdmis(nuAdmis);
     }
-    
-    public void creerGroupe(ArrayList<String> liste){
+
+    public void creerGroupe(ArrayList<String> liste) {
         modele.creerGroupe(liste);
     }
 

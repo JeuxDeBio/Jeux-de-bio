@@ -7,6 +7,7 @@ package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
@@ -43,6 +44,7 @@ public class MondeProfesseur extends JComponent {
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
     private JLabel lblSession = new JLabel();
+    private JLabel lblType = new JLabel();
 
     private Icone icone;
 
@@ -65,6 +67,7 @@ public class MondeProfesseur extends JComponent {
     private JMenu mnuClasses = new JMenu("Liste des groupes");
     private JMenu mnuClassesGroupe = new JMenu("Choissez le groupe!");
     private JMenu mnuAdminOptions = new JMenu("Options d'admin");
+    private JMenu mnuEnleverProfesseur = new JMenu("Enlever un professeur!");
 
     private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
     private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
@@ -74,7 +77,6 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
     private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
-    private JMenuItem mnuItemEnleverProfesseur = new JMenuItem("Enlever un professeur!");
     private JMenuItem mnuItemSetAdmin = new JMenuItem("Ceder vos droits d'admin!");
     private JMenuItem mnuItemCreerGroupe = new JMenuItem("Créer nouveau groupe!");
 
@@ -82,6 +84,7 @@ public class MondeProfesseur extends JComponent {
 
     private JMenuItem[] listeGroupesStatistiques;
     private JMenuItem[] listeGroupes;
+    private JMenuItem[] listeProfesseurs;
 
     private final int largeur = 800, hauteur = 600;
 
@@ -117,7 +120,16 @@ public class MondeProfesseur extends JComponent {
         lblSession.setLocation(286, 273);
         lblSession.setSize(190, 20);
         this.add(lblSession);
-
+        
+        String type = "Professeur";
+        if (controleur.getProfesseur().getType() == TypeUtilisateur.ADMIN){
+            type = "Administrateur";
+        }
+        lblType.setText(type);
+        lblType.setLocation(356, 295);
+        lblType.setSize(233, 20);
+        this.add(lblType);                
+                
         boutonMdDragDrop.setLocation(26, 194);
         boutonMdDragDrop.setSize(147, 74);
         this.add(boutonMdDragDrop);
@@ -187,9 +199,22 @@ public class MondeProfesseur extends JComponent {
         mnuInformations.add(new JSeparator());
         mnuInformations.add(mnuItemRemerciements);
 
+        listeProfesseurs = new JMenuItem[controleur.getListeProfesseurs().size()];
+
+        for (int i = 0; i < listeProfesseurs.length; i++) {
+            type = "";
+            if (controleur.getListeProfesseurs().get(i).getType() == TypeUtilisateur.ADMIN) {
+                type = " (A)";
+            }
+            JMenuItem mnuItemProfesseur = new JMenuItem(controleur.getListeProfesseurs().get(i).getNom() + type);
+            listeProfesseurs[i] = mnuItemProfesseur;
+            mnuEnleverProfesseur.add(mnuItemProfesseur);
+            evenementsEnleverProfesseurs(i);
+        }
+
         if (controleur.getProfesseur().estAdmin()) {
             mnuAdminOptions.add(mnuItemAuthentifierProfesseur);
-            mnuAdminOptions.add(mnuItemEnleverProfesseur);
+            mnuAdminOptions.add(mnuEnleverProfesseur);
             mnuAdminOptions.add(mnuItemSetAdmin);
             mnuBar.add(mnuAdminOptions);
         }
@@ -365,13 +390,6 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
-        mnuItemEnleverProfesseur.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-
         mnuItemSetAdmin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -409,6 +427,28 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
+    }
+
+    private void evenementsEnleverProfesseurs(int i) {
+        listeProfesseurs[i].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    if (controleur.getListeProfesseurs().get(i).getType() != TypeUtilisateur.ADMIN) {
+                        if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrez votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getListeProfesseurs().get(i).getNom() + " a ete enleve avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
+                            controleur.enleverProfesseur(controleur.getListeProfesseurs().get(i));
+                        } else {
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Vous ne pouvez pas enlever un administrateur!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Operation annule par l'utilisateur", "Operation annule", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
     }
 
     public void updateIcone() {

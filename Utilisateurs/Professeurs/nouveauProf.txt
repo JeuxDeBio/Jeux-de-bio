@@ -1,8 +1,0 @@
-nouveauProf
-mdp123
-Test nom
-professeur
-C:\Users\1649904\Documents\NetBeansProjects\Jeux-de-bio\Utilisateurs\Icones\hill.png
-auscbiasucg
-Utilisateurs\Professeurs\nouveauProfDAPermis.txt
-Utilisateurs\Professeurs\nouveauProfGroupe1.txt

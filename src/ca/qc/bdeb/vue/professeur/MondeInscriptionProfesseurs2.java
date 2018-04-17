@@ -16,7 +16,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -25,7 +24,7 @@ import javax.swing.JTextField;
  */
 public class MondeInscriptionProfesseurs2 extends JComponent {
 
-    private final int largeur = 350, hauteur = 200;
+    private final int largeur = 350, hauteur = 168;
 
     private Controleur controleur;
     private FenetreInscription fenetre;
@@ -56,7 +55,7 @@ public class MondeInscriptionProfesseurs2 extends JComponent {
         txtNom.setSize(232, 20);
         this.add(txtNom);
         
-        txtSession.setLocation(173, 32);
+        txtSession.setLocation(173, 36);
         txtSession.setSize(164, 20);
         this.add(txtSession);
 

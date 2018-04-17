@@ -1,3 +1,2 @@
-Utilisateurs\\Professeurs\\Prof1.txt
-Utilisateurs\\Professeurs\\Prof2.txt
-Utilisateurs\Professeurs\nouveauProf.txt
+Utilisateurs\Professeurs\Prof1.txt
+Utilisateurs\Professeurs\Prof2.txt

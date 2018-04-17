@@ -404,37 +404,15 @@ public class Modele extends Observable {
         listeNUAdmisProfesseurs.remove(nu);
         updateNUPermis = true;
 
-        String locationDAPermis = "Utilisateurs\\Professeurs\\" + nu + "DAPermis.txt";
-        String informations = "Utilisateurs\\Professeurs\\" + nu + ".txt";
+        listeProfesseurs.add(new Professeur(nu, mdp, nom, session));
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
+            for (int i = 0; i < listeProfesseurs.size(); i++) {
+                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
+                bufferedWriter.newLine();
+            }
             bufferedWriter.close();
-
-            bufferedWriter = new BufferedWriter(new FileWriter(informations));
-            bufferedWriter.write(nu);
-            bufferedWriter.newLine();
-            bufferedWriter.write(mdp);
-            bufferedWriter.newLine();
-            bufferedWriter.write(nom);
-            bufferedWriter.newLine();
-            bufferedWriter.write("professeur");
-            bufferedWriter.newLine();
-            bufferedWriter.write("C:\\Users\\batik\\Desktop\\Jeux-de-bio\\Utilisateurs\\Icones\\iconeVierge.png");
-            bufferedWriter.newLine();
-            bufferedWriter.write(session);
-            bufferedWriter.newLine();
-            bufferedWriter.write(locationDAPermis);
-
-            bufferedWriter.close();
-
-            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt", true));
-            bufferedWriter.newLine();
-            bufferedWriter.write(informations);
-            bufferedWriter.close();
-
-            refresh();
-
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -655,6 +633,7 @@ public class Modele extends Observable {
         if (updateNUPermis) {
             updateNUPermis();
         }
+
     }
 
     public String getLogInErrorLog() {
@@ -713,6 +692,22 @@ public class Modele extends Observable {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
         professeur.ajouterGroupe(informations);
+    }
+
+    public void enleverProfesseur(Professeur professeur) {
+        professeur.delete();
+        listeProfesseurs.remove(professeur);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
+            for (int i = 0; i < listeProfesseurs.size(); i++) {
+                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void majObserver() {

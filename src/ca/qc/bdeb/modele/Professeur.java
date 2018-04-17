@@ -7,6 +7,7 @@ package ca.qc.bdeb.modele;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -48,6 +49,10 @@ public class Professeur {
         lectureInformation();
     }
 
+    public Professeur(String nu, String mdp, String nom, String session) {
+        creerFichiers(nu, mdp, nom, session);
+    }
+
     private void lectureInformation() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
@@ -60,6 +65,7 @@ public class Professeur {
             ligne = bufferedReader.readLine();
             if (ligne.equals("admin")) {
                 estAdmin = true;
+                type = TypeUtilisateur.ADMIN;
             }
             ligne = bufferedReader.readLine();
             locationIcone = ligne;
@@ -72,13 +78,14 @@ public class Professeur {
                 listeGroupes.add(new Groupe(ligne, modele, this));
                 ligne = bufferedReader.readLine();
             }
+            bufferedReader.close();
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         lectureDAPermis(locationDAPermis);
     }
 
@@ -97,6 +104,7 @@ public class Professeur {
                 ligne = bufferedReader.readLine();
             }
 
+            bufferedReader.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -122,6 +130,14 @@ public class Professeur {
 
     public String getSession() {
         return session;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public TypeUtilisateur getType() {
+        return type;
     }
 
     public ArrayList<Groupe> getListeGroupes() {
@@ -223,5 +239,45 @@ public class Professeur {
 
     public boolean estAdmin() {
         return estAdmin;
+    }
+
+    public void creerFichiers(String nu, String mdp, String nom, String session) {
+        locationDAPermis = "Utilisateurs\\Professeurs\\" + nu + "DAPermis.txt";
+        information = "Utilisateurs\\Professeurs\\" + nu + ".txt";
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis));
+            bufferedWriter.close();
+
+            bufferedWriter = new BufferedWriter(new FileWriter(information));
+            bufferedWriter.write(nu);
+            bufferedWriter.newLine();
+            bufferedWriter.write(mdp);
+            bufferedWriter.newLine();
+            bufferedWriter.write(nom);
+            bufferedWriter.newLine();
+            bufferedWriter.write("professeur");
+            bufferedWriter.newLine();
+            bufferedWriter.write("C:\\Users\\batik\\Desktop\\Jeux-de-bio\\Utilisateurs\\Icones\\iconeVierge.png");
+            bufferedWriter.newLine();
+            bufferedWriter.write(session);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationDAPermis);
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delete() {
+        for (int i = 0; i < listeGroupes.size(); i++) {
+            listeGroupes.get(i).delete();
+        }
+
+        File fileDAPermis = new File(locationDAPermis);
+        File fileInformations = new File(information);
+
+        fileDAPermis.delete();
+        fileInformations.delete();
     }
 }
