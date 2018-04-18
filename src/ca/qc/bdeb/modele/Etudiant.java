@@ -7,6 +7,7 @@ package ca.qc.bdeb.modele;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -59,6 +60,7 @@ public class Etudiant {
                 i++;
                 ligne = bufferedReader.readLine();
             }
+            bufferedReader.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -177,6 +179,11 @@ public class Etudiant {
         } catch (IOException ex) {
             Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void deleteFichier() {
+        File file = new File(information);
+        file.delete();
     }
 
 }

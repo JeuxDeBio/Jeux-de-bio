@@ -107,8 +107,12 @@ public class Groupe {
         return listeEtudiants;
     }
 
-    public void delete() {
+    public void deleteFichier() {
         File file = new File(information);
         file.delete();
+
+        for (int i = 0; i < listeEtudiants.size(); i++) {
+            listeEtudiants.get(i).deleteFichier();
+        }
     }
 }

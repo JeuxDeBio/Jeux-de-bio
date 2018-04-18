@@ -10,11 +10,13 @@ import ca.qc.bdeb.vue.professeur.MondeProfesseur;
 import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
 import ca.qc.bdeb.vue.professeur.FenetreCreation;
 import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.professeur.FenetreAjoutClasse;
+import ca.qc.bdeb.vue.professeur.FenetreClasses;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -46,6 +48,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
     private FenetreCreationDragDrop fenetreCreationDragDrop;
     private FenetreInscription fenetreInscription;
     private FenetreAjoutClasse fenetreAjoutClasse;
+    private FenetreClasses fenetreClasses;
 
     private boolean logIn = false;
 
@@ -129,6 +132,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreAjoutClasse.setLocation(this.getX() + (this.getWidth() - fenetreAjoutClasse.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreAjoutClasse.getHeight()) / 2);
     }
 
+    public void ouvrirFenetreClasses(Groupe groupe) {
+        fenetreClasses = new FenetreClasses(controleur, this, groupe);
+        fenetreClasses.setLocation(this.getX() + (this.getWidth() - fenetreClasses.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreClasses.getHeight()) / 2);
+    }
+
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
     }
@@ -147,11 +155,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreModificationIcone() {
         fenetreModificationIcone.dispose();
-        if (controleur.logInEtudiant()) {
-            mondeEtudiant.updateIcone();
-        } else if (controleur.logInProfesseur()) {
-            mondeProfesseur.updateIcone();
-        }
+        updateFenetre();
+    }
+
+    public void fermerFenetreClasses() {
+        fenetreClasses.dispose();
     }
 
     public void logInEtudiant() {
@@ -219,4 +227,13 @@ public class FenetrePrincipale extends JFrame implements Observer {
         }
     }
 
+    public void updateFenetre() {
+        if (controleur.logInEtudiant()) {
+            logOutEtudiant();
+            logInEtudiant();
+        } else if (controleur.logInProfesseur()) {
+            logOutProfesseur();
+            logInProfesseur();
+        }
+    }
 }

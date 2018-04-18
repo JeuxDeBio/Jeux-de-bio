@@ -45,4 +45,12 @@ public class FenetreClasses extends JFrame {
         this.errorLog.setText(errorLog);
     }
 
+    public void fermerFenetre() {
+        fenetre.fermerFenetreClasses();
+    }
+
+    public void updateFenetre() {
+        fenetre.updateFenetre();
+    }
+
 }

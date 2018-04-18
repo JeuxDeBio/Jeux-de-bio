@@ -138,6 +138,7 @@ public class MondeModificationMDP extends JComponent {
                         reset();
                     }
                 }
+                controleur.refresh();
             }
         });
     }

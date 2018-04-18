@@ -1,5 +1,0 @@
-da123;Groupe 1
-daEtudiant2;Groupe 1
-daEtudiant3;Groupe 1
-daEtudiant4;Groupe 2
-daEtudiant5;Groupe 2

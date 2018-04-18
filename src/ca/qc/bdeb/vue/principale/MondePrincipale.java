@@ -125,6 +125,7 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
+                    controleur.refresh();
                     controleur.validerEtudiant(txtDAEtudiant.getText(), pssEtudiant.getPassword());
                 }
             }
@@ -147,6 +148,7 @@ public class MondePrincipale extends JComponent {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
                 if (!enJeu) {
                     controleur.validerProfesseur(txtNUProfesseur.getText(), pssProfesseur.getPassword());
                 }

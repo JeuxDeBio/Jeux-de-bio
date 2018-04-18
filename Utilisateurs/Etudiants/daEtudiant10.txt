@@ -1,8 +1,0 @@
-daEtudiant10
-mdp123
-Bob MArley
-Utilisateurs\Icones\iconeVierge.png
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0

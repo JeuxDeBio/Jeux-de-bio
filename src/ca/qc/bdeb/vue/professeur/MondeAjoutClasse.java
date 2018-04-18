@@ -90,6 +90,7 @@ public class MondeAjoutClasse extends JComponent {
                     File selectedFile = jfc.getSelectedFile();
 
                     try {
+                        fenetre.setErrorLog("");
                         BufferedReader bufferedReader = new BufferedReader(new FileReader(selectedFile.getAbsolutePath()));
                         String ligne = bufferedReader.readLine();
                         while (ligne != null) {
@@ -104,6 +105,7 @@ public class MondeAjoutClasse extends JComponent {
                     }
                 } else {
                     fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                    listeDA.clear();
                 }
             }
 
@@ -126,6 +128,8 @@ public class MondeAjoutClasse extends JComponent {
                             fenetre.setErrorLog("");
                             listeDA.add(0, txtCode.getText());
                             controleur.creerGroupe(listeDA);
+                            controleur.refresh();
+                            fenetre.updateFenetre();
                             fenetre.fermerFenetre();
                         } else {
                             fenetre.setErrorLog("Opération annulé par l'utilisateur");

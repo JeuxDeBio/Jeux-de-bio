@@ -4,5 +4,4 @@ Prof 2
 professeur
 C:\Users\batik\Desktop\Jeux-de-bio\Utilisateurs\Icones\abc.png
 Session 1
-Utilisateurs\\Professeurs\\Prof2DAPermis.txt
-Utilisateurs\\Professeurs\\Prof2Groupe1.txt
+Utilisateurs\Professeurs\nuProf2DAPermis.txt

@@ -62,4 +62,8 @@ public class FenetreModificationIcone extends JFrame {
     public void fermerFenetre() {
         fenetre.fermerFenetreModificationIcone();
     }
+
+    public void updateFenetre() {
+        fenetre.updateFenetre();
+    }
 }
