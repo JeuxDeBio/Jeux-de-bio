@@ -39,7 +39,6 @@ public class MondeProfesseur extends JComponent {
 
     private FenetrePrincipale fenetre;
     private FenetreStatistiquesGroupe fenetreStatistiques;
-    private FenetreClasses fenetreClasses;
 
     private JLabel lblNom = new JLabel();
     private JLabel lblNomUtilisateur = new JLabel();
@@ -78,7 +77,6 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
     private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
-
     private JMenuItem mnuItemCreerGroupe = new JMenuItem("Créer nouveau groupe!");
 
     private boolean enJeu = false;
@@ -104,7 +102,7 @@ public class MondeProfesseur extends JComponent {
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreProfesseur());
 
-        icone = new Icone(controleur);
+        icone = new Icone(controleur.getProfesseur().getLocationIcone());
         icone.setLocation(505, 225);
         this.add(icone);
 
@@ -192,6 +190,7 @@ public class MondeProfesseur extends JComponent {
             evenementsGroupesClasses(i);
         }
         mnuClasses.add(mnuClassesGroupe);
+        mnuClasses.add(new JSeparator());
         mnuClasses.add(mnuItemCreerGroupe);
 
         mnuInformations.add(mnuItemDragDrop);
@@ -376,42 +375,37 @@ public class MondeProfesseur extends JComponent {
         mnuItemAuthentifierProfesseur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                boolean nuRejete = true;
-                while (nuRejete) {
-                    try {
-                        String motDePasse = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrer votre mot de passe");
-                        if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
-                            try {
-                                String nuAdmis = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez réserver un nom d'utilisateur");
-                                if (nuAdmis.length() >= 6) {
-                                    controleur.ajouterProfesseurNUAdmis(nuAdmis);
-                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
-                                    nuRejete = false;
+                try {
+                    if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrer votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
+                        try {
+                            String nuAdmis = JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez réserver un nom d'utilisateur");
+                            if (nuAdmis.length() >= 6) {
+                                controleur.refresh();
+                                if (!controleur.professeurExisteDeja(nuAdmis)) {
+                                    if (!controleur.professeurDejaAuthentifie(nuAdmis)) {
+                                        controleur.ajouterProfesseurNUAdmis(nuAdmis);
+                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
+                                        controleur.refresh();
+                                    } else {
+                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja authentifie!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                    }
                                 } else {
-                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja pris!", "ERREUR", JOptionPane.ERROR_MESSAGE);
                                 }
-                            } catch (NullPointerException e) {
-                                nuRejete = false;
-                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court", "ERREUR", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        } catch (NullPointerException e) {
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                         }
-                    } catch (NullPointerException e) {
-                        nuRejete = false;
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-
-        mnuSetAdmin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        }
-        );
 
         mnuItemCreerGroupe.addActionListener(new ActionListener() {
             @Override
@@ -419,7 +413,6 @@ public class MondeProfesseur extends JComponent {
                 fenetre.ouvrirFenetreAjoutClasses();
             }
         });
-
     }
 
     private void evenementsGroupesStatistiques(int i) {
@@ -433,15 +426,12 @@ public class MondeProfesseur extends JComponent {
     }
 
     private void evenementsGroupesClasses(int i) {
-
         listeGroupes[i].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetreClasses = new FenetreClasses(controleur, fenetre, controleur.getProfesseur().getListeGroupes().get(i));
-                fenetreClasses.setLocation(fenetre.getX() + (fenetre.getWidth() - fenetreClasses.getWidth()) / 2, fenetre.getY() + (fenetre.getHeight() - fenetreClasses.getHeight()) / 2);
+                fenetre.ouvrirFenetreClasses(controleur.getProfesseur().getListeGroupes().get(i));
             }
         });
-
     }
 
     private void evenementsEnleverProfesseurs(int i) {
@@ -453,6 +443,7 @@ public class MondeProfesseur extends JComponent {
                         if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrez votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
                             JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getListeProfesseurs().get(i).getNom() + " a ete enleve avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
                             controleur.enleverProfesseur(controleur.getListeProfesseurs().get(i));
+                            controleur.refresh();
                         } else {
                             JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
@@ -475,6 +466,9 @@ public class MondeProfesseur extends JComponent {
                         if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrez votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
                             JOptionPane.showMessageDialog(MondeProfesseur.this, "Cede les droits d'administration a " + controleur.getListeProfesseurs().get(i).getNom() + " avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
                             controleur.cederAdmin(controleur.getListeProfesseurs().get(i));
+                            controleur.refresh();
+                            fenetre.logOutProfesseur();
+                            fenetre.logInProfesseur();
                         } else {
                             JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
@@ -486,15 +480,6 @@ public class MondeProfesseur extends JComponent {
                 }
             }
         });
-    }
-
-    public void updateIcone() {
-        this.remove(icone);
-        icone = new Icone(controleur);
-        icone.setLocation(505, 225);
-        this.add(icone);
-        this.invalidate();
-        this.repaint();
     }
 
     @Override

@@ -82,7 +82,7 @@ public class MondeEtudiant extends JComponent {
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreEtudiant());
 
-        icone = new Icone(controleur);
+        icone = new Icone(controleur.getEtudiant().getLocationIcone());
         icone.setLocation(505, 225);
         this.add(icone);
 
@@ -240,15 +240,6 @@ public class MondeEtudiant extends JComponent {
 
     public void finJeu() {
         this.enJeu = false;
-    }
-
-    public void updateIcone() {
-        this.remove(icone);
-        icone = new Icone(controleur);
-        icone.setLocation(505, 225);
-        this.add(icone);
-        this.invalidate();
-        this.repaint();
     }
 
     @Override

@@ -87,27 +87,23 @@ public class MondeInscriptionEtudiants1 extends JComponent {
                     motDePasseValidation += pssMotDePasseValidation.getPassword()[i];
                 }
 
+                controleur.refresh();
                 if (controleur.etudiantPermis(txtDA.getText())) {
                     fenetre.setErrorLog("");
-                    if (!controleur.etudiantExisteDeja(txtDA.getText())) {
+
+                    fenetre.setErrorLog("");
+                    if (motDePasse.equals(motDePasseValidation)) {
                         fenetre.setErrorLog("");
-                        if (motDePasse.equals(motDePasseValidation)) {
-                            fenetre.setErrorLog("");
-                            if (motDePasse.length() >= 6) {
-                                fenetre.setErrorLog("DA authorise!");
-                                fenetre.etape2Etudiants(txtDA.getText(), motDePasse);
-                            } else {
-                                fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
-                                reset();
-                            }
+                        if (motDePasse.length() >= 6) {
+                            fenetre.setErrorLog("DA authorise!");
+                            fenetre.etape2Etudiants(txtDA.getText(), motDePasse);
                         } else {
-                            fenetre.setErrorLog("ERREUR! Mot de passe ne concorde pas avec la verification!");
+                            fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
                             reset();
                         }
                     } else {
-                        fenetre.setErrorLog("ERREUR! Ce compte existe deja!");
+                        fenetre.setErrorLog("ERREUR! Mot de passe ne concorde pas avec la verification!");
                         reset();
-                        txtDA.setText("");
                     }
                 } else {
                     fenetre.setErrorLog("ERREUR! <" + txtDA.getText() + "> n'est pas un DA authorise!");

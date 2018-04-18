@@ -75,6 +75,7 @@ public class Modele extends Observable {
     }
 
     public void refresh() {
+        fermerApp();
         lectureEtudiants();
         lectureProfesseurs();
         lectureIcones();
@@ -83,6 +84,11 @@ public class Modele extends Observable {
     }
 
     private void lectureNiveaux() {
+        listeNiveauxDragDrop.clear();
+        listeNiveauxShooter.clear();
+        listeNiveauxCoureur.clear();
+        listeNiveauxSpeedRun.clear();
+
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
             String ligne = bufferedReader.readLine();
@@ -116,6 +122,8 @@ public class Modele extends Observable {
     }
 
     private void lectureProfesseurs() {
+        listeProfesseurs.clear();
+
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
             String ligne = bufferedReader.readLine();
@@ -131,6 +139,8 @@ public class Modele extends Observable {
     }
 
     private void lectureEtudiants() {
+        listeEtudiants.clear();
+
         File dossier = new File("Utilisateurs\\Etudiants");
         File[] listeFiles = dossier.listFiles();
 
@@ -140,6 +150,8 @@ public class Modele extends Observable {
     }
 
     private void lectureIcones() {
+        listeIcones.clear();
+
         File dossier = new File("Utilisateurs\\Icones");
         File[] listeFiles = dossier.listFiles();
 
@@ -149,6 +161,7 @@ public class Modele extends Observable {
     }
 
     private void lectureNUAdmisProfesseurs() {
+        listeNUAdmisProfesseurs.clear();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
             String ligne = bufferedReader.readLine();
@@ -363,6 +376,28 @@ public class Modele extends Observable {
         return professeurPermis;
     }
 
+    public boolean professeurExisteDeja(String nu) {
+        boolean professeurExisteDeja = false;
+        for (int i = 0; i < listeProfesseurs.size(); i++) {
+            if (nu.equals(listeProfesseurs.get(i).getNomUtilisateur())) {
+                professeurExisteDeja = true;
+                break;
+            }
+        }
+        return professeurExisteDeja;
+    }
+
+    public boolean professeurDejaAuthentifie(String nu) {
+        boolean professeurDejaAuthentifie = false;
+        for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
+            if (nu.equals(listeNUAdmisProfesseurs.get(i))) {
+                professeurDejaAuthentifie = true;
+                break;
+            }
+        }
+        return professeurDejaAuthentifie;
+    }
+
     public void creerEtudiant(String da, String mdp, String nom) {
         String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
 
@@ -398,6 +433,7 @@ public class Modele extends Observable {
         groupeNouveauEtudiant.ajouterEtudiant(etudiant);
         etudiant.setGroupe(groupeNouveauEtudiant);
         etudiant.setProfesseur(professeurNouveauEtudiant);
+        professeurNouveauEtudiant.updateDAPermisEnleverEtudiant(etudiant);
     }
 
     public void creerProfesseur(String nu, String mdp, String nom, String session) {
@@ -596,6 +632,7 @@ public class Modele extends Observable {
                     score = listeNiveauxSpeedRun.get(i).getScore();
             }
         }
+        refresh();
         return score;
     }
 
@@ -609,6 +646,12 @@ public class Modele extends Observable {
 
     public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         groupe.enleverEtudiant(etudiant);
+        etudiant.deleteFichier();
+        professeur.updateDAPermisEnleverEtudiant(etudiant);
+    }
+
+    public void enleverGroupe(Groupe groupe) {
+        professeur.updateInformationsEnleverGroupe(groupe);
     }
 
     public void fermerApp() {
@@ -641,18 +684,7 @@ public class Modele extends Observable {
     }
 
     public void ajouterProfesseurNUAdmis(String nuAdmis) {
-        boolean nuAdmisEstDejaDansListe = false;
-
-        for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
-            if (nuAdmis.equals(listeNUAdmisProfesseurs.get(i))) {
-                nuAdmisEstDejaDansListe = true;
-            }
-        }
-
-        if (!nuAdmisEstDejaDansListe) {
-            listeNUAdmisProfesseurs.add(nuAdmis);
-        }
-
+        listeNUAdmisProfesseurs.add(nuAdmis);
         updateNUPermis = true;
     }
 
@@ -683,9 +715,7 @@ public class Modele extends Observable {
 
             for (int i = 1; i < liste.size(); i++) {
                 bufferedWriter.write(liste.get(i) + ";" + liste.get(0));
-                if (i != liste.size() - 1) {
-                    bufferedWriter.newLine();
-                }
+                bufferedWriter.newLine();
             }
             bufferedWriter.close();
         } catch (IOException ex) {
@@ -695,7 +725,7 @@ public class Modele extends Observable {
     }
 
     public void enleverProfesseur(Professeur professeur) {
-        professeur.delete();
+        professeur.deleteFichier();
         listeProfesseurs.remove(professeur);
 
         try {

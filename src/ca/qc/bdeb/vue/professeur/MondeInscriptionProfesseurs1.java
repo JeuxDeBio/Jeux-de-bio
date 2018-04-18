@@ -92,6 +92,7 @@ public class MondeInscriptionProfesseurs1 extends JComponent {
                         fenetre.setErrorLog("");
                         if (motDePasse.length() >= 6) {
                             fenetre.etape2Professeurs(txtNU.getText(), motDePasse);
+                            fenetre.setErrorLog("Nu authorise!");
                         } else {
                             fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
                         }

@@ -90,6 +90,7 @@ public class MondeAjoutClasse extends JComponent {
                     File selectedFile = jfc.getSelectedFile();
 
                     try {
+                        fenetre.setErrorLog("");
                         BufferedReader bufferedReader = new BufferedReader(new FileReader(selectedFile.getAbsolutePath()));
                         String ligne = bufferedReader.readLine();
                         while (ligne != null) {

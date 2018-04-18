@@ -43,18 +43,19 @@ public class MondeClasses extends JComponent {
 
     private JMenuBar mnuBar = new JMenuBar();
 
-    private JLabel lblCode = new JLabel();
+    private JLabel lblCode = new JLabel("", JLabel.CENTER);
 
     private JMenu mnuTous = new JMenu("Tous les étudiants");
-    private JMenu mnuEnveler = new JMenu("Enlever");
+    private JMenu mnuEnvelerEtudiants = new JMenu("Enlever");
 
     private JMenuItem mnuItemSelectionner = new JMenuItem("Sélectionner tous les étudiants!");
     private JMenuItem mnuItemDeselectionner = new JMenuItem("Désélectionner tous les étudiants!");
-    private JMenuItem mnuItemEnlever = new JMenuItem("Enlever les étudiants sélectionnées!");
+    private JMenuItem mnuItemEnleverEtudiants = new JMenuItem("Enlever les étudiants sélectionnées!");
+    private JMenuItem mnuItemEnleverGroupe = new JMenuItem("Enlever ce groupe!");
 
     private boolean enTraitement = false;
 
-    private final int largeur = 300;
+    private final int largeur = 400;
     private int hauteur = 50;
 
     public MondeClasses(Controleur controleur, FenetreClasses fenetre, Groupe groupe) {
@@ -76,13 +77,13 @@ public class MondeClasses extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreClasses());
 
         lblCode.setText(groupe.getCode());
-        lblCode.setSize(226, 20);
-        lblCode.setLocation(56, 16);
+        lblCode.setLocation(16, 16);
+        lblCode.setSize(367, 20);
         this.add(lblCode);
 
         for (int i = 0; i < listeEtudiants.size(); i++) {
             JLabel lblEtudiant = new JLabel(listeEtudiants.get(i).getDa() + " | " + listeEtudiants.get(i).getNom(), JLabel.CENTER);
-            lblEtudiant.setSize(270, 30);
+            lblEtudiant.setSize(largeur - 30, 30);
             lblEtudiant.setLocation(0, 50 + (lblEtudiant.getHeight() * i));
             this.add(lblEtudiant);
 
@@ -97,10 +98,12 @@ public class MondeClasses extends JComponent {
         mnuTous.add(new JSeparator());
         mnuTous.add(mnuItemDeselectionner);
 
-        mnuEnveler.add(mnuItemEnlever);
+        mnuEnvelerEtudiants.add(mnuItemEnleverEtudiants);
+        mnuEnvelerEtudiants.add(new JSeparator());
+        mnuEnvelerEtudiants.add(mnuItemEnleverGroupe);
 
         mnuBar.add(mnuTous);
-        mnuBar.add(mnuEnveler);
+        mnuBar.add(mnuEnvelerEtudiants);
 
         fenetre.setJMenuBar(mnuBar);
     }
@@ -146,28 +149,54 @@ public class MondeClasses extends JComponent {
             }
         });
 
-        mnuItemEnlever.addActionListener(new ActionListener() {
+        mnuItemEnleverEtudiants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String motDePasse = JOptionPane.showInputDialog(MondeClasses.this, "Veuillez entrer votre mot de passe");
+                int compteurBoutonsPresses = 0;
+                for (int i = 0; i < listeBoutons.size(); i++) {
+                    if (listeBoutons.get(i).estPresse()) {
+                        compteurBoutonsPresses++;
+                    }
+                }
+                if (compteurBoutonsPresses != 0) {
+                    try {
+                        if (JOptionPane.showInputDialog(MondeClasses.this, "Veuillez entrer votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
+                            fenetre.setErrorLog(" ");
+                            ArrayList<Integer> listeAEnlever = new ArrayList<>();
+                            for (int i = 0; i < listeBoutons.size(); i++) {
+                                if (listeBoutons.get(i).estPresse()) {
+                                    listeAEnlever.add(listeEtudiants.indexOf(listeEtudiants.get(i)));
+                                }
+                            }
+                            for (int i = listeEtudiants.size(); i >= 0; i--) {
+                                if (listeAEnlever.contains(i)) {
+                                    controleur.enleverEtudiant(groupe, groupe.getListeEtudiants().get(i));
+                                }
+                            }
+                            fenetre.fermerFenetre();
+                        } else {
+                            fenetre.setErrorLog("ERREUR! Mot de passe invalide!");
+                        }
+                    } catch (NullPointerException ex) {
+                        fenetre.setErrorLog("Opération annulée par l'utilisateur!");
+                    }
+                } else {
+                    fenetre.setErrorLog("ERREUR! Aucune etudiant choisi!");
+                }
+            }
+        });
+
+        mnuItemEnleverGroupe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 try {
-                    if (motDePasse.equals(controleur.getProfesseur().getMotDePasse())) {
-                        fenetre.setErrorLog(" ");
-                        ArrayList<Integer> listeAEnlever = new ArrayList<>();
-                        for (int i = 0; i < listeBoutons.size(); i++) {
-                            if (listeBoutons.get(i).estPresse()) {
-                                listeAEnlever.add(listeEtudiants.indexOf(listeEtudiants.get(i)));
-                            }
-                        }
-                        for (int i = listeEtudiants.size(); i >= 0; i--) {
-                            if (listeAEnlever.contains(i)) {
-                                controleur.enleverEtudiant(groupe, groupe.getListeEtudiants().get(i));
-                            }
-                        }
+                    if (JOptionPane.showInputDialog(MondeClasses.this, "Veuillez entrer votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
+                        controleur.enleverGroupe(groupe);
+                        fenetre.fermerFenetre();
                     } else {
                         fenetre.setErrorLog("ERREUR! Mot de passe invalide!");
                     }
-                } catch (NullPointerException ex) {
+                } catch (NullPointerException e) {
                     fenetre.setErrorLog("Opération annulée par l'utilisateur!");
                 }
             }
@@ -185,7 +214,7 @@ public class MondeClasses extends JComponent {
                 g.setColor(Color.WHITE);
             }
 
-            g.fillRect(0, 50 + (30 * i), 300, 30);
+            g.fillRect(0, 50 + (30 * i), largeur, 30);
             g.setColor(Color.BLACK);
             g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
         }

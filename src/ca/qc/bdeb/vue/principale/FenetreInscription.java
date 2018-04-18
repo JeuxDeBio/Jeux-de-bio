@@ -60,6 +60,9 @@ public class FenetreInscription extends JFrame {
 
     public void setErrorLog(String text) {
         this.lblErrorLog.setText(text);
+        pack();
+        invalidate();
+        repaint();
     }
 
     public void etape2Etudiants(String da, String motDePasse) {
@@ -70,7 +73,7 @@ public class FenetreInscription extends JFrame {
         invalidate();
         repaint();
     }
-    
+
     public void etape2Professeurs(String nu, String motDePasse) {
         mondeProfesseur2 = new MondeInscriptionProfesseurs2(this, controleur, nu, motDePasse);
         this.remove(mondeProfesseur1);

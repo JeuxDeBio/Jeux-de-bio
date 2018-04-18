@@ -34,10 +34,15 @@ public class Icone extends JComponent {
 
     public Icone(Controleur controleur) {
         if (controleur.logInEtudiant()) {
-            locationIcone = controleur.getEtudiant().getLocationIcone();
+            this.locationIcone = controleur.getEtudiant().getLocationIcone();
         } else if (controleur.logInProfesseur()) {
-            locationIcone = controleur.getProfesseur().getLocationIcone();
+            this.locationIcone = controleur.getProfesseur().getLocationIcone();
         }
+        creerInterface();
+    }
+
+    public Icone(String locationIcone) {
+        this.locationIcone = locationIcone;
         creerInterface();
     }
 

@@ -1,0 +1,8 @@
+nuProf1
+mdpProf1
+Prof 1
+admin
+C:\Users\batik\Desktop\Jeux-de-bio\Utilisateurs\Icones\abstract.png
+Session 1
+Utilisateurs\Professeurs\nuProf1DAPermis.txt
+Utilisateurs\Professeurs\nuProf1Groupe1.txt

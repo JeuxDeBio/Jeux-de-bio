@@ -1,8 +1,0 @@
-da123
-mdp123
-Nom
-C:\Users\1649904\Documents\NetBeansProjects\Jeux-de-bio\Utilisateurs\Icones\abc.png
-100;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0

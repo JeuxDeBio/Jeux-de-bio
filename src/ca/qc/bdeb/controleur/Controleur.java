@@ -133,6 +133,14 @@ public class Controleur {
         return modele.professeurPermis(da);
     }
 
+    public boolean professeurExisteDeja(String nu) {
+        return modele.professeurExisteDeja(nu);
+    }
+
+    public boolean professeurDejaAuthentifie(String nu) {
+        return modele.professeurDejaAuthentifie(nu);
+    }
+
     public void creerEtudiant(String da, String motDePasse, String nom) {
         modele.creerEtudiant(da, motDePasse, nom);
     }
@@ -249,6 +257,10 @@ public class Controleur {
         modele.enleverProfesseur(professeur);
     }
 
+    public void enleverGroupe(Groupe groupe) {
+        modele.enleverGroupe(groupe);
+    }
+
     public ArrayList<Icone> getListeIcones() {
         return modele.getListeIcones();
     }
@@ -264,12 +276,16 @@ public class Controleur {
     public void creerGroupe(ArrayList<String> liste) {
         modele.creerGroupe(liste);
     }
-    
+
     public void cederAdmin(Professeur professeur) {
         modele.cederAdmin(professeur);
     }
 
     public void fermerApp() {
         modele.fermerApp();
+    }
+
+    public void refresh() {
+        modele.refresh();
     }
 }

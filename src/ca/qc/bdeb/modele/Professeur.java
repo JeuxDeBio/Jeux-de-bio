@@ -171,22 +171,6 @@ public class Professeur {
     public void ajouterGroupe(String information) {
         Groupe groupe = new Groupe(information, modele, this);
         listeGroupes.add(groupe);
-
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis, true));
-            bufferedWriter.newLine();
-
-            for (int i = 0; i < groupe.getListeEtudiants().size(); i++) {
-                bufferedWriter.write(groupe.getListeEtudiants().get(i).getDa() + ";" + groupe.getCode());
-                bufferedWriter.newLine();
-            }
-
-            bufferedWriter.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         informationsModifies = true;
     }
 
@@ -271,9 +255,61 @@ public class Professeur {
         }
     }
 
-    public void delete() {
+    public void updateDAPermisEnleverEtudiant(Etudiant etudiant) {
+        for (int i = 0; i < listeDAPermis.size(); i++) {
+            if (listeDAPermis.get(i).equals(etudiant.getDa())) {
+                listeDAPermis.remove(listeDAPermis.get(i));
+                listeDAPermisGroupe.remove(listeDAPermisGroupe.get(i));
+            }
+        }
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis));
+            for (int i = 0; i < listeDAPermis.size(); i++) {
+                bufferedWriter.write(listeDAPermis.get(i) + ";" + listeDAPermisGroupe.get(i).getCode());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateInformationsEnleverGroupe(Groupe groupe) {
+        groupe.deleteFichier();
+        listeGroupes.remove(groupe);
+        informationsModifies = true;
+
+        ArrayList<Integer> listeAEnlever = new ArrayList<>();
+
+        for (int i = 0; i < listeDAPermisGroupe.size(); i++) {
+            if (listeDAPermisGroupe.get(i).getCode().equals(groupe.getCode())) {
+                listeAEnlever.add(i);
+            }
+        }
+
+        for (int i = listeDAPermisGroupe.size(); i >= 0; i--) {
+            if (listeAEnlever.contains(i)) {
+                listeDAPermis.remove(listeDAPermis.get(i));
+                listeDAPermisGroupe.remove(listeDAPermisGroupe.get(i));
+            }
+        }
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationDAPermis));
+            for (int i = 0; i < listeDAPermis.size(); i++) {
+                bufferedWriter.write(listeDAPermis.get(i) + ";" + listeDAPermisGroupe.get(i).getCode());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteFichier() {
         for (int i = 0; i < listeGroupes.size(); i++) {
-            listeGroupes.get(i).delete();
+            listeGroupes.get(i).deleteFichier();
         }
 
         File fileDAPermis = new File(locationDAPermis);

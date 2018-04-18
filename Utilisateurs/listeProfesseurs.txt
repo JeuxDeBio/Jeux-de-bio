@@ -1,2 +1,3 @@
-Utilisateurs\Professeurs\Prof1.txt
-Utilisateurs\Professeurs\Prof2.txt
+Utilisateurs\Professeurs\nuProf1.txt
+Utilisateurs\Professeurs\nuProf2.txt
+Utilisateurs\Professeurs\nuProf3.txt
