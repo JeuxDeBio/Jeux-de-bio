@@ -105,6 +105,7 @@ public class MondeAjoutClasse extends JComponent {
                     }
                 } else {
                     fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                    listeDA.clear();
                 }
             }
 
@@ -127,6 +128,8 @@ public class MondeAjoutClasse extends JComponent {
                             fenetre.setErrorLog("");
                             listeDA.add(0, txtCode.getText());
                             controleur.creerGroupe(listeDA);
+                            controleur.refresh();
+                            fenetre.updateFenetre();
                             fenetre.fermerFenetre();
                         } else {
                             fenetre.setErrorLog("Opération annulé par l'utilisateur");

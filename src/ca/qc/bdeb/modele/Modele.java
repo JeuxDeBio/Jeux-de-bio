@@ -656,20 +656,20 @@ public class Modele extends Observable {
 
     public void fermerApp() {
         for (int i = 0; i < listeProfesseurs.size(); i++) {
+            if (listeProfesseurs.get(i).informationsModifies()) {
+                listeProfesseurs.get(i).updateFichierProfesseur();
+            }
+
             for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
+                if (listeProfesseurs.get(i).getListeGroupes().get(j).informationsModifies()) {
+                    listeProfesseurs.get(i).getListeGroupes().get(j).updateFichierGroupe();
+                }
+
                 for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
                     if (listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).informationsModifies()) {
                         listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).updateFichierEtudiant();
                     }
                 }
-
-                if (listeProfesseurs.get(i).getListeGroupes().get(j).informationsModifies()) {
-                    listeProfesseurs.get(i).getListeGroupes().get(j).updateFichierGroupe();
-                }
-            }
-
-            if (listeProfesseurs.get(i).informationsModifies()) {
-                listeProfesseurs.get(i).updateFichierProfesseur();
             }
         }
 

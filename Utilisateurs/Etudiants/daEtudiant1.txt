@@ -1,8 +1,0 @@
-daEtudiant1
-mdpEtudiant1
-Etudiant 1
-C:\Users\batik\Desktop\Jeux-de-bio\Utilisateurs\Icones\abc.png
-33;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0

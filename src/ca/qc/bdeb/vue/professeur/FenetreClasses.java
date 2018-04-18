@@ -49,4 +49,8 @@ public class FenetreClasses extends JFrame {
         fenetre.fermerFenetreClasses();
     }
 
+    public void updateFenetre() {
+        fenetre.updateFenetre();
+    }
+
 }

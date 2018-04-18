@@ -53,8 +53,6 @@ public class MondeClasses extends JComponent {
     private JMenuItem mnuItemEnleverEtudiants = new JMenuItem("Enlever les étudiants sélectionnées!");
     private JMenuItem mnuItemEnleverGroupe = new JMenuItem("Enlever ce groupe!");
 
-    private boolean enTraitement = false;
-
     private final int largeur = 400;
     private int hauteur = 50;
 
@@ -192,6 +190,8 @@ public class MondeClasses extends JComponent {
                 try {
                     if (JOptionPane.showInputDialog(MondeClasses.this, "Veuillez entrer votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
                         controleur.enleverGroupe(groupe);
+                        controleur.refresh();
+                        fenetre.updateFenetre();
                         fenetre.fermerFenetre();
                     } else {
                         fenetre.setErrorLog("ERREUR! Mot de passe invalide!");

@@ -201,7 +201,6 @@ public class Professeur {
                 bufferedWriter.newLine();
             }
             bufferedWriter.close();
-
         } catch (IOException ex) {
             Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -276,9 +275,7 @@ public class Professeur {
     }
 
     public void updateInformationsEnleverGroupe(Groupe groupe) {
-        groupe.deleteFichier();
         listeGroupes.remove(groupe);
-        informationsModifies = true;
 
         ArrayList<Integer> listeAEnlever = new ArrayList<>();
 
@@ -305,6 +302,9 @@ public class Professeur {
         } catch (IOException ex) {
             Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        groupe.deleteFichier();
+        updateFichierProfesseur();
     }
 
     public void deleteFichier() {
