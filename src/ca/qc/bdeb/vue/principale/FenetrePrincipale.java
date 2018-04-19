@@ -136,6 +136,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
         fenetreClasses = new FenetreClasses(controleur, this, groupe);
         fenetreClasses.setLocation(this.getX() + (this.getWidth() - fenetreClasses.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreClasses.getHeight()) / 2);
     }
+    
+    public void ouvrirFenetreTutorial(Jeu jeu){
+        fenetreJeu = new FenetreJeu(jeu, this, controleur);
+        fenetreJeu.setLocation(this.getX() + (this.getWidth() - fenetreJeu.getWidth()) / 2, this.getY() + (this.getHeight() - fenetreJeu.getHeight()) / 2);
+    }
 
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
@@ -160,6 +165,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreClasses() {
         fenetreClasses.dispose();
+    }
+    
+    public void fermerFenetreTutorial(){
+        fenetreJeu.dispose();
     }
 
     public void logInEtudiant() {

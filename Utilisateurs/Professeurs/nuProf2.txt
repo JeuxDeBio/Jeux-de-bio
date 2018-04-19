@@ -1,7 +1,0 @@
-nuProf2
-mdpProf2
-Prof 2
-professeur
-C:\Users\batik\Desktop\Jeux-de-bio\Utilisateurs\Icones\abc.png
-Session 1
-Utilisateurs\Professeurs\nuProf2DAPermis.txt
