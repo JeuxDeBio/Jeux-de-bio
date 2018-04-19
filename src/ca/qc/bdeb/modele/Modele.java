@@ -46,6 +46,15 @@ public class Modele extends Observable {
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
     private final String locationRobot3 = "Ecrans\\Speed Run\\Robot 3.png";
     private final String locationCoeur = "Ecrans\\Speed Run\\Coeur.png";
+    
+    private final String locationTitreDragDrop = "Ecrans\\Tutorial\\TitreDragDrop.png";
+    private final String locationTitreShooter = "Ecrans\\Tutorial\\TitreShooter.png";
+    private final String locationTitreCoureur = "Ecrans\\Tutorial\\TitreCoureur.png";
+    private final String locationTitreSpeedRun = "Ecrans\\Tutorial\\TitreSpeedRun.png";
+    private final String locationFlecheGauche = "Ecrans\\Tutorial\\FlecheGauche.png";
+    private final String locationFlecheDroite = "Ecrans\\Tutorial\\FlecheDroite.png";
+    private final String locationFlecheHaut = "Ecrans\\Tutorial\\FlecheHaut.png";
+    private final String locationFlecheBas = "Ecrans\\Tutorial\\FlecheBas.png";
 
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
@@ -576,7 +585,39 @@ public class Modele extends Observable {
     public String getLocationCoeur() {
         return locationCoeur;
     }
+    
+    public String getLocationTitreDragDrop(){
+        return locationTitreDragDrop;
+    }
+    
+    public String getLocationTitreShooter(){
+        return locationTitreShooter;
+    }
+    
+    public String getLocationTitreCoureur(){
+        return locationTitreCoureur;
+    }
+    
+    public String getLocationTitreSpeedRun(){
+        return locationTitreSpeedRun;
+    }
 
+    public String getLocationFlecheDroite() {
+        return locationFlecheDroite;
+    }
+
+    public String getLocationFlecheGauche() {
+        return locationFlecheGauche;
+    }
+
+    public String getLocationFlecheHaut() {
+        return locationFlecheHaut;
+    }
+
+    public String getLocationFlecheBas() {
+        return locationFlecheBas;
+    }
+    
     public void calculerScoreDragDrop(int i, int nombreErreurs) {
         double scoreDouble = ((double) (listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size() - nombreErreurs) / listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size()) * 10000;
         int score = (int) scoreDouble / 100;

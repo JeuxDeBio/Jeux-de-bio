@@ -234,6 +234,14 @@ public class MondeEtudiant extends JComponent {
             }
         });
 
+        mnuItemDragDrop.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+            }
+        });
+
         //shit ton d'autres evenements (pour les menuItems) pour PLUS TARD (comme la fin de semaine ou la semaine prochaine jsp)
         //autres menus a ajouter plus tard
     }

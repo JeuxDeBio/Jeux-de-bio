@@ -28,6 +28,13 @@ public class RondeQuestion extends JComponent {
         boite.setLocation(0, 0);
     }
 
+    public RondeQuestion() {
+        boite = new BoiteQuestion();
+        this.setSize(boite.getWidth(), boite.getHeight());
+        this.add(boite);
+        boite.setLocation(0, 0);
+    }
+
     public void occupeTrue() {
         boite.occupeTrue();
     }

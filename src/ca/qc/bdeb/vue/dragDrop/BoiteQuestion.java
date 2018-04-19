@@ -32,6 +32,15 @@ public class BoiteQuestion extends JComponent {
         this.add(lblQuestion);
     }
 
+    BoiteQuestion() {
+        largeur = 60;
+        this.setSize(largeur, hauteur);
+        lblQuestion.setText("^.^");
+        lblQuestion.setSize(largeur, hauteur);
+        lblQuestion.setLocation(30, 0);
+        this.add(lblQuestion);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.

@@ -216,6 +216,38 @@ public class Controleur {
     public String getLocationCoeur() {
         return modele.getLocationCoeur();
     }
+    
+    public String getLocationTitreDragDrop(){
+        return modele.getLocationTitreDragDrop();
+    }
+    
+    public String getLocationTitreShooter(){
+        return modele.getLocationTitreShooter();
+    }
+    
+    public String getLocationTitreCoureur(){
+        return modele.getLocationTitreCoureur();
+    }
+    
+    public String getLocationTitreSpeedRun(){
+        return modele.getLocationTitreSpeedRun();
+    }
+    
+    public String getLocationFlecheDroite() {
+        return modele.getLocationFlecheDroite();
+    }
+
+    public String getLocationFlecheGauche() {
+        return modele.getLocationFlecheGauche();
+    }
+
+    public String getLocationFlecheHaut() {
+        return modele.getLocationFlecheHaut();
+    }
+
+    public String getLocationFlecheBas() {
+        return modele.getLocationFlecheBas();
+    }
 
     public void calculerScoreDragDrop(int i, int nombreErreurs) {
         modele.calculerScoreDragDrop(i, nombreErreurs);
