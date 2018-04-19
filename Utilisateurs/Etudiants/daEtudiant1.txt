@@ -1,8 +1,0 @@
-daEtudiant1
-mdp123
-Nom Etudiant1
-Utilisateurs\Icones\iconeVierge.png
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0
-0;0;0;0;0;0;0;0;0;0

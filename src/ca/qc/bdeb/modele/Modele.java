@@ -145,17 +145,17 @@ public class Modele extends Observable {
     private void lectureEtudiants() {
         listeEtudiants.clear();
 
-        try {
+        File dossier = new File("Utilisateurs\\Etudiants");
 
-            File dossier = new File("Utilisateurs\\Etudiants");
+        if (dossier.exists()) {
             File[] listeFiles = dossier.listFiles();
-
             for (int i = 0; i < listeFiles.length; i++) {
                 listeEtudiants.add(new Etudiant(listeFiles[i].getAbsolutePath()));
             }
-        } catch (NullPointerException e) {
-            System.out.println("pas de foldier etudiant");
+        } else {
+            dossier.mkdir();
         }
+
     }
 
     private void lectureIcones() {
