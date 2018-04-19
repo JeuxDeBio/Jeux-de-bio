@@ -71,11 +71,15 @@ public class Modele extends Observable {
     private String logInErrorLog = " ";
 
     public Modele() {
-        this.refresh();
+        lecture();
     }
 
     public void refresh() {
         fermerApp();
+        lecture();
+    }
+
+    private void lecture() {
         lectureEtudiants();
         lectureProfesseurs();
         lectureIcones();
