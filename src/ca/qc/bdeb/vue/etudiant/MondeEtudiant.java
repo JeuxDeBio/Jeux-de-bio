@@ -235,10 +235,16 @@ public class MondeEtudiant extends JComponent {
         });
 
         mnuItemDragDrop.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+            }
+        });
+
+        mnuItemCoureur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
             }
         });
 

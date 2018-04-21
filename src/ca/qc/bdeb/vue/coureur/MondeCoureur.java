@@ -66,6 +66,7 @@ public class MondeCoureur extends JComponent {
 
                 bougerBoites();
                 collision();
+                
                 if (joueur.faitChoix()) {
                     if (verifierReponse()) {
                         finTour();
@@ -111,7 +112,7 @@ public class MondeCoureur extends JComponent {
         listeChoix = controleur.getReponsesCoureur(fenetre.getNiveauID());
         listePositionsReponses = controleur.getPositionQuestions(fenetre.getNiveauID());
 
-        joueur = new Joueur();
+        joueur = new Joueur(controleur);
         joueur.setLocation((largeur - joueur.getWidth()) / 2, hauteur - joueur.getHeight() - 25);
         this.add(joueur);
 

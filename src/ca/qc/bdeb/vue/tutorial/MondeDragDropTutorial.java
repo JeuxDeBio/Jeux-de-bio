@@ -44,6 +44,11 @@ public class MondeDragDropTutorial extends JComponent {
                 progressBar.setCase(currentNiveau);
                 bougerQuestions();
 
+                if (rondeQuestion.getX() > 400) {
+                    lblDirections.setText(" (1) Presses sur le cerlce rouge et traîne-là!");
+                    currentNiveau = 0;
+                }
+
                 invalidate();
                 repaint();
 
@@ -163,14 +168,14 @@ public class MondeDragDropTutorial extends JComponent {
             rondeQuestion.holdFalse();
             boiteReponse.occupeTrue(rondeQuestion);
             rondeQuestion.occupeTrue();
-            rondeQuestion.setLocation(1000, 1000);
+            rondeQuestion.setLocation(-100, 0);
             lblDirections.setText(" (3) Presse le menu pour terminer le niveau!");
             currentNiveau = 2;
         }
     }
 
     public boolean validation() {
-        return currentNiveau == 2;   
+        return currentNiveau == 2;
     }
 
 }

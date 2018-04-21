@@ -206,6 +206,10 @@ public class Modele extends Observable {
     public ArrayList<Icone> getListeIcones() {
         return listeIcones;
     }
+    
+    public Icone getIconeVierge(){
+        return new Icone("Utilisateurs\\Icones\\iconeVierge.png");
+    }
 
     public String getLocationFenetrePrincipale() {
         return locationFenetrePrincipale;

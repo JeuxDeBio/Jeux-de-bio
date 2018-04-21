@@ -296,6 +296,10 @@ public class Controleur {
     public ArrayList<Icone> getListeIcones() {
         return modele.getListeIcones();
     }
+    
+    public Icone getIconeVierge(){
+        return modele.getIconeVierge();
+    }
 
     public ArrayList<Professeur> getListeProfesseurs() {
         return modele.getListeProfesseurs();

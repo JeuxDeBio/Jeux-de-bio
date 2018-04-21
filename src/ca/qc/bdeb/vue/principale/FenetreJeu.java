@@ -13,6 +13,7 @@ import ca.qc.bdeb.vue.dragDrop.MondeDragDrop;
 import ca.qc.bdeb.vue.tutorial.MondeDragDropTutorial;
 import ca.qc.bdeb.vue.shooter.MondeShooter;
 import ca.qc.bdeb.vue.speedRun.MondeSpeedRun;
+import ca.qc.bdeb.vue.tutorial.MondeCoureurTutorial;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -134,11 +135,11 @@ public class FenetreJeu extends JFrame {
                     public void actionPerformed(ActionEvent ae) {
                         if (mondeDragDropTutorial.validation()) {
                             JOptionPane.showMessageDialog(FenetreJeu.this, "Bravo! Vous avez completé le niveau tutorial du Drag & Drop!");
-                            fenetrePrincipale.fermerFenetreTutorial();
+                            fermerFenetreTutorial();
                         } else {
                             JOptionPane.showMessageDialog(FenetreJeu.this, "Ce n'est pas bon de tricher! Recommencez!");
-                            fenetrePrincipale.fermerFenetreTutorial();
-                            fenetrePrincipale.ouvrirFenetreTutorial(jeu);
+                            fermerFenetreTutorial();
+                            ouvrirFenetreTutorial(jeu);
                         }
                     }
                 });
@@ -151,7 +152,7 @@ public class FenetreJeu extends JFrame {
                 nomJeu = "Shooter";
                 break;
             case COUREUR:
-                MondeCoureur mondeCoureur = new MondeCoureur(lblQuestion, this, controleur, modele);
+                MondeCoureurTutorial mondeCoureur = new MondeCoureurTutorial(controleur, this);
                 this.add(mondeCoureur);
                 nomJeu = "Coureur";
                 break;
@@ -171,5 +172,13 @@ public class FenetreJeu extends JFrame {
 
     public int getNiveauID() {
         return niveauID;
+    }
+
+    public void ouvrirFenetreTutorial(Jeu jeu) {
+        fenetrePrincipale.ouvrirFenetreTutorial(jeu);
+    }
+
+    public void fermerFenetreTutorial() {
+        fenetrePrincipale.fermerFenetreTutorial();
     }
 }

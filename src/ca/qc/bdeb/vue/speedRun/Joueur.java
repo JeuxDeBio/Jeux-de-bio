@@ -37,7 +37,7 @@ public class Joueur extends JComponent {
         if (controleur.logInEtudiant()) {
             location = controleur.getEtudiant().getLocationIcone();
         } else {
-            location = controleur.getListeIcones().get(0).getLocationIcone();
+            location = controleur.getIconeVierge().getLocationIcone();
         }
 
         image = Toolkit.getDefaultToolkit().getImage(location);
