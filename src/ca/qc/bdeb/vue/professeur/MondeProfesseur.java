@@ -8,7 +8,6 @@ package ca.qc.bdeb.vue.professeur;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.TypeUtilisateur;
-import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
@@ -150,20 +149,20 @@ public class MondeProfesseur extends JComponent {
         this.add(boutonMdSpeedRun);
 
         boutonCrDragDrop.setLocation(627, 194);
-        boutonMdDragDrop.setSize(147, 74);
-        this.add(boutonMdDragDrop);
+        boutonCrDragDrop.setSize(147, 74);
+        this.add(boutonCrDragDrop);
 
         boutonCrShooter.setLocation(627, 290);
-        boutonMdShooter.setSize(147, 74);
-        this.add(boutonMdShooter);
+        boutonCrShooter.setSize(147, 74);
+        this.add(boutonCrShooter);
 
         boutonCrCoureur.setLocation(627, 385);
-        boutonMdCoureur.setSize(147, 74);
-        this.add(boutonMdCoureur);
+        boutonCrCoureur.setSize(147, 74);
+        this.add(boutonCrCoureur);
 
         boutonCrSpeedRun.setLocation(627, 479);
-        boutonMdSpeedRun.setSize(147, 74);
-        this.add(boutonMdSpeedRun);
+        boutonCrSpeedRun.setSize(147, 74);
+        this.add(boutonCrSpeedRun);
 
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
@@ -255,9 +254,7 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
-                    //fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
@@ -270,10 +267,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "modifier");
                 }
-
             }
         });
 
@@ -283,8 +279,8 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, "modifier");
                 }
 
             }
@@ -296,10 +292,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, "modifier");
                 }
-
             }
         });
 
@@ -308,11 +303,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
-                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "creer");
                 }
-
             }
         });
 
@@ -322,10 +315,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "creer");
                 }
-
             }
         });
 
@@ -335,21 +327,19 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, "creer");
                 }
-
             }
         });
 
         boutonCrSpeedRun.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, "creer");
                 }
 
             }
@@ -371,7 +361,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 controleur.refresh();
             }
-            
+
         });
 
         mnuItemMDP.addActionListener(new ActionListener() {
@@ -457,7 +447,7 @@ public class MondeProfesseur extends JComponent {
                 fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
             }
         });
-        
+
         mnuItemRemerciements.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -537,6 +527,10 @@ public class MondeProfesseur extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
+    }
+
+    public void finJeu() {
+        this.enJeu = false;
     }
 
 }
