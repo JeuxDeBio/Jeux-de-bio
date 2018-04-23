@@ -24,6 +24,8 @@ public class BoiteReponse extends JComponent {
     private RondeQuestion question;
     
     private String texte;
+    
+    private Color couleur = Color.RED;
 
     public BoiteReponse(String texte) {
         this.setSize(largeur, hauteur);
@@ -36,7 +38,7 @@ public class BoiteReponse extends JComponent {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, largeur, hauteur);
         if (estOccupe) {
-            g.setColor(Color.RED);
+            g.setColor(couleur);
             g.fillRect(0, 0, largeur, hauteur);
         }
         g.setColor(Color.BLACK);
@@ -89,5 +91,10 @@ public class BoiteReponse extends JComponent {
     public RondeQuestion getQuestion() {
         return question;
     }
-
+    
+    public void changerCouleurVert(){
+        this.couleur = Color.GREEN;
+        invalidate();
+        repaint();
+    }
 }
