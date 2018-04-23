@@ -393,22 +393,22 @@ public class MondeProfesseur extends JComponent {
                                         JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
                                         controleur.refresh();
                                     } else {
-                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja authentifie!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(11), "ERREUR", JOptionPane.ERROR_MESSAGE);
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja pris!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(12), "ERREUR", JOptionPane.ERROR_MESSAGE);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(13), "ERREUR", JOptionPane.ERROR_MESSAGE);
                             }
                         } catch (NullPointerException e) {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -486,13 +486,13 @@ public class MondeProfesseur extends JComponent {
                             controleur.enleverProfesseur(controleur.getListeProfesseurs().get(i));
                             controleur.refresh();
                         } else {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Vous ne pouvez pas enlever un administrateur!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(14), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Operation annule par l'utilisateur", "Operation annule", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Operation annule", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -505,19 +505,19 @@ public class MondeProfesseur extends JComponent {
                 try {
                     if (controleur.getListeProfesseurs().get(i).getType() != TypeUtilisateur.ADMIN) {
                         if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrez votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Cede les droits d'administration a " + controleur.getListeProfesseurs().get(i).getNom() + " avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Cedé les droits d'administration a " + controleur.getListeProfesseurs().get(i).getNom() + " avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
                             controleur.cederAdmin(controleur.getListeProfesseurs().get(i));
                             controleur.refresh();
                             fenetre.logOutProfesseur();
                             fenetre.logInProfesseur();
                         } else {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! " + controleur.getListeProfesseurs().get(i).getNom() + " est deja un admin!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! " + controleur.getListeProfesseurs().get(i).getNom() + controleur.getMessageErreur(15), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Operation annule par l'utilisateur", "Operation annule", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Operation annule", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });

@@ -173,13 +173,13 @@ public class MondeClasses extends JComponent {
                             }
                             fenetre.fermerFenetre();
                         } else {
-                            fenetre.setErrorLog("ERREUR! Mot de passe invalide!");
+                            fenetre.setErrorLog(controleur.getMessageErreur(2));
                         }
                     } catch (NullPointerException ex) {
-                        fenetre.setErrorLog("Opération annulée par l'utilisateur!");
+                        fenetre.setErrorLog(controleur.getMessageErreur(16));
                     }
                 } else {
-                    fenetre.setErrorLog("ERREUR! Aucune etudiant choisi!");
+                    fenetre.setErrorLog(controleur.getMessageErreur(10));
                 }
             }
         });
@@ -194,10 +194,10 @@ public class MondeClasses extends JComponent {
                         fenetre.updateFenetre();
                         fenetre.fermerFenetre();
                     } else {
-                        fenetre.setErrorLog("ERREUR! Mot de passe invalide!");
+                        fenetre.setErrorLog(controleur.getMessageErreur(2));
                     }
                 } catch (NullPointerException e) {
-                    fenetre.setErrorLog("Opération annulée par l'utilisateur!");
+                    fenetre.setErrorLog(controleur.getMessageErreur(16));
                 }
             }
         });

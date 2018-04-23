@@ -280,6 +280,10 @@ public class Controleur {
     public String getLogInErrorLog() {
         return modele.getLogInErrorLog();
     }
+    
+    public String getMessageErreur(int i){
+        return modele.getMessageErreur(i);
+    }
 
     public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         modele.enleverEtudiant(groupe, etudiant);

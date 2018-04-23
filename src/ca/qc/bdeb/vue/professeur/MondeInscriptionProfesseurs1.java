@@ -94,14 +94,14 @@ public class MondeInscriptionProfesseurs1 extends JComponent {
                             fenetre.etape2Professeurs(txtNU.getText(), motDePasse);
                             fenetre.setErrorLog("Nu authorise!");
                         } else {
-                            fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
+                            fenetre.setErrorLog(controleur.getMessageErreur(3));
                         }
                     } else {
-                        fenetre.setErrorLog("ERREUR! Mot de passe ne concorde pas ...");
+                        fenetre.setErrorLog(controleur.getMessageErreur(4));
                         reset();
                     }
                 } else {
-                    fenetre.setErrorLog("ERREUR! Le nom d'utilisater n'est pas permis!");
+                    fenetre.setErrorLog(controleur.getMessageErreur(6));
                     txtNU.setText("");
                     reset();
                 }

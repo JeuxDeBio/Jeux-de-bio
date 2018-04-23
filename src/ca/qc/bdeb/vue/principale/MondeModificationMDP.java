@@ -97,50 +97,51 @@ public class MondeModificationMDP extends JComponent {
                                     controleur.etudiantModificationMDP(mdp);
                                     fenetre.fermerFenetre();
                                 } else {
-                                    fenetre.errorLogSetText("ERREUR! Mot de passe ne concorde pas avec la verification!");
+                                    fenetre.errorLogSetText(controleur.getMessageErreur(4));
                                     reset();
                                 }
                             } else {
-                                fenetre.errorLogSetText("ERREUR! Nouveau mot de passe identique a l'actuel!");
+                                fenetre.errorLogSetText(controleur.getMessageErreur(7));
                                 reset();
                             }
                         } else {
-                            fenetre.errorLogSetText("ERREUR! Nouveau mot de passe est trop court!");
+                            fenetre.errorLogSetText(controleur.getMessageErreur(3));
                             reset();
                         }
                     } else {
-                        fenetre.errorLogSetText("ERREUR! Mot de passe incorrecte!");
+                        fenetre.errorLogSetText(controleur.getMessageErreur(2));
                         pssMDPActuel.setText("");
                         reset();
                     }
                 } else if (controleur.logInProfesseur()) {
                     if (mdpActuel.equals(controleur.getProfesseur().getMotDePasse())) {
-                        if (!mdp.isEmpty()) {
+                        if (mdp.length() >= 6) {
                             if (!mdp.equals(mdpActuel)) {
                                 if (mdp.equals(mdpVerification)) {
                                     controleur.professeurModificationMDP(mdp);
                                     fenetre.fermerFenetre();
                                 } else {
-                                    fenetre.errorLogSetText("ERREUR! Mot de passe ne concorde pas avec la verification!");
+                                    fenetre.errorLogSetText(controleur.getMessageErreur(4));
                                     reset();
                                 }
                             } else {
-                                fenetre.errorLogSetText("ERREUR! Nouveau mot de passe identique a l'actuel!");
+                                fenetre.errorLogSetText(controleur.getMessageErreur(7));
                                 reset();
                             }
                         } else {
-                            fenetre.errorLogSetText("ERREUR! Nouveau mot de passe vide!");
+                            fenetre.errorLogSetText(controleur.getMessageErreur(3));
                             reset();
                         }
                     } else {
-                        fenetre.errorLogSetText("ERREUR! Mot de passe incorrecte!");
+                        fenetre.errorLogSetText(controleur.getMessageErreur(2));
                         pssMDPActuel.setText("");
                         reset();
                     }
                 }
                 controleur.refresh();
             }
-        });
+        }
+        );
     }
 
     private void reset() {

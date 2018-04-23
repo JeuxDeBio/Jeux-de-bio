@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 public class Modele extends Observable {
 
     private final String locationListeProfesseurs = "Utilisateurs\\listeProfesseurs.txt";
+    private final String locationMessagesErreurs = "Utilisateurs\\listeMessagesErreurs.txt";
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
     private final String locationFenetreEtudiant = "Ecrans\\Principale\\FenetreEtudiant.png";
@@ -46,7 +47,7 @@ public class Modele extends Observable {
     private final String locationRobot2 = "Ecrans\\Speed Run\\Robot 2.png";
     private final String locationRobot3 = "Ecrans\\Speed Run\\Robot 3.png";
     private final String locationCoeur = "Ecrans\\Speed Run\\Coeur.png";
-    
+
     private final String locationTitreDragDrop = "Ecrans\\Tutorial\\TitreDragDrop.png";
     private final String locationTitreShooter = "Ecrans\\Tutorial\\TitreShooter.png";
     private final String locationTitreCoureur = "Ecrans\\Tutorial\\TitreCoureur.png";
@@ -68,6 +69,7 @@ public class Modele extends Observable {
     private ArrayList<Professeur> listeProfesseurs = new ArrayList<>();
     private ArrayList<Etudiant> listeEtudiants = new ArrayList<>();
     private ArrayList<String> listeNUAdmisProfesseurs = new ArrayList<>();
+    private ArrayList<String> listeMessagesErreurs = new ArrayList<>();
 
     private ArrayList<Icone> listeIcones = new ArrayList<>();
 
@@ -94,6 +96,7 @@ public class Modele extends Observable {
         lectureIcones();
         lectureNiveaux();
         lectureNUAdmisProfesseurs();
+        lectureMessagesErreurs();
     }
 
     private void lectureNiveaux() {
@@ -195,6 +198,23 @@ public class Modele extends Observable {
         }
     }
 
+    private void lectureMessagesErreurs() {
+        listeMessagesErreurs.clear();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationMessagesErreurs));
+            String ligne = bufferedReader.readLine();
+            while (ligne != null) {
+                listeMessagesErreurs.add(ligne);
+                ligne = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Etudiant> getListeEtudiants() {
         return listeEtudiants;
     }
@@ -206,8 +226,8 @@ public class Modele extends Observable {
     public ArrayList<Icone> getListeIcones() {
         return listeIcones;
     }
-    
-    public Icone getIconeVierge(){
+
+    public Icone getIconeVierge() {
         return new Icone("Utilisateurs\\Icones\\iconeVierge.png");
     }
 
@@ -295,9 +315,9 @@ public class Modele extends Observable {
             }
         }
         if (daInexistant) {
-            logInErrorLog = "ERREUR! DA INEXISTANT!";
+            logInErrorLog = listeMessagesErreurs.get(0);
         } else if (motDePasseIncorrecte) {
-            logInErrorLog = "ERREUR! MOT DE PASSE INCORRECT!";
+            logInErrorLog = listeMessagesErreurs.get(2);
         }
         majObserver();
 
@@ -341,9 +361,9 @@ public class Modele extends Observable {
         }
 
         if (nuInexistant) {
-            logInErrorLog = "ERREUR! NOM D'UTILISATEUR INEXISTANT!";
+            logInErrorLog = listeMessagesErreurs.get(1);
         } else if (motDePasseIncorrecte) {
-            logInErrorLog = "ERREUR! MOT DE PASSE INCORRECT!";
+            logInErrorLog = listeMessagesErreurs.get(2);
         }
         majObserver();
     }
@@ -589,20 +609,20 @@ public class Modele extends Observable {
     public String getLocationCoeur() {
         return locationCoeur;
     }
-    
-    public String getLocationTitreDragDrop(){
+
+    public String getLocationTitreDragDrop() {
         return locationTitreDragDrop;
     }
-    
-    public String getLocationTitreShooter(){
+
+    public String getLocationTitreShooter() {
         return locationTitreShooter;
     }
-    
-    public String getLocationTitreCoureur(){
+
+    public String getLocationTitreCoureur() {
         return locationTitreCoureur;
     }
-    
-    public String getLocationTitreSpeedRun(){
+
+    public String getLocationTitreSpeedRun() {
         return locationTitreSpeedRun;
     }
 
@@ -621,7 +641,7 @@ public class Modele extends Observable {
     public String getLocationFlecheBas() {
         return locationFlecheBas;
     }
-    
+
     public void calculerScoreDragDrop(int i, int nombreErreurs) {
         double scoreDouble = ((double) (listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size() - nombreErreurs) / listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size()) * 10000;
         int score = (int) scoreDouble / 100;
@@ -735,6 +755,10 @@ public class Modele extends Observable {
 
     public String getLogInErrorLog() {
         return logInErrorLog;
+    }
+    
+    public String getMessageErreur(int i){
+        return listeMessagesErreurs.get(i);
     }
 
     public void ajouterProfesseurNUAdmis(String nuAdmis) {

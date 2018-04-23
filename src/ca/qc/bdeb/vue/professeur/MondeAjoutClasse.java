@@ -105,7 +105,7 @@ public class MondeAjoutClasse extends JComponent {
                         Logger.getLogger(MondeAjoutClasse.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                    fenetre.setErrorLog(controleur.getMessageErreur(16));
                     listeDA.clear();
                 }
             }
@@ -133,14 +133,14 @@ public class MondeAjoutClasse extends JComponent {
                             fenetre.updateFenetre();
                             fenetre.fermerFenetre();
                         } else {
-                            fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                            fenetre.setErrorLog(controleur.getMessageErreur(16));
                             listeDA.clear();
                         }
                     } else {
-                        fenetre.setErrorLog("ERREUR! Liste d'étudiant est vide!");
+                        fenetre.setErrorLog(controleur.getMessageErreur(8));
                     }
                 } else {
-                    fenetre.setErrorLog("ERREUR! Code ne peut pas être vide!");
+                    fenetre.setErrorLog(controleur.getMessageErreur(9));
                     listeDA.clear();
                 }
 
