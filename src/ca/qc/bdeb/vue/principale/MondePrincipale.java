@@ -52,6 +52,7 @@ public class MondePrincipale extends JComponent {
     private Bouton boutonShooterTutorial = new Bouton();
     private Bouton boutonCoureurTutorial = new Bouton();
     private Bouton boutonSpeedRunTutorial = new Bouton();
+    private Bouton boutonActualiser = new Bouton();
 
     private boolean enJeu = false;
 
@@ -135,6 +136,10 @@ public class MondePrincipale extends JComponent {
         boutonSpeedRunTutorial.setLocation(627, 479);
         boutonSpeedRunTutorial.setSize(147, 74);
         this.add(boutonSpeedRunTutorial);
+
+        boutonActualiser.setLocation(20, 20);
+        boutonActualiser.setSize(50, 50);
+        this.add(boutonActualiser);
     }
 
     private void creerEvenements() {
@@ -273,6 +278,14 @@ public class MondePrincipale extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
+
+        boutonActualiser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
             }
 
         });

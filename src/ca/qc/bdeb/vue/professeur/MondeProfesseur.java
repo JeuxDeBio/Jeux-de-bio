@@ -8,6 +8,7 @@ package ca.qc.bdeb.vue.professeur;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.TypeUtilisateur;
+import ca.qc.bdeb.vue.etudiant.MondeEtudiant;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
@@ -78,6 +79,8 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
     private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
     private JMenuItem mnuItemCreerGroupe = new JMenuItem("Créer nouveau groupe!");
+
+    private Bouton boutonActualiser = new Bouton();
 
     private boolean enJeu = false;
 
@@ -169,6 +172,10 @@ public class MondeProfesseur extends JComponent {
         mnuProfil.add(mnuItemIcon);
         mnuProfil.add(new JSeparator());
         mnuProfil.add(mnuItemMDP);
+
+        boutonActualiser.setLocation(20, 20);
+        boutonActualiser.setSize(50, 50);
+        this.add(boutonActualiser);
 
         listeGroupesStatistiques = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
 
@@ -358,6 +365,15 @@ public class MondeProfesseur extends JComponent {
 
         });
 
+        boutonActualiser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
+            }
+            
+        });
+
         mnuItemMDP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -413,7 +429,7 @@ public class MondeProfesseur extends JComponent {
                 fenetre.ouvrirFenetreAjoutClasses();
             }
         });
-        
+
         mnuItemDragDrop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -439,6 +455,13 @@ public class MondeProfesseur extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
+        
+        mnuItemRemerciements.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MondeProfesseur.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
             }
         });
     }
