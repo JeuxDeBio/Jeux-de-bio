@@ -413,6 +413,34 @@ public class MondeProfesseur extends JComponent {
                 fenetre.ouvrirFenetreAjoutClasses();
             }
         });
+        
+        mnuItemDragDrop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+            }
+        });
+
+        mnuItemShooter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+            }
+        });
+
+        mnuItemCoureur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+            }
+        });
+
+        mnuItemSpeedRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
     }
 
     private void evenementsGroupesStatistiques(int i) {
