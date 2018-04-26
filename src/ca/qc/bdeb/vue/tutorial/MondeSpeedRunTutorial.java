@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -221,7 +220,7 @@ public class MondeSpeedRunTutorial extends JComponent {
     }
 
     private void verifierReponse() {
-        if (txtReponse.getText().toLowerCase().equals(listeReponses.get(progressBar.getProgres()))) {
+        if (txtReponse.getText().toLowerCase().equals(listeReponses.get(progressBar.getProgres()).toLowerCase())) {
             bot.enleverPointDeVie();
         } else {
             if (niveauActuel == 3) {

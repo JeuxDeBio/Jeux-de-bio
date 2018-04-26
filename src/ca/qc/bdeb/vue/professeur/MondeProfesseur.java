@@ -533,9 +533,4 @@ public class MondeProfesseur extends JComponent {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
     }
-
-    public void finJeu() {
-        this.enJeu = false;
-    }
-
 }

@@ -1,4 +1,4 @@
-Le DA n'existe pas!
+﻿Le DA n'existe pas!
 Le nom d'utilisateur n'existe pas!
 Le mot de passe est incorrect!
 Le mot de passe est trop court! (Minimum 6 caract�res)

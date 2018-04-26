@@ -120,7 +120,7 @@ public class MondeCoureur extends JComponent {
         progressBar = new ProgressBar(listeQuestions);
         progressBar.setLocation((this.largeur - progressBar.getLargeur()) / 2, 50);
         this.add(progressBar);
-        
+
         JLabel lbl = new JLabel("Choix possibles", JLabel.CENTER);
         lbl.setSize(largeur, 20);
         lbl.setLocation(0, 100);
@@ -192,13 +192,12 @@ public class MondeCoureur extends JComponent {
         this.add(lblQuestion);
 
         for (int i = 0; i < listeChoix.get(index[compteur]).length; i++) {
-            System.out.println(listeChoix.get(index[compteur])[i]);
             JLabel lblReponse = new JLabel("(" + (char) (65 + i) + ") " + listeChoix.get(index[compteur])[i], JLabel.CENTER);
             lblReponse.setSize(largeur, 20);
             lblReponse.setLocation(0, 120 + (i * lblReponse.getHeight()));
             this.add(lblReponse);
             listeReponses.add(lblReponse);
-            
+
             BoiteChoix boiteChoix = new BoiteChoix("(" + (char) (65 + i) + ")", i);
             distanceEntreBoites = (largeur - (listeChoix.get(index[compteur]).length * boiteChoix.getLargeur())) / (listeChoix.get(index[compteur]).length + 1);
             boiteChoix.setLocation((boiteChoix.getLargeur() + distanceEntreBoites) * i + distanceEntreBoites, 120 + (listeChoix.get(index[compteur]).length * lblReponse.getHeight()));
@@ -239,11 +238,11 @@ public class MondeCoureur extends JComponent {
         for (BoiteChoix boite : listeChoixEnCours) {
             boite.setLocation(1000, 1000);
         }
-        
-        for (JLabel lblReponse : listeReponses){
+
+        for (JLabel lblReponse : listeReponses) {
             lblReponse.setText("");
         }
-        
+
         listeChoixEnCours.removeAll(listeChoixEnCours);
         listeReponses.removeAll(listeReponses);
         debutTour = true;
