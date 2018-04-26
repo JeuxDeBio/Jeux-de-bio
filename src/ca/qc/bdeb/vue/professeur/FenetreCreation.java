@@ -9,6 +9,7 @@ import ca.qc.bdeb.vue.dragDrop.MondeCreationDragDrop;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
+import ca.qc.bdeb.vue.coureur.MondeCreationCoureur;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import java.awt.event.ActionEvent;
@@ -23,10 +24,9 @@ import javax.swing.JMenuItem;
  * @author Niopo
  */
 public class FenetreCreation extends JFrame {
-    
-    
+
     private FenetreCreationDragDrop fenetreCreationDragDrop;
-            
+
     private Controleur controleur;
     private Modele modele;
 
@@ -58,8 +58,8 @@ public class FenetreCreation extends JFrame {
 
         switch (jeu) {
             case DRAG_DROP:
-                MondeCreationDragDrop monde = new MondeCreationDragDrop(controleur,this);
-                this.add(monde);
+                MondeCreationDragDrop mondeCreationDragDrop = new MondeCreationDragDrop(controleur, this);
+                this.add(mondeCreationDragDrop);
                 mnuJeu.add(mnuCreer);
                 mnuBar.add(mnuJeu);
                 this.setJMenuBar(mnuBar);
@@ -67,14 +67,28 @@ public class FenetreCreation extends JFrame {
                 mnuCreer.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        monde.sauvegarderInfo();
+                        mondeCreationDragDrop.sauvegarderInfo();
+                    }
+                });
+                break;
+            case COUREUR:
+                MondeCreationCoureur mondeCreationCoureur = new MondeCreationCoureur(controleur, this);
+                this.add(mondeCreationCoureur);
+                mnuJeu.add(mnuCreer);
+                mnuBar.add(mnuJeu);
+                this.setJMenuBar(mnuBar);
+
+                mnuCreer.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+
                     }
                 });
                 break;
         }
     }
-    
-    public void ouvrirFenetre(String titre, String lien1, String lien2, String largeur, String hauteur){
+
+    public void ouvrirFenetre(String titre, String lien1, String lien2, String largeur, String hauteur) {
         this.fenetreCreationDragDrop = new FenetreCreationDragDrop(fenetrePrincipale, titre, lien1, lien2, largeur, hauteur, controleur);
         fenetreCreationDragDrop.setLocation(fenetrePrincipale.getX() + (fenetrePrincipale.getWidth() - fenetreCreationDragDrop.getWidth()) / 2, fenetrePrincipale.getY());
     }

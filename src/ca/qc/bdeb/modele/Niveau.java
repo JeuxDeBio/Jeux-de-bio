@@ -211,6 +211,10 @@ public class Niveau {
     public ArrayList getQuestionsSpeedRun() {
         return listeQuestionsSpeedRun;
     }
+    
+    public String getLocationInformation(){
+        return locationInformation;
+    }
 
     public ArrayList getReponsesSpeedRun() {
         return listeReponsesSpeedRun;

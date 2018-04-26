@@ -219,7 +219,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void finJeu() {
         if (logIn) {
+            try{
             mondeEtudiant.finJeu();
+            }catch(NullPointerException e){
+                mondeProfesseur.finJeu();
+            }
         } else {
             mondePrincipale.finJeu();
         }

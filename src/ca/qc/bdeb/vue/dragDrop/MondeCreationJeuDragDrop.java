@@ -35,10 +35,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
 
     private ArrayList<BoiteReponseConstruction> listeReponses = new ArrayList<>();
 
-    static int decalementX = 20;
-    static int decalementY = 20;
+    int decalementX = 0;
+    int decalementY = 0;
 
-    //private BoiteReponseConstruction boite = new BoiteReponseConstruction("");
     Thread thread = new Thread() {
         @Override
         public void run() {
@@ -59,22 +58,25 @@ public class MondeCreationJeuDragDrop extends JComponent {
         this.controleur = controleur;
         this.fenetre = fenetre;
         this.creerInterface(titre, lien1, lien2, largeur, hauteur);
-        this.creerEvenements();
+        this.creerEvenements(largeur, hauteur);
 
         this.thread.start();
     }
 
-    public void creerInterface(String titre, String lien1, String lien2, String largeur, String hauteur) {
+    public void creerInterface(String titre, String lien1, String lien2, String largeurImage, String hauteurImage) {
 
         imageQuestion = Toolkit.getDefaultToolkit().getImage(lien1);
-
+        
+        decalementX = (largeur - 20 - Integer.parseInt(largeurImage)) / 2;
+        decalementY = (hauteur - Integer.parseInt(hauteurImage)) / 2;
+        
         this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
         this.setLayout(null);
 
-        nouvelleBoite();
+        nouvelleBoite(largeurImage, hauteurImage);
     }
 
-    public void creerEvenements() {
+    public void creerEvenements(String largeurImage, String hauteurImage) {
         for (BoiteReponseConstruction boite : listeReponses) {
             boite.addMouseListener(new MouseAdapter() {
                 @Override
@@ -91,20 +93,23 @@ public class MondeCreationJeuDragDrop extends JComponent {
                     super.mouseReleased(me); //To change body of generated methods, choose Tools | Templates.
                     if (boite.isHold()) {
                         boite.holdFalse();
-                        String message = JOptionPane.showInputDialog(MondeCreationJeuDragDrop.this, "réponse associée à la boîte", "Ajout de la réponse", JOptionPane.INFORMATION_MESSAGE);
-                        if (boite.getReponse().equals("")) {
-                                nouvelleBoite();
-                            }
-                        if (message != null && !message.equals("")) {
-                            
-                            valider(boite, message);
-
+                        if (verification(boite, largeurImage, hauteurImage)) {
+                            boite.setLocation(boite.getPositionX(), boite.getPositionY());
                         } else {
-                            
-                            listeReponses.remove(boite);
-                            remove(boite);
+                            String message = JOptionPane.showInputDialog(MondeCreationJeuDragDrop.this, "réponse associée à la boîte", "Ajout de la réponse", JOptionPane.INFORMATION_MESSAGE);
+                            if (boite.getReponse().equals("")) {
+                                nouvelleBoite(largeurImage, hauteurImage);
+                            }
+                            if (message != null && !message.equals("")) {
 
-                            
+                                valider(boite, message);
+
+                            } else {
+
+                                listeReponses.remove(boite);
+                                remove(boite);
+
+                            }
                         }
 
                     }
@@ -112,19 +117,35 @@ public class MondeCreationJeuDragDrop extends JComponent {
             });
         }
     }
-
+    
+     public boolean verification(BoiteReponseConstruction boite, String largeurImage, String hauteurImage) {
+        boolean mauvaiseBoite = false;
+        ArrayList<BoiteReponseConstruction> liste = new ArrayList<>();
+        liste.addAll(listeReponses);
+        liste.remove(boite);
+        for (int i = 0; i < liste.size(); i++) {
+            if (boite.getBounds().intersects(liste.get(i).getBounds())) {
+                mauvaiseBoite = true;
+            }
+        }
+        if (boite.getX() > (Integer.parseInt(largeurImage) + decalementX + boite.getWidth()) || boite.getX() < decalementX || boite.getY() > (Integer.parseInt(hauteurImage) + decalementY + boite.getHeight()) || boite.getY() < decalementY) {
+            mauvaiseBoite =  true;
+        }
+        return mauvaiseBoite;
+    }
+     
     public void valider(BoiteReponseConstruction boite, String reponse) {
-        boite.setPositionX(boite.getX()-decalementX);
-        boite.setPositionY(boite.getY()-decalementY);
+        boite.setPositionX(boite.getX() - decalementX);
+        boite.setPositionY(boite.getY() - decalementY);
         boite.setReponse(reponse);;
     }
 
-    public void nouvelleBoite() {
+    public void nouvelleBoite(String largeurImage, String hauteurImage) {
         BoiteReponseConstruction boite = new BoiteReponseConstruction("");
         boite.setLocation(this.largeur - 50, this.hauteur / 2);
         add(boite);
         listeReponses.add(boite);
-        creerEvenements();
+        creerEvenements(largeurImage, hauteurImage);
     }
 
     public void bougerBoite() {
@@ -170,14 +191,15 @@ public class MondeCreationJeuDragDrop extends JComponent {
             }
 
             bufferedWriter.close();
-            
-            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt",true));
+
+            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt", true));
             bufferedWriter.newLine();
             bufferedWriter.write("Information niveaux\\Drag & Drop\\" + titre + ".txt");
             bufferedWriter.close();
         } catch (IOException ex) {
 
         }
+        controleur.refresh();
         fermerFenetre();
     }
 

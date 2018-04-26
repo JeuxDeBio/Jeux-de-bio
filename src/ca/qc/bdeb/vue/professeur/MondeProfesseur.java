@@ -250,7 +250,7 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     //ouverture de la fenetre
                     enJeu = true;
-                    //fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
+                    
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
@@ -455,6 +455,10 @@ public class MondeProfesseur extends JComponent {
                 }
             }
         });
+    }
+    
+     public void finJeu(){
+        this.enJeu = false;
     }
 
     private void evenementsCederAdmin(int i) {

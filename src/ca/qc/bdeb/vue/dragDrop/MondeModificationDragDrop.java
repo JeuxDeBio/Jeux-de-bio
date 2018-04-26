@@ -7,7 +7,7 @@ package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
-import static ca.qc.bdeb.vue.dragDrop.MondeCreationJeuDragDrop.decalementX;
+import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -21,6 +21,11 @@ import javax.swing.JOptionPane;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetreModification;
 import java.awt.Graphics;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ConcurrentModificationException;
+import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 /**
@@ -33,19 +38,34 @@ public class MondeModificationDragDrop extends JComponent {
     private Controleur controleur;
     private Image imageQuestion;
     private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
-    static int decalementX = 20;
-    static int decalementY = 20;
+    int decalementX = 0;
+    int decalementY = 0;
 
-    private Bouton poubelle = new Bouton();
-    private Bouton plus = new Bouton();
+    private JButton poubelle = new JButton();
+    private JButton plus = new JButton();
+
+    private String nomNiveau;
+    private String locationImage;
+    private String locationImageCorrige;
+    private int[] tailleImage = new int[2];
+    private String locationNiveau;
+    private boolean peutCreerBoite = true;
 
     private ArrayList<BoiteReponseConstruction> listeBoites = new ArrayList<>();
 
     Thread thread = new Thread() {
+        int compteur = 0;
+
         @Override
         public void run() {
             super.run(); //To change body of generated methods, choose Tools | Templates.
             while (true) {
+                if (!peutCreerBoite) {
+                    compteur++;
+                    if (compteur % 150 == 0) {
+                        peutCreerBoite = true;
+                    }
+                }
                 bougerBoite();
                 invalidate();
                 repaint();
@@ -81,6 +101,15 @@ public class MondeModificationDragDrop extends JComponent {
         plus.setSize(50, 50);
         this.add(plus);
 
+        nomNiveau = controleur.getNomNiveau(Jeu.DRAG_DROP, a);
+        locationImage = controleur.getLocationNiveau(Jeu.DRAG_DROP, a);
+        locationImageCorrige = controleur.getLocationNiveauCorrige(Jeu.DRAG_DROP, a);
+        tailleImage = controleur.getSizeImageDragDrop(a);
+        locationNiveau = modificationInformation(a);
+
+        decalementX = (largeur - 20 - tailleImage[0]) / 2;
+        decalementY = (hauteur - tailleImage[1]) / 2;
+
         ArrayList<int[]> coordonnees = controleur.getCoordonneesBoitesReponsesDragDrop(a);
         ArrayList<String> reponses = controleur.getQuestionsDragDrop(a);
         imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, a));
@@ -92,9 +121,27 @@ public class MondeModificationDragDrop extends JComponent {
                 boite.setPositionY(coordonnees.get(i)[1] + decalementY);
                 this.add(boite);
                 listeBoites.add(boite);
-                boite.setLocation(coordonnees.get(i)[0] + decalementX, coordonnees.get(i)[1] + decalementY);
+                boite.setLocation(boite.getPositionX(), boite.getPositionY());
             }
         }
+    }
+
+    public String modificationInformation(int a) {
+        String s = controleur.getLocationInformation(Jeu.DRAG_DROP, a);
+        String vrai = "";
+        ArrayList<String> liste = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '\\') {
+                liste.add("\\");
+            }
+            vrai = s.charAt(i) + "";
+            liste.add(vrai);
+        }
+        vrai = "";
+        for (int i = 0; i < liste.size(); i++) {
+            vrai += liste.get(i);
+        }
+        return vrai;
     }
 
     public void creerEvenements() {
@@ -116,6 +163,8 @@ public class MondeModificationDragDrop extends JComponent {
                         boite.holdFalse();
                         if (boite.getBounds().intersects(poubelle.getBounds())) {
                             supprimerBoite(boite);
+                        } else if (verification(boite)) {
+                            boite.setLocation(boite.getPositionX(),boite.getPositionY());
                         } else if (!boite.getReponse().equals("")) {
                             String message = JOptionPane.showInputDialog(MondeModificationDragDrop.this, "Voici la réponse actuelle : "
                                     + boite.getReponse() + "\nLaisser la réponse vide conservera la réponse actuelle", "modification de la réponse", JOptionPane.INFORMATION_MESSAGE);
@@ -143,15 +192,33 @@ public class MondeModificationDragDrop extends JComponent {
         plus.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me);
-                nouvelleBoite();
+                if (peutCreerBoite) {
+                    nouvelleBoite();
+                }
             }
         }
         );
     }
 
+    public boolean verification(BoiteReponseConstruction boite) {
+        boolean mauvaiseBoite = false;
+        ArrayList<BoiteReponseConstruction> liste = new ArrayList<>();
+        liste.addAll(listeBoites);
+        liste.remove(boite);
+        for (int i = 0; i < liste.size(); i++) {
+            if (boite.getBounds().intersects(liste.get(i).getBounds())) {
+                mauvaiseBoite = true;
+            }
+        }
+        if (boite.getX() > (tailleImage[0] + decalementX + boite.getWidth()) || boite.getX() < decalementX || boite.getY() > (tailleImage[1] + decalementY + boite.getHeight()) || boite.getY() < decalementY) {
+            mauvaiseBoite =  true;
+        }
+        return mauvaiseBoite;
+    }
+
     public void valider(BoiteReponseConstruction boite, String reponse) {
-        boite.setPositionX(boite.getX() - decalementX);
-        boite.setPositionY(boite.getY() - decalementY);
+        boite.setPositionX(boite.getX());
+        boite.setPositionY(boite.getY());
         boite.setReponse(reponse);;
     }
 
@@ -160,11 +227,46 @@ public class MondeModificationDragDrop extends JComponent {
         boite.setLocation(this.largeur - 50, this.hauteur / 2);
         add(boite);
         listeBoites.add(boite);
+        for (int i = 0; i < listeBoites.size() - 1; i++) {
+            if (listeBoites.get(i).getBounds().intersects(boite.getBounds())) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        remove(boite);
+                    }
+                });
+                listeBoites.remove(boite);
+
+            }
+        }
+        peutCreerBoite = false;
         creerEvenements();
     }
 
     public void modifierNiveau() {
-        
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationNiveau));
+            bufferedWriter.write(nomNiveau);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationImage);
+            bufferedWriter.newLine();
+            bufferedWriter.write(locationImageCorrige);
+            bufferedWriter.newLine();
+            bufferedWriter.write(tailleImage[0] + ";" + tailleImage[1]);
+            bufferedWriter.newLine();
+            for (int i = 0; i < listeBoites.size(); i++) {
+                if (!listeBoites.get(i).getReponse().equals("") || listeBoites.get(i).getReponse() != null) {
+                    bufferedWriter.write((listeBoites.get(i).getPositionX() - decalementX) + ";" + (listeBoites.get(i).getPositionY() - decalementY) + ":" + listeBoites.get(i).getReponse());
+                    bufferedWriter.newLine();
+                }
+            }
+
+            bufferedWriter.close();
+
+        } catch (IOException ex) {
+
+        }
+        controleur.refresh();
+        fermerFenetre();
     }
 
     public void supprimerBoite(BoiteReponseConstruction boite) {
@@ -182,8 +284,8 @@ public class MondeModificationDragDrop extends JComponent {
     }
 
     public void bougerBoite() {
-        for (BoiteReponseConstruction boite : listeBoites) {
-            try {
+        try {
+            for (BoiteReponseConstruction boite : listeBoites) {
                 if (boite.isHold()) {
                     if (boite.getX() < 5) {
                         boite.holdFalse();
@@ -201,11 +303,14 @@ public class MondeModificationDragDrop extends JComponent {
                         boite.setLocation((int) this.getMousePosition().getX() - 10, (int) this.getMousePosition().getY() - 15);
                     }
                 }
-            } catch (NullPointerException e) {
             }
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
+            fermerFenetre();
         }
+
     }
-    
+
     public void fermerFenetre() {
         fenetre.fermerFenetre();
     }
