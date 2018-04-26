@@ -255,6 +255,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     enJeu = true;
+
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
@@ -496,6 +497,10 @@ public class MondeProfesseur extends JComponent {
                 }
             }
         });
+    }
+    
+     public void finJeu(){
+        this.enJeu = false;
     }
 
     private void evenementsCederAdmin(int i) {

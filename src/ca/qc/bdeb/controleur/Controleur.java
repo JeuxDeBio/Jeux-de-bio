@@ -56,6 +56,10 @@ public class Controleur {
     public String getLocationFenetrePrincipale() {
         return modele.getLocationFenetrePrincipale();
     }
+    
+    public String getLocationInformation(Jeu jeu, int i){
+        return modele.getLocationInformation(jeu, i);
+    }
 
     public String getLocationFenetreEtudiant() {
         return modele.getLocationFenetreEtudiant();

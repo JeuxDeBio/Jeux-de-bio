@@ -637,6 +637,10 @@ public class Modele extends Observable {
     public String getLocationFlecheHaut() {
         return locationFlecheHaut;
     }
+    
+    public String getLocationInformation(Jeu jeu, int i) {
+        return listeNiveauxDragDrop.get(i).getLocationInformation();
+    }
 
     public String getLocationFlecheBas() {
         return locationFlecheBas;
