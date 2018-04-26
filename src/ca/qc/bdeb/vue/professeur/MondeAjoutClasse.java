@@ -7,6 +7,7 @@ package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.principale.Bouton;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -104,7 +105,7 @@ public class MondeAjoutClasse extends JComponent {
                         Logger.getLogger(MondeAjoutClasse.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                    fenetre.setErrorLog(controleur.getMessageErreur(16));
                     listeDA.clear();
                 }
             }
@@ -132,14 +133,14 @@ public class MondeAjoutClasse extends JComponent {
                             fenetre.updateFenetre();
                             fenetre.fermerFenetre();
                         } else {
-                            fenetre.setErrorLog("Opération annulé par l'utilisateur");
+                            fenetre.setErrorLog(controleur.getMessageErreur(16));
                             listeDA.clear();
                         }
                     } else {
-                        fenetre.setErrorLog("ERREUR! Liste d'étudiant est vide!");
+                        fenetre.setErrorLog(controleur.getMessageErreur(8));
                     }
                 } else {
-                    fenetre.setErrorLog("ERREUR! Code ne peut pas être vide!");
+                    fenetre.setErrorLog(controleur.getMessageErreur(9));
                     listeDA.clear();
                 }
 
@@ -152,6 +153,8 @@ public class MondeAjoutClasse extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
+        g.setColor(Color.BLACK);
+        g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
     }
 
 }

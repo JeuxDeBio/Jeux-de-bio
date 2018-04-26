@@ -14,6 +14,7 @@ import ca.qc.bdeb.vue.tutorial.MondeDragDropTutorial;
 import ca.qc.bdeb.vue.shooter.MondeShooter;
 import ca.qc.bdeb.vue.speedRun.MondeSpeedRun;
 import ca.qc.bdeb.vue.tutorial.MondeCoureurTutorial;
+import ca.qc.bdeb.vue.tutorial.MondeSpeedRunTutorial;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,8 +116,14 @@ public class FenetreJeu extends JFrame {
                 this.add(mondeSpeedRun);
                 nomJeu = "Speed Run";
         }
+        String nomNiveau = "";
 
-        this.setTitle(nomJeu + " - Niveau: " + controleur.getNomNiveau(jeu, this.getNiveauID()));
+        String[] split = controleur.getNomNiveau(jeu, this.getNiveauID()).split("!!");
+        for (int i = 0; i < split.length; i++) {
+            nomNiveau += split[i];
+        }
+
+        this.setTitle(nomJeu + " - Niveau: " + nomNiveau);
     }
 
     private void creerInterfaceTutorial() {
@@ -147,8 +154,8 @@ public class FenetreJeu extends JFrame {
                 nomJeu = "Drag & Drop";
                 break;
             case SHOOTER:
-                MondeShooter mondeShooter = new MondeShooter(this, controleur);
-                this.add(mondeShooter);
+                //MondeShooter mondeShooter = new MondeShooter(this, controleur);
+                //this.add(mondeShooter);
                 nomJeu = "Shooter";
                 break;
             case COUREUR:
@@ -157,8 +164,8 @@ public class FenetreJeu extends JFrame {
                 nomJeu = "Coureur";
                 break;
             case SPEED_RUN:
-                MondeSpeedRun mondeSpeedRun = new MondeSpeedRun(lblQuestion, txtReponse, lblTimer, this, controleur, modele);
-                this.add(mondeSpeedRun);
+                MondeSpeedRunTutorial mondeSpeedRunTutorial = new MondeSpeedRunTutorial(lblQuestion, txtReponse, lblTimer, this, controleur, modele);
+                this.add(mondeSpeedRunTutorial);
                 nomJeu = "Speed Run";
         }
 

@@ -26,7 +26,7 @@ public class Controleur {
     public Controleur() {
         modele = new Modele();
         FenetrePrincipale fenetre = new FenetrePrincipale(this, modele);
-        fenetre.setLocation((((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) - fenetre.getWidth()) / 2, 20);
+        fenetre.setLocation((((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) - fenetre.getWidth()) / 2, (((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - fenetre.getHeight()) / 2));
     }
 
     public void validerEtudiant(String etudiantDA, char[] etudiantMotdepasse) {
@@ -283,6 +283,10 @@ public class Controleur {
 
     public String getLogInErrorLog() {
         return modele.getLogInErrorLog();
+    }
+    
+    public String getMessageErreur(int i){
+        return modele.getMessageErreur(i);
     }
 
     public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {

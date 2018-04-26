@@ -47,7 +47,7 @@ public class MondeStatistiquesGroupe extends JComponent {
     MondeStatistiquesGroupe(Controleur controleur, FenetreStatistiquesGroupe fenetre, Groupe groupe) {
         this.listeEtudiants = groupe.getListeEtudiants();
         this.hauteur += 30 * (listeEtudiants.size());
-        
+
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
@@ -106,8 +106,10 @@ public class MondeStatistiquesGroupe extends JComponent {
             } else {
                 g.setColor(Color.WHITE);
             }
-            
+
             g.fillRect(0, 100 + (30 * i), 300, 30);
+            g.setColor(Color.BLACK);
+            g.drawLine(0, hauteur - 1, largeur, hauteur - 1);
         }
     }
 

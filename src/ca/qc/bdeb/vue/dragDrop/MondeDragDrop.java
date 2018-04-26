@@ -243,6 +243,8 @@ public class MondeDragDrop extends JComponent {
                 if (!reponse.bonneReponse()) {
                     motsClesFausses += " - " + reponse.getQuestion().getBoite().getTexte() + "\n";
                     nombreErreurs++;
+                } else {
+                    reponse.changerCouleurVert();
                 }
             }
 

@@ -48,6 +48,11 @@ public class MondePrincipale extends JComponent {
     private Bouton boutonShooter = new Bouton();
     private Bouton boutonCoureur = new Bouton();
     private Bouton boutonSpeedRun = new Bouton();
+    private Bouton boutonDragDropTutorial = new Bouton();
+    private Bouton boutonShooterTutorial = new Bouton();
+    private Bouton boutonCoureurTutorial = new Bouton();
+    private Bouton boutonSpeedRunTutorial = new Bouton();
+    private Bouton boutonActualiser = new Bouton();
 
     private boolean enJeu = false;
 
@@ -115,6 +120,26 @@ public class MondePrincipale extends JComponent {
         boutonSpeedRun.setLocation(26, 479);
         boutonSpeedRun.setSize(147, 74);
         this.add(boutonSpeedRun);
+
+        boutonDragDropTutorial.setLocation(627, 194);
+        boutonDragDropTutorial.setSize(147, 74);
+        this.add(boutonDragDropTutorial);
+
+        boutonShooterTutorial.setLocation(627, 290);
+        boutonShooterTutorial.setSize(147, 74);
+        this.add(boutonShooterTutorial);
+
+        boutonCoureurTutorial.setLocation(627, 385);
+        boutonCoureurTutorial.setSize(147, 74);
+        this.add(boutonCoureurTutorial);
+
+        boutonSpeedRunTutorial.setLocation(627, 479);
+        boutonSpeedRunTutorial.setSize(147, 74);
+        this.add(boutonSpeedRunTutorial);
+
+        boutonActualiser.setLocation(20, 20);
+        boutonActualiser.setSize(50, 50);
+        this.add(boutonActualiser);
     }
 
     private void creerEvenements() {
@@ -221,6 +246,48 @@ public class MondePrincipale extends JComponent {
                 }
 
             }
+        });
+
+        boutonDragDropTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+            }
+
+        });
+
+        boutonShooterTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+            }
+        });
+
+        boutonCoureurTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+            }
+        });
+
+        boutonSpeedRunTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
+
+        boutonActualiser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
+            }
+
         });
     }
 

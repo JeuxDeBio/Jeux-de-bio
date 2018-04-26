@@ -98,15 +98,15 @@ public class MondeInscriptionEtudiants1 extends JComponent {
                             fenetre.setErrorLog("DA authorise!");
                             fenetre.etape2Etudiants(txtDA.getText(), motDePasse);
                         } else {
-                            fenetre.setErrorLog("ERREUR! Mot de passe est trop court!");
+                            fenetre.setErrorLog(controleur.getMessageErreur(3));
                             reset();
                         }
                     } else {
-                        fenetre.setErrorLog("ERREUR! Mot de passe ne concorde pas avec la verification!");
+                        fenetre.setErrorLog(controleur.getMessageErreur(4));
                         reset();
                     }
                 } else {
-                    fenetre.setErrorLog("ERREUR! <" + txtDA.getText() + "> n'est pas un DA authorise!");
+                    fenetre.setErrorLog(txtDA.getText() + controleur.getMessageErreur(5));
                     reset();
                     txtDA.setText("");
                 }

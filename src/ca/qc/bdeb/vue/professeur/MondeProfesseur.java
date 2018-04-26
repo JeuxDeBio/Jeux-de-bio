@@ -79,6 +79,8 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemAuthentifierProfesseur = new JMenuItem("Authentifier un professeur!");
     private JMenuItem mnuItemCreerGroupe = new JMenuItem("Créer nouveau groupe!");
 
+    private Bouton boutonActualiser = new Bouton();
+
     private boolean enJeu = false;
 
     private JMenuItem[] listeGroupesStatistiques;
@@ -147,20 +149,20 @@ public class MondeProfesseur extends JComponent {
         this.add(boutonMdSpeedRun);
 
         boutonCrDragDrop.setLocation(627, 194);
-        boutonMdDragDrop.setSize(147, 74);
-        this.add(boutonMdDragDrop);
+        boutonCrDragDrop.setSize(147, 74);
+        this.add(boutonCrDragDrop);
 
         boutonCrShooter.setLocation(627, 290);
-        boutonMdShooter.setSize(147, 74);
-        this.add(boutonMdShooter);
+        boutonCrShooter.setSize(147, 74);
+        this.add(boutonCrShooter);
 
         boutonCrCoureur.setLocation(627, 385);
-        boutonMdCoureur.setSize(147, 74);
-        this.add(boutonMdCoureur);
+        boutonCrCoureur.setSize(147, 74);
+        this.add(boutonCrCoureur);
 
         boutonCrSpeedRun.setLocation(627, 479);
-        boutonMdSpeedRun.setSize(147, 74);
-        this.add(boutonMdSpeedRun);
+        boutonCrSpeedRun.setSize(147, 74);
+        this.add(boutonCrSpeedRun);
 
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
@@ -169,6 +171,10 @@ public class MondeProfesseur extends JComponent {
         mnuProfil.add(mnuItemIcon);
         mnuProfil.add(new JSeparator());
         mnuProfil.add(mnuItemMDP);
+
+        boutonActualiser.setLocation(20, 20);
+        boutonActualiser.setSize(50, 50);
+        this.add(boutonActualiser);
 
         listeGroupesStatistiques = new JMenuItem[controleur.getProfesseur().getListeGroupes().size()];
 
@@ -248,9 +254,8 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
-                    
+
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
@@ -263,10 +268,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "modifier");
                 }
-
             }
         });
 
@@ -276,8 +280,8 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, "modifier");
                 }
 
             }
@@ -289,10 +293,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, "modifier");
                 }
-
             }
         });
 
@@ -301,11 +304,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
-                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "creer");
                 }
-
             }
         });
 
@@ -315,10 +316,9 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "creer");
                 }
-
             }
         });
 
@@ -328,21 +328,19 @@ public class MondeProfesseur extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, "creer");
                 }
-
             }
         });
 
         boutonCrSpeedRun.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
-                    //ouverture de la fenetre
                     enJeu = true;
+                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, "creer");
                 }
 
             }
@@ -354,6 +352,15 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
                 controleur.logOutProfesseur();
                 fenetre.logOutProfesseur();
+            }
+
+        });
+
+        boutonActualiser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
             }
 
         });
@@ -387,22 +394,22 @@ public class MondeProfesseur extends JComponent {
                                         JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
                                         controleur.refresh();
                                     } else {
-                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja authentifie!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(11), "ERREUR", JOptionPane.ERROR_MESSAGE);
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur deja pris!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(12), "ERREUR", JOptionPane.ERROR_MESSAGE);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(MondeProfesseur.this, "Nom d'utilisateur est trop court", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(13), "ERREUR", JOptionPane.ERROR_MESSAGE);
                             }
                         } catch (NullPointerException e) {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Mot de passe est invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Annulé par l'utilisateur", "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Opération annulé", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -411,6 +418,41 @@ public class MondeProfesseur extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.ouvrirFenetreAjoutClasses();
+            }
+        });
+
+        mnuItemDragDrop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+            }
+        });
+
+        mnuItemShooter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+            }
+        });
+
+        mnuItemCoureur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+            }
+        });
+
+        mnuItemSpeedRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
+
+        mnuItemRemerciements.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MondeProfesseur.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
             }
         });
     }
@@ -445,13 +487,13 @@ public class MondeProfesseur extends JComponent {
                             controleur.enleverProfesseur(controleur.getListeProfesseurs().get(i));
                             controleur.refresh();
                         } else {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Vous ne pouvez pas enlever un administrateur!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(14), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Operation annule par l'utilisateur", "Operation annule", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Operation annule", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -468,19 +510,19 @@ public class MondeProfesseur extends JComponent {
                 try {
                     if (controleur.getListeProfesseurs().get(i).getType() != TypeUtilisateur.ADMIN) {
                         if (JOptionPane.showInputDialog(MondeProfesseur.this, "Veuillez entrez votre mot de passe").equals(controleur.getProfesseur().getMotDePasse())) {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Cede les droits d'administration a " + controleur.getListeProfesseurs().get(i).getNom() + " avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, "Cedé les droits d'administration a " + controleur.getListeProfesseurs().get(i).getNom() + " avec succes!", "Operation reussi", JOptionPane.INFORMATION_MESSAGE);
                             controleur.cederAdmin(controleur.getListeProfesseurs().get(i));
                             controleur.refresh();
                             fenetre.logOutProfesseur();
                             fenetre.logInProfesseur();
                         } else {
-                            JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! Mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(2), "ERREUR", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! " + controleur.getListeProfesseurs().get(i).getNom() + " est deja un admin!", "ERREUR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(MondeProfesseur.this, "ERREUR! " + controleur.getListeProfesseurs().get(i).getNom() + controleur.getMessageErreur(15), "ERREUR", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(MondeProfesseur.this, "Operation annule par l'utilisateur", "Operation annule", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(16), "Operation annule", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -490,6 +532,10 @@ public class MondeProfesseur extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(image, 0, 0, this);
+    }
+
+    public void finJeu() {
+        this.enJeu = false;
     }
 
 }

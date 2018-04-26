@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.qc.bdeb.vue.speedRun;
+package ca.qc.bdeb.vue.tutorial;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
@@ -23,8 +23,9 @@ import javax.swing.JTextField;
  *
  * @author 1649904
  */
-public class MondeSpeedRun extends JComponent {
+public class MondeSpeedRunTutorial extends JComponent {
 
+    private Modele modele;
     private Controleur controleur;
     private FenetreJeu fenetre;
 
@@ -41,24 +42,27 @@ public class MondeSpeedRun extends JComponent {
 
     private final int largeur = 800, hauteur = 600;
 
-    private final int compteurReset = 26;
+    private final int compteurReset = 16;
     private int timer = 0, compteur = compteurReset;
 
     private boolean finJeu = false;
     private boolean peutRepondre = false;
 
-    private int[] index;
-
     private int nombreQuestionsRepondus = 0;
 
+    private JLabel lblDirections = new JLabel("(1) Vous avez 3 secondes avant que la définition se montre", JLabel.CENTER);
+
     private ProgressBar progressBar;
+
+    private int niveauActuel = 0;
 
     Thread thread = new Thread() {
         @Override
         public void run() {
             super.run(); //To change body of generated methods, choose Tools | Templates.
-            randomOrdre();
             while (!finJeu) {
+                progressBar.setCase(niveauActuel);
+
                 timer();
                 finTour();
 
@@ -71,14 +75,15 @@ public class MondeSpeedRun extends JComponent {
                 }
             }
             finJeu();
-            fenetre.fermerFenetre();
+            fenetre.fermerFenetreTutorial();
         }
     };
 
-    public MondeSpeedRun(JLabel lblQuestion, JTextField txtReponse, JLabel lblTimer, FenetreJeu fenetre, Controleur controleur, Modele modele) {
+    public MondeSpeedRunTutorial(JLabel lblQuestion, JTextField txtReponse, JLabel lblTimer, FenetreJeu fenetre, Controleur controleur, Modele modele) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
+        this.modele = modele;
         this.controleur = controleur;
         this.fenetre = fenetre;
 
@@ -93,8 +98,13 @@ public class MondeSpeedRun extends JComponent {
     }
 
     private void creerInterface() {
-        listeQuestions = controleur.getQuestionsSpeedRun(fenetre.getNiveauID());
-        listeReponses = controleur.getReponsesSpeedRun(fenetre.getNiveauID());
+        listeQuestions.add("Que fait 1 + 1? (Vous pouvez l'écrire en chiffre)");
+        listeQuestions.add("Quelle est la plus grande ville francophone en Amérique?");
+        listeQuestions.add("As-tu hâte que ce niveau de tutoriel se termine?");
+
+        listeReponses.add("2");
+        listeReponses.add("montréal");
+        listeReponses.add("");
 
         bot = new Bot(controleur);
         bot.setLocation(largeur - bot.getWidth() - 75, hauteur - bot.getHeight() - 50);
@@ -119,9 +129,13 @@ public class MondeSpeedRun extends JComponent {
 
         txtReponse.setEditable(peutRepondre);
 
-        progressBar = new ProgressBar(listeQuestions);
+        progressBar = new ProgressBar(4);
         progressBar.setLocation((this.largeur - progressBar.getLargeur()) / 2, 50);
         this.add(progressBar);
+
+        lblDirections.setLocation(0, 75);
+        lblDirections.setSize(largeur, 20);
+        this.add(lblDirections);
     }
 
     private void creerEvenements() {
@@ -140,6 +154,14 @@ public class MondeSpeedRun extends JComponent {
                             lblQuestion.setText("");
                             lblTimer.setText("");
                             compteur = compteurReset;
+
+                            if (niveauActuel == 1) {
+                                lblDirections.setText("(3) Quand vous écrivez la bonne réponse, c'est le robot qui perd une vie. Ça marche inversement aussi...");
+                                niveauActuel = 2;
+                            } else if (niveauActuel == 2) {
+                                lblDirections.setText("(4) 3 mauvaises réponses et c'est la fin du jeu!");
+                                niveauActuel = 3;
+                            }
                         }
                 }
             }
@@ -147,31 +169,10 @@ public class MondeSpeedRun extends JComponent {
         });
     }
 
-    private void randomOrdre() {
-        index = new int[listeQuestions.size()];
-
-        Random random = new Random();
-
-        for (int i = 0; i < listeQuestions.size(); i++) {
-            index[i] = i;
-        }
-
-        int index1, index2, temporaire;
-
-        for (int i = 0; i < 10; i++) {
-            index1 = random.nextInt(listeQuestions.size());
-            index2 = random.nextInt(listeQuestions.size());
-            temporaire = index[index1];
-            index[index1] = index[index2];
-            index[index2] = temporaire;
-        }
-
-    }
-
     private void choixQuestion() {
-        if (progressBar.getProgres() < index.length) {
+        if (progressBar.getProgres() < 3) {
             if (peutRepondre) {
-                lblQuestion.setText(listeQuestions.get(index[progressBar.getProgres()]));
+                lblQuestion.setText(listeQuestions.get(progressBar.getProgres()));
             }
         }
     }
@@ -179,19 +180,23 @@ public class MondeSpeedRun extends JComponent {
     private void timer() {
         if (timer % 100 == 0) {
             switch (compteur) {
-                case 26:
-                case 25:
+                case 16:
+                case 15:
                     lblTimer.setText("");
                     break;
-                case 24:
-                case 23:
-                case 22:
-                    lblTimer.setText((compteur - 21) + "");
+                case 14:
+                case 13:
+                case 12:
+                    lblTimer.setText((compteur - 11) + "");
                     break;
-                case 21:
+                case 11:
                     lblTimer.setText("");
                     break;
-                case 20:
+                case 10:
+                    if (niveauActuel == 0) {
+                        lblDirections.setText("(2) Vous pouvez écrire en majuscules ou minuscules, mais il faut toutes les accents!");
+                        niveauActuel = 1;
+                    }
                     lblTimer.setText(compteur + "");
                     peutRepondre = true;
                     txtReponse.setEditable(peutRepondre);
@@ -216,13 +221,17 @@ public class MondeSpeedRun extends JComponent {
     }
 
     private void verifierReponse() {
-        if (txtReponse.getText().toLowerCase().equals(listeReponses.get(index[progressBar.getProgres()]).toLowerCase())) {
+        if (txtReponse.getText().toLowerCase().equals(listeReponses.get(progressBar.getProgres()))) {
             bot.enleverPointDeVie();
         } else {
-            joueur.mauvaiseReponse();
+            if (niveauActuel == 3) {
+                bot.enleverPointDeVie();
+            } else {
+                joueur.mauvaiseReponse();
+            }
         }
 
-        progressBar.ajouterProgres();
+        progressBar.ajouterProgress();
     }
 
     private void finTour() {
@@ -232,14 +241,13 @@ public class MondeSpeedRun extends JComponent {
             bot.setLocation(largeur - bot.getWidth() - 75, hauteur - bot.getHeight() - 50);
             this.add(bot);
             joueur.botElimine();
-        } else if (joueur.joueurDetruit() || !(progressBar.getProgres() < index.length)) {
+        } else if (joueur.joueurDetruit() || !(progressBar.getProgres() < 3)) {
             finJeu = true;
         }
     }
 
     private void finJeu() {
-        controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore());
-        JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()) + " points.");
+        JOptionPane.showMessageDialog(MondeSpeedRunTutorial.this, "Bravo! Vous avez completé le niveau tutorial du Speed Run!");
     }
 
 }

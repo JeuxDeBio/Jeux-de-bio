@@ -1,0 +1,17 @@
+Le DA n'existe pas!
+Le nom d'utilisateur n'existe pas!
+Le mot de passe est incorrect!
+Le mot de passe est trop court! (Minimum 6 caract�res)
+Le mot de passe ne correspond pas � la validation!
+ n'est pas authoris� par un professeur!
+Le nom d'utilisateur n'est pas authoris� par un admin!
+Le mot de passe est identique avec l'actuel!
+La liste d'�tudiants est vide!
+Le code du groupe est vide!
+Vous n'avez choisi aucun �tudiant!
+Le nom d'utilisateur est d�j� authentifi�!
+Le nom d'utilisateur existe d�j�!
+Le nom d'utilisateur est trop court! (Minimum 6 caract�res)
+Vous ne pouvez pas enlever un admin!
+ est d�j� un admin!
+Op�ration annul� par l'utilisateur!

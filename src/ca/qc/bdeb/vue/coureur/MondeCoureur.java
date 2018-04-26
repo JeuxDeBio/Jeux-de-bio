@@ -39,6 +39,7 @@ public class MondeCoureur extends JComponent {
     private ArrayList<String[]> listeChoix = new ArrayList();
     private ArrayList<Integer> listePositionsReponses = new ArrayList<>();
     private ArrayList<BoiteChoix> listeChoixEnCours = new ArrayList<>();
+    private ArrayList<JLabel> listeReponses = new ArrayList<>();
 
     private Joueur joueur;
 
@@ -66,7 +67,7 @@ public class MondeCoureur extends JComponent {
 
                 bougerBoites();
                 collision();
-                
+
                 if (joueur.faitChoix()) {
                     if (verifierReponse()) {
                         finTour();
@@ -80,7 +81,7 @@ public class MondeCoureur extends JComponent {
                 repaint();
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                 }
             }
@@ -119,6 +120,11 @@ public class MondeCoureur extends JComponent {
         progressBar = new ProgressBar(listeQuestions);
         progressBar.setLocation((this.largeur - progressBar.getLargeur()) / 2, 50);
         this.add(progressBar);
+        
+        JLabel lbl = new JLabel("Choix possibles", JLabel.CENTER);
+        lbl.setSize(largeur, 20);
+        lbl.setLocation(0, 100);
+        this.add(lbl);
     }
 
     private void creerEvenements() {
@@ -180,16 +186,22 @@ public class MondeCoureur extends JComponent {
     }
 
     private void afficherQuestionEtChoix() {
-        lblQuestion.setSize(700, 100);
-        lblQuestion.setLocation(25, 50);
+        lblQuestion.setText(listeQuestions.get(index[compteur]));
+        lblQuestion.setSize(largeur, 20);
+        lblQuestion.setLocation(0, 80);
         this.add(lblQuestion);
 
-        lblQuestion.setText(listeQuestions.get(index[compteur]));
-
         for (int i = 0; i < listeChoix.get(index[compteur]).length; i++) {
-            BoiteChoix boiteChoix = new BoiteChoix(listeChoix.get(index[compteur])[i], i);
+            System.out.println(listeChoix.get(index[compteur])[i]);
+            JLabel lblReponse = new JLabel("(" + (char) (65 + i) + ") " + listeChoix.get(index[compteur])[i], JLabel.CENTER);
+            lblReponse.setSize(largeur, 20);
+            lblReponse.setLocation(0, 120 + (i * lblReponse.getHeight()));
+            this.add(lblReponse);
+            listeReponses.add(lblReponse);
+            
+            BoiteChoix boiteChoix = new BoiteChoix("(" + (char) (65 + i) + ")", i);
             distanceEntreBoites = (largeur - (listeChoix.get(index[compteur]).length * boiteChoix.getLargeur())) / (listeChoix.get(index[compteur]).length + 1);
-            boiteChoix.setLocation((boiteChoix.getLargeur() + distanceEntreBoites) * i + distanceEntreBoites, 100);
+            boiteChoix.setLocation((boiteChoix.getLargeur() + distanceEntreBoites) * i + distanceEntreBoites, 120 + (listeChoix.get(index[compteur]).length * lblReponse.getHeight()));
             this.add(boiteChoix);
             listeChoixEnCours.add(boiteChoix);
         }
@@ -227,7 +239,13 @@ public class MondeCoureur extends JComponent {
         for (BoiteChoix boite : listeChoixEnCours) {
             boite.setLocation(1000, 1000);
         }
+        
+        for (JLabel lblReponse : listeReponses){
+            lblReponse.setText("");
+        }
+        
         listeChoixEnCours.removeAll(listeChoixEnCours);
+        listeReponses.removeAll(listeReponses);
         debutTour = true;
         compteur++;
         joueur.ajouterPoint();

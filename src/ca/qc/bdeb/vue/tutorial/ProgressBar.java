@@ -61,4 +61,8 @@ public class ProgressBar extends JComponent {
 
     }
 
+    void ajouterProgress() {
+        progres++;
+    }
+
 }

@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 /**
@@ -36,7 +37,6 @@ public class MondeEtudiant extends JComponent {
     private Image image;
 
     private FenetrePrincipale fenetre;
-    private FenetreStatistiqueEtudiant fenetreStatistiques;
 
     private Icone icone;
 
@@ -50,6 +50,7 @@ public class MondeEtudiant extends JComponent {
     private Bouton boutonCoureur = new Bouton();
     private Bouton boutonSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
+    private Bouton boutonActualiser = new Bouton();
 
     private JMenuBar mnuBar = new JMenuBar();
 
@@ -125,6 +126,10 @@ public class MondeEtudiant extends JComponent {
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
         this.add(boutonLogOut);
+
+        boutonActualiser.setLocation(20, 20);
+        boutonActualiser.setSize(50, 50);
+        this.add(boutonActualiser);
 
         mnuProfil.add(mnuItemIcon);
         mnuProfil.add(new JSeparator());
@@ -241,11 +246,41 @@ public class MondeEtudiant extends JComponent {
             }
         });
 
+        mnuItemShooter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+            }
+        });
+
         mnuItemCoureur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
             }
+        });
+
+        mnuItemSpeedRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+            }
+        });
+
+        mnuItemRemerciements.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MondeEtudiant.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+
+        boutonActualiser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                controleur.refresh();
+            }
+
         });
 
         //shit ton d'autres evenements (pour les menuItems) pour PLUS TARD (comme la fin de semaine ou la semaine prochaine jsp)
