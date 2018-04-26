@@ -1,1 +1,2 @@
 Information niveaux\\Speed Run\\Niveau 1.txt
+Information niveaux\\Speed Run\\Niveau 2.txt

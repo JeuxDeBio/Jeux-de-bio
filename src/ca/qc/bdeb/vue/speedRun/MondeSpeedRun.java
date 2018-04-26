@@ -25,7 +25,6 @@ import javax.swing.JTextField;
  */
 public class MondeSpeedRun extends JComponent {
 
-    private Modele modele;
     private Controleur controleur;
     private FenetreJeu fenetre;
 
@@ -42,7 +41,7 @@ public class MondeSpeedRun extends JComponent {
 
     private final int largeur = 800, hauteur = 600;
 
-    private final int compteurReset = 16;
+    private final int compteurReset = 26;
     private int timer = 0, compteur = compteurReset;
 
     private boolean finJeu = false;
@@ -80,7 +79,6 @@ public class MondeSpeedRun extends JComponent {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
 
-        this.modele = modele;
         this.controleur = controleur;
         this.fenetre = fenetre;
 
@@ -181,19 +179,19 @@ public class MondeSpeedRun extends JComponent {
     private void timer() {
         if (timer % 100 == 0) {
             switch (compteur) {
-                case 16:
-                case 15:
+                case 26:
+                case 25:
                     lblTimer.setText("");
                     break;
-                case 14:
-                case 13:
-                case 12:
-                    lblTimer.setText((compteur - 11) + "");
+                case 24:
+                case 23:
+                case 22:
+                    lblTimer.setText((compteur - 21) + "");
                     break;
-                case 11:
+                case 21:
                     lblTimer.setText("");
                     break;
-                case 10:
+                case 20:
                     lblTimer.setText(compteur + "");
                     peutRepondre = true;
                     txtReponse.setEditable(peutRepondre);
@@ -218,7 +216,7 @@ public class MondeSpeedRun extends JComponent {
     }
 
     private void verifierReponse() {
-        if (txtReponse.getText().equals(listeReponses.get(index[progressBar.getProgres()]))) {
+        if (txtReponse.getText().toLowerCase().equals(listeReponses.get(index[progressBar.getProgres()]).toLowerCase())) {
             bot.enleverPointDeVie();
         } else {
             joueur.mauvaiseReponse();
