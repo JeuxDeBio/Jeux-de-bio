@@ -116,8 +116,14 @@ public class FenetreJeu extends JFrame {
                 this.add(mondeSpeedRun);
                 nomJeu = "Speed Run";
         }
+        String nomNiveau = "";
 
-        this.setTitle(nomJeu + " - Niveau: " + controleur.getNomNiveau(jeu, this.getNiveauID()));
+        String[] split = controleur.getNomNiveau(jeu, this.getNiveauID()).split("!!");
+        for (int i = 0; i < split.length; i++) {
+            nomNiveau += split[i];
+        }
+
+        this.setTitle(nomJeu + " - Niveau: " + nomNiveau);
     }
 
     private void creerInterfaceTutorial() {

@@ -112,7 +112,6 @@ class MondeSelection extends JComponent {
 
     private void creerEvenements(int i, String action) {
         listeNiveaux.get(i).addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
@@ -123,7 +122,6 @@ class MondeSelection extends JComponent {
                 }
                 fermerFenetre();
             }
-
         });
     }
 

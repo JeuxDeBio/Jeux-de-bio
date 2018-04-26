@@ -19,11 +19,14 @@ public class Bouton extends JComponent {
     public Bouton() {
     }
 
-    public Bouton(Controleur controleur, int i, Jeu jeu) {
-        JLabel lblTexteBouton = new JLabel(controleur.getNomNiveau(jeu, i), JLabel.CENTER);
-        lblTexteBouton.setSize(113, 20);
-        lblTexteBouton.setLocation(10, 32);
-        this.add(lblTexteBouton);
+    public Bouton(Controleur controleur, int index, Jeu jeu) {
+        String[] split = controleur.getNomNiveau(jeu, index).split("!!");
+        for (int i = 0; i < split.length; i++) {
+            JLabel lblTexteBouton = new JLabel(split[i], JLabel.CENTER);
+            lblTexteBouton.setSize(130, 20);
+            lblTexteBouton.setLocation(0, ((84 - (lblTexteBouton.getHeight() * split.length)) * i) + 10);
+            this.add(lblTexteBouton);
+        }
     }
 
     public Bouton(String texte) {
