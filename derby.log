@@ -355,3 +355,7 @@ ERROR 08004: Echec de l'authentification de la connexion. Cause : Authentificati
 ============= end nested exception, level (1) ===========
 Cleanup action completed
 Mon Apr 30 09:34:21 EDT 2018 Thread[DRDAConnThread_3,5,main] (DATABASE = Jeux de bio DB), (DRDAID = {8}), Echec de l'authentification de la connexion. Cause : Authentification non valide..
+----------------------------------------------------------------
+Mon Apr 30 11:10:10 EDT 2018:
+Fermeture de l'instance a816c00e-0163-1685-ec38-ffffa66b9aa7 sur le répertoire de base de données C:\Users\1651114\Desktop\Jeux de bio\Jeux-de-bio\Jeux-de-bio\Jeux de bio DB avec le chargeur de classe sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Mon Apr 30 11:10:10 EDT 2018 Thread[DRDAConnThread_4,5,main] (DATABASE = Jeux de bio DB), (DRDAID = {37}), Arrêt de la base de données 'Jeux de bio DB'.
