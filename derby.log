@@ -1,24 +1,7 @@
-Mon Apr 30 07:57:39 EDT 2018 : Apache Derby Network Server - 10.11.1.2 - (1629631) démarré et prêt à accepter les connexions sur le port 1527
+Mon Apr 30 11:20:05 EDT 2018 : Apache Derby Network Server - 10.11.1.2 - (1629631) démarré et prêt à accepter les connexions sur le port 1527
 ----------------------------------------------------------------
-Mon Apr 30 07:57:39 EDT 2018:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631) : instance a816c00e-0163-166a-5b9f-000054015f2d 
-dans le répertoire de base de données H:\Projet Bio\Jeux-de-bio\Jeux de bio DB avec le chargeur de classe sun.misc.Launcher$AppClassLoader@1d44bcfa
-Chargé de file:/C:/Program%20Files/Java/jdk1.8.0_102/db/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_102-b14
-user.dir=C:\Program Files\Java\jdk1.8.0_102\db
-os.name=Windows 7
-os.arch=amd64
-os.version=6.1
-derby.system.home=H:\Projet Bio\Jeux-de-bio
-Chargeur de classe de la base de données démarré - derby.database.classpath = ''
-----------------------------------------------------------------
-Mon Apr 30 07:57:43 EDT 2018:
-Fermeture de l'instance a816c00e-0163-166a-5b9f-000054015f2d sur le répertoire de base de données H:\Projet Bio\Jeux-de-bio\Jeux de bio DB avec le chargeur de classe sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Mon Apr 30 07:57:43 EDT 2018 Thread[DRDAConnThread_2,5,main] (DATABASE = Jeux de bio DB), (DRDAID = {2}), Arrêt de la base de données 'Jeux de bio DB'.
-----------------------------------------------------------------
-Mon Apr 30 07:58:00 EDT 2018:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631) : instance a65c80ac-0163-166a-5b9f-000054015f2d 
+Mon Apr 30 11:20:05 EDT 2018:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631) : instance a816c00e-0163-1723-b27f-000054015f2d 
 dans le répertoire de base de données H:\Projet Bio\Jeux-de-bio\Jeux de bio DB avec le chargeur de classe sun.misc.Launcher$AppClassLoader@1d44bcfa
 Chargé de file:/C:/Program%20Files/Java/jdk1.8.0_102/db/lib/derby.jar
 java.vendor=Oracle Corporation
