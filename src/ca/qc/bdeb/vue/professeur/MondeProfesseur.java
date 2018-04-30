@@ -391,7 +391,7 @@ public class MondeProfesseur extends JComponent {
                                 if (!controleur.professeurExisteDeja(nuAdmis)) {
                                     if (!controleur.professeurDejaAuthentifie(nuAdmis)) {
                                         controleur.ajouterProfesseurNUAdmis(nuAdmis);
-                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na ete reserve!");
+                                        JOptionPane.showMessageDialog(MondeProfesseur.this, "Le nom d'utilisateur\n<" + nuAdmis + ">\na été réservé!");
                                         controleur.refresh();
                                     } else {
                                         JOptionPane.showMessageDialog(MondeProfesseur.this, controleur.getMessageErreur(11), "ERREUR", JOptionPane.ERROR_MESSAGE);
