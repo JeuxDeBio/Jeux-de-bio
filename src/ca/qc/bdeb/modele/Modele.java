@@ -13,10 +13,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -82,6 +87,17 @@ public class Modele extends Observable {
     private String logInErrorLog = " ";
 
     public Modele() {
+        try {
+            String host = "jdbc:derby://localhost:1527/Jeux de bio DB [JeuxDeBio on Default schema]";
+            String uName = "";
+            String uPass = "";
+            String SQL = "SELECT * FROM ETUDIANT";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+        } catch (SQLException err) {
+
+        }
         lecture();
     }
 
@@ -157,17 +173,42 @@ public class Modele extends Observable {
     private void lectureEtudiants() {
         listeEtudiants.clear();
 
-        File dossier = new File("Utilisateurs\\Etudiants");
+        try {
+            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+            String uName = "JeuxDeBio";
+            String uPass = "mot_de_passe0";
+            String SQL = "SELECT * FROM ETUDIANT";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
 
-        if (dossier.exists()) {
-            File[] listeFiles = dossier.listFiles();
-            for (int i = 0; i < listeFiles.length; i++) {
-                listeEtudiants.add(new Etudiant(listeFiles[i].getAbsolutePath()));
+            while (rs.next()) {
+                String da = rs.getString("DA");
+                String mdp = rs.getString("MOTDEPASSE");
+                String nom = rs.getString("NOM");
+                String locationIcone = rs.getString("LOCATIONICONE");
+                String scoresDragDrop = rs.getString("SCORESDRAGDROP");
+                String scoresCoureur = rs.getString("SCORESCOUREUR");
+                String scoresSpeedRun = rs.getString("SCORESSPEEDRUN");
+                listeEtudiants.add(new Etudiant(da, mdp, nom, locationIcone, scoresDragDrop, scoresCoureur, scoresSpeedRun));
             }
-        } else {
-            dossier.mkdir();
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
         }
 
+//        File dossier = new File("Utilisateurs\\Etudiants");
+//
+//        if (dossier.exists()) {
+//            File[] listeFiles = dossier.listFiles();
+//            for (int i = 0; i < listeFiles.length; i++) {
+//                listeEtudiants.add(new Etudiant(listeFiles[i].getAbsolutePath()));
+//            }
+//        } else {
+//            dossier.mkdir();
+//        }
     }
 
     private void lectureIcones() {
@@ -441,36 +482,55 @@ public class Modele extends Observable {
     }
 
     public void creerEtudiant(String da, String mdp, String nom) {
-        String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
+        // String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
+        String locationIcone = "Utilisateurs\\Icones\\iconeVierge.png";
+        String ligneScores = "0;0;0;0;0;0;0;0;0;0";
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+//            bufferedWriter.write(da);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(mdp);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(nom);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write("Utilisateurs\\Icones\\iconeVierge.png");
+//            bufferedWriter.newLine();
+//
+//            bufferedWriter.close();
+//
+//        } catch (IOException e) {
+//        }
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-            bufferedWriter.write(da);
-            bufferedWriter.newLine();
-            bufferedWriter.write(mdp);
-            bufferedWriter.newLine();
-            bufferedWriter.write(nom);
-            bufferedWriter.newLine();
-            bufferedWriter.write("Utilisateurs\\Icones\\iconeVierge.png");
-            bufferedWriter.newLine();
+            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+            String uName = "JeuxDeBio";
+            String uPass = "mot_de_passe0";
+            String SQL = "SELECT * FROM ETUDIANT";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
 
-            for (int i = 0; i < 4; i++) {
-                String ligneScores = "";
-                for (int j = 0; j < 9; j++) {
-                    ligneScores += "0;";
-                }
-                ligneScores += "0";
+            rs.moveToInsertRow();
 
-                bufferedWriter.write(ligneScores);
-                bufferedWriter.newLine();
-            }
+            rs.updateString("DA", da);
+            rs.updateString("MOTDEPASSE", mdp);
+            rs.updateString("NOM", nom);
+            rs.updateString("LOCATIONICONE", locationIcone);
+            rs.updateString("SCORESDRAGDROP", ligneScores);
+            rs.updateString("SCORESCOUREUR", ligneScores);
+            rs.updateString("SCORESSPEEDRUN", ligneScores);
 
-            bufferedWriter.close();
+            rs.insertRow();
 
-        } catch (IOException e) {
+            stmt.close();
+            rs.close();
+            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
         }
 
-        Etudiant etudiant = new Etudiant(informations);
+        Etudiant etudiant = new Etudiant(da, mdp, nom, locationIcone, ligneScores, ligneScores, ligneScores);
         listeEtudiants.add(etudiant);
         groupeNouveauEtudiant.ajouterEtudiant(etudiant);
         etudiant.setGroupe(groupeNouveauEtudiant);
@@ -637,7 +697,7 @@ public class Modele extends Observable {
     public String getLocationFlecheHaut() {
         return locationFlecheHaut;
     }
-    
+
     public String getLocationInformation(Jeu jeu, int i) {
         return listeNiveauxDragDrop.get(i).getLocationInformation();
     }
@@ -760,8 +820,8 @@ public class Modele extends Observable {
     public String getLogInErrorLog() {
         return logInErrorLog;
     }
-    
-    public String getMessageErreur(int i){
+
+    public String getMessageErreur(int i) {
         return listeMessagesErreurs.get(i);
     }
 

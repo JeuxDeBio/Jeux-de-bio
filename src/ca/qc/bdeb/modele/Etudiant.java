@@ -34,9 +34,35 @@ public class Etudiant {
     private String locationIcone;
     private final TypeUtilisateur type = TypeUtilisateur.ETUDIANT;
 
-    public Etudiant(String information) {
-        this.information = information;
-        lectureInformation();
+//    public Etudiant(String information) {
+//        this.information = information;
+//        lectureInformation();
+//    }
+
+    public Etudiant(String da, String mdp, String nom, String locationIcone, String scoresDragDrop, String scoresCoureur, String scoresSpeedRun) {
+        this.da = da;
+        this.locationIcone = locationIcone;
+        this.nom = nom;
+        this.motDePasse = mdp;
+
+        traitementInfos(scoresDragDrop, scoresCoureur, scoresSpeedRun);
+        System.out.println(da + mdp + nom);
+
+    }
+
+    private void traitementInfos(String scoresDragDrop, String scoresCoureur, String scoresSpeedRun) {
+        String[] split = scoresDragDrop.split(";");
+        for (int j = 0; j < split.length; j++) {
+            scores[0][j] = Integer.parseInt(split[j]);   
+        }
+        split = scoresCoureur.split(";");
+        for (int j = 0; j < split.length; j++) {
+            scores[1][j] = Integer.parseInt(split[j]);   
+        }
+        split = scoresSpeedRun.split(";");
+        for (int j = 0; j < split.length; j++) {
+            scores[2][j] = Integer.parseInt(split[j]);   
+        }
     }
 
     private void lectureInformation() {
