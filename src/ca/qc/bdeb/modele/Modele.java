@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.modele;
 
+import ca.qc.bdeb.vue.dragDrop.BoiteReponseConstruction;
 import ca.qc.bdeb.vue.principale.Icone;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -188,16 +189,6 @@ public class Modele extends Observable {
             System.out.println(err.getMessage());
         }
 
-//        File dossier = new File("Utilisateurs\\Etudiants");
-//
-//        if (dossier.exists()) {
-//            File[] listeFiles = dossier.listFiles();
-//            for (int i = 0; i < listeFiles.length; i++) {
-//                listeEtudiants.add(new Etudiant(listeFiles[i].getAbsolutePath()));
-//            }
-//        } else {
-//            dossier.mkdir();
-//        }
     }
 
     private void lectureIcones() {
@@ -471,24 +462,8 @@ public class Modele extends Observable {
     }
 
     public void creerEtudiant(String da, String mdp, String nom) {
-        // String informations = "Utilisateurs\\Etudiants\\" + da + ".txt";
         String locationIcone = "Utilisateurs\\Icones\\iconeVierge.png";
         String ligneScores = "0;0;0;0;0;0;0;0;0;0";
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-//            bufferedWriter.write(da);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(mdp);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(nom);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write("Utilisateurs\\Icones\\iconeVierge.png");
-//            bufferedWriter.newLine();
-//
-//            bufferedWriter.close();
-//
-//        } catch (IOException e) {
-//        }
 
         try {
             String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
@@ -513,7 +488,7 @@ public class Modele extends Observable {
 
             stmt.close();
             rs.close();
-            
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
             System.out.println("fail");
@@ -526,7 +501,7 @@ public class Modele extends Observable {
         etudiant.setProfesseur(professeurNouveauEtudiant);
         professeurNouveauEtudiant.updateDAPermisEnleverEtudiant(etudiant);
     }
-    
+
     public void creerProfesseur(String nu, String mdp, String nom, String session) {
         listeNUAdmisProfesseurs.remove(nu);
         updateNUPermis = true;
@@ -686,7 +661,7 @@ public class Modele extends Observable {
     public String getLocationFlecheHaut() {
         return locationFlecheHaut;
     }
-    
+
     public String getLocationInformation(Jeu jeu, int i) {
         return listeNiveauxDragDrop.get(i).getLocationInformation();
     }
@@ -809,8 +784,8 @@ public class Modele extends Observable {
     public String getLogInErrorLog() {
         return logInErrorLog;
     }
-    
-    public String getMessageErreur(int i){
+
+    public String getMessageErreur(int i) {
         return listeMessagesErreurs.get(i);
     }
 
@@ -821,15 +796,34 @@ public class Modele extends Observable {
 
     private void updateNUPermis() {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\NUPermis.txt"));
-            for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
-                bufferedWriter.write(listeNUAdmisProfesseurs.get(i));
-                bufferedWriter.newLine();
+            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+            String uName = "JeuxDeBio";
+            String uPass = "mot_de_passe0";
+            String SQL = "SELECT * FROM NUPERMIS";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                rs.deleteRow();
             }
-            bufferedWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+
+            for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
+                rs.moveToInsertRow();
+
+                rs.updateString("NUPERMIS", listeNUAdmisProfesseurs.get(i));
+
+                rs.insertRow();
+            }
+
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
         }
+
     }
 
     public void creerGroupe(ArrayList<String> liste) {
@@ -868,6 +862,51 @@ public class Modele extends Observable {
             bufferedWriter.close();
         } catch (IOException ex) {
             Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String taille, ArrayList<BoiteReponseConstruction> listeBoites, String index) {
+
+        try {
+            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+            String uName = "JeuxDeBio";
+            String uPass = "mot_de_passe0";
+            String SQL = "SELECT * FROM NIVEAUDRAGDROP";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            //rs.last();
+            rs.moveToInsertRow();
+
+            rs.updateString("NOM", nom);
+            rs.updateString("LOCATIONIMAGE", locationImage);
+            rs.updateString("LOCATIONIMAGECORRIGE", locationImageCorrigee);
+            rs.updateString("GRANDEURIMAGE", taille);
+            rs.updateString("INDEXQUESTION", index);
+
+            //rs.updateRow();
+            rs.insertRow();
+
+            stmt.close();
+            rs.close();
+
+            SQL = "SELECT * FROM QUESTIONDRAGDROP";
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(SQL);
+            for(int i=1;i<=listeBoites.size();i++){
+            rs.moveToInsertRow();
+            rs.updateString("INDEX", SQL); //remplacer SQL par l'ID du lv +"."+i
+            rs.insertRow();
+
+            stmt.close();
+            rs.close();
+            }
+            
+            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
         }
     }
 

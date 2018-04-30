@@ -243,28 +243,8 @@ public class MondeModificationDragDrop extends JComponent {
     }
 
     public void modifierNiveau() {
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(locationNiveau));
-            bufferedWriter.write(nomNiveau);
-            bufferedWriter.newLine();
-            bufferedWriter.write(locationImage);
-            bufferedWriter.newLine();
-            bufferedWriter.write(locationImageCorrige);
-            bufferedWriter.newLine();
-            bufferedWriter.write(tailleImage[0] + ";" + tailleImage[1]);
-            bufferedWriter.newLine();
-            for (int i = 0; i < listeBoites.size(); i++) {
-                if (!listeBoites.get(i).getReponse().equals("") || listeBoites.get(i).getReponse() != null) {
-                    bufferedWriter.write((listeBoites.get(i).getPositionX() - decalementX) + ";" + (listeBoites.get(i).getPositionY() - decalementY) + ":" + listeBoites.get(i).getReponse());
-                    bufferedWriter.newLine();
-                }
-            }
-
-            bufferedWriter.close();
-
-        } catch (IOException ex) {
-
-        }
+        controleur.modifierNiveauDragDrop(nomNiveau, locationImage, locationImageCorrige, tailleImage, listeBoites);
+        
         controleur.refresh();
         fermerFenetre();
     }

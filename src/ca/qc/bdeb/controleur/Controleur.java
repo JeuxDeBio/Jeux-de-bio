@@ -10,6 +10,7 @@ import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.modele.Professeur;
+import ca.qc.bdeb.vue.dragDrop.BoiteReponseConstruction;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
 import ca.qc.bdeb.vue.principale.Icone;
 import java.awt.Toolkit;
@@ -323,6 +324,18 @@ public class Controleur {
 
     public void cederAdmin(Professeur professeur) {
         modele.cederAdmin(professeur);
+    }
+    
+    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, int[] tailleImage, ArrayList<BoiteReponseConstruction> listeBoites){
+        String taille = "";
+        taille += tailleImage[0] + ";" + tailleImage[1];
+        String index = "";
+        for(int i=1;i<listeBoites.size();i++){
+            index+= i +";";
+        }
+        index += listeBoites.size();
+        modele.modifierNiveauDragDrop(nom, locationImage, locationImageCorrigee, taille, listeBoites, index);
+        
     }
 
     public void fermerApp() {
