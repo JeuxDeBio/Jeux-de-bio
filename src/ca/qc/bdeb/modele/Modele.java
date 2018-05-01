@@ -87,6 +87,10 @@ public class Modele extends Observable {
 
     private String logInErrorLog = " ";
 
+    private String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+    private String uName = "JeuxDeBio";
+    private String uPass = "mot_de_passe0";
+
     public Modele() {
         lecture();
     }
@@ -111,6 +115,49 @@ public class Modele extends Observable {
         listeNiveauxCoureur.clear();
         listeNiveauxSpeedRun.clear();
 
+        try {
+            String SQL = "SELECT * FROM NIVEAUDRAGDROP";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("NOM");
+                //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, nom));
+            }
+
+            SQL = "SELECT * FROM NIVEAUCOUREUR";
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("NOM");
+                //listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, nom));
+            }
+
+            SQL = "SELECT * FROM NIVEAUSPEEDRUN";
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("NOM");
+                //listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, nom));
+            }
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+
+//        
+//        -------------------
+//                ---------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
+//                -------------------------------
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
             String ligne = bufferedReader.readLine();
@@ -147,6 +194,24 @@ public class Modele extends Observable {
         listeProfesseurs.clear();
 
         try {
+            String SQL = "SELECT * FROM PROFESSEUR";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String nu = rs.getString("NU");
+                //listeProfesseurs.add( new Professeur(nu, this));
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+
+//        --------------
+//                ------------------
+//                -------------------
+        try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
             String ligne = bufferedReader.readLine();
             while (ligne != null) {
@@ -164,9 +229,7 @@ public class Modele extends Observable {
         listeEtudiants.clear();
 
         try {
-            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
-            String uName = "JeuxDeBio";
-            String uPass = "mot_de_passe0";
+
             String SQL = "SELECT * FROM ETUDIANT";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement();
@@ -204,6 +267,29 @@ public class Modele extends Observable {
 
     private void lectureNUAdmisProfesseurs() {
         listeNUAdmisProfesseurs.clear();
+
+        try {
+
+            String SQL = "SELECT * FROM PROFESSEUR";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                String nuPermis = rs.getString("NUPERMIS");
+                //listeNUAdmisProfesseurs.add(nuPermis);
+            }
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+
+//        ----------------
+//                ------------------------
+//                ---------------------
+//                -----------------
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
             String ligne = bufferedReader.readLine();
@@ -219,7 +305,7 @@ public class Modele extends Observable {
         }
     }
 
-    private void lectureMessagesErreurs() {
+    private void lectureMessagesErreurs() {////// a changer peut être si on ne les laisse pas dans des files
         listeMessagesErreurs.clear();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationMessagesErreurs));
@@ -466,9 +552,6 @@ public class Modele extends Observable {
         String ligneScores = "0;0;0;0;0;0;0;0;0;0";
 
         try {
-            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
-            String uName = "JeuxDeBio";
-            String uPass = "mot_de_passe0";
             String SQL = "SELECT * FROM ETUDIANT";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -491,7 +574,6 @@ public class Modele extends Observable {
 
         } catch (SQLException err) {
             System.out.println(err.getMessage());
-            System.out.println("fail");
         }
 
         Etudiant etudiant = new Etudiant(da, mdp, nom, locationIcone, ligneScores, ligneScores, ligneScores);
@@ -507,16 +589,32 @@ public class Modele extends Observable {
         updateNUPermis = true;
 
         listeProfesseurs.add(new Professeur(nu, mdp, nom, session));
-
+        String locationIcone = "Utilisateurs\\Icones\\iconeVierge.png";
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
-            for (int i = 0; i < listeProfesseurs.size(); i++) {
-                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+            String SQL = "SELECT * FROM PROFESSEUR";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            rs.moveToInsertRow();
+
+            rs.updateString("NU", nu);
+            rs.updateString("MOTDEPASSE", mdp);
+            rs.updateString("NOM", nom);
+            rs.updateBoolean("ESTADMIN", false);
+            rs.updateString("LOCATIONICONE", locationIcone);
+            rs.updateString("SESSION", null);
+            rs.updateString("DAPERMIS", null);
+            rs.updateString("LISTEGROUPES", null);
+
+            rs.insertRow();
+
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
         }
     }
 
@@ -796,9 +894,6 @@ public class Modele extends Observable {
 
     private void updateNUPermis() {
         try {
-            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
-            String uName = "JeuxDeBio";
-            String uPass = "mot_de_passe0";
             String SQL = "SELECT * FROM NUPERMIS";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -865,27 +960,25 @@ public class Modele extends Observable {
         }
     }
 
-    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String taille, ArrayList<BoiteReponseConstruction> listeBoites, String index) {
+    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String taille, ArrayList<BoiteReponseConstruction> listeBoites, String index, int ID) {
 
         try {
-            String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
-            String uName = "JeuxDeBio";
-            String uPass = "mot_de_passe0";
             String SQL = "SELECT * FROM NIVEAUDRAGDROP";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery(SQL);
-
-            //rs.last();
+            
+            
+            
             rs.moveToInsertRow();
-
+            
             rs.updateString("NOM", nom);
             rs.updateString("LOCATIONIMAGE", locationImage);
             rs.updateString("LOCATIONIMAGECORRIGE", locationImageCorrigee);
             rs.updateString("GRANDEURIMAGE", taille);
             rs.updateString("INDEXQUESTION", index);
 
-            //rs.updateRow();
+            
             rs.insertRow();
 
             stmt.close();
@@ -894,20 +987,25 @@ public class Modele extends Observable {
             SQL = "SELECT * FROM QUESTIONDRAGDROP";
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(SQL);
-            for(int i=1;i<=listeBoites.size();i++){
-            rs.moveToInsertRow();
-            rs.updateString("INDEX", SQL); //remplacer SQL par l'ID du lv +"."+i
-            rs.insertRow();
-
-            stmt.close();
-            rs.close();
+            for (int i = 1; i <= listeBoites.size(); i++) {
+                rs.moveToInsertRow(); // pas insert
+                rs.updateString("INDEX", ID+"."+i);
+                rs.updateString("TEXTE",listeBoites.get(i-1).getReponse());
+                rs.updateInt("X",listeBoites.get(i-1).getPositionX());
+                rs.updateInt("Y",listeBoites.get(i-1).getPositionY());
+                rs.insertRow(); // pas insert
             }
-            
-            
+
+                stmt.close();
+                rs.close();
         } catch (SQLException err) {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
+    }
+    
+    public int getIDNiveau(Jeu jeu, int a){
+        return 0;
     }
 
     public void cederAdmin(Professeur professeur) {

@@ -326,7 +326,7 @@ public class Controleur {
         modele.cederAdmin(professeur);
     }
     
-    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, int[] tailleImage, ArrayList<BoiteReponseConstruction> listeBoites){
+    public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, int[] tailleImage, ArrayList<BoiteReponseConstruction> listeBoites, int id){
         String taille = "";
         taille += tailleImage[0] + ";" + tailleImage[1];
         String index = "";
@@ -334,8 +334,12 @@ public class Controleur {
             index+= i +";";
         }
         index += listeBoites.size();
-        modele.modifierNiveauDragDrop(nom, locationImage, locationImageCorrigee, taille, listeBoites, index);
+        modele.modifierNiveauDragDrop(nom, locationImage, locationImageCorrigee, taille, listeBoites, index,id);
         
+    }
+    
+    public int getIdNiveau(Jeu jeu, int a){
+        return modele.getIDNiveau(jeu, a);
     }
 
     public void fermerApp() {
