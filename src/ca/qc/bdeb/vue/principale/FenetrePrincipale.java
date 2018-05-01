@@ -18,6 +18,7 @@ import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.professeur.FenetreAjoutClasse;
 import ca.qc.bdeb.vue.professeur.FenetreClasses;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -71,6 +72,7 @@ public class FenetrePrincipale extends JFrame implements Observer {
         });
 
         this.pack();
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage( location de l'image va ici));
         this.setVisible(true);
 
     }
