@@ -220,12 +220,10 @@ public class FenetrePrincipale extends JFrame implements Observer {
     }
 
     public void finJeu() {
-
         if (logIn && controleur.logInEtudiant()) {
             mondeEtudiant.finJeu();
         } else if (logIn && controleur.logInProfesseur()) {
             mondeProfesseur.finJeu();
-
         } else {
             mondePrincipale.finJeu();
         }

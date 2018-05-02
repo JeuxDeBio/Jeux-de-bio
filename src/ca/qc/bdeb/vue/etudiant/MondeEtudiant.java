@@ -50,6 +50,10 @@ public class MondeEtudiant extends JComponent {
     private Bouton boutonCoureur = new Bouton();
     private Bouton boutonSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
+    private Bouton boutonDragDropTutorial = new Bouton();
+    private Bouton boutonShooterTutorial = new Bouton();
+    private Bouton boutonCoureurTutorial = new Bouton();
+    private Bouton boutonSpeedRunTutorial = new Bouton();
     private Bouton boutonActualiser = new Bouton();
 
     private JMenuBar mnuBar = new JMenuBar();
@@ -97,12 +101,12 @@ public class MondeEtudiant extends JComponent {
         lblDA.setSize(190, 20);
         this.add(lblDA);
 
-        lblGroupe.setText(controleur.getEtudiant().getGroupe().getCode());
+        //     lblGroupe.setText(controleur.getEtudiant().getGroupe().getCode());
         lblGroupe.setLocation(283, 277);
         lblGroupe.setSize(190, 20);
         this.add(lblGroupe);
 
-        lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
+//       lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
         lblProf.setLocation(314, 301);
         lblProf.setSize(190, 20);
         this.add(lblProf);
@@ -122,6 +126,22 @@ public class MondeEtudiant extends JComponent {
         boutonSpeedRun.setLocation(26, 479);
         boutonSpeedRun.setSize(147, 74);
         this.add(boutonSpeedRun);
+
+        boutonDragDropTutorial.setLocation(627, 194);
+        boutonDragDropTutorial.setSize(147, 74);
+        this.add(boutonDragDropTutorial);
+
+        boutonShooterTutorial.setLocation(627, 290);
+        boutonShooterTutorial.setSize(147, 74);
+        this.add(boutonShooterTutorial);
+
+        boutonCoureurTutorial.setLocation(627, 385);
+        boutonCoureurTutorial.setSize(147, 74);
+        this.add(boutonCoureurTutorial);
+
+        boutonSpeedRunTutorial.setLocation(627, 479);
+        boutonSpeedRunTutorial.setSize(147, 74);
+        this.add(boutonSpeedRunTutorial);
 
         boutonLogOut.setLocation(731, 19);
         boutonLogOut.setSize(50, 50);
@@ -212,65 +232,137 @@ public class MondeEtudiant extends JComponent {
             @Override
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me); //To change body of generated methods, choose Tools | Templates.
-                controleur.logOutEtudiant();
-                fenetre.logOutEtudiant();
+                if (!enJeu) {
+                    controleur.logOutEtudiant();
+                    fenetre.logOutEtudiant();
+                    enJeu = true;
+                }
             }
 
+        });
+
+        boutonDragDropTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+                    enJeu = true;
+                }
+            }
+
+        });
+
+        boutonShooterTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+                    enJeu = true;
+                }
+            }
+        });
+
+        boutonCoureurTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+                    enJeu = true;
+                }
+            }
+        });
+
+        boutonSpeedRunTutorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+                    enJeu = true;
+                }
+            }
         });
 
         mnuItemMDP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetre.ouvrirFenetreModificationMDP();
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreModificationMDP();
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemStatistiques.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetre.ouvrirFenetreStatistiquesEtudiant();
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreStatistiquesEtudiant();
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemIcon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetre.ouvrirFenetreModificationIcone();
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreModificationIcone();
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemDragDrop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.DRAG_DROP);
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemShooter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemCoureur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.COUREUR);
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemSpeedRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+                if (!enJeu) {
+                    fenetre.ouvrirFenetreTutorial(Jeu.SPEED_RUN);
+                    enJeu = true;
+                }
             }
         });
 
         mnuItemRemerciements.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(MondeEtudiant.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
+                if (!enJeu) {
+                    JOptionPane.showMessageDialog(MondeEtudiant.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
+                    enJeu = true;
+                }
             }
         });
 
@@ -278,7 +370,10 @@ public class MondeEtudiant extends JComponent {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                controleur.refresh();
+                if (!enJeu) {
+                    controleur.refresh();
+                    enJeu = true;
+                }
             }
 
         });
