@@ -40,6 +40,7 @@ public class MondeModificationDragDrop extends JComponent {
     private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
     int decalementX = 0;
     int decalementY = 0;
+    int id =0;
 
     private JButton poubelle = new JButton();
     private JButton plus = new JButton();
@@ -102,6 +103,7 @@ public class MondeModificationDragDrop extends JComponent {
         this.add(plus);
 
         nomNiveau = controleur.getNomNiveau(Jeu.DRAG_DROP, a);
+        id = controleur.getIdNiveau(Jeu.DRAG_DROP, a);
         locationImage = controleur.getLocationNiveau(Jeu.DRAG_DROP, a);
         locationImageCorrige = controleur.getLocationNiveauCorrige(Jeu.DRAG_DROP, a);
         tailleImage = controleur.getSizeImageDragDrop(a);
@@ -243,7 +245,7 @@ public class MondeModificationDragDrop extends JComponent {
     }
 
     public void modifierNiveau() {
-        controleur.modifierNiveauDragDrop(nomNiveau, locationImage, locationImageCorrige, tailleImage, listeBoites);
+        controleur.modifierNiveauDragDrop(nomNiveau, locationImage, locationImageCorrige, tailleImage, listeBoites, id);
         
         controleur.refresh();
         fermerFenetre();

@@ -9,6 +9,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +28,8 @@ public class Niveau {
     private String nomNiveau;
     private String locationImage;
     private String locationImageCorrige;
+    private String IndexQuestion;
+    private int ID;
 
     private ArrayList<int[]> listeCoordonneesDragDrop = new ArrayList<>();
     private ArrayList<String> listeQuestionsDragDrop = new ArrayList<>();
@@ -36,6 +43,9 @@ public class Niveau {
     private ArrayList<String> listeReponsesSpeedRun = new ArrayList<>();
 
     private int score = 0;
+    private String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+    private String uName = "JeuxDeBio";
+    private String uPass = "mot_de_passe0";
 
     public Niveau(Jeu jeu, String locationInformation) {
         this.locationInformation = locationInformation;
@@ -57,42 +67,73 @@ public class Niveau {
     }
 
     private void lectureInformationDragDrop() {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
-            String ligne = bufferedReader.readLine();
-            nomNiveau = ligne;
-            ligne = bufferedReader.readLine();
-            locationImage = ligne;
-            ligne = bufferedReader.readLine();
-            locationImageCorrige = ligne;
-            ligne = bufferedReader.readLine();
-            String[] size = ligne.split(";");
 
+        try {
+
+            String SQL = "SELECT * FROM NIVEAUDRAGDROP";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            
+            nomNiveau = rs.getString("NOM");
+            locationImage = rs.getString("NOM");
+            locationImageCorrige = rs.getString("NOM");
+            String[] size = rs.getString("NOM").split(";");
             for (int i = 0; i < size.length; i++) {
                 sizeImageDragDrop[i] = Integer.parseInt(size[i]);
             }
-            ligne = bufferedReader.readLine();
-            while (ligne != null) {
-                String split[] = ligne.split(":");
-                listeQuestionsDragDrop.add(split[1]);
-                split = split[0].split(";");
+            IndexQuestion = rs.getString("INDEXQUESTION");
+            ID = rs.getInt("ID");
 
-                int[] coordonneesSplit = new int[split.length];
-                for (int i = 0; i < coordonneesSplit.length; i++) {
-                    coordonneesSplit[i] = Integer.parseInt(split[i]);
-                }
+            stmt.close();
+            rs.close();
 
-                listeCoordonneesDragDrop.add(coordonneesSplit);
-
-                ligne = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
         }
+//        
+//        -----------------
+//                ---------------------
+//                ---------------------
+//                -----------------------
+//                -
+
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationInformation));
+//            String ligne = bufferedReader.readLine();
+//            nomNiveau = ligne;
+//            ligne = bufferedReader.readLine();
+//            locationImage = ligne;
+//            ligne = bufferedReader.readLine();
+//            locationImageCorrige = ligne;
+//            ligne = bufferedReader.readLine();
+//            String[] size = ligne.split(";");
+//
+//            for (int i = 0; i < size.length; i++) {
+//                sizeImageDragDrop[i] = Integer.parseInt(size[i]);
+//            }
+//            ligne = bufferedReader.readLine();
+//            while (ligne != null) {
+//                String split[] = ligne.split(":");
+//                listeQuestionsDragDrop.add(split[1]);
+//                split = split[0].split(";");
+//
+//                int[] coordonneesSplit = new int[split.length];
+//                for (int i = 0; i < coordonneesSplit.length; i++) {
+//                    coordonneesSplit[i] = Integer.parseInt(split[i]);
+//                }
+//
+//                listeCoordonneesDragDrop.add(coordonneesSplit);
+//
+//                ligne = bufferedReader.readLine();
+//            }
+//            bufferedReader.close();
+//
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
@@ -211,8 +252,8 @@ public class Niveau {
     public ArrayList getQuestionsSpeedRun() {
         return listeQuestionsSpeedRun;
     }
-    
-    public String getLocationInformation(){
+
+    public String getLocationInformation() {
         return locationInformation;
     }
 
