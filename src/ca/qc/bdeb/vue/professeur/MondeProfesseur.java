@@ -453,7 +453,7 @@ public class MondeProfesseur extends JComponent {
         mnuItemRemerciements.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(MondeProfesseur.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nCamille Glissant - Artiste graphique\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(MondeProfesseur.this, "Les personnes sans qui ce logiciel n'aurait pas vu le jour:\n\nBatikan ISCAN - Codeur\nNicolas CHARRON - Codeur\nCamille Glissant - Designer graphique\nPatrick DROLET-SAVOIE - Pofesseur de Biologie\nRaouf BABARI - Professeur d'Informatique", "Personnes impliquées", JOptionPane.PLAIN_MESSAGE);
             }
         });
     }
