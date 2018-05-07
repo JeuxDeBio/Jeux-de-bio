@@ -55,7 +55,26 @@ public class Niveau {
                 lectureInformationDragDrop();
                 break;
             case SHOOTER:
-                lectureInformationShooter();
+
+                break;
+            case COUREUR:
+                lectureInformationCoureur();
+                break;
+            case SPEED_RUN:
+                lectureInformationSpeedRun();
+        }
+
+    }
+
+    public Niveau(Jeu jeu, int ID) {
+        this.ID = ID;
+
+        switch (jeu) {
+            case DRAG_DROP:
+                lectureInformationDragDrop();
+                break;
+            case SHOOTER:
+
                 break;
             case COUREUR:
                 lectureInformationCoureur();
@@ -74,24 +93,45 @@ public class Niveau {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
-            
-            nomNiveau = rs.getString("NOM");
-            locationImage = rs.getString("NOM");
-            locationImageCorrige = rs.getString("NOM");
-            String[] size = rs.getString("NOM").split(";");
-            for (int i = 0; i < size.length; i++) {
-                sizeImageDragDrop[i] = Integer.parseInt(size[i]);
+            while (rs.next()) {
+                if (rs.getInt("ID") == ID) {
+                    nomNiveau = rs.getString("NOM");
+                    
+                    locationImage = rs.getString("LOCATIONIMAGE");
+                    locationImageCorrige = rs.getString("LOCATIONIMAGECORRIGE");
+                    String[] size = rs.getString("GRANDEURIMAGE").split(";");
+                    for (int i = 0; i < size.length; i++) {
+                        sizeImageDragDrop[i] = Integer.parseInt(size[i]);
+                    }
+                    IndexQuestion = rs.getString("INDEXQUESTION");
+                }
             }
-            IndexQuestion = rs.getString("INDEXQUESTION");
-            ID = rs.getInt("ID");
 
             stmt.close();
             rs.close();
+            
+            con = DriverManager.getConnection(host, uName, uPass);
+            stmt = con.createStatement();
+            SQL = "SELECT * FROM QUESTIONDRAGDROP";
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String a = rs.getString("INDEX");
+                String split[] = a.split(";");
+                if (Integer.parseInt(split[0]) == ID) {
+
+                    listeQuestionsDragDrop.add(rs.getString("TEXTE"));
+                    int[] coordonneesSplit = new int[2];
+                    coordonneesSplit[0] = rs.getInt("X");
+                    coordonneesSplit[1] = rs.getInt("Y");
+                    listeCoordonneesDragDrop.add(coordonneesSplit);
+                }
+
+            }
 
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-//        
+        
 //        -----------------
 //                ---------------------
 //                ---------------------
@@ -134,7 +174,6 @@ public class Niveau {
 //        } catch (IOException ex) {
 //            Logger.getLogger(Niveau.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
     }
 
     private void lectureInformationShooter() {
@@ -208,6 +247,11 @@ public class Niveau {
     public String getNom() {
         return nomNiveau;
     }
+
+    public int getID() {
+        return ID;
+    }
+    
 
     public String getLocation() {
         return locationImage;

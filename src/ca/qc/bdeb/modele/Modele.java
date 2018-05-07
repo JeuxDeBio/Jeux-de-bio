@@ -111,7 +111,6 @@ public class Modele extends Observable {
 
     private void lectureNiveaux() {
         listeNiveauxDragDrop.clear();
-        listeNiveauxShooter.clear();
         listeNiveauxCoureur.clear();
         listeNiveauxSpeedRun.clear();
 
@@ -121,22 +120,22 @@ public class Modele extends Observable {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                String nom = rs.getString("NOM");
-                //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, nom));
+                int ID = rs.getInt("ID");
+                listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, ID));
             }
 
             SQL = "SELECT * FROM NIVEAUCOUREUR";
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                String nom = rs.getString("NOM");
-                //listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, nom));
+                int ID = rs.getInt("ID");
+                //listeNiveauxCoureur.add(new Niveau(Jeu.COUREUR, ID));
             }
 
             SQL = "SELECT * FROM NIVEAUSPEEDRUN";
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                String nom = rs.getString("NOM");
-                //listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, nom));
+                int ID = rs.getInt("ID");
+                //listeNiveauxSpeedRun.add(new Niveau(Jeu.SPEED_RUN, ID));
             }
             stmt.close();
             rs.close();
@@ -162,7 +161,7 @@ public class Modele extends Observable {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
             String ligne = bufferedReader.readLine();
             while (ligne != null) {
-                listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, ligne));
+                //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, ligne));
                 ligne = bufferedReader.readLine();
             }
             bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Shooter\\listeNiveaux.txt"));
@@ -270,14 +269,14 @@ public class Modele extends Observable {
 
         try {
 
-            String SQL = "SELECT * FROM PROFESSEUR";
+            String SQL = "SELECT * FROM NUTIPERMIS";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
                 String nuPermis = rs.getString("NUPERMIS");
-                //listeNUAdmisProfesseurs.add(nuPermis);
+                listeNUAdmisProfesseurs.add(nuPermis);
             }
             stmt.close();
             rs.close();
@@ -790,7 +789,6 @@ public class Modele extends Observable {
     }
 
     public void calculerScoreCoureur(int i, int nombreBonneReponses) {
-        System.out.println(nombreBonneReponses + " " + listeNiveauxCoureur.get(i).getQuestionCoureur().size());
         double scoreDouble = ((double) (nombreBonneReponses) / listeNiveauxCoureur.get(i).getQuestionCoureur().size()) * 10000;
         int score = (int) scoreDouble / 100;
 
@@ -894,7 +892,7 @@ public class Modele extends Observable {
 
     private void updateNUPermis() {
         try {
-            String SQL = "SELECT * FROM NUPERMIS";
+            String SQL = "SELECT * FROM NUTIPERMIS";
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery(SQL);
@@ -967,45 +965,59 @@ public class Modele extends Observable {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery(SQL);
-            
-            
-            
+            while (rs.next()) {
+                System.out.println(ID);
+                if (rs.getInt("ID") == ID) {
+                    rs.deleteRow();
+                    System.out.println("deleted");
+                }
+            }
             rs.moveToInsertRow();
-            
+
             rs.updateString("NOM", nom);
             rs.updateString("LOCATIONIMAGE", locationImage);
             rs.updateString("LOCATIONIMAGECORRIGE", locationImageCorrigee);
             rs.updateString("GRANDEURIMAGE", taille);
             rs.updateString("INDEXQUESTION", index);
+            rs.updateInt("ID", ID);
 
-            
             rs.insertRow();
 
             stmt.close();
             rs.close();
 
-            SQL = "SELECT * FROM QUESTIONDRAGDROP";
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery(SQL);
             for (int i = 1; i <= listeBoites.size(); i++) {
-                rs.moveToInsertRow(); // pas insert
-                rs.updateString("INDEX", ID+"."+i);
-                rs.updateString("TEXTE",listeBoites.get(i-1).getReponse());
-                rs.updateInt("X",listeBoites.get(i-1).getPositionX());
-                rs.updateInt("Y",listeBoites.get(i-1).getPositionY());
-                rs.insertRow(); // pas insert
+                SQL = "SELECT * FROM QUESTIONDRAGDROP";
+                stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                rs = stmt.executeQuery(SQL);
+                String string = ID + ";" + i;
+                System.out.println(string);
+                while (rs.next()) {
+                    if (rs.getString("INDEX").equals(string)) {
+                        System.out.println("deleted");
+                        rs.deleteRow();
+                    }
+                }
+            }
+            for (int i = 1; i <= listeBoites.size(); i++) {
+                rs.moveToInsertRow();
+                rs.updateString("INDEX", ID + ";" + i);
+                rs.updateString("TEXTE", listeBoites.get(i - 1).getReponse());
+                rs.updateInt("X", listeBoites.get(i - 1).getPositionX());
+                rs.updateInt("Y", listeBoites.get(i - 1).getPositionY());
+                rs.insertRow();
             }
 
-                stmt.close();
-                rs.close();
+            stmt.close();
+            rs.close();
         } catch (SQLException err) {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
     }
-    
-    public int getIDNiveau(Jeu jeu, int a){
-        return 0;
+
+    public int getIDNiveau(Jeu jeu, int a) {
+        return listeNiveauxDragDrop.get(a).getID();
     }
 
     public void cederAdmin(Professeur professeur) {

@@ -20,7 +20,8 @@ public class Bouton extends JComponent {
     }
 
     public Bouton(Controleur controleur, int index, Jeu jeu) {
-        String[] split = controleur.getNomNiveau(jeu, index).split("!!");
+        System.out.println(index + " !!!!!!!!!!!!!!!!!!!!!!!");
+        String[] split = controleur.getNomNiveau(jeu, index).split("");
         for (int i = 0; i < split.length; i++) {
             JLabel lblTexteBouton = new JLabel(split[i], JLabel.CENTER);
             lblTexteBouton.setSize(130, 20);

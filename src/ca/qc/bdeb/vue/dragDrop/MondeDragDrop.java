@@ -94,6 +94,7 @@ public class MondeDragDrop extends JComponent {
         int index1, index2, temporaire;
 
         for (int i = 0; i < 10; i++) {
+            System.out.println(coordonnees.size());
             index1 = random.nextInt(coordonnees.size());
             index2 = random.nextInt(coordonnees.size());
             temporaire = index[index1];
