@@ -185,6 +185,12 @@ public class MondeStatistiquesEtudiant extends JComponent {
             }
         });
     }
+    
+    /**
+     * dependemment des notes de l'etudiant, return la couleur
+     * @param jeu le jeu choisi
+     * @return la couleur que la boîte doit afficher
+     */
 
     private Color getCouleurEtudiant(Jeu jeu) {
         Color couleur = Color.WHITE;

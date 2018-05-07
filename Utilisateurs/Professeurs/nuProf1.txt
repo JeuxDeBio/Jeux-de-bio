@@ -2,7 +2,7 @@ nuProf1
 mdpProf1
 Prof 1
 admin
-C:\Users\Niopo\Desktop\Jeux-de-bio\Jeux-de-bio\Utilisateurs\Icones\face.png
+H:\Projet Bio\Jeux-de-bio\Utilisateurs\Icones\abc.png
 Session 1
 Utilisateurs\Professeurs\nuProf1DAPermis.txt
 Utilisateurs\Professeurs\nuProf1a.txt

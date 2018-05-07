@@ -170,7 +170,7 @@ public class Modele extends Observable {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
-
+            
             while (rs.next()) {
                 String da = rs.getString("DA");
                 String mdp = rs.getString("MOTDEPASSE");
@@ -513,7 +513,7 @@ public class Modele extends Observable {
 
             stmt.close();
             rs.close();
-            
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
             System.out.println("fail");
@@ -526,7 +526,7 @@ public class Modele extends Observable {
         etudiant.setProfesseur(professeurNouveauEtudiant);
         professeurNouveauEtudiant.updateDAPermisEnleverEtudiant(etudiant);
     }
-    
+
     public void creerProfesseur(String nu, String mdp, String nom, String session) {
         listeNUAdmisProfesseurs.remove(nu);
         updateNUPermis = true;
@@ -686,7 +686,7 @@ public class Modele extends Observable {
     public String getLocationFlecheHaut() {
         return locationFlecheHaut;
     }
-    
+
     public String getLocationInformation(Jeu jeu, int i) {
         return listeNiveauxDragDrop.get(i).getLocationInformation();
     }
@@ -809,8 +809,8 @@ public class Modele extends Observable {
     public String getLogInErrorLog() {
         return logInErrorLog;
     }
-    
-    public String getMessageErreur(int i){
+
+    public String getMessageErreur(int i) {
         return listeMessagesErreurs.get(i);
     }
 
