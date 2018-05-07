@@ -107,7 +107,7 @@ public class MondeModificationDragDrop extends JComponent {
         locationImage = controleur.getLocationNiveau(Jeu.DRAG_DROP, a);
         locationImageCorrige = controleur.getLocationNiveauCorrige(Jeu.DRAG_DROP, a);
         tailleImage = controleur.getSizeImageDragDrop(a);
-        locationNiveau = modificationInformation(a);
+        //locationNiveau = modificationInformation(a);
 
         decalementX = (largeur - 20 - tailleImage[0]) / 2;
         decalementY = (hauteur - tailleImage[1]) / 2;
@@ -119,32 +119,33 @@ public class MondeModificationDragDrop extends JComponent {
         for (int i = 0; i < coordonnees.size(); i++) {
             if (reponses.size() == coordonnees.size()) {
                 BoiteReponseConstruction boite = new BoiteReponseConstruction(reponses.get(i));
-                boite.setPositionX(coordonnees.get(i)[0] + decalementX);
-                boite.setPositionY(coordonnees.get(i)[1] + decalementY);
+                boite.setPositionX(coordonnees.get(i)[0]);
+                boite.setPositionY(coordonnees.get(i)[1]);
                 this.add(boite);
                 listeBoites.add(boite);
                 boite.setLocation(boite.getPositionX(), boite.getPositionY());
             }
         }
-    }
+    }   
 
-    public String modificationInformation(int a) {
-        String s = controleur.getLocationInformation(Jeu.DRAG_DROP, a);
-        String vrai = "";
-        ArrayList<String> liste = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '\\') {
-                liste.add("\\");
-            }
-            vrai = s.charAt(i) + "";
-            liste.add(vrai);
-        }
-        vrai = "";
-        for (int i = 0; i < liste.size(); i++) {
-            vrai += liste.get(i);
-        }
-        return vrai;
-    }
+//    public String modificationInformation(int a) {
+//        String s = controleur.getLocationInformation(Jeu.DRAG_DROP, a);
+//        String vrai = "";
+//        ArrayList<String> liste = new ArrayList<>();
+//        System.out.println(s + "aaaaaaaaaaaaaaaaaaa");
+//        for (int i = 0; i < s.length(); i++) {
+//            if (s.charAt(i) == '\\') {
+//                liste.add("\\");
+//            }
+//            vrai = s.charAt(i) + "";
+//            liste.add(vrai);
+//        }
+//        vrai = "";
+//        for (int i = 0; i < liste.size(); i++) {
+//            vrai += liste.get(i);
+//        }
+//        return vrai;
+//    }
 
     public void creerEvenements() {
         for (BoiteReponseConstruction boite : listeBoites) {
