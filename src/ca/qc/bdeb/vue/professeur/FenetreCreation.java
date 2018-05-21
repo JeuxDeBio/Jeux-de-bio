@@ -38,7 +38,7 @@ public class FenetreCreation extends JFrame {
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuCreer = new JMenuItem("Étape suivante");
 
-    public FenetreCreation(Controleur controleur, Modele modele, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreCreationDragDrop fenetreCreationDragDrop) {
+        public FenetreCreation(Controleur controleur, Modele modele, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreCreationDragDrop fenetreCreationDragDrop) {
         this.controleur = controleur;
         this.modele = modele;
         this.fenetrePrincipale = fenetrePrincipale;

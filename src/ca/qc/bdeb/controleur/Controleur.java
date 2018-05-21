@@ -337,6 +337,9 @@ public class Controleur {
         modele.modifierNiveauDragDrop(nom, locationImage, locationImageCorrigee, taille, listeBoites, index,id);
         
     }
+    public void creerNiveauDragDrop(String titre,String lien1, String lien2, String largeur, String hauteur, ArrayList<BoiteReponseConstruction> liste){
+        modele.creerNiveauDragDrop(titre, lien1, lien2, largeur, hauteur, liste);
+    }
     
     public int getIdNiveau(Jeu jeu, int a){
         return modele.getIDNiveau(jeu, a);

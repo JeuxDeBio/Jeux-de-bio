@@ -305,7 +305,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     enJeu = true;
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "creer");
+                    fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                 }
             }
         });
@@ -317,7 +317,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     enJeu = true;
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "creer");
+                     fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                 }
             }
         });
@@ -329,7 +329,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     enJeu = true;
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.COUREUR, "creer");
+                    fenetre.ouvrirFenetreCreation(Jeu.COUREUR);
                 }
             }
         });
@@ -340,7 +340,7 @@ public class MondeProfesseur extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     enJeu = true;
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SPEED_RUN, "creer");
+                    fenetre.ouvrirFenetreCreation(Jeu.SPEED_RUN);
                 }
 
             }

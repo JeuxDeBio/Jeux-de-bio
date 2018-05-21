@@ -1,1 +1,10 @@
-11223344;a
+11223344;aInformation niveaux\\Coureur\\Niveau 1.txt;chien
+Information niveaux\\Coureur\\Niveau 2.txt;chien
+Information niveaux\\Coureur\\Niveau 3.txt;chien
+chien;chien
+Information niveaux\\Coureur\\Niveau 1.txt;chien
+Information niveaux\\Coureur\\Niveau 2.txt;chien
+Information niveaux\\Coureur\\Niveau 3.txt;chien
+Information niveaux\\Coureur\\Niveau 1.txt;chien
+Information niveaux\\Coureur\\Niveau 2.txt;chien
+Information niveaux\\Coureur\\Niveau 3.txt;chien

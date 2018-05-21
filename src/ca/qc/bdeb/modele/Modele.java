@@ -199,7 +199,7 @@ public class Modele extends Observable {
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
                 String nu = rs.getString("NU");
-                //listeProfesseurs.add( new Professeur(nu, this));
+                listeProfesseurs.add(new Professeur(nu, this));
             }
             stmt.close();
             rs.close();
@@ -210,18 +210,18 @@ public class Modele extends Observable {
 //        --------------
 //                ------------------
 //                -------------------
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
-            String ligne = bufferedReader.readLine();
-            while (ligne != null) {
-                listeProfesseurs.add(new Professeur(ligne, this));
-                ligne = bufferedReader.readLine();
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
+//            String ligne = bufferedReader.readLine();
+//            while (ligne != null) {
+//                listeProfesseurs.add(new Professeur(ligne, this));
+//                ligne = bufferedReader.readLine();
+//            }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void lectureEtudiants() {
@@ -243,6 +243,8 @@ public class Modele extends Observable {
                 String scoresCoureur = rs.getString("SCORESCOUREUR");
                 String scoresSpeedRun = rs.getString("SCORESSPEEDRUN");
                 listeEtudiants.add(new Etudiant(da, mdp, nom, locationIcone, scoresDragDrop, scoresCoureur, scoresSpeedRun));
+                System.out.println(da);
+                System.out.println(listeEtudiants.size());
             }
             stmt.close();
             rs.close();
@@ -289,19 +291,19 @@ public class Modele extends Observable {
 //                ------------------------
 //                ---------------------
 //                -----------------
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
-            String ligne = bufferedReader.readLine();
-            while (ligne != null) {
-                listeNUAdmisProfesseurs.add(ligne);
-                ligne = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
+//            String ligne = bufferedReader.readLine();
+//            while (ligne != null) {
+//                listeNUAdmisProfesseurs.add(ligne);
+//                ligne = bufferedReader.readLine();
+//            }
+//            bufferedReader.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void lectureMessagesErreurs() {////// a changer peut être si on ne les laisse pas dans des files
@@ -409,6 +411,7 @@ public class Modele extends Observable {
         for (int i = 0; i < listeProfesseurs.size(); i++) {
             for (int j = 0; j < listeProfesseurs.get(i).getListeGroupes().size(); j++) {
                 for (int k = 0; k < listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().size(); k++) {
+                    System.out.println(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa());
                     if (da.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getDa())) {
                         daInexistant = false;
                         if (motDePasse.equals(listeProfesseurs.get(i).getListeGroupes().get(j).getListeEtudiants().get(k).getMotDePasse())) {
@@ -844,7 +847,6 @@ public class Modele extends Observable {
 
     public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         groupe.enleverEtudiant(etudiant);
-        etudiant.deleteFichier();
         professeur.updateDAPermisEnleverEtudiant(etudiant);
     }
 
@@ -920,42 +922,102 @@ public class Modele extends Observable {
     }
 
     public void creerGroupe(ArrayList<String> liste) {
-        String informations = "Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + liste.get(0) + ".txt";
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-            for (int i = 0; i < liste.size(); i++) {
-                bufferedWriter.write(liste.get(i));
-                bufferedWriter.newLine();
+        String informations = professeur.getNomUtilisateur() + liste.get(0);
+        String etudiants = "";
+        for (int i = 1; i < liste.size(); i++) {
+            etudiants += liste.get(i);
+            if (i < liste.size() - 1) {
+                etudiants += ";";
             }
-            bufferedWriter.close();
-
-            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + "DAPermis.txt", true));
-
-            for (int i = 1; i < liste.size(); i++) {
-                bufferedWriter.write(liste.get(i) + ";" + liste.get(0));
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            String SQL = "SELECT * GROUPE";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            rs.moveToInsertRow();
+
+            rs.updateString("CODE", informations);
+            rs.updateString("LISTEETUDIANTS", etudiants);
+
+            rs.insertRow();
+
+            stmt.close();
+            rs.close();
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
+        }
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
+//            for (int i = 0; i < liste.size(); i++) {
+//                bufferedWriter.write(liste.get(i));
+//                bufferedWriter.newLine();
+//            }
+//            bufferedWriter.close();
+//
+//            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + "DAPermis.txt", true));
+//
+//            for (int i = 1; i < liste.size(); i++) {
+//                bufferedWriter.write(liste.get(i) + ";" + liste.get(0));
+//                bufferedWriter.newLine();
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         professeur.ajouterGroupe(informations);
     }
 
     public void enleverProfesseur(Professeur professeur) {
-        professeur.deleteFichier();
+        try {
+            String SQL = "SELECT * FROM PROFESSEUR";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                if (professeur.getNomUtilisateur().equals(rs.getString("NU"))) {
+                    rs.deleteRow();
+                }
+            }
+
+            stmt.close();
+            rs.close();
+
+            
+            SQL = "SELECT * FROM GROUPE";
+            con = DriverManager.getConnection(host, uName, uPass);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(SQL);
+            while(rs.next()){
+                String[] split = rs.getString("CODE").split(";");
+                if(split.equals(professeur.getNomUtilisateur())){
+                    rs.deleteRow();
+                    rs.first();
+                }
+            }
+            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
+        }
+
         listeProfesseurs.remove(professeur);
 
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
-            for (int i = 0; i < listeProfesseurs.size(); i++) {
-                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
+//            for (int i = 0; i < listeProfesseurs.size(); i++) {
+//                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
+//                bufferedWriter.newLine();
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException ex) {
+//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String taille, ArrayList<BoiteReponseConstruction> listeBoites, String index, int ID) {
@@ -1014,6 +1076,89 @@ public class Modele extends Observable {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
+    }
+
+    public void creerNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String largeur, String hauteur, ArrayList<BoiteReponseConstruction> listeBoites) {
+        try {
+            String taille = largeur + ";" + hauteur;
+            String index = "";
+            int ID = 0;
+            for (int i = 0; i < listeBoites.size(); i++) {
+                index += i + 1;
+                if (i != listeBoites.size() - 1) {
+                    index += ";";
+                }
+            }
+
+            String SQL = "SELECT * FROM NIVEAUDRAGDROP";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                if (rs.getInt("ID") > ID) {
+                    ID = rs.getInt("ID");
+                }
+            }
+            ID = ID + 1;
+
+            rs.moveToInsertRow();
+
+            rs.updateString("NOM", nom);
+            rs.updateString("LOCATIONIMAGE", locationImage);
+            rs.updateString("LOCATIONIMAGECORRIGE", locationImageCorrigee);
+            rs.updateString("GRANDEURIMAGE", taille);
+            rs.updateString("INDEXQUESTION", index);
+            rs.updateInt("ID", ID);
+
+            rs.insertRow();
+
+            stmt.close();
+            rs.close();
+
+            SQL = "SELECT * FROM QUESTIONDRAGDROP";
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(SQL);
+            for (int i = 1; i <= listeBoites.size(); i++) {
+                rs.moveToInsertRow();
+                rs.updateString("INDEX", ID + ";" + i);
+                rs.updateString("TEXTE", listeBoites.get(i - 1).getReponse());
+                rs.updateInt("X", listeBoites.get(i - 1).getPositionX());
+                rs.updateInt("Y", listeBoites.get(i - 1).getPositionY());
+                rs.insertRow();
+            }
+
+            stmt.close();
+            rs.close();
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+            System.out.println("fail");
+        }
+
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre + ".txt"));
+//            bufferedWriter.write(titre);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(lien1);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(lien2);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(largeur + ";" + hauteur);
+//            bufferedWriter.newLine();
+//            for (int i = 0; i < listeReponses.size(); i++) {
+//                bufferedWriter.write(listeReponses.get(i).getPositionX() + ";" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
+//                bufferedWriter.newLine();
+//            }
+//
+//            bufferedWriter.close();
+//
+//            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt", true));
+//            bufferedWriter.newLine();
+//            bufferedWriter.write("Information niveaux\\Drag & Drop\\" + titre + ".txt");
+//            bufferedWriter.close();
+//        } catch (IOException ex) {
+//
+//        }
     }
 
     public int getIDNiveau(Jeu jeu, int a) {

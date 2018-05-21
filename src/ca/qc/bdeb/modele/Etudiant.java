@@ -12,6 +12,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +38,11 @@ public class Etudiant {
     private boolean informationsModifies = false;
     private String locationIcone;
     private final TypeUtilisateur type = TypeUtilisateur.ETUDIANT;
+    
+    private String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
+    private String uName = "JeuxDeBio";
+    private String uPass = "mot_de_passe0";
+
 
     //    public Etudiant(String information) {
 //        this.information = information;
@@ -46,7 +56,6 @@ public class Etudiant {
         this.motDePasse = mdp;
 
         traitementInfos(scoresDragDrop, scoresCoureur, scoresSpeedRun);
-        System.out.println(da + mdp + nom);
 
     }
 
@@ -66,32 +75,32 @@ public class Etudiant {
     }
 
     private void lectureInformation() {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
-            String ligne = bufferedReader.readLine();
-            da = ligne;
-            ligne = bufferedReader.readLine();
-            motDePasse = ligne;
-            ligne = bufferedReader.readLine();
-            nom = ligne;
-            ligne = bufferedReader.readLine();
-            locationIcone = ligne;
-            ligne = bufferedReader.readLine();
-            int i = 0;
-            while (ligne != null) {
-                String[] split = ligne.split(";");
-                for (int j = 0; j < split.length; j++) {
-                    scores[i][j] = Integer.parseInt(split[j]);
-                }
-                i++;
-                ligne = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
+//            String ligne = bufferedReader.readLine();
+//            da = ligne;
+//            ligne = bufferedReader.readLine();
+//            motDePasse = ligne;
+//            ligne = bufferedReader.readLine();
+//            nom = ligne;
+//            ligne = bufferedReader.readLine();
+//            locationIcone = ligne;
+//            ligne = bufferedReader.readLine();
+//            int i = 0;
+//            while (ligne != null) {
+//                String[] split = ligne.split(";");
+//                for (int j = 0; j < split.length; j++) {
+//                    scores[i][j] = Integer.parseInt(split[j]);
+//                }
+//                i++;
+//                ligne = bufferedReader.readLine();
+//            }
+//            bufferedReader.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public String getDa() {
@@ -183,33 +192,53 @@ public class Etudiant {
             liste.add(ligne);
             ligne = "";
         }
-
+        
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
-            bufferedWriter.write(da);
-            bufferedWriter.newLine();
-            bufferedWriter.write(motDePasse);
-            bufferedWriter.newLine();
-            bufferedWriter.write(nom);
-            bufferedWriter.newLine();
-            bufferedWriter.write(locationIcone);
-            bufferedWriter.newLine();
+            String SQL = "SELECT * FROM ETUDIANT";
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                if (rs.getString("DA").equals(da)) {
+                    rs.updateString("MOTDEPASSE", motDePasse);
+                    rs.updateString("NOM", nom);
+                    rs.updateString("LOCATIONICONE", locationIcone);
+                    rs.updateString("SCORESDRAGDROP", liste.get(0));
+                    rs.updateString("SCORESCOUREUR", liste.get(1));
+                    rs.updateString("SCORESSPEEDRUN", liste.get(2));
+                }
 
-            for (String line : liste) {
-                bufferedWriter.write(line);
-                bufferedWriter.newLine();
             }
-
-            bufferedWriter.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+            stmt.close();
+            rs.close();
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
         }
+        
+        
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
+//            bufferedWriter.write(da);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(motDePasse);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(nom);
+//            bufferedWriter.newLine();
+//            bufferedWriter.write(locationIcone);
+//            bufferedWriter.newLine();
+//
+//            for (String line : liste) {
+//                bufferedWriter.write(line);
+//                bufferedWriter.newLine();
+//            }
+//
+//            bufferedWriter.close();
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    public void deleteFichier() {
-        File file = new File(information);
-        file.delete();
-    }
+    
 
 }
