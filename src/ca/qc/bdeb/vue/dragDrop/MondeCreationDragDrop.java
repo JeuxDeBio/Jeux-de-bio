@@ -159,7 +159,7 @@ public class MondeCreationDragDrop extends JComponent {
 
         } else {
             if (titreNiveau.getText() == null) {
-
+                
             }
             if (ImageTest == null) {
 

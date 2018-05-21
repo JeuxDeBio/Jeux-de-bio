@@ -19,14 +19,14 @@ import javax.swing.JMenuItem;
  * @author Niopo
  */
 public class FenetreCreationDragDrop extends JFrame {
-    
+
     private Controleur controleur;
     private FenetrePrincipale fenetrePrincipale;
-    
+
     private JMenuBar mnuBar = new JMenuBar();
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuCreer = new JMenuItem("Créer le niveau");
-    
+
     private MondeCreationJeuDragDrop monde;
 
     public FenetreCreationDragDrop(FenetrePrincipale fenetrePrincipale, String titre, String lien1, String lien2, String largeur, String hauteur, Controleur conroleur) {
@@ -52,12 +52,14 @@ public class FenetreCreationDragDrop extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 monde.creerNiveau(titre, lien1, lien2, largeur, hauteur);
+                controleur.refresh();
+                fermerFenetre();
             }
         });
     }
 
     public void fermerFenetre() {
         this.dispose();
-        
+
     }
 }

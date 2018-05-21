@@ -6,6 +6,7 @@
 package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
+import ca.qc.bdeb.modele.Jeu;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -175,30 +176,7 @@ public class MondeCreationJeuDragDrop extends JComponent {
 
     public void creerNiveau(String titre, String lien1, String lien2, String largeur, String hauteur) {
         listeReponses.remove(listeReponses.size() - 1);
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre + ".txt"));
-            bufferedWriter.write(titre);
-            bufferedWriter.newLine();
-            bufferedWriter.write(lien1);
-            bufferedWriter.newLine();
-            bufferedWriter.write(lien2);
-            bufferedWriter.newLine();
-            bufferedWriter.write(largeur + ";" + hauteur);
-            bufferedWriter.newLine();
-            for (int i = 0; i < listeReponses.size(); i++) {
-                bufferedWriter.write(listeReponses.get(i).getPositionX() + ";" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
-                bufferedWriter.newLine();
-            }
-
-            bufferedWriter.close();
-
-            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt", true));
-            bufferedWriter.newLine();
-            bufferedWriter.write("Information niveaux\\Drag & Drop\\" + titre + ".txt");
-            bufferedWriter.close();
-        } catch (IOException ex) {
-
-        }
+        controleur.creerNiveauDragDrop(titre,lien1,lien2, largeur, hauteur, listeReponses);
         controleur.refresh();
         fermerFenetre();
     }
