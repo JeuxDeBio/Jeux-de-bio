@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.coureur;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -13,7 +9,7 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class Joueur extends JComponent {
 
@@ -21,12 +17,12 @@ public class Joueur extends JComponent {
     private BoiteChoix choix;
     private boolean faitChoix = false;
     private int score = 0;
-    
+
     private Image image;
 
     public Joueur(Controleur controleur) {
         setSize(largeur, hauteur);
-        
+
         String location = "";
         if (controleur.logInEtudiant()) {
             location = controleur.getEtudiant().getLocationIcone();
@@ -37,6 +33,11 @@ public class Joueur extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(location);
     }
 
+    /**
+     * Mettre le choix fourni par l'utilisateur
+     *
+     * @param choix le choix de l'utilisateur
+     */
     public void setChoix(BoiteChoix choix) {
         this.choix = choix;
     }

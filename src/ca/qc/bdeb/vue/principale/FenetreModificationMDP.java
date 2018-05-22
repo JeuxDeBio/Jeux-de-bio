@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -34,9 +31,13 @@ public class FenetreModificationMDP extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         monde = new MondeModificationMDP(controleur, this);
         this.setTitle("Modification de mot de passe");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         this.setResizable(false);
         this.add(monde);
 
@@ -46,8 +47,8 @@ public class FenetreModificationMDP extends JFrame {
     public void errorLogSetText(String log) {
         lblErrorLog.setText(log);
     }
-    
-    public void fermerFenetre(){
+
+    public void fermerFenetre() {
         fenetre.fermerFenetreModificationMDP();
     }
 }

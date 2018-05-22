@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -61,6 +57,9 @@ public class MondeStatistiquesEtudiant extends JComponent {
         creerEvenementsProfesseur(etudiant);
     }
 
+    /**
+     * Cree l'interface graphique generale
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreStatistiquesEtudiant());
 
@@ -82,6 +81,10 @@ public class MondeStatistiquesEtudiant extends JComponent {
 
     }
 
+    /**
+     * Cree l'interface graphique pour lesindicateurs de couleur quand un
+     * etudiant appelle
+     */
     private void creerInterfaceEtudiant() {
         IndicateurCouleur indicateurDragDrop = new IndicateurCouleur(getCouleurEtudiant(Jeu.DRAG_DROP));
         indicateurDragDrop.setLocation(boutonDragDrop.getX() + (boutonDragDrop.getWidth() - indicateurDragDrop.getWidth()) / 2, boutonDragDrop.getY() + boutonDragDrop.getHeight() - indicateurDragDrop.getHeight() - 10);
@@ -100,6 +103,12 @@ public class MondeStatistiquesEtudiant extends JComponent {
         this.add(indicateurSpeedRun);
     }
 
+    /**
+     * Cree l'interface graphique pour les indicateurs de couleur quand un
+     * professeur appelle
+     *
+     * @param etudiant L'etudiant fourni
+     */
     private void creerInterfaceProfesseur(Etudiant etudiant) {
         IndicateurCouleur indicateurDragDrop = new IndicateurCouleur(getCouleurProfesseur(Jeu.DRAG_DROP, etudiant));
         indicateurDragDrop.setLocation(boutonDragDrop.getX() + (boutonDragDrop.getWidth() - indicateurDragDrop.getWidth()) / 2, boutonDragDrop.getY() + boutonDragDrop.getHeight() - indicateurDragDrop.getHeight() - 10);
@@ -118,6 +127,9 @@ public class MondeStatistiquesEtudiant extends JComponent {
         this.add(indicateurSpeedRun);
     }
 
+    /**
+     * Cree les evenements pour l'etudiant
+     */
     private void creerEvenementsEtudiant() {
         boutonDragDrop.addMouseListener(new MouseAdapter() {
             @Override
@@ -152,6 +164,11 @@ public class MondeStatistiquesEtudiant extends JComponent {
         });
     }
 
+    /**
+     * Cree les evenements pour le professeur
+     *
+     * @param etudiant l'etudiant fourni
+     */
     private void creerEvenementsProfesseur(Etudiant etudiant) {
         boutonDragDrop.addMouseListener(new MouseAdapter() {
             @Override

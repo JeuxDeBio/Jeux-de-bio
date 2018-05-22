@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import java.awt.Color;
@@ -11,6 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
+ * Boite de question
  *
  * @author Batikan
  */
@@ -23,6 +20,11 @@ public class BoiteQuestion extends JComponent {
 
     private String texte;
 
+    /**
+     * Constructeur pour un niveau de jeu
+     *
+     * @param texte le texte a afficher dans la boite
+     */
     public BoiteQuestion(String texte) {
         this.texte = texte;
         this.setSize(largeur, hauteur);
@@ -32,7 +34,10 @@ public class BoiteQuestion extends JComponent {
         this.add(lblQuestion);
     }
 
-    BoiteQuestion() {
+    /**
+     * Constructeur pour le niveau tutoriel
+     */
+    public BoiteQuestion() {
         largeur = 60;
         this.setSize(largeur, hauteur);
         lblQuestion.setText("^.^");
@@ -64,6 +69,11 @@ public class BoiteQuestion extends JComponent {
         occupe = false;
     }
 
+    /**
+     * Verifie si la boite de reponses contient un ronde de question
+     *
+     * @return si la boite de reponses contient un ronde de question
+     */
     public boolean occupe() {
         return occupe;
     }

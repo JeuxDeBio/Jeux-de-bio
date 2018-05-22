@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -24,7 +20,7 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeModificationIcone extends JComponent {
 
@@ -66,6 +62,9 @@ public class MondeModificationIcone extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreModificationIcone());
 
@@ -102,6 +101,9 @@ public class MondeModificationIcone extends JComponent {
 
     }
 
+    /**
+     * Cree les evenements pour le monde
+     */
     private void creerEvenements() {
         boutonSauvegarder.addMouseListener(new MouseAdapter() {
             @Override
@@ -126,6 +128,11 @@ public class MondeModificationIcone extends JComponent {
         });
     }
 
+    /**
+     * Cree les evenements pour chaque icone
+     *
+     * @param i
+     */
     private void creerEvenements(int i) {
         listeBoutons.get(i).addMouseListener(new MouseAdapter() {
             @Override

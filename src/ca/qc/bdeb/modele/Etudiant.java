@@ -1,29 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.modele;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * Classe etudiant
  *
- * @author Batikan
+ * @author Batikan & Nicolas
  */
 public class Etudiant {
 
@@ -38,17 +26,25 @@ public class Etudiant {
     private boolean informationsModifies = false;
     private String locationIcone;
     private final TypeUtilisateur type = TypeUtilisateur.ETUDIANT;
-    
+
     private String host = "jdbc:derby://localhost:1527/Jeux de bio DB";
     private String uName = "JeuxDeBio";
     private String uPass = "mot_de_passe0";
 
-
-    //    public Etudiant(String information) {
-//        this.information = information;
-//        lectureInformation();
-//    }
-
+    /**
+     * Le constructeur d'un etudiant
+     *
+     * @param da le DA de l'etudiant
+     * @param mdp le mot de passe de l'etudiant
+     * @param nom le nom de l'etudiant
+     * @param locationIcone le location de l'icone de l'etudiant
+     * @param scoresDragDrop les scores de l'etudiant pour Drag & Drop sous
+     * forme string
+     * @param scoresCoureur les scores de l'etudiant pour Coureur sous forme
+     * string
+     * @param scoresSpeedRun les scores de l'etudiant pour Speed Run sous forme
+     * string
+     */
     public Etudiant(String da, String mdp, String nom, String locationIcone, String scoresDragDrop, String scoresCoureur, String scoresSpeedRun) {
         this.da = da;
         this.locationIcone = locationIcone;
@@ -59,48 +55,30 @@ public class Etudiant {
 
     }
 
+    /**
+     * Convertit les scores de l'etudiant sous forme String et les place dans
+     * une matrice int[][]
+     *
+     * @param scoresDragDrop les scores de l'etudiant pour Drag & Drop sous
+     * forme string
+     * @param scoresCoureur les scores de l'etudiant pour Drag & Drop sous forme
+     * string
+     * @param scoresSpeedRun les scores de l'etudiant pour Drag & Drop sous
+     * forme string
+     */
     private void traitementInfos(String scoresDragDrop, String scoresCoureur, String scoresSpeedRun) {
         String[] split = scoresDragDrop.split(";");
         for (int j = 0; j < split.length; j++) {
-            scores[0][j] = Integer.parseInt(split[j]);   
+            scores[0][j] = Integer.parseInt(split[j]);
         }
         split = scoresCoureur.split(";");
         for (int j = 0; j < split.length; j++) {
-            scores[1][j] = Integer.parseInt(split[j]);   
+            scores[1][j] = Integer.parseInt(split[j]);
         }
         split = scoresSpeedRun.split(";");
         for (int j = 0; j < split.length; j++) {
-            scores[2][j] = Integer.parseInt(split[j]);   
+            scores[2][j] = Integer.parseInt(split[j]);
         }
-    }
-
-    private void lectureInformation() {
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
-//            String ligne = bufferedReader.readLine();
-//            da = ligne;
-//            ligne = bufferedReader.readLine();
-//            motDePasse = ligne;
-//            ligne = bufferedReader.readLine();
-//            nom = ligne;
-//            ligne = bufferedReader.readLine();
-//            locationIcone = ligne;
-//            ligne = bufferedReader.readLine();
-//            int i = 0;
-//            while (ligne != null) {
-//                String[] split = ligne.split(";");
-//                for (int j = 0; j < split.length; j++) {
-//                    scores[i][j] = Integer.parseInt(split[j]);
-//                }
-//                i++;
-//                ligne = bufferedReader.readLine();
-//            }
-//            bufferedReader.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     public String getDa() {
@@ -181,6 +159,10 @@ public class Etudiant {
         return scores;
     }
 
+    /**
+     * Convertit la matrice int[][] des scores en String et update les
+     * informations de l'etudiant
+     */
     public void updateFichierEtudiant() {
         ArrayList<String> liste = new ArrayList<>();
         String ligne = "";
@@ -192,7 +174,7 @@ public class Etudiant {
             liste.add(ligne);
             ligne = "";
         }
-        
+
         try {
             String SQL = "SELECT * FROM ETUDIANT";
             Connection con = DriverManager.getConnection(host, uName, uPass);
@@ -214,31 +196,5 @@ public class Etudiant {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-        
-        
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
-//            bufferedWriter.write(da);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(motDePasse);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(nom);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(locationIcone);
-//            bufferedWriter.newLine();
-//
-//            for (String line : liste) {
-//                bufferedWriter.write(line);
-//                bufferedWriter.newLine();
-//            }
-//
-//            bufferedWriter.close();
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
-
-    
-
 }

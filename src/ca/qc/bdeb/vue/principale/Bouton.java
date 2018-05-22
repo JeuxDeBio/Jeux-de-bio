@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc 
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -12,7 +8,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class Bouton extends JComponent {
 
@@ -20,7 +16,6 @@ public class Bouton extends JComponent {
     }
 
     public Bouton(Controleur controleur, int index, Jeu jeu) {
-        System.out.println(index + " !!!!!!!!!!!!!!!!!!!!!!!");
         String[] split = controleur.getNomNiveau(jeu, index).split("");
         for (int i = 0; i < split.length; i++) {
             JLabel lblTexteBouton = new JLabel(split[i], JLabel.CENTER);

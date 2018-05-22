@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.coureur;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -21,8 +17,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
+ * Creation d'un niveau de Coureur
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class MondeCreationCoureur extends JComponent {
 
@@ -51,6 +48,9 @@ public class MondeCreationCoureur extends JComponent {
         this.creerInterface();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     public void creerInterface() {
         /**
          * les réponses risques d'être trop longues ajouter un espace à droite
@@ -58,21 +58,24 @@ public class MondeCreationCoureur extends JComponent {
          *
          *
          */
-        if(!questionSpecifique){
-            
-        JListeQuestions.setPreferredSize(new Dimension(largeur - 60, hauteur - 100));
-        JListeQuestions.setLocation(50, 10);
-        add(JListeQuestions);
-        ajout.setPreferredSize(new Dimension(25, 25));
-        ajout.setLocation(largeur - 10 - (ajout.getWidth() / 2), hauteur - 75);
-        add(ajout);
-        poubelle.setPreferredSize(new Dimension(25, 25));
-        poubelle.setLocation(largeur + 10 + (ajout.getWidth() / 2), hauteur - 75);
-        add(poubelle);
+        if (!questionSpecifique) {
+
+            JListeQuestions.setPreferredSize(new Dimension(largeur - 60, hauteur - 100));
+            JListeQuestions.setLocation(50, 10);
+            add(JListeQuestions);
+            ajout.setPreferredSize(new Dimension(25, 25));
+            ajout.setLocation(largeur - 10 - (ajout.getWidth() / 2), hauteur - 75);
+            add(ajout);
+            poubelle.setPreferredSize(new Dimension(25, 25));
+            poubelle.setLocation(largeur + 10 + (ajout.getWidth() / 2), hauteur - 75);
+            add(poubelle);
         }
         creerEvenements();
     }
 
+    /**
+     * Cree les evenements
+     */
     public void creerEvenements() {
         ajout.addActionListener(new ActionListener() {
 
@@ -115,12 +118,15 @@ public class MondeCreationCoureur extends JComponent {
             boite.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent me) {
-                    
+
                 }
             });
         }
     }
 
+    /**
+     * Update l'interface graphique
+     */
     public void update() {
         int compteur = 0;
         modeleList.clear();

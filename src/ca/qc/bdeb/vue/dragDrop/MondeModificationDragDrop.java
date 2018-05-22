@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
-import ca.qc.bdeb.modele.Modele;
-import ca.qc.bdeb.vue.principale.FenetreJeu;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,21 +10,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetreModification;
 import java.awt.Graphics;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 /**
  *
- * @author 1649904
+ * @author Nicolas
  */
 public class MondeModificationDragDrop extends JComponent {
 
@@ -40,7 +29,7 @@ public class MondeModificationDragDrop extends JComponent {
     private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
     int decalementX = 0;
     int decalementY = 0;
-    int id =0;
+    int id = 0;
 
     private JButton poubelle = new JButton();
     private JButton plus = new JButton();
@@ -49,7 +38,6 @@ public class MondeModificationDragDrop extends JComponent {
     private String locationImage;
     private String locationImageCorrige;
     private int[] tailleImage = new int[2];
-    private String locationNiveau;
     private boolean peutCreerBoite = true;
 
     private ArrayList<BoiteReponseConstruction> listeBoites = new ArrayList<>();
@@ -93,6 +81,11 @@ public class MondeModificationDragDrop extends JComponent {
         this.thread.start();
     }
 
+    /**
+     * Cree l'interface graphique
+     *
+     * @param a l'identifiant du niveau a modifier
+     */
     public void creerInterface(int a) {
 
         poubelle.setLocation(largeur - 100, 20);
@@ -126,27 +119,11 @@ public class MondeModificationDragDrop extends JComponent {
                 boite.setLocation(boite.getPositionX(), boite.getPositionY());
             }
         }
-    }   
+    }
 
-//    public String modificationInformation(int a) {
-//        String s = controleur.getLocationInformation(Jeu.DRAG_DROP, a);
-//        String vrai = "";
-//        ArrayList<String> liste = new ArrayList<>();
-//        System.out.println(s + "aaaaaaaaaaaaaaaaaaa");
-//        for (int i = 0; i < s.length(); i++) {
-//            if (s.charAt(i) == '\\') {
-//                liste.add("\\");
-//            }
-//            vrai = s.charAt(i) + "";
-//            liste.add(vrai);
-//        }
-//        vrai = "";
-//        for (int i = 0; i < liste.size(); i++) {
-//            vrai += liste.get(i);
-//        }
-//        return vrai;
-//    }
-
+    /**
+     * Cree les evenements
+     */
     public void creerEvenements() {
         for (BoiteReponseConstruction boite : listeBoites) {
             boite.addMouseListener(new MouseAdapter() {
@@ -167,7 +144,7 @@ public class MondeModificationDragDrop extends JComponent {
                         if (boite.getBounds().intersects(poubelle.getBounds())) {
                             supprimerBoite(boite);
                         } else if (verification(boite)) {
-                            boite.setLocation(boite.getPositionX(),boite.getPositionY());
+                            boite.setLocation(boite.getPositionX(), boite.getPositionY());
                         } else if (!boite.getReponse().equals("")) {
                             String message = JOptionPane.showInputDialog(MondeModificationDragDrop.this, "Voici la réponse actuelle : "
                                     + boite.getReponse() + "\nLaisser la réponse vide conservera la réponse actuelle", "modification de la réponse", JOptionPane.INFORMATION_MESSAGE);
@@ -203,6 +180,12 @@ public class MondeModificationDragDrop extends JComponent {
         );
     }
 
+    /**
+     * Verifie si la boite fournie n'est pas en collision avec d'autres boites
+     *
+     * @param boite la boite
+     * @return si la boite fournie n'est pas en collision avec d'autres boites
+     */
     public boolean verification(BoiteReponseConstruction boite) {
         boolean mauvaiseBoite = false;
         ArrayList<BoiteReponseConstruction> liste = new ArrayList<>();
@@ -214,17 +197,26 @@ public class MondeModificationDragDrop extends JComponent {
             }
         }
         if (boite.getX() > (tailleImage[0] + decalementX + boite.getWidth()) || boite.getX() < decalementX || boite.getY() > (tailleImage[1] + decalementY + boite.getHeight()) || boite.getY() < decalementY) {
-            mauvaiseBoite =  true;
+            mauvaiseBoite = true;
         }
         return mauvaiseBoite;
     }
 
+    /**
+     * Valide que la reponse fournie est correcte
+     *
+     * @param boite de la reponse
+     * @param reponse la reponse fournie
+     */
     public void valider(BoiteReponseConstruction boite, String reponse) {
         boite.setPositionX(boite.getX());
         boite.setPositionY(boite.getY());
         boite.setReponse(reponse);;
     }
 
+    /**
+     * Cree une nouvelle boite apres l'emplacement de l'ancien
+     */
     public void nouvelleBoite() {
         BoiteReponseConstruction boite = new BoiteReponseConstruction("");
         boite.setLocation(this.largeur - 50, this.hauteur / 2);
@@ -245,13 +237,21 @@ public class MondeModificationDragDrop extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Modifie les informations du niveau
+     */
     public void modifierNiveau() {
         controleur.modifierNiveauDragDrop(nomNiveau, locationImage, locationImageCorrige, tailleImage, listeBoites, id);
-        
+
         controleur.refresh();
         fermerFenetre();
     }
 
+    /**
+     * Supprime la boite fournie
+     *
+     * @param boite la boite a supprimer
+     */
     public void supprimerBoite(BoiteReponseConstruction boite) {
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(MondeModificationDragDrop.this, "Voulez-vous vraiment supprimer cette boîte?", "Supprimer une boîte", 0)) {
 
@@ -266,6 +266,9 @@ public class MondeModificationDragDrop extends JComponent {
         }
     }
 
+    /**
+     * Update l'emplacements des boites
+     */
     public void bougerBoite() {
         try {
             for (BoiteReponseConstruction boite : listeBoites) {

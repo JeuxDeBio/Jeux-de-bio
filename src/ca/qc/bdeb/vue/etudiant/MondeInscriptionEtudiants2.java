@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -20,8 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
+ * 2e etape de l'inscription des etudiants
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeInscriptionEtudiants2 extends JComponent {
 
@@ -49,6 +46,9 @@ public class MondeInscriptionEtudiants2 extends JComponent {
         creerEvenements(da, motDePasse);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
 
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionEtudiants2());
@@ -73,6 +73,12 @@ public class MondeInscriptionEtudiants2 extends JComponent {
 
     }
 
+    /**
+     * Cree les evenements
+     *
+     * @param da le DA fourni
+     * @param motDePasse le mot de passe fourni
+     */
     private void creerEvenements(String da, String motDePasse) {
         boutonValidation.addMouseListener(new MouseAdapter() {
             @Override

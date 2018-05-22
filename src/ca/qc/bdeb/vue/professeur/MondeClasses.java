@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Groupe;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,7 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -28,7 +27,7 @@ import javax.swing.JSeparator;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeClasses extends JComponent {
 
@@ -71,6 +70,9 @@ public class MondeClasses extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreClasses());
 
@@ -106,6 +108,11 @@ public class MondeClasses extends JComponent {
         fenetre.setJMenuBar(mnuBar);
     }
 
+    /**
+     * Cree les evenements
+     *
+     * @param i l'identifiant du niveau
+     */
     private void creerEvenementsBoutons(int i) {
         listeBoutons.get(i).addMouseListener(new MouseAdapter() {
             @Override
@@ -115,10 +122,12 @@ public class MondeClasses extends JComponent {
                 MondeClasses.this.invalidate();
                 MondeClasses.this.repaint();
             }
-
         });
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
 
         mnuItemSelectionner.addActionListener(new ActionListener() {

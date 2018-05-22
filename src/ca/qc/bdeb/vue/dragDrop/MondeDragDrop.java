@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -21,8 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
+ * Jeu de Drag & Drop
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeDragDrop extends JComponent {
 
@@ -37,7 +34,7 @@ public class MondeDragDrop extends JComponent {
     private ArrayList<RondeQuestion> listeQuestions = new ArrayList<>();
     private ArrayList<BoiteReponse> listeReponses = new ArrayList<>();
 
-    private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()- 100;
+    private final int largeur = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20, hauteur = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
     private int[] sizeQuestion;
     private int decalementX, decalementY;
     private int nombreColonnes = 1;
@@ -75,6 +72,9 @@ public class MondeDragDrop extends JComponent {
         this.thread.start();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         imageQuestion = Toolkit.getDefaultToolkit().getImage(controleur.getLocationNiveau(Jeu.DRAG_DROP, fenetre.getNiveauID()));
         sizeQuestion = controleur.getSizeImageDragDrop(fenetre.getNiveauID());
@@ -134,6 +134,9 @@ public class MondeDragDrop extends JComponent {
 
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         for (RondeQuestion question : listeQuestions) {
             for (BoiteReponse reponse : listeReponses) {
@@ -172,6 +175,9 @@ public class MondeDragDrop extends JComponent {
         }
     }
 
+    /**
+     * Update le timer
+     */
     private void timer() {
         if (timer % 100 == 0) {
             compteur++;
@@ -184,6 +190,9 @@ public class MondeDragDrop extends JComponent {
         timer++;
     }
 
+    /**
+     * Update les placements des boites questions
+     */
     private void bougerQuestions() {
         for (RondeQuestion question : listeQuestions) {
             try {
@@ -210,6 +219,9 @@ public class MondeDragDrop extends JComponent {
 
     }
 
+    /**
+     * Verifie si les boites reponses contiennent les correctes boites questions
+     */
     private void verification() {
         for (RondeQuestion question : listeQuestions) {
             for (BoiteReponse reponse : listeReponses) {
@@ -224,6 +236,9 @@ public class MondeDragDrop extends JComponent {
         }
     }
 
+    /**
+     * Valide les points
+     */
     public void validationPoints() {
         ArrayList<RondeQuestion> listeQuestionsPasRepondus = new ArrayList<>();
         String motsClesManquants = "";

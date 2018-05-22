@@ -1,32 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.tutorial;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+
 import javax.swing.JComponent;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class ImageTitre extends JComponent {
-
-    private Controleur controleur;
 
     private Image image;
 
     private final int largeur = 250, hauteur = 50;
 
     public ImageTitre(Controleur controleur, Jeu jeu) {
-        this.controleur = controleur;
-
         String locationImage = "";
 
         switch (jeu) {

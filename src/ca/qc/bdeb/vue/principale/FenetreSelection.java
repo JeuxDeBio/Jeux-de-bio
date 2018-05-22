@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Modele;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetreSelection extends JFrame {
 
@@ -44,10 +41,16 @@ public class FenetreSelection extends JFrame {
 
     }
 
+    /**
+     * Cree l'interface graphique
+     *
+     * @param action le type de selection (jeu ou modification de niveau)
+     */
     private void creerInterface(String action) {
         this.monde = new MondeSelection(modele, controleur, this, jeu, action);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setTitle("Sélection de niveaux");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         this.setResizable(false);
         this.add(monde);
     }
@@ -56,6 +59,11 @@ public class FenetreSelection extends JFrame {
         fenetrePrincipale.fermerFenetreSelection();
     }
 
+    /**
+     * Ouvre un niveau de jeu
+     * @param i l'identifiant du niveau
+     * @param action le type de selection
+     */
     public void ouvrirFenetreJeu(int i, String action) {
         if (action.equals("jouer")) {
             this.fenetreJeu = new FenetreJeu(jeu, this, fenetrePrincipale, controleur, modele, i);

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -19,7 +15,7 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 class MondeSelection extends JComponent {
 
@@ -47,6 +43,11 @@ class MondeSelection extends JComponent {
         creerInterface(action);
     }
 
+    /**
+     * Cree l'interface graphique
+     *
+     * @param action le type de selection (jeu ou modification niveau)
+     */
     private void creerInterface(String action) {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreSelection());
 
@@ -110,6 +111,12 @@ class MondeSelection extends JComponent {
 
     }
 
+    /**
+     * Cree les evenements
+     *
+     * @param i l'identifiant du niveau
+     * @param action le type de selection
+     */
     private void creerEvenements(int i, String action) {
         listeNiveaux.get(i).addMouseListener(new MouseAdapter() {
             @Override

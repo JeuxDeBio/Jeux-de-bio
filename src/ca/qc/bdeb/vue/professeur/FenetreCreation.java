@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.vue.dragDrop.MondeCreationDragDrop;
@@ -12,6 +8,7 @@ import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.coureur.MondeCreationCoureur;
 import ca.qc.bdeb.vue.dragDrop.FenetreCreationDragDrop;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -21,7 +18,7 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class FenetreCreation extends JFrame {
 
@@ -38,7 +35,7 @@ public class FenetreCreation extends JFrame {
     private JMenu mnuJeu = new JMenu("Jeu");
     private JMenuItem mnuCreer = new JMenuItem("Étape suivante");
 
-        public FenetreCreation(Controleur controleur, Modele modele, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreCreationDragDrop fenetreCreationDragDrop) {
+    public FenetreCreation(Controleur controleur, Modele modele, FenetrePrincipale fenetrePrincipale, Jeu jeu, FenetreCreationDragDrop fenetreCreationDragDrop) {
         this.controleur = controleur;
         this.modele = modele;
         this.fenetrePrincipale = fenetrePrincipale;
@@ -51,7 +48,13 @@ public class FenetreCreation extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     public void creerInterface() {
+
+        this.setTitle("Creation");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
 
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);

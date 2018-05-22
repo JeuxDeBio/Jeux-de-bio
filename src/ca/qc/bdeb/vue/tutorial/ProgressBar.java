@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DES SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.tutorial;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 import java.util.ArrayList;
+
 import javax.swing.JComponent;
 
 /**
@@ -37,6 +35,11 @@ public class ProgressBar extends JComponent {
         this.setSize(largeur, hauteur);
     }
 
+    /**
+     * Montre l'etape du tutoriel
+     *
+     * @param indice l'indice de l'etape
+     */
     public void setCase(int indice) {
         for (int i = 0; i < listeCases.size(); i++) {
             listeCases.get(i).pasAffiche();

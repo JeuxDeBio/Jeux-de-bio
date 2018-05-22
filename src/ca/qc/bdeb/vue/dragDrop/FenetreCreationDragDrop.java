@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLE GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -16,7 +12,7 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class FenetreCreationDragDrop extends JFrame {
 
@@ -38,11 +34,20 @@ public class FenetreCreationDragDrop extends JFrame {
         this.setVisible(true);
     }
 
-    public void creerInterface(String titre, String lien1, String lien2, String largeur, String hauteur) {
+    /**
+     * Cree l'interface graphique
+     *
+     * @param titre le titre du niveau
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrige le location del'imae du corrige
+     * @param largeur le largeur de l'image
+     * @param hauteur la hauteur de l'image
+     */
+    public void creerInterface(String titre, String locationImage, String locationImageCorrige, String largeur, String hauteur) {
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
 
-        monde = new MondeCreationJeuDragDrop(titre, lien1, lien2, largeur, hauteur, this, controleur);
+        monde = new MondeCreationJeuDragDrop(titre, locationImage, locationImageCorrige, largeur, hauteur, this, controleur);
         this.add(monde);
         mnuJeu.add(mnuCreer);
         mnuBar.add(mnuJeu);
@@ -51,7 +56,7 @@ public class FenetreCreationDragDrop extends JFrame {
         mnuCreer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                monde.creerNiveau(titre, lien1, lien2, largeur, hauteur);
+                monde.creerNiveau(titre, locationImage, locationImageCorrige, largeur, hauteur);
                 controleur.refresh();
                 fermerFenetre();
             }
@@ -60,6 +65,5 @@ public class FenetreCreationDragDrop extends JFrame {
 
     public void fermerFenetre() {
         this.dispose();
-
     }
 }

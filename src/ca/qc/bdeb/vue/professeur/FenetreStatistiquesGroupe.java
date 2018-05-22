@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetreStatistiquesGroupe extends JFrame {
 
@@ -29,6 +26,8 @@ public class FenetreStatistiquesGroupe extends JFrame {
         this.groupe = groupe;
 
         this.setTitle("Statistiques du " + groupe.getCode());
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
+
         monde = new MondeStatistiquesGroupe(controleur, this, groupe);
         this.add(monde);
 

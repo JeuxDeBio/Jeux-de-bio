@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -54,7 +50,7 @@ public class MondeStatistiquesJeu extends JComponent {
         creerInterfaceEtudiant();
         creerEvenements();
     }
-    
+
     public MondeStatistiquesJeu(Controleur controleur, FenetreStatistiqueEtudiant fenetre, Jeu jeu, Etudiant etudiant) {
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.setLayout(null);
@@ -68,6 +64,9 @@ public class MondeStatistiquesJeu extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique generale
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreStatistiquesJeu());
 
@@ -99,6 +98,9 @@ public class MondeStatistiquesJeu extends JComponent {
         this.add(lblNomJeu);
     }
 
+    /**
+     * Cree l'interface graphique pour l'etudiant
+     */
     private void creerInterfaceEtudiant() {
         for (int i = 0; i < controleur.getEtudiant().getScores()[indexJeu].length; i++) {
             JLabel lblNiveau = new JLabel("Niveau " + (i + 1) + ": " + controleur.getEtudiant().getScores()[indexJeu][i] + " points", JLabel.CENTER);
@@ -118,6 +120,11 @@ public class MondeStatistiquesJeu extends JComponent {
         }
     }
 
+    /**
+     * Cree l'interface graphique pour le professeur
+     *
+     * @param etudiant l'etudiant fourni
+     */
     private void creerInterfaceProfesseur(Etudiant etudiant) {
         for (int i = 0; i < etudiant.getScores()[indexJeu].length; i++) {
             JLabel lblNiveau = new JLabel("Niveau " + (i + 1) + ": " + etudiant.getScores()[indexJeu][i] + " points", JLabel.CENTER);
@@ -137,6 +144,9 @@ public class MondeStatistiquesJeu extends JComponent {
         }
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         boutonQuitter.addMouseListener(new MouseAdapter() {
             @Override

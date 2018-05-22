@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.tutorial;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -10,15 +6,17 @@ import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.dragDrop.BoiteReponse;
 import ca.qc.bdeb.vue.dragDrop.RondeQuestion;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
+
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeDragDropTutorial extends JComponent {
 
@@ -76,6 +74,9 @@ public class MondeDragDropTutorial extends JComponent {
         this.thread.start();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         imageTitre = new ImageTitre(controleur, Jeu.DRAG_DROP);
         imageTitre.setLocation(125, 10);
@@ -101,6 +102,9 @@ public class MondeDragDropTutorial extends JComponent {
         this.add(lblDirections);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         rondeQuestion.addMouseListener(new MouseAdapter() {
             @Override
@@ -136,6 +140,9 @@ public class MondeDragDropTutorial extends JComponent {
 
     }
 
+    /**
+     * Update l'emplacement des boites de question
+     */
     private void bougerQuestions() {
         try {
             if (rondeQuestion.hold()) {
@@ -163,6 +170,9 @@ public class MondeDragDropTutorial extends JComponent {
         }
     }
 
+    /**
+     * Detecte les collisions entre les boites de reponse et de question
+     */
     private void verification() {
         if (boiteReponse.getBounds().intersects(rondeQuestion.getBounds()) && !boiteReponse.estOccupe()) {
             rondeQuestion.holdFalse();

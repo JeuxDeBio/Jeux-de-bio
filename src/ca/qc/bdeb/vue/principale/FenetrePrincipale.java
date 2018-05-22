@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.vue.etudiant.FenetreStatistiqueEtudiant;
@@ -17,6 +13,7 @@ import ca.qc.bdeb.vue.professeur.FenetreCreation;
 import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.professeur.FenetreAjoutClasse;
 import ca.qc.bdeb.vue.professeur.FenetreClasses;
+
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -24,11 +21,15 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetrePrincipale extends JFrame implements Observer {
 
@@ -68,13 +69,11 @@ public class FenetrePrincipale extends JFrame implements Observer {
                 super.windowClosing(we); //To change body of generated methods, choose Tools | Templates.
                 fermerApp();
             }
-
         });
 
         this.pack();
-        //this.setIconImage(Toolkit.getDefaultToolkit().getImage( location de l'image va ici));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         this.setVisible(true);
-
     }
 
     @Override
@@ -89,10 +88,13 @@ public class FenetrePrincipale extends JFrame implements Observer {
         }
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         this.mondePrincipale = new MondePrincipale(modele, controleur, this);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        this.setTitle("Jeux de bio!");
+        this.setTitle("BioloJeux!");
         this.setResizable(false);
         this.add(mondePrincipale);
 
@@ -146,33 +148,43 @@ public class FenetrePrincipale extends JFrame implements Observer {
 
     public void fermerFenetreSelection() {
         this.fenetreSelection.dispose();
+        finJeu();
     }
 
     public void fermerFenetreModificationMDP() {
         fenetreModificationMDP.dispose();
+        finJeu();
     }
 
     public void fermerFenetreInscription() {
         fenetreInscription.dispose();
+        finJeu();
     }
 
     public void fermerFenetreAjoutClasses() {
         fenetreAjoutClasse.dispose();
+        finJeu();
     }
 
     public void fermerFenetreModificationIcone() {
         fenetreModificationIcone.dispose();
         updateFenetre();
+        finJeu();
     }
 
     public void fermerFenetreClasses() {
         fenetreClasses.dispose();
+        finJeu();
     }
 
     public void fermerFenetreTutorial() {
         fenetreJeu.dispose();
+        finJeu();
     }
 
+    /**
+     * Log in d'un etudiant
+     */
     public void logInEtudiant() {
         this.mondePrincipale.reset();
         this.remove(mondePrincipale);
@@ -185,6 +197,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.logIn = true;
     }
 
+    /**
+     * Log in d'un professeur
+     */
     public void logInProfesseur() {
         this.mondePrincipale.reset();
         this.remove(mondePrincipale);
@@ -197,6 +212,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.logIn = true;
     }
 
+    /**
+     * Log out d'un etudiant
+     */
     public void logOutEtudiant() {
         this.setJMenuBar(null);
         this.remove(mondeEtudiant);
@@ -208,6 +226,9 @@ public class FenetrePrincipale extends JFrame implements Observer {
         this.logIn = false;
     }
 
+    /**
+     * Log out d'un professeur
+     */
     public void logOutProfesseur() {
         this.setJMenuBar(null);
         this.remove(mondeProfesseur);

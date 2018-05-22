@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -11,6 +7,7 @@ import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.principale.Icone;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetrePrincipale;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -29,7 +27,7 @@ import javax.swing.JSeparator;
 
 /**
  *
- * @author 1651114
+ * @author Nicolas
  */
 public class MondeProfesseur extends JComponent {
 
@@ -48,11 +46,9 @@ public class MondeProfesseur extends JComponent {
     private Icone icone;
 
     private Bouton boutonMdDragDrop = new Bouton();
-    private Bouton boutonMdShooter = new Bouton();
     private Bouton boutonMdCoureur = new Bouton();
     private Bouton boutonMdSpeedRun = new Bouton();
     private Bouton boutonCrDragDrop = new Bouton();
-    private Bouton boutonCrShooter = new Bouton();
     private Bouton boutonCrCoureur = new Bouton();
     private Bouton boutonCrSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
@@ -72,7 +68,6 @@ public class MondeProfesseur extends JComponent {
     private JMenuItem mnuItemIcon = new JMenuItem("Modifiez votre icon!");
     private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
     private JMenuItem mnuItemDragDrop = new JMenuItem("Apprenez plus sur le jeu Drag & Drop!");
-    private JMenuItem mnuItemShooter = new JMenuItem("Apprenez plus sur le jeu Shooter!");
     private JMenuItem mnuItemCoureur = new JMenuItem("Apprenez plus sur le jeu Coureur!");
     private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
@@ -101,6 +96,9 @@ public class MondeProfesseur extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreProfesseur());
 
@@ -136,15 +134,11 @@ public class MondeProfesseur extends JComponent {
         boutonMdDragDrop.setSize(147, 74);
         this.add(boutonMdDragDrop);
 
-        boutonMdShooter.setLocation(26, 290);
-        boutonMdShooter.setSize(147, 74);
-        this.add(boutonMdShooter);
-
-        boutonMdCoureur.setLocation(26, 385);
+        boutonMdCoureur.setLocation(26, 290);
         boutonMdCoureur.setSize(147, 74);
         this.add(boutonMdCoureur);
 
-        boutonMdSpeedRun.setLocation(26, 479);
+        boutonMdSpeedRun.setLocation(26, 385);
         boutonMdSpeedRun.setSize(147, 74);
         this.add(boutonMdSpeedRun);
 
@@ -152,15 +146,11 @@ public class MondeProfesseur extends JComponent {
         boutonCrDragDrop.setSize(147, 74);
         this.add(boutonCrDragDrop);
 
-        boutonCrShooter.setLocation(627, 290);
-        boutonCrShooter.setSize(147, 74);
-        this.add(boutonCrShooter);
-
-        boutonCrCoureur.setLocation(627, 385);
+        boutonCrCoureur.setLocation(627, 290);
         boutonCrCoureur.setSize(147, 74);
         this.add(boutonCrCoureur);
 
-        boutonCrSpeedRun.setLocation(627, 479);
+        boutonCrSpeedRun.setLocation(627, 385);
         boutonCrSpeedRun.setSize(147, 74);
         this.add(boutonCrSpeedRun);
 
@@ -200,7 +190,6 @@ public class MondeProfesseur extends JComponent {
         mnuClasses.add(mnuItemCreerGroupe);
 
         mnuInformations.add(mnuItemDragDrop);
-        mnuInformations.add(mnuItemShooter);
         mnuInformations.add(mnuItemCoureur);
         mnuInformations.add(mnuItemSpeedRun);
         mnuInformations.add(new JSeparator());
@@ -247,6 +236,9 @@ public class MondeProfesseur extends JComponent {
         fenetre.addMenuBar(mnuBar);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
 
         boutonMdDragDrop.addMouseListener(new MouseAdapter() {
@@ -259,18 +251,6 @@ public class MondeProfesseur extends JComponent {
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, "modifier");
                 }
 
-            }
-        });
-
-        boutonMdShooter.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                if (!enJeu) {
-                    enJeu = true;
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, "modifier");
-                }
             }
         });
 
@@ -306,18 +286,6 @@ public class MondeProfesseur extends JComponent {
                 if (!enJeu) {
                     enJeu = true;
                     fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
-                }
-            }
-        });
-
-        boutonCrShooter.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                if (!enJeu) {
-                    enJeu = true;
-                     fenetre.ouvrirFenetreCreation(Jeu.DRAG_DROP);
                 }
             }
         });
@@ -428,13 +396,6 @@ public class MondeProfesseur extends JComponent {
             }
         });
 
-        mnuItemShooter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
-            }
-        });
-
         mnuItemCoureur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -498,8 +459,8 @@ public class MondeProfesseur extends JComponent {
             }
         });
     }
-    
-     public void finJeu(){
+
+    public void finJeu() {
         this.enJeu = false;
     }
 

@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetreModificationIcone extends JFrame {
 
@@ -32,13 +29,20 @@ public class FenetreModificationIcone extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         this.setTitle("Modification de l'icône");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         this.setResizable(false);
         mondeModification = new MondeModificationIcone(controleur, this);
         this.add(mondeModification);
     }
 
+    /**
+     * Met le monde de visualisation des icones
+     */
     public void ajouterMondeVisualisation() {
         this.setTitle("Voir toutes les icônes");
         this.remove(mondeModification);
@@ -49,6 +53,9 @@ public class FenetreModificationIcone extends JFrame {
         repaint();
     }
 
+    /**
+     * Met le monde de modification des icones
+     */
     public void ajouterMondeModification() {
         this.setTitle("Modification de l'icône");
         this.remove(mondeVisualisation);

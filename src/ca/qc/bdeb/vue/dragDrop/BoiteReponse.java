@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import java.awt.Color;
@@ -22,9 +18,9 @@ public class BoiteReponse extends JComponent {
     private boolean bonneReponse = false;
 
     private RondeQuestion question;
-    
+
     private String texte;
-    
+
     private Color couleur = Color.RED;
 
     public BoiteReponse(String texte) {
@@ -53,6 +49,11 @@ public class BoiteReponse extends JComponent {
         return estOccupe;
     }
 
+    /**
+     * Set le ronde question de la boite
+     *
+     * @param question le ronde question qui occupe la boite
+     */
     public void occupeTrue(RondeQuestion question) {
         this.estOccupe = true;
         this.question = question;
@@ -81,9 +82,14 @@ public class BoiteReponse extends JComponent {
 
     public void verification() {
         this.bonneReponse = (question != null) && (question.getBoite().getTexte().equals(this.texte));
-        
+
     }
 
+    /**
+     * Verifie si le ronde question est le bon
+     *
+     * @return si le ronde question est le bon
+     */
     public boolean bonneReponse() {
         return bonneReponse;
     }
@@ -91,8 +97,11 @@ public class BoiteReponse extends JComponent {
     public RondeQuestion getQuestion() {
         return question;
     }
-    
-    public void changerCouleurVert(){
+
+    /**
+     * Change la couleur de la boite verte
+     */
+    public void changerCouleurVert() {
         this.couleur = Color.GREEN;
         invalidate();
         repaint();
