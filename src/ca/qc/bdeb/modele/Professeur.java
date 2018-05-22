@@ -1,25 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.modele;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,8 +23,6 @@ public class Professeur {
     private String locationIcone;
     private String session;
 
-    private String listeDaPermis;
-
     private ArrayList<String> listeDAPermis = new ArrayList<>();
     private ArrayList<Groupe> listeDAPermisGroupe = new ArrayList<>();
     private ArrayList<Groupe> listeGroupes = new ArrayList<>();
@@ -52,11 +37,6 @@ public class Professeur {
 
     private boolean estAdmin = false;
 
-//    public Professeur(String information, Modele modele) {
-//        this.information = information;
-//        this.modele = modele;
-//        lectureInformation();
-//    }
     public Professeur(String nomUtilisateur, Modele modele) {
         this.nomUtilisateur = nomUtilisateur;
         this.modele = modele;
@@ -67,6 +47,9 @@ public class Professeur {
         creerFichiers(nu, mdp, nom, session);
     }
 
+    /**
+     * Lit les donnees de la base de donnees
+     */
     private void lectureInformation() {
         try {
 
@@ -96,47 +79,12 @@ public class Professeur {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-//        --------------
-//                --------------------------
-//                ------------------------
-//                ---------------------
-//                ----------------------------
-//
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
-//            String ligne = bufferedReader.readLine();
-//            nomUtilisateur = ligne;
-//            ligne = bufferedReader.readLine();
-//            motDePasse = ligne;
-//            ligne = bufferedReader.readLine();
-//            nom = ligne;
-//            ligne = bufferedReader.readLine();
-//            if (ligne.equals("admin")) {
-//                estAdmin = true;
-//                type = TypeUtilisateur.ADMIN;
-//            }
-//            ligne = bufferedReader.readLine();
-//            locationIcone = ligne;
-//            ligne = bufferedReader.readLine();
-//            session = ligne;
-//            ligne = bufferedReader.readLine();
-//            listeDaPermis = ligne;
-//            ligne = bufferedReader.readLine();
-//            while (ligne != null) {
-//                listeGroupes.add(new Groupe(ligne, modele, this));
-//                ligne = bufferedReader.readLine();
-//            }
-//            bufferedReader.close();
-//
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
         lectureDAPermis();
     }
 
+    /**
+     * Lit les DA permis pour le professeur
+     */
     private void lectureDAPermis() {
         try {
 
@@ -153,34 +101,6 @@ public class Professeur {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-//        --------------------
-//                --------------------------
-//                -----------------------
-//                --------------------------
-//                
-//                
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new FileReader(information));
-//            String ligne = bufferedReader.readLine();
-//            while (ligne != null) {
-//                String[] split = ligne.split(";");
-//                listeDAPermis.add(split[0]);
-//                for (int i = 0; i < listeGroupes.size(); i++) {
-//                    if (listeGroupes.get(i).getCode().equals(split[1])) {
-//                        listeDAPermisGroupe.add(listeGroupes.get(i));
-//                        System.out.println(listeGroupes.get(i));
-//                    }
-//                }
-//                ligne = bufferedReader.readLine();
-//            }
-//
-//            bufferedReader.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     public String getNomUtilisateur() {
@@ -215,6 +135,12 @@ public class Professeur {
         return listeGroupes;
     }
 
+    /**
+     * Verifie si le DA fourni est permis par le professeur
+     *
+     * @param da le DA fourni
+     * @return si le DA fourni est permis
+     */
     public boolean etudiantPermis(String da) {
         boolean etudiantPermis = false;
         for (int i = 0; i < listeDAPermis.size(); i++) {
@@ -239,6 +165,11 @@ public class Professeur {
         informationsModifies = true;
     }
 
+    /**
+     * Ajouter le groupe fourni parmi les groupes du professeur
+     *
+     * @param information Fichier texte du nouveau groupe
+     */
     public void ajouterGroupe(String information) {
         Groupe groupe = new Groupe(information, modele, this);
         listeGroupes.add(groupe);
@@ -279,50 +210,9 @@ public class Professeur {
             con = DriverManager.getConnection(host, uName, uPass);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(SQL);
-
-//            String stringDaPermis = "";
-//            for (int i = 0; i < listeDAPermis.size(); i++) {
-//                rs.updateString("LISTEGRPOUPES", stringGroupe);
-//            rs.insertRow();
-//            }
-//            rs.updateString("LISTEGRPOUPES", stringGroupe);
-//            rs.updateRow();
-//
-//            stmt.close();
-//            rs.close();
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(information));
-//            bufferedWriter.write(nomUtilisateur);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(motDePasse);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(nom);
-//            bufferedWriter.newLine();
-//            if (estAdmin) {
-//                bufferedWriter.write("admin");
-//            } else {
-//                bufferedWriter.write("professeur");
-//            }
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(locationIcone);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(session);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(listeDaPermis);
-//            bufferedWriter.newLine();
-//
-//            for (Groupe groupe : listeGroupes) {
-//                bufferedWriter.write(groupe.getInformation());
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     public boolean informationsModifies() {
@@ -388,39 +278,14 @@ public class Professeur {
             System.out.println(err.getMessage());
         }
 
-//        
-//        ------------------
-//                ---------------------
-//                -------------------
-//                ---------------------
-//                
-        listeDaPermis = "Utilisateurs\\Professeurs\\" + nu + "DAPermis.txt";
         information = "Utilisateurs\\Professeurs\\" + nu + ".txt";
-
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(listeDaPermis));
-//            bufferedWriter.close();
-//
-//            bufferedWriter = new BufferedWriter(new FileWriter(information));
-//            bufferedWriter.write(nu);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(mdp);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(nom);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write("professeur");
-//            bufferedWriter.newLine();
-//            bufferedWriter.write("C:\\Users\\batik\\Desktop\\Jeux-de-bio\\Utilisateurs\\Icones\\iconeVierge.png");
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(session);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(listeDaPermis);
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
+    /**
+     * Enlever l'etudiant de la liste de DA permis
+     *
+     * @param etudiant l'etudiant a enlever
+     */
     public void updateDAPermisEnleverEtudiant(Etudiant etudiant) {
         try {
             String SQL = "SELECT * FROM DAPERMIS";
@@ -447,20 +312,13 @@ public class Professeur {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-        //////////// FAIT
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(listeDaPermis));
-//            for (int i = 0; i < listeDAPermis.size(); i++) {
-//                bufferedWriter.write(listeDAPermis.get(i) + ";" + listeDAPermisGroupe.get(i).getCode());
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
+    /**
+     * Enlever groupe fourni
+     *
+     * @param groupe le groupe a enlever
+     */
     public void updateInformationsEnleverGroupe(Groupe groupe) {
         listeGroupes.remove(groupe);
 
@@ -519,23 +377,6 @@ public class Professeur {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-//        ----------------------
-//                -----------------------
-//                ----------------------
-//                ------------------
-//                ---------------
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(listeDaPermis));
-//            for (int i = 0; i < listeDAPermis.size(); i++) {
-//                bufferedWriter.write(listeDAPermis.get(i) + ";" + listeDAPermisGroupe.get(i).getCode());
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
         updateFichierProfesseur();
     }
 

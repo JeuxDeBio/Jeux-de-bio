@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -18,7 +14,7 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeVisualisationIcone extends JComponent {
 
@@ -42,6 +38,9 @@ public class MondeVisualisationIcone extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         largeur = ((10 + 82) * facteur) + 10;
         hauteur = (10 + 99) * (((controleur.getListeIcones().size() - 1) / facteur) + 1) + 10;
@@ -60,6 +59,9 @@ public class MondeVisualisationIcone extends JComponent {
         }
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         mnuItemModifier.addActionListener(new ActionListener() {
 

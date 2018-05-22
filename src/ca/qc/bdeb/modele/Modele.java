@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.modele;
 
 import ca.qc.bdeb.vue.dragDrop.BoiteReponseConstruction;
 import ca.qc.bdeb.vue.principale.Icone;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,7 +24,6 @@ import java.util.logging.Logger;
  */
 public class Modele extends Observable {
 
-    private final String locationListeProfesseurs = "Utilisateurs\\listeProfesseurs.txt";
     private final String locationMessagesErreurs = "Utilisateurs\\listeMessagesErreurs.txt";
 
     private final String locationFenetrePrincipale = "Ecrans\\Principale\\FenetrePrincipale.png";
@@ -62,6 +55,8 @@ public class Modele extends Observable {
     private final String locationFlecheDroite = "Ecrans\\Tutorial\\FlecheDroite.png";
     private final String locationFlecheHaut = "Ecrans\\Tutorial\\FlecheHaut.png";
     private final String locationFlecheBas = "Ecrans\\Tutorial\\FlecheBas.png";
+
+    private final String locationIconeApplication = "Ecrans\\Principale\\Icon.png";
 
     ArrayList<Niveau> listeNiveauxDragDrop = new ArrayList<>();
     ArrayList<Niveau> listeNiveauxShooter = new ArrayList<>();
@@ -100,6 +95,9 @@ public class Modele extends Observable {
         lecture();
     }
 
+    /**
+     * La lecture de la base de donnees
+     */
     private void lecture() {
         lectureEtudiants();
         lectureProfesseurs();
@@ -109,6 +107,9 @@ public class Modele extends Observable {
         lectureMessagesErreurs();
     }
 
+    /**
+     * Lit l'information sur les niveaux
+     */
     private void lectureNiveaux() {
         listeNiveauxDragDrop.clear();
         listeNiveauxCoureur.clear();
@@ -144,24 +145,10 @@ public class Modele extends Observable {
             System.out.println(err.getMessage());
         }
 
-//        
-//        -------------------
-//                ---------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
-//                -------------------------------
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Drag & Drop\\listeNiveaux.txt"));
             String ligne = bufferedReader.readLine();
             while (ligne != null) {
-                //listeNiveauxDragDrop.add(new Niveau(Jeu.DRAG_DROP, ligne));
                 ligne = bufferedReader.readLine();
             }
             bufferedReader = new BufferedReader(new FileReader("Information niveaux\\Shooter\\listeNiveaux.txt"));
@@ -189,6 +176,9 @@ public class Modele extends Observable {
         }
     }
 
+    /**
+     * Lit l'information sur les professeurs
+     */
     private void lectureProfesseurs() {
         listeProfesseurs.clear();
 
@@ -206,24 +196,11 @@ public class Modele extends Observable {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-//        --------------
-//                ------------------
-//                -------------------
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new FileReader(locationListeProfesseurs));
-//            String ligne = bufferedReader.readLine();
-//            while (ligne != null) {
-//                listeProfesseurs.add(new Professeur(ligne, this));
-//                ligne = bufferedReader.readLine();
-//            }
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
+    /**
+     * Lit l'information sur les etudiants
+     */
     private void lectureEtudiants() {
         listeEtudiants.clear();
 
@@ -255,6 +232,9 @@ public class Modele extends Observable {
 
     }
 
+    /**
+     * Lit l'information sur les icones
+     */
     private void lectureIcones() {
         listeIcones.clear();
 
@@ -266,6 +246,9 @@ public class Modele extends Observable {
         }
     }
 
+    /**
+     * Lit les noms d'utilisateur authentifies
+     */
     private void lectureNUAdmisProfesseurs() {
         listeNUAdmisProfesseurs.clear();
 
@@ -286,27 +269,12 @@ public class Modele extends Observable {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-
-//        ----------------
-//                ------------------------
-//                ---------------------
-//                -----------------
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new FileReader("Utilisateurs\\Professeurs\\NUPermis.txt"));
-//            String ligne = bufferedReader.readLine();
-//            while (ligne != null) {
-//                listeNUAdmisProfesseurs.add(ligne);
-//                ligne = bufferedReader.readLine();
-//            }
-//            bufferedReader.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
-    private void lectureMessagesErreurs() {////// a changer peut être si on ne les laisse pas dans des files
+    /**
+     * Lit les messages d'erreurs
+     */
+    private void lectureMessagesErreurs() {
         listeMessagesErreurs.clear();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(locationMessagesErreurs));
@@ -399,6 +367,12 @@ public class Modele extends Observable {
         return locationFenetreAjoutClasses;
     }
 
+    /**
+     * Valide l'identite de l'etudiant
+     *
+     * @param da le DA fourni par l'utilisateur
+     * @param motdepasse le mot de passe fourni par l'utilisateur
+     */
     public void validerEtudiant(String da, char[] motdepasse) {
         String motDePasse = "";
         for (int i = 0; i < motdepasse.length; i++) {
@@ -449,6 +423,12 @@ public class Modele extends Observable {
         this.etudiant = null;
     }
 
+    /**
+     * Valide l'identite du professeur
+     *
+     * @param nomUtilisateur le nom d'utilisateur fourni par l'utiliasteur
+     * @param motdepasse le mot de passe fourni par l'utilisateur
+     */
     public void validerProfesseur(String nomUtilisateur, char[] motdepasse) {
         String motDePasse = "";
         for (int i = 0; i < motdepasse.length; i++) {
@@ -486,6 +466,12 @@ public class Modele extends Observable {
         this.professeur = null;
     }
 
+    /**
+     * Verifie si le DA fourni par l'utilisateur est permis par un professeur
+     *
+     * @param da le DA
+     * @return si le DA est permis
+     */
     public boolean etudiantPermis(String da) {
         boolean etudiantPermis = false;
         for (int i = 0; i < listeProfesseurs.size(); i++) {
@@ -498,6 +484,12 @@ public class Modele extends Observable {
         return etudiantPermis;
     }
 
+    /**
+     * Verifie si le DA est deja enregistre
+     *
+     * @param da le DA
+     * @return si le DA est deja enregistre
+     */
     public boolean etudiantExisteDeja(String da) {
         boolean etudiantExisteDeja = false;
         for (int i = 0; i < listeEtudiants.size(); i++) {
@@ -516,6 +508,12 @@ public class Modele extends Observable {
         return groupeNouveauEtudiant.getCode();
     }
 
+    /**
+     * Verifie si le nom d'utilisateur fourni est authentifie par un admin
+     *
+     * @param nu le nom d'utilisateur
+     * @return si le nom d'utilisateur est authentifie
+     */
     public boolean professeurPermis(String nu) {
         boolean professeurPermis = false;
         for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
@@ -527,6 +525,12 @@ public class Modele extends Observable {
         return professeurPermis;
     }
 
+    /**
+     * Verifie si le nom d'utilisateur est deja enregistre
+     *
+     * @param nu le nom d'utilisateur
+     * @return si le nom d'utilisateur est deja enregistre
+     */
     public boolean professeurExisteDeja(String nu) {
         boolean professeurExisteDeja = false;
         for (int i = 0; i < listeProfesseurs.size(); i++) {
@@ -538,6 +542,12 @@ public class Modele extends Observable {
         return professeurExisteDeja;
     }
 
+    /**
+     * Verifie si le nom d'utilisateur fourni par l'admin est deja authentifie
+     *
+     * @param nu le nom d'utilisateur
+     * @return si le nom d'utilisateur est authentifie
+     */
     public boolean professeurDejaAuthentifie(String nu) {
         boolean professeurDejaAuthentifie = false;
         for (int i = 0; i < listeNUAdmisProfesseurs.size(); i++) {
@@ -549,6 +559,13 @@ public class Modele extends Observable {
         return professeurDejaAuthentifie;
     }
 
+    /**
+     * Cree l'etudiant avec les donnees fournies par l'utilisateur
+     *
+     * @param da le DA
+     * @param mdp le mot de passe
+     * @param nom le nom
+     */
     public void creerEtudiant(String da, String mdp, String nom) {
         String locationIcone = "Utilisateurs\\Icones\\iconeVierge.png";
         String ligneScores = "0;0;0;0;0;0;0;0;0;0";
@@ -586,6 +603,14 @@ public class Modele extends Observable {
         professeurNouveauEtudiant.updateDAPermisEnleverEtudiant(etudiant);
     }
 
+    /**
+     * Cree un professeur avec les donnees fournies par l'utilisateur
+     *
+     * @param nu le nom d'utiliateur
+     * @param mdp le mot de passe
+     * @param nom le nom
+     * @param session la session
+     */
     public void creerProfesseur(String nu, String mdp, String nom, String session) {
         listeNUAdmisProfesseurs.remove(nu);
         updateNUPermis = true;
@@ -762,6 +787,10 @@ public class Modele extends Observable {
         return locationFlecheHaut;
     }
 
+    public String getLocationIconeApplication() {
+        return locationIconeApplication;
+    }
+
     public String getLocationInformation(Jeu jeu, int i) {
         return listeNiveauxDragDrop.get(i).getLocationInformation();
     }
@@ -770,6 +799,12 @@ public class Modele extends Observable {
         return locationFlecheBas;
     }
 
+    /**
+     * Calcule le score d'un niveau Drag & Drop
+     *
+     * @param i l'identifiant du niveau
+     * @param nombreErreurs le nombre d'erreurs
+     */
     public void calculerScoreDragDrop(int i, int nombreErreurs) {
         double scoreDouble = ((double) (listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size() - nombreErreurs) / listeNiveauxDragDrop.get(i).getQuestionsDragDrop().size()) * 10000;
         int score = (int) scoreDouble / 100;
@@ -781,16 +816,12 @@ public class Modele extends Observable {
         }
     }
 
-    public void calculerScoreShooter(int i, int nombreBots) {
-        int score = nombreBots * 5;
-
-        if (logInEtudiant) {
-            etudiant.setScore(Jeu.SHOOTER, i, score);
-        } else {
-            listeNiveauxShooter.get(i).setScore(score);
-        }
-    }
-
+    /**
+     * Calcule le score d'un niveau Coureur
+     *
+     * @param i l'identifiant du niveau
+     * @param nombreBonneReponses nombre de bonnes reponses
+     */
     public void calculerScoreCoureur(int i, int nombreBonneReponses) {
         double scoreDouble = ((double) (nombreBonneReponses) / listeNiveauxCoureur.get(i).getQuestionCoureur().size()) * 10000;
         int score = (int) scoreDouble / 100;
@@ -802,6 +833,12 @@ public class Modele extends Observable {
         }
     }
 
+    /**
+     * Calcule le score d'un niveau Speed Run
+     *
+     * @param i l'identifiant du niveau
+     * @param joueurScore le score du joueur
+     */
     public void calculerScoreSpeedRun(int i, int joueurScore) {
         double scoreDouble = ((double) (joueurScore) / ((listeNiveauxSpeedRun.get(i).getQuestionsSpeedRun().size()) / 3)) * 10000;
         int score = (int) scoreDouble / 100;
@@ -845,15 +882,29 @@ public class Modele extends Observable {
         professeur.setMotDePasse(nouveauMDP);
     }
 
+    /**
+     * Enleve l'etudiant du groupe fournis par le professeur
+     *
+     * @param groupe le groupe de l'etudiant a enlever
+     * @param etudiant l'etudiant a enlever
+     */
     public void enleverEtudiant(Groupe groupe, Etudiant etudiant) {
         groupe.enleverEtudiant(etudiant);
         professeur.updateDAPermisEnleverEtudiant(etudiant);
     }
 
+    /**
+     * Enleve le groupe fourni par le professeur
+     *
+     * @param groupe le groupe a enlever
+     */
     public void enleverGroupe(Groupe groupe) {
         professeur.updateInformationsEnleverGroupe(groupe);
     }
 
+    /**
+     * Fermer l'application
+     */
     public void fermerApp() {
         for (int i = 0; i < listeProfesseurs.size(); i++) {
             if (listeProfesseurs.get(i).informationsModifies()) {
@@ -887,6 +938,11 @@ public class Modele extends Observable {
         return listeMessagesErreurs.get(i);
     }
 
+    /**
+     * Authentifier un nom d'utilisateur
+     *
+     * @param nuAdmis le nom d'utilisateur authentifie
+     */
     public void ajouterProfesseurNUAdmis(String nuAdmis) {
         listeNUAdmisProfesseurs.add(nuAdmis);
         updateNUPermis = true;
@@ -921,6 +977,12 @@ public class Modele extends Observable {
 
     }
 
+    /**
+     * Cree un groupe avec les donnees fournies
+     *
+     * @param liste le code du groupe (liste.get(0)) et la liste des etudiants
+     * permis dans ce groupe
+     */
     public void creerGroupe(ArrayList<String> liste) {
         String informations = professeur.getNomUtilisateur() + liste.get(0);
         String etudiants = "";
@@ -950,28 +1012,14 @@ public class Modele extends Observable {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(informations));
-//            for (int i = 0; i < liste.size(); i++) {
-//                bufferedWriter.write(liste.get(i));
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//
-//            bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\Professeurs\\" + professeur.getNomUtilisateur() + "DAPermis.txt", true));
-//
-//            for (int i = 1; i < liste.size(); i++) {
-//                bufferedWriter.write(liste.get(i) + ";" + liste.get(0));
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
         professeur.ajouterGroupe(informations);
     }
 
+    /**
+     * Enleve le professeur fourni par l'admin
+     *
+     * @param professeur le professeur a enlever
+     */
     public void enleverProfesseur(Professeur professeur) {
         try {
             String SQL = "SELECT * FROM PROFESSEUR";
@@ -988,38 +1036,37 @@ public class Modele extends Observable {
             stmt.close();
             rs.close();
 
-            
             SQL = "SELECT * FROM GROUPE";
             con = DriverManager.getConnection(host, uName, uPass);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(SQL);
-            while(rs.next()){
+            while (rs.next()) {
                 String[] split = rs.getString("CODE").split(";");
-                if(split.equals(professeur.getNomUtilisateur())){
+                if (split.equals(professeur.getNomUtilisateur())) {
                     rs.deleteRow();
                     rs.first();
                 }
             }
-            
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
 
         listeProfesseurs.remove(professeur);
-
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Utilisateurs\\listeProfesseurs.txt"));
-//            for (int i = 0; i < listeProfesseurs.size(); i++) {
-//                bufferedWriter.write(listeProfesseurs.get(i).getInformation());
-//                bufferedWriter.newLine();
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Modele.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
+    /**
+     * Modifie un niveau Drag & Drop
+     *
+     * @param nom le nom
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrigee le location de l'image du corrige
+     * @param taille la taille (width et height) de l'image
+     * @param listeBoites la liste des Boites des reponses
+     * @param index l'index
+     * @param ID l'identifiant du niveau
+     */
     public void modifierNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String taille, ArrayList<BoiteReponseConstruction> listeBoites, String index, int ID) {
 
         try {
@@ -1078,6 +1125,16 @@ public class Modele extends Observable {
         }
     }
 
+    /**
+     * Cree un niveau Drag & Drop
+     *
+     * @param nom le nom du niveau
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrigee le location de l'image du corrige
+     * @param largeur le largeur de l'image
+     * @param hauteur la hauteur de l'image
+     * @param listeBoites la liste des Boites de reponse
+     */
     public void creerNiveauDragDrop(String nom, String locationImage, String locationImageCorrigee, String largeur, String hauteur, ArrayList<BoiteReponseConstruction> listeBoites) {
         try {
             String taille = largeur + ";" + hauteur;
@@ -1134,37 +1191,17 @@ public class Modele extends Observable {
             System.out.println(err.getMessage());
             System.out.println("fail");
         }
-
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\" + titre + ".txt"));
-//            bufferedWriter.write(titre);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(lien1);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(lien2);
-//            bufferedWriter.newLine();
-//            bufferedWriter.write(largeur + ";" + hauteur);
-//            bufferedWriter.newLine();
-//            for (int i = 0; i < listeReponses.size(); i++) {
-//                bufferedWriter.write(listeReponses.get(i).getPositionX() + ";" + listeReponses.get(i).getPositionY() + ":" + listeReponses.get(i).getReponse());
-//                bufferedWriter.newLine();
-//            }
-//
-//            bufferedWriter.close();
-//
-//            bufferedWriter = new BufferedWriter(new FileWriter("Information niveaux\\Drag & Drop\\listeNiveaux.txt", true));
-//            bufferedWriter.newLine();
-//            bufferedWriter.write("Information niveaux\\Drag & Drop\\" + titre + ".txt");
-//            bufferedWriter.close();
-//        } catch (IOException ex) {
-//
-//        }
     }
 
     public int getIDNiveau(Jeu jeu, int a) {
         return listeNiveauxDragDrop.get(a).getID();
     }
 
+    /**
+     * Mettre le professeur fourni l'admin
+     *
+     * @param professeur a mettre admin
+     */
     public void cederAdmin(Professeur professeur) {
         professeur.setAdmin();
         this.professeur.enleverAdmin();

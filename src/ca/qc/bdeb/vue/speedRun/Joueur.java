@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.speedRun;
 
 import ca.qc.bdeb.controleur.Controleur;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+
 import java.util.ArrayList;
+
 import javax.swing.JComponent;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class Joueur extends JComponent {
 
@@ -43,6 +42,11 @@ public class Joueur extends JComponent {
         image = Toolkit.getDefaultToolkit().getImage(location);
     }
 
+    /**
+     * Update le nombre de coeurs
+     *
+     * @return le nombre de coeurs
+     */
     private int updateCoeurs() {
         int coeurWidth = 0;
 

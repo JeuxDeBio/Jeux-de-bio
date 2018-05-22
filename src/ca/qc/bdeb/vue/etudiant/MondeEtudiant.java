@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -28,7 +24,7 @@ import javax.swing.JSeparator;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeEtudiant extends JComponent {
 
@@ -46,12 +42,10 @@ public class MondeEtudiant extends JComponent {
     private JLabel lblProf = new JLabel();
 
     private Bouton boutonDragDrop = new Bouton();
-    private Bouton boutonShooter = new Bouton();
     private Bouton boutonCoureur = new Bouton();
     private Bouton boutonSpeedRun = new Bouton();
     private Bouton boutonLogOut = new Bouton();
     private Bouton boutonDragDropTutorial = new Bouton();
-    private Bouton boutonShooterTutorial = new Bouton();
     private Bouton boutonCoureurTutorial = new Bouton();
     private Bouton boutonSpeedRunTutorial = new Bouton();
     private Bouton boutonActualiser = new Bouton();
@@ -66,7 +60,6 @@ public class MondeEtudiant extends JComponent {
     private JMenuItem mnuItemMDP = new JMenuItem("Modifiez votre mot de passe!");
     private JMenuItem mnuItemStatistiques = new JMenuItem("Visionnez vos statistiques!");
     private JMenuItem mnuItemDragDrop = new JMenuItem("Apprenez plus sur le jeu Drag & Drop!");
-    private JMenuItem mnuItemShooter = new JMenuItem("Apprenez plus sur le jeu Shooter!");
     private JMenuItem mnuItemCoureur = new JMenuItem("Apprenez plus sur le jeu Coureur!");
     private JMenuItem mnuItemSpeedRun = new JMenuItem("Apprenez plus sur le jeu Speed Run!");
     private JMenuItem mnuItemRemerciements = new JMenuItem("Apprenez plus sur les personnes impliquées!");
@@ -84,6 +77,9 @@ public class MondeEtudiant extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreEtudiant());
 
@@ -101,29 +97,28 @@ public class MondeEtudiant extends JComponent {
         lblDA.setSize(190, 20);
         this.add(lblDA);
 
-        //     lblGroupe.setText(controleur.getEtudiant().getGroupe().getCode());
-        lblGroupe.setLocation(283, 277);
-        lblGroupe.setSize(190, 20);
-        this.add(lblGroupe);
+        try {
+            lblGroupe.setText(controleur.getEtudiant().getGroupe().getCode());
+            lblGroupe.setLocation(283, 277);
+            lblGroupe.setSize(190, 20);
+            this.add(lblGroupe);
 
-//       lblProf.setText(controleur.getEtudiant().getProfesseur().getNom() + "");
-        lblProf.setLocation(314, 301);
-        lblProf.setSize(190, 20);
-        this.add(lblProf);
+            lblProf.setText(controleur.getEtudiant().getProfesseur().getNom());
+            lblProf.setLocation(314, 301);
+            lblProf.setSize(190, 20);
+            this.add(lblProf);
+        } catch (NullPointerException e) {
+        }
 
         boutonDragDrop.setLocation(26, 194);
         boutonDragDrop.setSize(147, 74);
         this.add(boutonDragDrop);
 
-        boutonShooter.setLocation(26, 290);
-        boutonShooter.setSize(147, 74);
-        this.add(boutonShooter);
-
-        boutonCoureur.setLocation(26, 385);
+        boutonCoureur.setLocation(26, 290);
         boutonCoureur.setSize(147, 74);
         this.add(boutonCoureur);
 
-        boutonSpeedRun.setLocation(26, 479);
+        boutonSpeedRun.setLocation(26, 385);
         boutonSpeedRun.setSize(147, 74);
         this.add(boutonSpeedRun);
 
@@ -131,15 +126,11 @@ public class MondeEtudiant extends JComponent {
         boutonDragDropTutorial.setSize(147, 74);
         this.add(boutonDragDropTutorial);
 
-        boutonShooterTutorial.setLocation(627, 290);
-        boutonShooterTutorial.setSize(147, 74);
-        this.add(boutonShooterTutorial);
-
-        boutonCoureurTutorial.setLocation(627, 385);
+        boutonCoureurTutorial.setLocation(627, 290);
         boutonCoureurTutorial.setSize(147, 74);
         this.add(boutonCoureurTutorial);
 
-        boutonSpeedRunTutorial.setLocation(627, 479);
+        boutonSpeedRunTutorial.setLocation(627, 385);
         boutonSpeedRunTutorial.setSize(147, 74);
         this.add(boutonSpeedRunTutorial);
 
@@ -158,7 +149,6 @@ public class MondeEtudiant extends JComponent {
         mnuStatistiques.add(mnuItemStatistiques);
 
         mnuInformations.add(mnuItemDragDrop);
-        mnuInformations.add(mnuItemShooter);
         mnuInformations.add(mnuItemCoureur);
         mnuInformations.add(mnuItemSpeedRun);
         mnuInformations.add(new JSeparator());
@@ -171,6 +161,9 @@ public class MondeEtudiant extends JComponent {
         fenetre.addMenuBar(mnuBar);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         String action = "jouer";
 
@@ -180,20 +173,6 @@ public class MondeEtudiant extends JComponent {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 if (!enJeu) {
                     fenetre.ouvrirFenetreSelectionJeu(Jeu.DRAG_DROP, action);
-                    enJeu = true;
-                }
-
-            }
-        });
-
-        boutonShooter.addMouseListener(new MouseAdapter() {
-            String action = "jouer";
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, action);
                     enJeu = true;
                 }
 
@@ -251,17 +230,6 @@ public class MondeEtudiant extends JComponent {
                 }
             }
 
-        });
-
-        boutonShooterTutorial.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                if (!enJeu) {
-                    fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
-                    enJeu = true;
-                }
-            }
         });
 
         boutonCoureurTutorial.addMouseListener(new MouseAdapter() {
@@ -326,16 +294,6 @@ public class MondeEtudiant extends JComponent {
             }
         });
 
-        mnuItemShooter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!enJeu) {
-                    fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
-                    enJeu = true;
-                }
-            }
-        });
-
         mnuItemCoureur.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -377,9 +335,6 @@ public class MondeEtudiant extends JComponent {
             }
 
         });
-
-        //shit ton d'autres evenements (pour les menuItems) pour PLUS TARD (comme la fin de semaine ou la semaine prochaine jsp)
-        //autres menus a ajouter plus tard
     }
 
     public void finJeu() {

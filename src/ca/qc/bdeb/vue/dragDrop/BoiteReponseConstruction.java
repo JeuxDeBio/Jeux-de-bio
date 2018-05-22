@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import java.awt.Color;
@@ -12,7 +8,7 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class BoiteReponseConstruction extends JComponent {
 
@@ -57,8 +53,8 @@ public class BoiteReponseConstruction extends JComponent {
     public String getReponse() {
         return reponse;
     }
-    
-    public void setReponse(String reponse){
+
+    public void setReponse(String reponse) {
         this.reponse = reponse;
     }
 

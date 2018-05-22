@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -10,6 +6,7 @@ import ca.qc.bdeb.modele.Etudiant;
 import ca.qc.bdeb.modele.Groupe;
 import ca.qc.bdeb.vue.etudiant.FenetreStatistiqueEtudiant;
 import ca.qc.bdeb.vue.principale.Bouton;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,13 +14,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeStatistiquesGroupe extends JComponent {
 
@@ -58,6 +57,9 @@ public class MondeStatistiquesGroupe extends JComponent {
         creerInterface();
     }
 
+    /**
+     * Cree l'inerface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreStatistiquesGroupe());
 
@@ -85,6 +87,11 @@ public class MondeStatistiquesGroupe extends JComponent {
         this.add(lblNombreEtudiants);
     }
 
+    /**
+     * Cree les evenements pour chaque bouton
+     *
+     * @param i l'identificant du bouton
+     */
     private void creerEvenements(int i) {
         listeBoutons.get(i).addMouseListener(new MouseAdapter() {
             @Override

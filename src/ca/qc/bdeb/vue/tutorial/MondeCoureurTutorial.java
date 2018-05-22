@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.tutorial;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -10,15 +6,19 @@ import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.vue.coureur.BoiteChoix;
 import ca.qc.bdeb.vue.coureur.Joueur;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
+
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import java.util.ArrayList;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
+ * Niveau tutoriel du jeu Coureur
  *
  * @author Batikan
  */
@@ -101,6 +101,9 @@ public class MondeCoureurTutorial extends JComponent {
         this.thread.start();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         imageTitre = new ImageTitre(controleur, Jeu.COUREUR);
         imageTitre.setLocation((largeur - imageTitre.getWidth()) / 2, 10);
@@ -115,6 +118,9 @@ public class MondeCoureurTutorial extends JComponent {
         this.add(joueur);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         joueur.addKeyListener(new KeyAdapter() {
             @Override
@@ -137,6 +143,9 @@ public class MondeCoureurTutorial extends JComponent {
         });
     }
 
+    /**
+     * Place le joueur au debut du jeu
+     */
     private void placerJoueur() {
         if (listeChoixEnCours.size() % 2 == 0) {
             joueur.setLocation((listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getX() + (listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getLargeur() / 2)) - (joueur.getWidth()) / 2, joueur.getY());
@@ -145,6 +154,9 @@ public class MondeCoureurTutorial extends JComponent {
         }
     }
 
+    /**
+     * Bouge le joueur a gauche
+     */
     private void bougerGauche() {
         joueur.setLocation(joueur.getX() - listeChoixEnCours.get(0).getLargeur() - distanceEntreBoites, joueur.getY());
         if (currentNiveau == 0) {
@@ -153,6 +165,9 @@ public class MondeCoureurTutorial extends JComponent {
         }
     }
 
+    /**
+     * Bouge le joueur a droite
+     */
     private void bougerDroite() {
         joueur.setLocation(joueur.getX() + listeChoixEnCours.get(0).getLargeur() + distanceEntreBoites, joueur.getY());
         if (currentNiveau == 0) {
@@ -161,6 +176,9 @@ public class MondeCoureurTutorial extends JComponent {
         }
     }
 
+    /**
+     * Debut du tour
+     */
     private void debutTour() {
         joueur.faitChoixFalse();
         debutTour = false;
@@ -168,6 +186,9 @@ public class MondeCoureurTutorial extends JComponent {
         placerJoueur();
     }
 
+    /**
+     * Affiche la question et les choix
+     */
     private void afficherQuestionEtChoix() {
         lblQuestion.setSize(largeur, 20);
         lblQuestion.setLocation(0, 100);
@@ -190,6 +211,9 @@ public class MondeCoureurTutorial extends JComponent {
 
     }
 
+    /**
+     * Bouger les boites question
+     */
     private void bougerBoites() {
         if (currentNiveau > 0) {
             for (BoiteChoix boite : listeChoixEnCours) {
@@ -198,6 +222,9 @@ public class MondeCoureurTutorial extends JComponent {
         }
     }
 
+    /**
+     * Detecte les collisions
+     */
     private void collision() {
         for (BoiteChoix boite : listeChoixEnCours) {
             if (boite.getBounds().intersects(joueur.getBounds())) {

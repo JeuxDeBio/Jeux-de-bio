@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc 
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs1;
@@ -12,12 +8,13 @@ import ca.qc.bdeb.vue.etudiant.MondeInscriptionEtudiants2;
 import ca.qc.bdeb.modele.TypeUtilisateur;
 import ca.qc.bdeb.vue.professeur.MondeInscriptionProfesseurs2;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetreInscription extends JFrame {
 
@@ -44,7 +41,12 @@ public class FenetreInscription extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
+        this.setTitle("Inscription");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         switch (type) {
             case ETUDIANT:
                 mondeEtudiant1 = new MondeInscriptionEtudiants1(this, controleur);
@@ -65,6 +67,12 @@ public class FenetreInscription extends JFrame {
         repaint();
     }
 
+    /**
+     * Met la 2e etape de l'inscription des etudiants
+     *
+     * @param da le DA fourni
+     * @param motDePasse le mot de passe fourni
+     */
     public void etape2Etudiants(String da, String motDePasse) {
         mondeEtudiant2 = new MondeInscriptionEtudiants2(this, controleur, da, motDePasse);
         this.remove(mondeEtudiant1);
@@ -74,6 +82,12 @@ public class FenetreInscription extends JFrame {
         repaint();
     }
 
+    /**
+     * Le 2e etape de l'inscription des professeurs
+     *
+     * @param nu le nom d'utilisateur fourni
+     * @param motDePasse le mot de passe fourni
+     */
     public void etape2Professeurs(String nu, String motDePasse) {
         mondeProfesseur2 = new MondeInscriptionProfesseurs2(this, controleur, nu, motDePasse);
         this.remove(mondeProfesseur1);

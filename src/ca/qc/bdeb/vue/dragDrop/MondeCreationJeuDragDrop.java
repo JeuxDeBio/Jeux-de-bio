@@ -1,28 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc 
 package ca.qc.bdeb.vue.dragDrop;
 
 import ca.qc.bdeb.controleur.Controleur;
-import ca.qc.bdeb.modele.Jeu;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class MondeCreationJeuDragDrop extends JComponent {
 
@@ -55,28 +47,54 @@ public class MondeCreationJeuDragDrop extends JComponent {
         }
     };
 
-    public MondeCreationJeuDragDrop(String titre, String lien1, String lien2, String largeur, String hauteur, FenetreCreationDragDrop fenetre, Controleur controleur) {
+    /**
+     * Constructeur
+     *
+     * @param titre le titre
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrige le location de l'image du corrige
+     * @param largeur le largeur de l'image
+     * @param hauteur la hauteur de l'image
+     * @param fenetre la fenetre de jeu
+     * @param controleur le controleur
+     */
+    public MondeCreationJeuDragDrop(String titre, String locationImage, String locationImageCorrige, String largeur, String hauteur, FenetreCreationDragDrop fenetre, Controleur controleur) {
         this.controleur = controleur;
         this.fenetre = fenetre;
-        this.creerInterface(titre, lien1, lien2, largeur, hauteur);
+        this.creerInterface(titre, locationImage, locationImageCorrige, largeur, hauteur);
         this.creerEvenements(largeur, hauteur);
 
         this.thread.start();
     }
 
-    public void creerInterface(String titre, String lien1, String lien2, String largeurImage, String hauteurImage) {
+    /**
+     * Cree l'interface graphique
+     *
+     * @param titre le titre
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrige le location de l'imade du corrige
+     * @param largeurImage le largeur de l'image
+     * @param hauteurImage la hauteur de l'image
+     */
+    public void creerInterface(String titre, String locationImage, String locationImageCorrige, String largeurImage, String hauteurImage) {
 
-        imageQuestion = Toolkit.getDefaultToolkit().getImage(lien1);
-        
+        imageQuestion = Toolkit.getDefaultToolkit().getImage(locationImage);
+
         decalementX = (largeur - 20 - Integer.parseInt(largeurImage)) / 2;
         decalementY = (hauteur - Integer.parseInt(hauteurImage)) / 2;
-        
+
         this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
         this.setLayout(null);
 
         nouvelleBoite(largeurImage, hauteurImage);
     }
 
+    /**
+     * Cree les evenements
+     *
+     * @param largeurImage le largeur de l'image
+     * @param hauteurImage la hauteur de l'image
+     */
     public void creerEvenements(String largeurImage, String hauteurImage) {
         for (BoiteReponseConstruction boite : listeReponses) {
             boite.addMouseListener(new MouseAdapter() {
@@ -118,8 +136,16 @@ public class MondeCreationJeuDragDrop extends JComponent {
             });
         }
     }
-    
-     public boolean verification(BoiteReponseConstruction boite, String largeurImage, String hauteurImage) {
+
+    /**
+     * Verifie que la boite fournie ne touche pas une autre
+     *
+     * @param boite la boite de reponse
+     * @param largeurImage le largeur de l'image
+     * @param hauteurImage la hauteur de l'image
+     * @return si la boite touche une autre boite
+     */
+    public boolean verification(BoiteReponseConstruction boite, String largeurImage, String hauteurImage) {
         boolean mauvaiseBoite = false;
         ArrayList<BoiteReponseConstruction> liste = new ArrayList<>();
         liste.addAll(listeReponses);
@@ -130,17 +156,29 @@ public class MondeCreationJeuDragDrop extends JComponent {
             }
         }
         if (boite.getX() > (Integer.parseInt(largeurImage) + decalementX + boite.getWidth()) || boite.getX() < decalementX || boite.getY() > (Integer.parseInt(hauteurImage) + decalementY + boite.getHeight()) || boite.getY() < decalementY) {
-            mauvaiseBoite =  true;
+            mauvaiseBoite = true;
         }
         return mauvaiseBoite;
     }
-     
+
+    /**
+     * Verifie que le texte de la boite est correcte
+     *
+     * @param boite la boite de reponse
+     * @param reponse le reponse
+     */
     public void valider(BoiteReponseConstruction boite, String reponse) {
         boite.setPositionX(boite.getX() - decalementX);
         boite.setPositionY(boite.getY() - decalementY);
         boite.setReponse(reponse);;
     }
 
+    /**
+     * Cree une nouvelle boite apres l'emplacement de l'ancien
+     *
+     * @param largeurImage le largeur de l'image
+     * @param hauteurImage la hauteur de l'image
+     */
     public void nouvelleBoite(String largeurImage, String hauteurImage) {
         BoiteReponseConstruction boite = new BoiteReponseConstruction("");
         boite.setLocation(this.largeur - 50, this.hauteur / 2);
@@ -149,6 +187,9 @@ public class MondeCreationJeuDragDrop extends JComponent {
         creerEvenements(largeurImage, hauteurImage);
     }
 
+    /**
+     * Bouge la boite
+     */
     public void bougerBoite() {
         for (BoiteReponseConstruction boite : listeReponses) {
             try {
@@ -174,9 +215,18 @@ public class MondeCreationJeuDragDrop extends JComponent {
         }
     }
 
-    public void creerNiveau(String titre, String lien1, String lien2, String largeur, String hauteur) {
+    /**
+     * Cree le niveau
+     *
+     * @param titre le titre
+     * @param locationImage le location de l'image du jeu
+     * @param locationImageCorrige le location de l'image du corrige
+     * @param largeur le largeur de l'image
+     * @param hauteur la hauteur de l'image
+     */
+    public void creerNiveau(String titre, String locationImage, String locationImageCorrige, String largeur, String hauteur) {
         listeReponses.remove(listeReponses.size() - 1);
-        controleur.creerNiveauDragDrop(titre,lien1,lien2, largeur, hauteur, listeReponses);
+        controleur.creerNiveauDragDrop(titre, locationImage, locationImageCorrige, largeur, hauteur, listeReponses);
         controleur.refresh();
         fermerFenetre();
     }

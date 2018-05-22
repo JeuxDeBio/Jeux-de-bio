@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -11,11 +7,11 @@ import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.coureur.MondeCoureur;
 import ca.qc.bdeb.vue.dragDrop.MondeDragDrop;
 import ca.qc.bdeb.vue.tutorial.MondeDragDropTutorial;
-import ca.qc.bdeb.vue.shooter.MondeShooter;
 import ca.qc.bdeb.vue.speedRun.MondeSpeedRun;
 import ca.qc.bdeb.vue.tutorial.MondeCoureurTutorial;
 import ca.qc.bdeb.vue.tutorial.MondeSpeedRunTutorial;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -28,7 +24,7 @@ import javax.swing.JTextField;
 
 /**
  *  *
- * @author 1649904
+ * @author Batikan
  */
 public class FenetreJeu extends JFrame {
 
@@ -80,8 +76,12 @@ public class FenetreJeu extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         String nomJeu = "";
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         switch (jeu) {
             case DRAG_DROP:
                 MondeDragDrop mondeDragDrop = new MondeDragDrop(lblTimer, this, controleur);
@@ -100,11 +100,6 @@ public class FenetreJeu extends JFrame {
                 });
 
                 nomJeu = "Drag & Drop";
-                break;
-            case SHOOTER:
-                MondeShooter mondeShooter = new MondeShooter(this, controleur);
-                this.add(mondeShooter);
-                nomJeu = "Shooter";
                 break;
             case COUREUR:
                 MondeCoureur mondeCoureur = new MondeCoureur(lblQuestion, this, controleur, modele);
@@ -126,8 +121,12 @@ public class FenetreJeu extends JFrame {
         this.setTitle(nomJeu + " - Niveau: " + nomNiveau);
     }
 
+    /**
+     * Cree l'interface graphique des niveau tutoriels
+     */
     private void creerInterfaceTutorial() {
         String nomJeu = "";
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(controleur.getLocationIconeApplication()));
         switch (jeu) {
             case DRAG_DROP:
                 MondeDragDropTutorial mondeDragDropTutorial = new MondeDragDropTutorial(controleur, this);

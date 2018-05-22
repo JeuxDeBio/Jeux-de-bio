@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.etudiant;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -20,8 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
+ * Etape 1 de l'inscription des etudiants
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeInscriptionEtudiants1 extends JComponent {
 
@@ -49,6 +46,9 @@ public class MondeInscriptionEtudiants1 extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
 
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionEtudiants1());
@@ -71,6 +71,9 @@ public class MondeInscriptionEtudiants1 extends JComponent {
 
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         boutonValidation.addMouseListener(new MouseAdapter() {
             @Override
@@ -116,6 +119,9 @@ public class MondeInscriptionEtudiants1 extends JComponent {
         );
     }
 
+    /**
+     * Reset les text fields
+     */
     private void reset() {
         pssMotDePasse.setText("");
         pssMotDePasseValidation.setText("");

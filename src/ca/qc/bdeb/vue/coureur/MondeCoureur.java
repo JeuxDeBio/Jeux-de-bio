@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.coureur;
 
 import ca.qc.bdeb.controleur.Controleur;
@@ -19,8 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
+ * Le jeu de Coureur
  *
- * @author Niopo
+ * @author Batikan
  */
 public class MondeCoureur extends JComponent {
 
@@ -108,6 +105,9 @@ public class MondeCoureur extends JComponent {
 
     }
 
+    /**
+     * Cree l'interface graphique du jeu
+     */
     private void creerInterface() {
         listeQuestions = controleur.getQuestionsCoureur(fenetre.getNiveauID());
         listeChoix = controleur.getReponsesCoureur(fenetre.getNiveauID());
@@ -127,6 +127,9 @@ public class MondeCoureur extends JComponent {
         this.add(lbl);
     }
 
+    /**
+     * Cree les evenements pour le jeu
+     */
     private void creerEvenements() {
         joueur.addKeyListener(new KeyAdapter() {
             @Override
@@ -149,6 +152,9 @@ public class MondeCoureur extends JComponent {
         });
     }
 
+    /**
+     * Met les questions dans un ordre quelconque
+     */
     private void randomOrdre() {
         index = new int[listeQuestions.size()];
 
@@ -170,6 +176,9 @@ public class MondeCoureur extends JComponent {
 
     }
 
+    /**
+     * Initialize les tours
+     */
     private void debutTour() {
         joueur.faitChoixFalse();
         debutTour = false;
@@ -177,14 +186,23 @@ public class MondeCoureur extends JComponent {
         placerJoueur();
     }
 
+    /**
+     * Bouge l'icone du joueur a gauche
+     */
     private void bougerGauche() {
         joueur.setLocation(joueur.getX() - listeChoixEnCours.get(0).getLargeur() - distanceEntreBoites, joueur.getY());
     }
 
+    /**
+     * Bouge l'icone du joueur a droite
+     */
     private void bougerDroite() {
         joueur.setLocation(joueur.getX() + listeChoixEnCours.get(0).getLargeur() + distanceEntreBoites, joueur.getY());
     }
 
+    /**
+     * Affiche la question et les choix possibles
+     */
     private void afficherQuestionEtChoix() {
         lblQuestion.setText(listeQuestions.get(index[compteur]));
         lblQuestion.setSize(largeur, 20);
@@ -206,12 +224,18 @@ public class MondeCoureur extends JComponent {
         }
     }
 
+    /**
+     * Bouge les boites reponses
+     */
     private void bougerBoites() {
         for (BoiteChoix boite : listeChoixEnCours) {
             boite.setLocation(boite.getX(), boite.getY() + 1);
         }
     }
 
+    /**
+     * Placer le joueur au debut du jeu
+     */
     private void placerJoueur() {
         if (listeChoixEnCours.size() % 2 == 0) {
             joueur.setLocation((listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getX() + (listeChoixEnCours.get((listeChoixEnCours.size() / 2) - 1).getLargeur() / 2)) - (joueur.getWidth()) / 2, joueur.getY());
@@ -220,6 +244,9 @@ public class MondeCoureur extends JComponent {
         }
     }
 
+    /**
+     * Detecte les collisions
+     */
     private void collision() {
         for (BoiteChoix boite : listeChoixEnCours) {
             if (boite.getBounds().intersects(joueur.getBounds())) {
@@ -229,11 +256,19 @@ public class MondeCoureur extends JComponent {
         }
     }
 
+    /**
+     * Verifie la reponse du joueur
+     *
+     * @return si le joueur a la bonne reponse
+     */
     private boolean verifierReponse() {
         progressBar.ajouterProgres();
         return joueur.getChoix().getPosition() == listePositionsReponses.get(index[compteur]);
     }
 
+    /**
+     * Finit le tour
+     */
     private void finTour() {
         for (BoiteChoix boite : listeChoixEnCours) {
             boite.setLocation(1000, 1000);
@@ -250,6 +285,9 @@ public class MondeCoureur extends JComponent {
         joueur.ajouterPoint();
     }
 
+    /**
+     * Finit le jeu
+     */
     private void finJeu() {
         controleur.calculerScoreCoureur(fenetre.getNiveauID(), compteur);
         if (joueur.getScore() == listeQuestions.size()) {

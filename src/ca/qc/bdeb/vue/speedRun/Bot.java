@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.speedRun;
 
 import ca.qc.bdeb.controleur.Controleur;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.swing.JComponent;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class Bot extends JComponent {
 
@@ -47,6 +46,11 @@ public class Bot extends JComponent {
         this.setSize(largeur + 5 + coeurWidth, hauteur);
     }
 
+    /**
+     * Update le nombre de coeurs affiches
+     *
+     * @return le nombre de coeurs affiches
+     */
     private int updateCoeurs() {
         int coeurWidth = 0;
         for (int i = 0; i < pointsVie; i++) {
@@ -59,6 +63,9 @@ public class Bot extends JComponent {
         return coeurWidth;
     }
 
+    /**
+     * Enlever un point de vie
+     */
     public void enleverPointDeVie() {
         pointsVie--;
         listeCoeurs.get(listeCoeurs.size() - 1).detruire();

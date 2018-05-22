@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.dragDrop;
 
 import java.awt.Rectangle;
@@ -20,7 +16,7 @@ public class RondeQuestion extends JComponent {
     private int initialX, initialY;
 
     private boolean hold = false;
-    
+
     public RondeQuestion(String texte) {
         boite = new BoiteQuestion(texte);
         this.setSize(boite.getWidth(), boite.getHeight());
@@ -43,6 +39,11 @@ public class RondeQuestion extends JComponent {
         boite.occupeFalse();
     }
 
+    /**
+     * Si le ronde occupe une boite reponse
+     *
+     * @return si le ronde occupe une boite reponse
+     */
     public boolean occupe() {
         return boite.occupe();
     }
@@ -55,10 +56,20 @@ public class RondeQuestion extends JComponent {
         return initialY;
     }
 
+    /**
+     * Set le coordonnee X initiale de la boite
+     *
+     * @param initialX le coordonnee X de la boite
+     */
     public void setInitialX(int initialX) {
         this.initialX = initialX;
     }
 
+    /**
+     * Set le coordonnee Y initiale de la boite
+     *
+     * @param initialY le coordonnee Y de la boite
+     */
     public void setInitialY(int initialY) {
         this.initialY = initialY;
     }
@@ -71,6 +82,10 @@ public class RondeQuestion extends JComponent {
         this.hold = false;
     }
 
+    /**
+     * Si le curseur est sur le ronde
+     * @return si le curseur est sur le ronde
+     */
     public boolean hold() {
         return hold;
     }

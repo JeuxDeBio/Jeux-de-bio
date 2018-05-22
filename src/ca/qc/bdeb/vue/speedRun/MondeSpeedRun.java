@@ -1,27 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.speedRun;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.modele.Jeu;
 import ca.qc.bdeb.modele.Modele;
 import ca.qc.bdeb.vue.principale.FenetreJeu;
+
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
+ * Le jeu Speed Run
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondeSpeedRun extends JComponent {
 
@@ -92,6 +92,9 @@ public class MondeSpeedRun extends JComponent {
         this.thread.start();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         listeQuestions = controleur.getQuestionsSpeedRun(fenetre.getNiveauID());
         listeReponses = controleur.getReponsesSpeedRun(fenetre.getNiveauID());
@@ -124,6 +127,9 @@ public class MondeSpeedRun extends JComponent {
         this.add(progressBar);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
         txtReponse.addKeyListener(new KeyAdapter() {
 
@@ -147,6 +153,9 @@ public class MondeSpeedRun extends JComponent {
         });
     }
 
+    /**
+     * Determine une ordre quelconque
+     */
     private void randomOrdre() {
         index = new int[listeQuestions.size()];
 
@@ -168,6 +177,9 @@ public class MondeSpeedRun extends JComponent {
 
     }
 
+    /**
+     * Affiche la question
+     */
     private void choixQuestion() {
         if (progressBar.getProgres() < index.length) {
             if (peutRepondre) {
@@ -176,6 +188,9 @@ public class MondeSpeedRun extends JComponent {
         }
     }
 
+    /**
+     * Update le timer
+     */
     private void timer() {
         if (timer % 100 == 0) {
             switch (compteur) {
@@ -215,6 +230,9 @@ public class MondeSpeedRun extends JComponent {
         timer++;
     }
 
+    /**
+     * Verifie si la reponse est correcte
+     */
     private void verifierReponse() {
         if (txtReponse.getText().toLowerCase().equals(listeReponses.get(index[progressBar.getProgres()]).toLowerCase())) {
             bot.enleverPointDeVie();
@@ -225,6 +243,9 @@ public class MondeSpeedRun extends JComponent {
         progressBar.ajouterProgres();
     }
 
+    /**
+     * Fin des tours
+     */
     private void finTour() {
         if (bot.botDetruit()) {
             this.remove(bot);
@@ -237,6 +258,9 @@ public class MondeSpeedRun extends JComponent {
         }
     }
 
+    /**
+     * Fin du jeu
+     */
     private void finJeu() {
         controleur.calculerScoreSpeedRun(fenetre.getNiveauID(), joueur.getScore());
         JOptionPane.showMessageDialog(this, "Votre score est " + controleur.getScoreNiveau(Jeu.SPEED_RUN, fenetre.getNiveauID()) + " points.");

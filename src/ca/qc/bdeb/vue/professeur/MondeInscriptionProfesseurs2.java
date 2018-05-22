@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.professeur;
 
 import ca.qc.bdeb.controleur.Controleur;
 import ca.qc.bdeb.vue.principale.Bouton;
 import ca.qc.bdeb.vue.principale.FenetreInscription;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,12 +12,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 /**
  *
- * @author 1649904
+ * @author Nicolas
  */
 public class MondeInscriptionProfesseurs2 extends JComponent {
 
@@ -47,6 +45,9 @@ public class MondeInscriptionProfesseurs2 extends JComponent {
         creerEvenements(da, motDePasse);
     }
 
+    /**
+     * Cree l'interface
+     */
     private void creerInterface() {
 
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetreInscriptionProfesseurs2());
@@ -54,7 +55,7 @@ public class MondeInscriptionProfesseurs2 extends JComponent {
         txtNom.setLocation(105, 11);
         txtNom.setSize(232, 20);
         this.add(txtNom);
-        
+
         txtSession.setLocation(173, 36);
         txtSession.setSize(164, 20);
         this.add(txtSession);
@@ -65,12 +66,18 @@ public class MondeInscriptionProfesseurs2 extends JComponent {
 
     }
 
-    private void creerEvenements(String da, String motDePasse) {
+    /**
+     * Cree les evenements
+     *
+     * @param nu le nom d'utilisateur fourni
+     * @param motDePasse le mot de passe fourni
+     */
+    private void creerEvenements(String nu, String motDePasse) {
         boutonValidation.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                controleur.creerProfesseur(da, motDePasse, txtNom.getText(), txtSession.getText());
+                controleur.creerProfesseur(nu, motDePasse, txtNom.getText(), txtSession.getText());
                 fenetre.fermerFenetre();
             }
         });

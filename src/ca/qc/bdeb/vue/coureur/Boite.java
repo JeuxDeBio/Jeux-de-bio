@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.coureur;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 
 /**
  *
- * @author Niopo
+ * @author Nicolas
  */
 public class Boite extends JComponent {
 
@@ -41,5 +36,4 @@ public class Boite extends JComponent {
         g.fillRect(0, 0, largeur - 1, hauteur - 1);
     }
 
-    
 }

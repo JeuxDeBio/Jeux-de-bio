@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Toutes les methodes QUI NE SONT PAS DE SIMPLES GETTER ont une javadoc
 package ca.qc.bdeb.vue.principale;
 
 import ca.qc.bdeb.modele.Jeu;
@@ -22,7 +18,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author 1649904
+ * @author Batikan
  */
 public class MondePrincipale extends JComponent {
 
@@ -45,11 +41,9 @@ public class MondePrincipale extends JComponent {
     private Bouton boutonIdentificationEtudiant = new Bouton();
     private Bouton boutonIdentificationProfesseur = new Bouton();
     private Bouton boutonDragDrop = new Bouton();
-    private Bouton boutonShooter = new Bouton();
     private Bouton boutonCoureur = new Bouton();
     private Bouton boutonSpeedRun = new Bouton();
     private Bouton boutonDragDropTutorial = new Bouton();
-    private Bouton boutonShooterTutorial = new Bouton();
     private Bouton boutonCoureurTutorial = new Bouton();
     private Bouton boutonSpeedRunTutorial = new Bouton();
     private Bouton boutonActualiser = new Bouton();
@@ -70,6 +64,9 @@ public class MondePrincipale extends JComponent {
         creerEvenements();
     }
 
+    /**
+     * Cree l'interface graphique
+     */
     private void creerInterface() {
         image = Toolkit.getDefaultToolkit().getImage(controleur.getLocationFenetrePrincipale());
 
@@ -109,15 +106,11 @@ public class MondePrincipale extends JComponent {
         boutonDragDrop.setSize(147, 74);
         this.add(boutonDragDrop);
 
-        boutonShooter.setLocation(26, 290);
-        boutonShooter.setSize(147, 74);
-        this.add(boutonShooter);
-
-        boutonCoureur.setLocation(26, 385);
+        boutonCoureur.setLocation(26, 290);
         boutonCoureur.setSize(147, 74);
         this.add(boutonCoureur);
 
-        boutonSpeedRun.setLocation(26, 479);
+        boutonSpeedRun.setLocation(26, 385);
         boutonSpeedRun.setSize(147, 74);
         this.add(boutonSpeedRun);
 
@@ -125,15 +118,11 @@ public class MondePrincipale extends JComponent {
         boutonDragDropTutorial.setSize(147, 74);
         this.add(boutonDragDropTutorial);
 
-        boutonShooterTutorial.setLocation(627, 290);
-        boutonShooterTutorial.setSize(147, 74);
-        this.add(boutonShooterTutorial);
-
-        boutonCoureurTutorial.setLocation(627, 385);
+        boutonCoureurTutorial.setLocation(627, 290);
         boutonCoureurTutorial.setSize(147, 74);
         this.add(boutonCoureurTutorial);
 
-        boutonSpeedRunTutorial.setLocation(627, 479);
+        boutonSpeedRunTutorial.setLocation(627, 385);
         boutonSpeedRunTutorial.setSize(147, 74);
         this.add(boutonSpeedRunTutorial);
 
@@ -142,6 +131,9 @@ public class MondePrincipale extends JComponent {
         this.add(boutonActualiser);
     }
 
+    /**
+     * Cree les evenements
+     */
     private void creerEvenements() {
 
         boutonIdentificationEtudiant.addMouseListener(new MouseAdapter() {
@@ -206,20 +198,6 @@ public class MondePrincipale extends JComponent {
             }
         });
 
-        boutonShooter.addMouseListener(new MouseAdapter() {
-            String action = "jouer";
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                if (!enJeu) {
-                    fenetre.ouvrirFenetreSelectionJeu(Jeu.SHOOTER, action);
-                    enJeu = true;
-                }
-
-            }
-        });
-
         boutonCoureur.addMouseListener(new MouseAdapter() {
             String action = "jouer";
 
@@ -257,14 +235,6 @@ public class MondePrincipale extends JComponent {
 
         });
 
-        boutonShooterTutorial.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                fenetre.ouvrirFenetreTutorial(Jeu.SHOOTER);
-            }
-        });
-
         boutonCoureurTutorial.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -295,6 +265,9 @@ public class MondePrincipale extends JComponent {
         this.enJeu = false;
     }
 
+    /**
+     * Reset les text fields
+     */
     public void reset() {
         this.txtDAEtudiant.setText("");
         this.txtNUProfesseur.setText("");
